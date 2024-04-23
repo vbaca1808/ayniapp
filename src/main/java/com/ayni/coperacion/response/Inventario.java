@@ -9,7 +9,8 @@ public interface Inventario {
     int getIdProducto(); 
     String getDescripcionProducto(); 
     String getCodigoBarra(); 
-    String getStockInicial(); 
+    String getStockInicial();
+    String getPrecio(); 
     String getMotivo(); 
     String getDocumento();
     String getTipo();
