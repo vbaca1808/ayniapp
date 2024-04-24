@@ -484,7 +484,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<RespuestaStd> compraPago(CompraPagoDto compraPagoDto) {
         try {
             return usuarioRepository.compraPago(compraPagoDto.getIdNegocio(), compraPagoDto.getIdCompra(), 
-            compraPagoDto.getFechaPago(), compraPagoDto.getEfectivo(), compraPagoDto.getYape(), compraPagoDto.getPlin(), 
+            new Date(), compraPagoDto.getEfectivo(), compraPagoDto.getYape(), compraPagoDto.getPlin(), 
             compraPagoDto.getTarjeta(), compraPagoDto.getOtros(), compraPagoDto.getNombreUsuarioCajero(), compraPagoDto.getNumeroCelularCajero());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'compraPago'");
