@@ -424,6 +424,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             return usuarioRepository.agendaServicios(idnegocio, tipofiltro, fechaReferencia);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'agendaServicios'");
         }
     }

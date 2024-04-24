@@ -449,6 +449,7 @@ public class CooperacionController {
             List<AgendaServicios> lst = iUsuarioService.agendaServicios(idnegocio, tipofiltro, pais);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
