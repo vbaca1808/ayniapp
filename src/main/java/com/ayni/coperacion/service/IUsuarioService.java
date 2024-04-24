@@ -97,5 +97,7 @@ public interface IUsuarioService {
 
     List<RespuestaStd> otrosMovimiento(int tipoMovimiento,int idNegocio, int idProducto,
                                        BigDecimal cantidad, Date fechaMovimiento);
-                                       
+    
+    List<RespuestaStd> modificarCompra(CompraNegocio compraNegocio);
+
 }

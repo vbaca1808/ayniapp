@@ -249,5 +249,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                        @Param("idProducto") int idProducto,
                                        @Param("cantidad") BigDecimal cantidad,
                                        @Param("fechaMovimiento") Date fechaMovimiento);
+
+    @Query( value = "call sp_modificar_compra(:idNegocio,:idCompra,	:nombreProveedor, :rucProveedor, " + 
+	":totalCompra, :tipoDocumento, :numeroDocumento,:detalleCompra)", nativeQuery = true)
+    List<RespuestaStd> modificarCompra(@Param("idNegocio") int idNegocio,
+                                       @Param("nombreProveedor") String nombreProveedor,
+                                       @Param("rucProveedor") String rucProveedor,
+                                       @Param("fechaCompra") Date fechaCompra,
+                                       @Param("totalCompra") BigDecimal totalCompra,
+                                       @Param("tipoDocumento") int tipoDocumento,
+                                       @Param("numeroDocumento") String numeroDocumento,
+                                       @Param("detalleCompra") String detalleCompra);
                                           
 }

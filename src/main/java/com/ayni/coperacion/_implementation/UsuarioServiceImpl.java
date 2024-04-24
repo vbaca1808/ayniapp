@@ -31,10 +31,7 @@ import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
-import com.ayni.coperacion.service.IUsuarioService; 
-import com.twilio.Twilio; 
-import com.twilio.rest.api.v2010.account.Message; 
-
+import com.ayni.coperacion.service.IUsuarioService;  
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -446,6 +443,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.otrosMovimiento(tipoMovimiento, idNegocio, idProducto, cantidad, fechaMovimiento);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'otrosMovimiento'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> modificarCompra(CompraNegocio compraNegocio) {
+        try {
+            return usuarioRepository.modificarCompra(compraNegocio.getIdNegocio(), 
+            compraNegocio.getNombreProveedor(), compraNegocio.getNombreProveedor(), 
+            new Date(), compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(), 
+            compraNegocio.getNumeroDocumento(), compraNegocio.getDetalleCompra());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'modificarCompra'");
         }
     }
  

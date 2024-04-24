@@ -463,4 +463,15 @@ public class CooperacionController {
         }      
     }
 
+
+    @PostMapping(value="/modificarCompra",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> modificarCompra(@Valid @RequestBody 
+    CompraNegocio compraNegocio) {
+        try {  
+            List<RespuestaStd> lst = iUsuarioService.modificarCompra(compraNegocio);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
 }
