@@ -2,6 +2,7 @@ package com.ayni.coperacion.response;
 
 public interface DocumentosPendientes {
     
+    int getId();
     String getTipodoc(); 
     String getNumeroDocumento();
     String getDocCliente();
