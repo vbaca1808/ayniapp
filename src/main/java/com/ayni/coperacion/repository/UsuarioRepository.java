@@ -258,7 +258,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                        @Param("idCompra") int idCompra,
                                        @Param("nombreProveedor") String nombreProveedor,
                                        @Param("rucProveedor") String rucProveedor,
-                                       @Param("fechaCompra") Date fechaCompra,
                                        @Param("totalCompra") BigDecimal totalCompra,
                                        @Param("tipoDocumento") int tipoDocumento,
                                        @Param("numeroDocumento") String numeroDocumento,

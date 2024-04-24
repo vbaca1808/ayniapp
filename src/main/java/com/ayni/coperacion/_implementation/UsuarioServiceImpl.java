@@ -452,7 +452,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try {
             return usuarioRepository.modificarCompra(compraNegocio.getIdNegocio(), idCompra,
             compraNegocio.getNombreProveedor(), compraNegocio.getNombreProveedor(), 
-            new Date(), compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(), 
+            compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(), 
             compraNegocio.getNumeroDocumento(), compraNegocio.getDetalleCompra());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarCompra'");
