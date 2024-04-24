@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
+import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
@@ -476,6 +477,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.documentosPendientesPago(idNegocio);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'documentosPendientesPago'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> compraPago(CompraPagoDto compraPagoDto) {
+        try {
+            return usuarioRepository.compraPago(compraPagoDto.getIdNegocio(), compraPagoDto.getIdCompra(), 
+            compraPagoDto.getFechaPago(), compraPagoDto.getEfectivo(), compraPagoDto.getYape(), compraPagoDto.getPlin(), 
+            compraPagoDto.getTarjeta(), compraPagoDto.getOtros(), compraPagoDto.getNombreUsuarioCajero(), compraPagoDto.getNumeroCelularCajero());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'compraPago'");
         }
     }
  

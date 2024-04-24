@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
+import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -105,4 +106,7 @@ public interface IUsuarioService {
     List<CompraNegocioResponse> obtenerDatosCompra(int idNegocio, int idCompra);
 
     List<DocumentosPendientes> documentosPendientesPago(int idNegocio);
+
+    List<RespuestaStd> compraPago(CompraPagoDto compraPagoDto);
+
 }

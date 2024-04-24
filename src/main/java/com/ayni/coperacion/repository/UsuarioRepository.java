@@ -271,4 +271,17 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_documentos_pendientes_pago(:idNegocio)", nativeQuery = true)
     List<DocumentosPendientes> documentosPendientesPago(@Param("idNegocio") int idNegocio);
     
+    @Query( value = "call sp_compra_pago(:idNegocio, :idCompra, :fechaPago, :efectivo, :yape, " + 
+                    ":plin, :tarjeta, :otros, :nombreUsuarioCajero, :numeroCelularCajero)", nativeQuery = true)
+    List<RespuestaStd> compraPago(@Param("idNegocio") int idNegocio,
+                                          @Param("idCompra") int idCompra,
+                                          @Param("fechaPago") Date fechaPago,
+                                          @Param("efectivo") BigDecimal efectivo,
+                                          @Param("yape") BigDecimal yape,
+                                          @Param("plin") BigDecimal plin,
+                                          @Param("tarjeta") BigDecimal tarjeta,
+                                          @Param("otros") BigDecimal otros,
+                                          @Param("nombreUsuarioCajero") String nombreUsuarioCajero,
+                                          @Param("numeroCelularCajero") String numeroCelularCajero);
+
 }
