@@ -18,6 +18,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
@@ -467,6 +468,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'obtenerDatosCompra'");
         }
 
+    }
+
+    @Override
+    public List<DocumentosPendientes> documentosPendientesPago(int idNegocio) {
+        try {
+            return usuarioRepository.documentosPendientesPago(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'documentosPendientesPago'");
+        }
     }
  
 

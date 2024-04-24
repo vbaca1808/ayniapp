@@ -15,6 +15,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
@@ -102,4 +103,6 @@ public interface IUsuarioService {
     List<RespuestaStd> modificarCompra(int idCompra, CompraNegocio compraNegocio);
     
     List<CompraNegocioResponse> obtenerDatosCompra(int idNegocio, int idCompra);
+
+    List<DocumentosPendientes> documentosPendientesPago(int idNegocio);
 }

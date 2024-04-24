@@ -19,6 +19,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
@@ -266,5 +267,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_obtener_datos_compra(:idNegocio,:idCompra)", nativeQuery = true)
     List<CompraNegocioResponse> obtenerDatosCompra(@Param("idNegocio") int idNegocio,
                                            @Param("idCompra") int idCompra);
-                                          
+
+    @Query( value = "call sp_documentos_pendientes_pago(:idNegocio)", nativeQuery = true)
+    List<DocumentosPendientes> documentosPendientesPago(@Param("idNegocio") int idNegocio);
+    
 }
