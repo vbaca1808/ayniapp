@@ -1,7 +1,5 @@
 package com.ayni.coperacion.response;
-
-import java.math.BigDecimal;
-import java.util.Date;
+ 
 
 public interface Inventario {
     
@@ -14,5 +12,6 @@ public interface Inventario {
     String getMotivo(); 
     String getDocumento();
     String getTipo();
+    int getid();
 
 }
