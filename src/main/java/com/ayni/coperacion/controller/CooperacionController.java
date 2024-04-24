@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ import com.ayni.coperacion.dto.ReporteCierreDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
+import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -464,14 +466,27 @@ public class CooperacionController {
     }
 
 
-    @PostMapping(value="/modificarCompra",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> modificarCompra(@Valid @RequestBody 
-    CompraNegocio compraNegocio) {
+    @PutMapping(value="/modificarcompra/{idcompra}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> modificarCompra(
+    @PathVariable("idcompra") int idCompra, @Valid @RequestBody CompraNegocio compraNegocio) {
         try {  
-            List<RespuestaStd> lst = iUsuarioService.modificarCompra(compraNegocio);
+            List<RespuestaStd> lst = iUsuarioService.modificarCompra(idCompra, compraNegocio);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
         }      
     }
+    
+    @GetMapping(value="/obtenerdatoscompra/{idnegocio}/{idcompra}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CompraNegocioResponse>> obtenerDatosCompra(
+                                                    @PathVariable int idnegocio,
+                                                    @PathVariable int idcompra) {
+        try { 
+            List<CompraNegocioResponse> lst = iUsuarioService.obtenerDatosCompra(idnegocio, idcompra);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }

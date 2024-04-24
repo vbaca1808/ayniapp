@@ -13,6 +13,7 @@ import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
+import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -98,6 +99,7 @@ public interface IUsuarioService {
     List<RespuestaStd> otrosMovimiento(int tipoMovimiento,int idNegocio, int idProducto,
                                        BigDecimal cantidad, Date fechaMovimiento);
     
-    List<RespuestaStd> modificarCompra(CompraNegocio compraNegocio);
-
+    List<RespuestaStd> modificarCompra(int idCompra, CompraNegocio compraNegocio);
+    
+    List<CompraNegocioResponse> obtenerDatosCompra(int idNegocio, int idCompra);
 }

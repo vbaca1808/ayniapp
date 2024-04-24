@@ -16,6 +16,7 @@ import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
+import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -447,15 +448,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> modificarCompra(CompraNegocio compraNegocio) {
+    public List<RespuestaStd> modificarCompra(int idCompra, CompraNegocio compraNegocio) {
         try {
-            return usuarioRepository.modificarCompra(compraNegocio.getIdNegocio(), 
+            return usuarioRepository.modificarCompra(compraNegocio.getIdNegocio(), idCompra,
             compraNegocio.getNombreProveedor(), compraNegocio.getNombreProveedor(), 
             new Date(), compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(), 
             compraNegocio.getNumeroDocumento(), compraNegocio.getDetalleCompra());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarCompra'");
         }
+    }
+
+    @Override
+    public List<CompraNegocioResponse> obtenerDatosCompra(int idNegocio, int idCompra) {
+        try {
+            return usuarioRepository.obtenerDatosCompra(idNegocio, idCompra);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerDatosCompra'");
+        }
+
     }
  
 

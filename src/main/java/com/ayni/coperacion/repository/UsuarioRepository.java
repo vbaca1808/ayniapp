@@ -13,9 +13,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.entidades.Usuario;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
+import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -253,6 +255,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_modificar_compra(:idNegocio,:idCompra,	:nombreProveedor, :rucProveedor, " + 
 	":totalCompra, :tipoDocumento, :numeroDocumento,:detalleCompra)", nativeQuery = true)
     List<RespuestaStd> modificarCompra(@Param("idNegocio") int idNegocio,
+                                       @Param("idCompra") int idCompra,
                                        @Param("nombreProveedor") String nombreProveedor,
                                        @Param("rucProveedor") String rucProveedor,
                                        @Param("fechaCompra") Date fechaCompra,
@@ -260,5 +263,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                        @Param("tipoDocumento") int tipoDocumento,
                                        @Param("numeroDocumento") String numeroDocumento,
                                        @Param("detalleCompra") String detalleCompra);
+
+    @Query( value = "call sp_obtener_datos_compra(:idNegocio,:idCompra)", nativeQuery = true)
+    List<CompraNegocioResponse> obtenerDatosCompra(@Param("idNegocio") int idNegocio,
+                                           @Param("idCompra") int idCompra);
                                           
 }
