@@ -16,5 +16,6 @@ public class ActualizarNegocioPedidoDto {
     private int estado; 
     private BigDecimal stockInicial;
     private String codigoBarra;
+    private String recetaInsumo;
 
 }

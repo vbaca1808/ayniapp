@@ -524,11 +524,11 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/listarinsumoporproducto/{idnegocio}/{idProducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/listarinsumoporproducto/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ListadoInsumoProducto>> listarInsumoPorProducto(
-        @PathVariable int idnegocio, @PathVariable int idProducto) {
+        @PathVariable int idnegocio, @PathVariable int idproducto) {
         try { 
-            List<ListadoInsumoProducto> lst = iUsuarioService.listarInsumoPorProducto(idnegocio, idProducto);
+            List<ListadoInsumoProducto> lst = iUsuarioService.listarInsumoPorProducto(idnegocio, idproducto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
