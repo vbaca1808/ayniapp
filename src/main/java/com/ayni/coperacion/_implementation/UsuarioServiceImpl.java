@@ -421,7 +421,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             } else if (pais == 2) {
                 fechaReferencia = ZonedDateTime.now(ZoneId.of("America/Mexico_City"));
             }
-
+            System.out.println(fechaReferencia);
             return usuarioRepository.agendaServicios(idnegocio, tipofiltro, fechaReferencia);
         } catch (Exception e) {
             e.printStackTrace();
