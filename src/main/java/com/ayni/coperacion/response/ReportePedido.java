@@ -15,6 +15,9 @@ public interface ReportePedido {
     String getNombreUsuario();
     String getNumeroCelular();
     String getEstadoItemPedido();
-    
+    String getNumeroTelefonoCliente(); 
+    String getNombreCliente(); 
+    String getDireccion(); 
+    String getFechaProgramacionServicio();
     
 }
