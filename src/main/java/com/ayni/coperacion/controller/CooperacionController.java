@@ -22,6 +22,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
+import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
 import com.ayni.coperacion.dto.PedidoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -35,6 +36,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -506,6 +508,27 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> compraPago(@Valid @RequestBody CompraPagoDto compraPagoDto) {
         try { 
             List<RespuestaStd> lst = iUsuarioService.compraPago(compraPagoDto);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @PostMapping(value="/grabarinsumo",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> grabarInsumo(@Valid @RequestBody InsumoDto insumoDto) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.grabarInsumo(insumoDto);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/listarinsumoporproducto/{idnegocio}/{idProducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoInsumoProducto>> listarInsumoPorProducto(
+        @PathVariable int idnegocio, @PathVariable int idProducto) {
+        try { 
+            List<ListadoInsumoProducto> lst = iUsuarioService.listarInsumoPorProducto(idnegocio, idProducto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);

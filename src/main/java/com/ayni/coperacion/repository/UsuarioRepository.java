@@ -23,6 +23,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -284,4 +285,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                           @Param("nombreUsuarioCajero") String nombreUsuarioCajero,
                                           @Param("numeroCelularCajero") String numeroCelularCajero);
 
+    @Query( value = "call sp_grabar_insumo(:idNegocio, :idInsumo, :descripcionInsumo, :cantidadInvertida, " + 
+                    ":esCombustible, :requiereUsuario)", nativeQuery = true)
+    List<RespuestaStd> grabarInsumo(@Param("idNegocio") int idNegocio,@Param("idInsumo") int idInsumo,
+                                            @Param("descripcionInsumo") String descripcionInsumo, 
+                                            @Param("cantidadInvertida") BigDecimal cantidadInvertida,
+                                            @Param("esCombustible") int esCombustible, @Param("requiereUsuario") int requiereUsuario); 
+    
+    @Query( value = "call sp_listar_insumo_por_producto(:idNegocio, :idProducto)", nativeQuery = true)
+    List<ListadoInsumoProducto> listarInsumoPorProducto(@Param("idNegocio") int idNegocio,@Param("idProducto") int idProducto);
+
+                                                                    
 }

@@ -12,6 +12,7 @@ import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
+import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
@@ -23,6 +24,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -489,6 +491,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
             compraPagoDto.getTarjeta(), compraPagoDto.getOtros(), compraPagoDto.getNombreUsuarioCajero(), compraPagoDto.getNumeroCelularCajero());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'compraPago'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> grabarInsumo(InsumoDto insumoDto) {
+        try {
+            return usuarioRepository.grabarInsumo(insumoDto.getIdNegocio(), insumoDto.getIdInsumo(), 
+            insumoDto.getDescripcionInsumo(), insumoDto.getCantidadInvertida(), 
+            insumoDto.getEsCombustible(), insumoDto.getRequiereUsuario());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'grabarInsumo'");
+        }
+    }
+
+    @Override
+    public List<ListadoInsumoProducto> listarInsumoPorProducto(int idNegocio, int idProducto) {
+        try {
+            return usuarioRepository.listarInsumoPorProducto(idNegocio, idProducto);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'listarInsumoPorProducto'");
         }
     }
  

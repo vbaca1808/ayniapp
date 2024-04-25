@@ -10,6 +10,7 @@ import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
+import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -20,6 +21,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -108,5 +110,9 @@ public interface IUsuarioService {
     List<DocumentosPendientes> documentosPendientesPago(int idNegocio);
 
     List<RespuestaStd> compraPago(CompraPagoDto compraPagoDto);
+
+    List<RespuestaStd> grabarInsumo(InsumoDto iInsumoDto);
+
+    List<ListadoInsumoProducto> listarInsumoPorProducto(int idNegocio,int idProducto);
 
 }
