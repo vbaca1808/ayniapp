@@ -330,6 +330,7 @@ public class CooperacionController {
     ActualizarNegocioPedidoDto actualizarNegocioPedidoDto) {
         try {
             List<RespuestaStd> lst = iUsuarioService.actualizarNegocioPedido(actualizarNegocioPedidoDto);
+            
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
