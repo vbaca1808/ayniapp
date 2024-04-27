@@ -325,13 +325,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
             System.out.println(actualizarNegocioPedidoDto.getCodigoBarra());
             System.out.println(actualizarNegocioPedidoDto.getRecetaInsumo());
 
-            /*return usuarioRepository.actualizarNegocioPedido(actualizarNegocioPedidoDto.getIdNegocio(), 
+            return usuarioRepository.actualizarNegocioPedido(actualizarNegocioPedidoDto.getIdNegocio(), 
             actualizarNegocioPedidoDto.getIdProducto(), actualizarNegocioPedidoDto.getNombreProducto(), 
             actualizarNegocioPedidoDto.getPrecio(), actualizarNegocioPedidoDto.getEstado(), 
             actualizarNegocioPedidoDto.getStockInicial(), actualizarNegocioPedidoDto.getCodigoBarra(),
-            actualizarNegocioPedidoDto.getRecetaInsumo());*/
+            actualizarNegocioPedidoDto.getRecetaInsumo());
             
-            return null;
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarNegocioPedido'");
         }
