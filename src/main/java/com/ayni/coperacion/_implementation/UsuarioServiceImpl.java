@@ -316,12 +316,22 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> actualizarNegocioPedido(ActualizarNegocioPedidoDto actualizarNegocioPedidoDto) {
         try {
-            return usuarioRepository.actualizarNegocioPedido(actualizarNegocioPedidoDto.getIdNegocio(), 
+            System.out.println(actualizarNegocioPedidoDto.getIdNegocio()); 
+            System.out.println(actualizarNegocioPedidoDto.getIdProducto()); 
+            System.out.println(actualizarNegocioPedidoDto.getNombreProducto()); 
+            System.out.println(actualizarNegocioPedidoDto.getPrecio());
+            System.out.println(actualizarNegocioPedidoDto.getEstado());
+            System.out.println(actualizarNegocioPedidoDto.getStockInicial()); 
+            System.out.println(actualizarNegocioPedidoDto.getCodigoBarra());
+            System.out.println(actualizarNegocioPedidoDto.getRecetaInsumo());
+
+            /*return usuarioRepository.actualizarNegocioPedido(actualizarNegocioPedidoDto.getIdNegocio(), 
             actualizarNegocioPedidoDto.getIdProducto(), actualizarNegocioPedidoDto.getNombreProducto(), 
             actualizarNegocioPedidoDto.getPrecio(), actualizarNegocioPedidoDto.getEstado(), 
             actualizarNegocioPedidoDto.getStockInicial(), actualizarNegocioPedidoDto.getCodigoBarra(),
-            actualizarNegocioPedidoDto.getRecetaInsumo());
+            actualizarNegocioPedidoDto.getRecetaInsumo());*/
             
+            return null;
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarNegocioPedido'");
         }
