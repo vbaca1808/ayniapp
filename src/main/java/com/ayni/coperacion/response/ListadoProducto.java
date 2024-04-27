@@ -9,5 +9,6 @@ public interface ListadoProducto {
     BigDecimal getPrecio(); 
     int getEstado(); 
 	BigDecimal getStock();
+    String getRecetaCompleta();;
 
 }
