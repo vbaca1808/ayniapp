@@ -536,4 +536,18 @@ public class CooperacionController {
         }      
     }
 
+    @GetMapping(value="/obtenerinsumosproductoservicio/{idnegocio}/{idpedido}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoInsumoProducto>> obtenerInsumosProductoServicio(
+        @PathVariable int idnegocio, @PathVariable int idpedido, @PathVariable int idproducto) {
+        try { 
+            
+            List<ListadoInsumoProducto> lst = 
+                iUsuarioService.obtenerInsumosProductoServicio(idnegocio, idpedido, idproducto);
+
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }

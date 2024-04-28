@@ -515,6 +515,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'listarInsumoPorProducto'");
         }
     }
+
+    @Override
+    public List<ListadoInsumoProducto> obtenerInsumosProductoServicio(int idNegocio, int idPedido, int idProducto) {
+        try {
+            return usuarioRepository.obtenerInsumosProductoServicio(idNegocio, idPedido, idProducto);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerInsumosProductoServicio'");
+        }
+    }
  
 
 }

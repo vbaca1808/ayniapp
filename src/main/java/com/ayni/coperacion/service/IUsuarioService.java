@@ -115,4 +115,6 @@ public interface IUsuarioService {
 
     List<ListadoInsumoProducto> listarInsumoPorProducto(int idNegocio,int idProducto);
 
+    List<ListadoInsumoProducto> obtenerInsumosProductoServicio(int idNegocio, int idPedido, int idProducto);
+
 }
