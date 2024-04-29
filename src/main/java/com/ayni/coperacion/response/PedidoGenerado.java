@@ -15,5 +15,7 @@ public interface PedidoGenerado {
     String getTotal();
     int getEstadoPedido();
     int getEstadoItemPedido();
+    BigDecimal getCantidadAtendida(); 
+    BigDecimal getCantidadAtendidaParaLLevar(); 
     
 }

@@ -53,8 +53,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             
             UsuarioReponse usuarioReponse = new UsuarioReponse();
             List<RespuestaStd> lstStd = null;
-
-            System.out.println("AAAAAA");
+ 
             if (usuarioDto.getActualizar() == 0) {
                 System.out.println("BBBBB");
                 //Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
