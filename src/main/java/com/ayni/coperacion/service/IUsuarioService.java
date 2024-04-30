@@ -117,4 +117,6 @@ public interface IUsuarioService {
 
     List<ListadoInsumoProducto> obtenerInsumosProductoServicio(int idNegocio, int idPedido, int idProducto);
 
+    List<RespuestaStd> obtenerCobrosAyni(int idNegocio);
+
 }

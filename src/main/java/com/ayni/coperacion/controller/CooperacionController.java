@@ -548,4 +548,14 @@ public class CooperacionController {
         }      
     }
 
+    @GetMapping(value="/obtenercobrosayni/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> obtenerCobrosAyni(@PathVariable int idnegocio) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.obtenerCobrosAyni(idnegocio);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }

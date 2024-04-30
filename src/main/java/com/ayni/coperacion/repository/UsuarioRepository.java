@@ -300,5 +300,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoInsumoProducto> obtenerInsumosProductoServicio(@Param("idNegocio") int idNegocio,
                                                                @Param("idPedido") int idPedido,
                                                                @Param("idProducto") int idProducto);
-                                                                    
+                                          
+    @Query( value = "call sp_obtener_cobros_ayni(:idNegocio)", nativeQuery = true)
+    List<RespuestaStd> obtenerCobrosAyni(@Param("idNegocio") int idNegocio);
+    
 }

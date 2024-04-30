@@ -40,10 +40,7 @@ import com.ayni.coperacion.service.IUsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
-
-        
-    // Find your Account Sid and Token at twilio.com/console 
-    
+ 
     @Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -521,6 +518,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.obtenerInsumosProductoServicio(idNegocio, idPedido, idProducto);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'obtenerInsumosProductoServicio'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> obtenerCobrosAyni(int idNegocio) {
+        try {
+            return usuarioRepository.obtenerCobrosAyni(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerCobrosAyni'");
         }
     }
  
