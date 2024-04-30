@@ -9,4 +9,5 @@ public interface AgendaServicios {
     String getNumeroTelefonoCliente();
     String getDireccion();
     int getTiempoServicio();
+    int getIdPedido();
 }
