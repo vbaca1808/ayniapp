@@ -10,5 +10,6 @@ public interface DocumentosPendientes {
     String getFechaPedido();
     String getTotalPedido();
     String getTipo();
+    String getPagoRealizado();
 
 }
