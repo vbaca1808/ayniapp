@@ -3,17 +3,13 @@ package com.ayni.coperacion.repository;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import java.util.List; 
+import javax.transaction.Transactional; 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import com.ayni.coperacion.dto.CompraNegocio;
+import org.springframework.stereotype.Repository; 
 import com.ayni.coperacion.entidades.Usuario;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
@@ -304,4 +300,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_obtener_cobros_ayni(:idNegocio)", nativeQuery = true)
     List<RespuestaStd> obtenerCobrosAyni(@Param("idNegocio") int idNegocio);
     
+    @Query( value = "call sp_validar_horario(:idNegocio,:fechaHoraDisponibe,:tarifaServicio)", nativeQuery = true)
+    List<RespuestaStd> validarHorario(@Param("idNegocio") int idNegocio,
+                                         @Param("fechaHoraDisponibe") Date fechaHoraDisponibe, 
+                                         @Param("tarifaServicio") int tarifaServicio);
+
 }
