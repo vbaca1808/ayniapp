@@ -440,14 +440,12 @@ public class CooperacionController {
         }      
     }
     
-    @GetMapping(value="/agendaservicios/{idnegocio}/{tipofiltro}/{pais}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AgendaServicios>> agendaServicios(
-                                                    @PathVariable int idnegocio,
-                                                    @PathVariable int tipofiltro,
-                                                    @PathVariable int pais) {
+    @GetMapping(value="/agendaservicios/{idnegocio}/{tipofiltro}/{pais}/{anio}/{mes}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<AgendaServicios>> agendaServicios(@PathVariable int idnegocio, @PathVariable int tipofiltro,
+                                                                 @PathVariable int pais, @PathVariable int anio, 
+                                                                 @PathVariable int mes) {
         try { 
-            
-            List<AgendaServicios> lst = iUsuarioService.agendaServicios(idnegocio, tipofiltro, pais);
+            List<AgendaServicios> lst = iUsuarioService.agendaServicios(idnegocio, tipofiltro, pais, anio, mes);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

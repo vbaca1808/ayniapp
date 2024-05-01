@@ -2,6 +2,7 @@ package com.ayni.coperacion._implementation;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -412,7 +413,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<AgendaServicios> agendaServicios(int idnegocio, int tipofiltro, int pais) {
+    public List<AgendaServicios> agendaServicios(int idnegocio, int tipofiltro, int pais, int anio, int mes) {
         try { 
             ZonedDateTime fechaReferencia = null;
 
@@ -421,6 +422,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
             } else if (pais == 2) {
                 fechaReferencia = ZonedDateTime.now(ZoneId.of("America/Mexico_City"));
             }
+
+            if (anio > 0) {
+                fechaReferencia = fechaReferencia.withYear(anio).withMonth(mes);
+                fechaReferencia = fechaReferencia.withDayOfMonth(1);
+            }
+            
             System.out.println(fechaReferencia);
             return usuarioRepository.agendaServicios(idnegocio, tipofiltro, fechaReferencia);
         } catch (Exception e) {

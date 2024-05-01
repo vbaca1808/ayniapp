@@ -98,7 +98,7 @@ public interface IUsuarioService {
 
     List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte);
 
-    List<AgendaServicios> agendaServicios(int idnegocio, int tipofiltro, int pais);
+    List<AgendaServicios> agendaServicios(int idnegocio, int tipofiltro, int pais, int anio, int mes);
 
     List<RespuestaStd> otrosMovimiento(int tipoMovimiento,int idNegocio, int idProducto,
                                        BigDecimal cantidad, Date fechaMovimiento);
