@@ -19,5 +19,6 @@ public interface ReportePedido {
     String getNombreCliente(); 
     String getDireccion(); 
     String getFechaProgramacionServicio();
+    int getTiempoServicio();
     
 }
