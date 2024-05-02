@@ -20,5 +20,6 @@ public interface ReportePedido {
     String getDireccion(); 
     String getFechaProgramacionServicio();
     int getTiempoServicio();
+    String getBitacoraInicial();
     
 }
