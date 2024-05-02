@@ -7,6 +7,7 @@ public interface AgendaServicios {
     String getFechaProgramacionServicio(); 
     String getNombreDia(); 
     String getHora();
+    int getIdProducto(); 
     String getDescripcionProducto(); 
     String getNombreCliente(); 
     String getNumeroTelefonoCliente();
