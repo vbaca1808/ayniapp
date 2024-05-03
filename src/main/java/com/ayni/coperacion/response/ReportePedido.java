@@ -21,5 +21,7 @@ public interface ReportePedido {
     String getFechaProgramacionServicio();
     int getTiempoServicio();
     String getBitacoraInicial();
+    int getEstadoMesa();
+    int getEstadoLlevar();
     
 }
