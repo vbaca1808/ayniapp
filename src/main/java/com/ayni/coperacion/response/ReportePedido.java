@@ -1,5 +1,7 @@
 package com.ayni.coperacion.response;
 
+import java.math.BigDecimal;
+
 public interface ReportePedido {
     
     int getIdPedido();
@@ -23,5 +25,6 @@ public interface ReportePedido {
     String getBitacoraInicial();
     int getEstadoMesa();
     int getEstadoLlevar();
-    
+    BigDecimal getTotal();
+
 }
