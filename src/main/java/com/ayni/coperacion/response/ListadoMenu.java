@@ -16,4 +16,5 @@ public interface ListadoMenu {
     String getRutaProducto();
     String getEstadoPedido();
     String getDescripcion();
+    BigDecimal getTotal();
 }
