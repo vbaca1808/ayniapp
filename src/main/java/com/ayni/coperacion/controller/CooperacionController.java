@@ -559,6 +559,7 @@ public class CooperacionController {
     @PostMapping(value="/actualizarlecturacocina/{idnegocio}/{idpedido}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> actualizarLecturaCocina(
         @PathVariable int idnegocio,@PathVariable int idpedido,@PathVariable int idproducto) {
+        
         try { 
             List<RespuestaStd> lst = iUsuarioService.actualizarLecturaCocina(idnegocio, idpedido, idproducto);
             return ResponseEntity.ok().body(lst);
