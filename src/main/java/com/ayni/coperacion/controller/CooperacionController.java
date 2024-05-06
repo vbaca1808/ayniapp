@@ -560,7 +560,7 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> actualizarLecturaCocina(
         @PathVariable int idnegocio,@PathVariable int idpedido,@PathVariable int idproducto) {
         try { 
-            List<RespuestaStd> lst = iUsuarioService.actualizarLecturaCocina(idnegocio, idpedido, idproducto)
+            List<RespuestaStd> lst = iUsuarioService.actualizarLecturaCocina(idnegocio, idpedido, idproducto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
