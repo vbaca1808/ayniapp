@@ -296,21 +296,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoInsumoProducto> obtenerInsumosProductoServicio(@Param("idNegocio") int idNegocio,
                                                                @Param("idPedido") int idPedido,
                                                                @Param("idProducto") int idProducto);
-                                          
+
     @Query( value = "call sp_obtener_cobros_ayni(:idNegocio)", nativeQuery = true)
-    List<RespuestaStd> obtenerCobrosAyni(@Param("idNegocio") int idNegocio);
-    
-    @Query( value = "call sp_pago_a_cuenta(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
-    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros)", nativeQuery = true)
-    List<RespuestaStd> pagoACuenta(@Param("idNegocio") int idNegocio, 
-                                   @Param("idPedido") int idPedido, 
-                                   @Param("numeroCelular") String numeroCelular,
-                                   @Param("nombreUsuario") String nombreUsuario,
-                                   @Param("fechaProceso") Date fechaProceso,
-                                   @Param("efectivo") BigDecimal efectivo,
-                                   @Param("yape") BigDecimal yape,
-                                   @Param("plin") BigDecimal plin,
-                                   @Param("tarjeta") BigDecimal tarjeta,
-                                   @Param("otros") BigDecimal otros);    
+    List<RespuestaStd> obtenerCobrosAyni(@Param("idNegocio") int idNegocio); 
+
+    @Query( value = "call sp_actualizar_lectura_cocina(:idNegocio, :idPedido, :idProducto)", nativeQuery = true)
+    List<RespuestaStd> actualizarLecturaCocina(@Param("idNegocio") int idNegocio,
+    @Param("idPedido") int idPedido, @Param("idProducto") int idProducto); 
+ 
 
 }

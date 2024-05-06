@@ -119,4 +119,6 @@ public interface IUsuarioService {
 
     List<RespuestaStd> obtenerCobrosAyni(int idNegocio);
 
+    List<RespuestaStd> actualizarLecturaCocina(int idNegocio, int idPedido, int idProducto); 
+
 }

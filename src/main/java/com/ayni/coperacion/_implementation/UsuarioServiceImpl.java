@@ -536,6 +536,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'obtenerCobrosAyni'");
         }
     }
+
+    @Override
+    public List<RespuestaStd> actualizarLecturaCocina(int idNegocio, int idPedido, int idProducto) {
+        try {
+            return usuarioRepository.actualizarLecturaCocina(idNegocio,idPedido, idProducto);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'actualizarLecturaCocina'");
+        }
+    }
  
 
 }
