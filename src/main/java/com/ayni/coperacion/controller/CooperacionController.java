@@ -232,6 +232,28 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/pedidoatendido/{idnegocio}/{idpedido}/{numerocelular}/{nombreusuario}/{incluirpl}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RespuestaStd> pedidoAtendidoIndividual(@PathVariable int idnegocio, 
+                                                             @PathVariable int idpedido, 
+                                                             @PathVariable String numerocelular, 
+                                                             @PathVariable String nombreusuario,
+                                                             @PathVariable int incluirpl,
+                                                             @PathVariable int idproducto) {
+        try {
+ 
+            List<RespuestaStd> lst = iUsuarioService.pedidoAtendido(idnegocio, idpedido, 
+                                                                  numerocelular, nombreusuario, incluirpl);
+            if (lst.size() > 0) {
+                return ResponseEntity.ok().body(lst.get(0));
+            } else {
+                return ResponseEntity.ok().body(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     @GetMapping(value="/obtenerpedido/{idnegocio}/{idpedido}/{mesa}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PedidoGenerado>> obtenerPedido(@PathVariable int idnegocio, 
                                                               @PathVariable int idpedido,
@@ -567,5 +589,6 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
+    
 
 }

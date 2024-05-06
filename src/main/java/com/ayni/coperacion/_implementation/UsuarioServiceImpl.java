@@ -545,6 +545,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarLecturaCocina'");
         }
     }
+
+    @Override
+    public List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular,
+            String nombreUsuario, int incluirpl, int idProducto) {
+            try {
+                return usuarioRepository.pedidoAtendidoIndividual(idNegocio, idPedido, numeroCelular, 
+                nombreUsuario, null, incluirpl, idProducto);                
+            } catch (Exception e) {
+                throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoIndividual'");
+            }
+    }
  
 
 }

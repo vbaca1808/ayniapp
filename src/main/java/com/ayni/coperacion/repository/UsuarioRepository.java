@@ -103,6 +103,18 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("fechaProceso") Date fechaProceso,
                                       @Param("incluirpl") int incluirpl);
 
+    @Query( value = "call sp_pedido_atendido_individual(:idNegocio, :idPedido, :numeroCelular, " +
+                    ":nombreUsuario, :fechaProceso, :incluirpl, :idProducto)", nativeQuery = true)
+    List<RespuestaStd> pedidoAtendidoIndividual(
+                                    @Param("idNegocio") int idNegocio, 
+                                    @Param("idPedido") int idPedido, 
+                                    @Param("numeroCelular") String numeroCelular,
+                                    @Param("nombreUsuario") String nombreUsuario,
+                                    @Param("fechaProceso") Date fechaProceso,
+                                    @Param("incluirpl") int incluirpl,
+                                    @Param("idProducto") int idProducto);
+
+
     @Query( value = "call sp_pedido_pagado(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
     ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :soyCocina)", nativeQuery = true)
     List<RespuestaStd> pedidoPagado(@Param("idNegocio") int idNegocio, 
