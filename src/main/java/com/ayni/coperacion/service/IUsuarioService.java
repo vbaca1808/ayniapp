@@ -67,6 +67,8 @@ public interface IUsuarioService {
     
     List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl, int idProducto);
 
+    List<RespuestaStd> pedidoAtendidoRevetirIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl, int idProducto);
+
     List<ReportePedido> listadoPedidos(int idNegocio, int mesa, String numerocelular, String nombreusuario, Date fechaConsulta);
 
     List<ReporteCierre> reporteCierre(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, String numerocelular, String nombreusuario);

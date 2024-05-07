@@ -556,6 +556,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoIndividual'");
             }
     }
+
+    @Override
+    public List<RespuestaStd> pedidoAtendidoRevetirIndividual(int idNegocio, int idPedido, String numeroCelular,
+            String nombreUsuario, int incluirpl, int idProducto) {
+        try {
+            return usuarioRepository.revetirAtendidoIndividual(idNegocio, idPedido, numeroCelular, nombreUsuario, null, incluirpl, idProducto);       
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoRevetirIndividual'");
+        }
+    }
  
 
 }
