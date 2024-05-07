@@ -241,8 +241,7 @@ public class CooperacionController {
                                                              @PathVariable int idproducto) {
         try {
  
-            List<RespuestaStd> lst = iUsuarioService.pedidoAtendido(idnegocio, idpedido, 
-                                                                  numerocelular, nombreusuario, incluirpl);
+            List<RespuestaStd> lst = iUsuarioService.pedidoAtendidoIndividual(idnegocio, idpedido, numerocelular, nombreusuario, incluirpl, idproducto);
             if (lst.size() > 0) {
                 return ResponseEntity.ok().body(lst.get(0));
             } else {
