@@ -15,6 +15,7 @@ public interface ReportePedido {
     int getCantidadParaLLevar();
     String getPrecio();
     String getNombreUsuario();
+    int getDiferencia();
     String getNumeroCelular();
     String getEstadoItemPedido();
     String getNumeroTelefonoCliente(); 
