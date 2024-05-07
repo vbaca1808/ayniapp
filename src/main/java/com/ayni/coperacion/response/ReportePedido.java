@@ -29,5 +29,6 @@ public interface ReportePedido {
     int getEstadoLlevar();
     BigDecimal getTotal();
     BigDecimal getMontoPago();
+    int getEstadoCocina();
 
 }
