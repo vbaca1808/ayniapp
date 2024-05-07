@@ -30,5 +30,7 @@ public interface ReportePedido {
     BigDecimal getTotal();
     BigDecimal getMontoPago();
     int getEstadoCocina();
+    int getCantidadPreparadaMesa();
+    int getCantidadPreparadaLlevar();
 
 }
