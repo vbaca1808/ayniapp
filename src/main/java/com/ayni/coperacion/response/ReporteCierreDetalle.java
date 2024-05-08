@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public interface ReporteCierreDetalle {
     int getIdPedido(); 
-    int getIdMesa();
+    int getMesa();
     String getDescripcionProducto();  
 	BigDecimal getPrecio();
     BigDecimal getCantidad(); 
