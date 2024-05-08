@@ -6,7 +6,7 @@ public interface ReporteCierreDetalle {
     
     String getDescripcionProducto();  
     String getObsMesa();  
-    String getObsLLevar();  
+    String getObsLlevar();  
 	BigDecimal getPrecio();
     BigDecimal getCantidad(); 
     BigDecimal getCantidadAtendidaParaLlevar(); 
