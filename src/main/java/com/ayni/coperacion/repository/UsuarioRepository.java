@@ -27,6 +27,7 @@ import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.ReporteCierre;
+import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd; 
 
@@ -325,6 +326,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_actualizar_lectura_cocina(:idNegocio, :idPedido, :idProducto)", nativeQuery = true)
     List<RespuestaStd> actualizarLecturaCocina(@Param("idNegocio") int idNegocio,
     @Param("idPedido") int idPedido, @Param("idProducto") int idProducto); 
- 
+
+    @Query( value = "call sp_reporte_cierra_tienda_detalle(:idNegocio, :anioSeleccionado, :mesSeleccionado, :diaSeleccionado, " +
+    ":numeroCelular, :nombreUsuario, :idProducto)", nativeQuery = true)
+    List<ReporteCierreDetalle> reporteCierraTiendaDetalle(@Param("idNegocio") int idNegocio, 
+                                                   @Param("anioSeleccionado") int anioSeleccionado,
+                                                   @Param("mesSeleccionado") int mesSeleccionado,
+                                                   @Param("diaSeleccionado") int diaSeleccionado,
+                                                   @Param("numeroCelular") String numeroCelular,
+                                                   @Param("nombreUsuario") String nombreUsuario,
+                                                   @Param("idProducto") int idProducto);
 
 }

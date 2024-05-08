@@ -30,6 +30,7 @@ import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.ReporteCierre;
+import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -74,6 +75,10 @@ public interface IUsuarioService {
     List<ReporteCierre> reporteCierre(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, String numerocelular, String nombreusuario);
 
     List<ReporteCierre> reporteCierreTienda(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, String numerocelular, String nombreusuario);
+
+    List<ReporteCierreDetalle> reporteCierraTiendaDetalle(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, 
+                                                          String numeroCelular, String nombreUsuario, int idProducto);
+
 
     List<ListadoCocina> listadoCocina(int idNegocio, int anio, int mes, int dia);
 

@@ -34,6 +34,7 @@ import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.ReporteCierre;
+import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -564,6 +565,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.revetirAtendidoIndividual(idNegocio, idPedido, numeroCelular, nombreUsuario, null, incluirpl, idProducto);       
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoRevetirIndividual'");
+        }
+    }
+
+    @Override
+    public List<ReporteCierreDetalle> reporteCierraTiendaDetalle(int idNegocio, int anioSeleccionado,
+            int mesSeleccionado, int diaSeleccionado, String numeroCelular, String nombreUsuario, int idProducto) {
+        try {
+            return usuarioRepository.reporteCierraTiendaDetalle(idNegocio, anioSeleccionado, mesSeleccionado, 
+                                                                diaSeleccionado, numeroCelular, nombreUsuario, 
+                                                                idProducto);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteCierraTiendaDetalle'");
         }
     }
  

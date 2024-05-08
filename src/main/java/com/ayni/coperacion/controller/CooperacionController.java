@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
@@ -24,6 +23,7 @@ import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
 import com.ayni.coperacion.dto.PedidoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
+import com.ayni.coperacion.dto.ReporteCierreDetalleDto;
 import com.ayni.coperacion.dto.ReporteCierreDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -43,6 +43,7 @@ import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.ReporteCierre;
+import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -308,6 +309,26 @@ public class CooperacionController {
             List<ReporteCierre> lst = iUsuarioService.reporteCierreTienda(reporteCierreDto.getIdNegocio(),
             reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado(), reporteCierreDto.getDiaSeleccionado(),
             reporteCierreDto.getNumeroCelular(), reporteCierreDto.getNombreUsuario());
+
+             return ResponseEntity.ok().body(lst);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+    
+    @PostMapping(value="/reportecierretiendadetalle",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteCierreDetalle>> reporteCierraTiendaDetalle(@Valid 
+    @RequestBody ReporteCierreDetalleDto reporteCierreDetalleDto) {
+        try {
+            List<ReporteCierreDetalle> lst = iUsuarioService.reporteCierraTiendaDetalle(
+                reporteCierreDetalleDto.getIdNegocio(), 
+                reporteCierreDetalleDto.getAnioSeleccionado(), 
+                reporteCierreDetalleDto.getMesSeleccionado(), 
+                reporteCierreDetalleDto.getDiaSeleccionado(), 
+                reporteCierreDetalleDto.getNumeroCelular(), 
+                reporteCierreDetalleDto.getNombreUsuario(), 
+                reporteCierreDetalleDto.getIdProducto());
 
              return ResponseEntity.ok().body(lst);
         } catch (Exception e) {
