@@ -33,6 +33,7 @@ import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
+import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
@@ -592,7 +593,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ReporteCierreDetalleEfectivo> obtenerPedidoPago(int idNegocio, int idPedido) {
+    public List<PedidoPagoResponse> obtenerPedidoPago(int idNegocio, int idPedido) {
         try {
             return usuarioRepository.obtenerPedidoPago(idNegocio, idPedido);            
         } catch (Exception e) {

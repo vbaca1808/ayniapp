@@ -42,6 +42,7 @@ import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
+import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
@@ -644,10 +645,10 @@ public class CooperacionController {
     }
 
     @GetMapping(value="/obtenerpedidopago/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReporteCierreDetalleEfectivo>> obtenerPedidoPago(@PathVariable int idnegocio, 
+    public ResponseEntity<List<PedidoPagoResponse>> obtenerPedidoPago(@PathVariable int idnegocio, 
     @PathVariable int idpedido) {
         try { 
-            List<ReporteCierreDetalleEfectivo> lst = iUsuarioService.obtenerPedidoPago(idnegocio, idpedido);
+            List<PedidoPagoResponse> lst = iUsuarioService.obtenerPedidoPago(idnegocio, idpedido);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);

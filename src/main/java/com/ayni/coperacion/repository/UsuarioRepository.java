@@ -26,6 +26,7 @@ import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.PedidoGenerado;
+import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
@@ -348,7 +349,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                                           @Param("numeroCelular") String numeroCelular);
                 
     @Query( value = "call sp_obtener_pedido_pago(:idNegocio, :idPedido)", nativeQuery = true)
-    List<ReporteCierreDetalleEfectivo> obtenerPedidoPago(@Param("idNegocio") int idNegocio, 
+    List<PedidoPagoResponse> obtenerPedidoPago(@Param("idNegocio") int idNegocio, 
                                                          @Param("idPedido") int idPedido);
                 
 }
