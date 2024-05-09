@@ -133,4 +133,6 @@ public interface IUsuarioService {
 
     List<ReporteCierreDetalleEfectivo> reporteCierraTiendaDetalleEfectivo(int idNegocio, int idTipoPago, int anio, int mes, int dia, String nombreUsuario, String numeroCelular);
        
+    List<ReporteCierreDetalleEfectivo> obtenerPedidoPago(int idNegocio, int idPedido);
+
 }

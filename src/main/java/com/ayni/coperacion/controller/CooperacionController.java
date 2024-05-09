@@ -643,4 +643,15 @@ public class CooperacionController {
         }      
     }
 
+    @GetMapping(value="/obtenerpedidopago/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteCierreDetalleEfectivo>> obtenerPedidoPago(@PathVariable int idnegocio, 
+    @PathVariable int idpedido) {
+        try { 
+            List<ReporteCierreDetalleEfectivo> lst = iUsuarioService.obtenerPedidoPago(idnegocio, idpedido);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }

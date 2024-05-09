@@ -590,6 +590,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'reporteCierraTiendaDetalleEfectivo'");
         }
     }
+
+    @Override
+    public List<ReporteCierreDetalleEfectivo> obtenerPedidoPago(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.obtenerPedidoPago(idNegocio, idPedido);            
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerPedidoPago'");
+        }
+    }
  
 
 }
