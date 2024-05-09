@@ -131,6 +131,6 @@ public interface IUsuarioService {
 
     List<RespuestaStd> actualizarLecturaCocina(int idNegocio, int idPedido, int idProducto); 
 
-    List<ReporteCierreDetalleEfectivo> reporteCierraTiendaDetalleEfectivo(int idNegocio, int idTipoPago);
+    List<ReporteCierreDetalleEfectivo> reporteCierraTiendaDetalleEfectivo(int idNegocio, int idTipoPago, int anio, int mes, int dia, String nombreUsuario, String numeroCelular);
        
 }

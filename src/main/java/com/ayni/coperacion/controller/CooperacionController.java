@@ -631,10 +631,12 @@ public class CooperacionController {
         }      
     }
     
-    @GetMapping(value="/reportecierratiendadetalleefectivo/{idnegocio}/{idtipopago}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReporteCierreDetalleEfectivo>> reporteCierraTiendaDetalleEfectivo(@PathVariable int idnegocio, @PathVariable int idtipopago) {
+    @GetMapping(value="/reportecierratiendadetalleefectivo/{idnegocio}/{idtipopago}/{anio}/{mes}/{dia}/{nombreusuario}/{numerocelular}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteCierreDetalleEfectivo>> reporteCierraTiendaDetalleEfectivo(@PathVariable int idnegocio, 
+    @PathVariable int idtipopago, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, 
+    @PathVariable String nombreusuario, @PathVariable String numerocelular) {
         try { 
-            List<ReporteCierreDetalleEfectivo> lst = iUsuarioService.reporteCierraTiendaDetalleEfectivo(idnegocio, idtipopago);
+            List<ReporteCierreDetalleEfectivo> lst = iUsuarioService.reporteCierraTiendaDetalleEfectivo(idnegocio, idtipopago,anio, mes, dia, nombreusuario, numerocelular);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
