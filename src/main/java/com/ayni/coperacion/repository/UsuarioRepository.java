@@ -129,7 +129,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("idProducto") int idProducto);
                     
     @Query( value = "call sp_pedido_pagado(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
-    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :soyCocina)", nativeQuery = true)
+    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito, :soyCocina)", nativeQuery = true)
     List<RespuestaStd> pedidoPagado(@Param("idNegocio") int idNegocio, 
                                     @Param("idPedido") int idPedido, 
                                     @Param("numeroCelular") String numeroCelular,
@@ -140,11 +140,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("plin") BigDecimal plin,
                                     @Param("tarjeta") BigDecimal tarjeta,
                                     @Param("otros") BigDecimal otros,
+                                    @Param("credito") BigDecimal credito,
                                     @Param("soyCocina") int soyCocina);
 
                                     
     @Query( value = "call sp_modificar_pago_pedido(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
-    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros)", nativeQuery = true)
+    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito)", nativeQuery = true)
     List<RespuestaStd> modificarPagoPedido(@Param("idNegocio") int idNegocio, 
                                              @Param("idPedido") int idPedido, 
                                              @Param("numeroCelular") String numeroCelular,
@@ -154,7 +155,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                              @Param("yape") BigDecimal yape,
                                              @Param("plin") BigDecimal plin,
                                              @Param("tarjeta") BigDecimal tarjeta,
-                                             @Param("otros") BigDecimal otros);
+                                             @Param("otros") BigDecimal otros,
+                                             @Param("credito") BigDecimal credito);
 
     @Query( value = "call sp_obtener_pedido(:idNegocio, :idPedido, :mesa)", nativeQuery = true)
     List<PedidoGenerado> obtenerPedido(@Param("idNegocio") int idNegocio, 

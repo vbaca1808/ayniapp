@@ -183,7 +183,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
             pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
             pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
-            pedidoPagadoDto.getOtros(), pedidoPagadoDto.getSoyCocina());
+            pedidoPagadoDto.getOtros(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getCredito());
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'pedidoPagado'");
@@ -607,7 +607,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
             pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
             new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
-            pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros());
+            pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
         }
