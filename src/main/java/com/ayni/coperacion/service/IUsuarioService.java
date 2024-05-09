@@ -66,6 +66,8 @@ public interface IUsuarioService {
 
     List<RespuestaStd> pedidoPagado(PedidoPagadoDto pedidoPagadoDto);
 
+    List<RespuestaStd> modificarPedidoPago(PedidoPagadoDto pedidoPagadoDto);
+
     List<RespuestaStd> pedidoAtendido(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl);
     
     List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl, int idProducto);

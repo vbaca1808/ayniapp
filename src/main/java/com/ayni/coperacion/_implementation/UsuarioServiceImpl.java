@@ -600,6 +600,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'obtenerPedidoPago'");
         }
     }
+
+    @Override
+    public List<RespuestaStd> modificarPedidoPago(PedidoPagadoDto pedidoPagadoDto) {
+        try {
+            return usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
+            pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
+            new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
+            pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
+        }
+    }
  
 
 }

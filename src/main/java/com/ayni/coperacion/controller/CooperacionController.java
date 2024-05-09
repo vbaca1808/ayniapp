@@ -655,4 +655,14 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/modificarpagopedido",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> modificarPagoPedido(@Valid @RequestBody PedidoPagadoDto pedidoPagadoDto) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.modificarPedidoPago(pedidoPagadoDto);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }
