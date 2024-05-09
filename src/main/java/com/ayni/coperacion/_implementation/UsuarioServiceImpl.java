@@ -35,6 +35,7 @@ import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
+import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -577,6 +578,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                                                 idProducto);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteCierraTiendaDetalle'");
+        }
+    }
+
+    @Override
+    public List<ReporteCierreDetalleEfectivo> reporteCierraTiendaDetalleEfectivo(int idNegocio, int idTipoPago) {
+        try {
+            return usuarioRepository.reporteCierraTiendaDetalleEfectivo(idNegocio, idTipoPago);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteCierraTiendaDetalleEfectivo'");
         }
     }
  
