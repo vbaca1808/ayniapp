@@ -10,5 +10,7 @@ public interface ListadoProducto {
     int getEstado(); 
 	BigDecimal getStock();
     String getRecetaCompleta();
+    int getOrdenLista(); 
+    int getIrCocina(); 
 
 }
