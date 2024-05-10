@@ -17,5 +17,7 @@ public class ActualizarNegocioPedidoDto {
     private BigDecimal stockInicial;
     private String codigoBarra;
     private String recetaInsumo;
+    private int ordenLista; 
+    private int productoCocina; 
 
 }

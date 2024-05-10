@@ -210,7 +210,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("diaSeleccionado") int diaSeleccionado);
 
     @Query( value = "call sp_actualizar_negocio_pedido(:idNegocio, :idProducto, " +
-	":nombreProducto, :precio, :estado, :stockInicial, :codigoBarra, :recetaInsumo)", nativeQuery = true)
+	":nombreProducto, :precio, :estado, :stockInicial, :codigoBarra, :recetaInsumo, :ordenLista, :irCocina)", nativeQuery = true)
     List<RespuestaStd> actualizarNegocioPedido(@Param("idNegocio") int idNegocio,  
                                                @Param("idProducto") int idProducto,
                                                @Param("nombreProducto") String nombreProducto,
@@ -218,7 +218,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("estado") int estado,
                                                @Param("stockInicial") BigDecimal stockInicial,
                                                @Param("codigoBarra") String codigoBarra,
-                                               @Param("recetaInsumo") String recetaInsumo);
+                                               @Param("recetaInsumo") String recetaInsumo,
+                                               @Param("ordenLista") int ordenLista,
+                                               @Param("irCocina") int irCocina);
 
     @Query( value = "call sp_agregarquita_admin_usuario(:idUsuario, :nombreUsuario, :isAdmin)", nativeQuery = true)
     List<RespuestaStd> agregarquitaAdminUsuario(@Param("idUsuario") int idUsuario,  
