@@ -554,7 +554,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             String nombreUsuario, int incluirpl, int idProducto) {
             try {
                 return usuarioRepository.pedidoAtendidoIndividual(idNegocio, idPedido, numeroCelular, 
-                nombreUsuario, null, incluirpl, idProducto);                
+                nombreUsuario, new Date(), incluirpl, idProducto);                
             } catch (Exception e) {
                 throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoIndividual'");
             }
