@@ -18,5 +18,10 @@ public interface PedidoGenerado {
     BigDecimal getCantidadAtendida(); 
     BigDecimal getCantidadAtendidaParaLLevar(); 
     String getCodigoBarra();
-    
+    String getdocCliente(); 
+    String getnombreCliente(); 
+    String totalPedido();
+    int tipoDoc();
+    String getnumeroDocumento(); 
+
 }
