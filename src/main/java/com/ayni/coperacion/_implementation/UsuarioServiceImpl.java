@@ -398,8 +398,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<RespuestaStd> compraNegocio(CompraNegocio compraNegocio) {
         try {
             //compraNegocio.getFechaCompra()
-            return usuarioRepository.compraNegocio(compraNegocio.getIdNegocio(),compraNegocio.getNombreProveedor(),compraNegocio.getRucProveedor(),
-            new Date(), compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(),
+            return usuarioRepository.compraNegocio(compraNegocio.getIdNegocio(), compraNegocio.getIdCompra(), compraNegocio.getNombreProveedor(),
+            compraNegocio.getRucProveedor(), new Date(), compraNegocio.getTotalCompra(), compraNegocio.getTipoDocumento(),
             compraNegocio.getNumeroDocumento(), compraNegocio.getDetalleCompra(), compraNegocio.getEfectivo(), 
             compraNegocio.getYape(), compraNegocio.getPlin(), compraNegocio.getTarjeta(), compraNegocio.getOtros(),
             compraNegocio.getNombreUsuarioCajero(), compraNegocio.getNumeroCelularCajero());

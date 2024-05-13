@@ -254,10 +254,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoProductoTienda> obtenerListadoProductoTienda(@Param("idNegocio") int idNegocio,
                                                              @Param("codigoBarra") String codigoBarra);
 
-    @Query( value = "call sp_compra_negocio(:idNegocio, :nombreProveedor, :rucProveedor, :fechaCompra, :totalCompra, " + 
+    @Query( value = "call sp_compra_negocio(:idNegocio, :idCompra, :nombreProveedor, :rucProveedor, :fechaCompra, :totalCompra, " + 
                     ":tipoDocumento, :numeroDocumento, :detalleCompra, :efectivo, :yape, :plin, :tarjeta, :otros, " +
                     ":nombreUsuarioCajero,:numeroCelularCajero)", nativeQuery = true)
     List<RespuestaStd> compraNegocio(@Param("idNegocio") int idNegocio,
+                                     @Param("idCompra") int idCompra,
                                      @Param("nombreProveedor") String nombreProveedor,
                                      @Param("rucProveedor") String rucProveedor,
                                      @Param("fechaCompra") Date fechaCompra,

@@ -11,6 +11,7 @@ import lombok.Setter;
 public class CompraNegocio {
     
     private int idNegocio;
+    private int idCompra;
     private String nombreProveedor;
     private String rucProveedor; 
     private Date fechaCompra;
