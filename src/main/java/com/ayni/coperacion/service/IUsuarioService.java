@@ -139,6 +139,6 @@ public interface IUsuarioService {
        
     List<PedidoPagoResponse> obtenerPedidoPago(int idNegocio, int idPedido);
 
-    List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido);
+    List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido, int anio, int mes, int dia);
 
 }

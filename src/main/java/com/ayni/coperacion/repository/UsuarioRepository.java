@@ -371,8 +371,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<PedidoPagoResponse> obtenerPedidoPago(@Param("idNegocio") int idNegocio, 
                                                          @Param("idPedido") int idPedido);
                 
-    @Query( value = "call sp_buscar_ventas_por_producto(:idNegocio, :idProducto)", nativeQuery = true)
+    @Query( value = "call sp_buscar_ventas_por_producto(:idNegocio, :idProducto,:anio, :mes, :dia)", nativeQuery = true)
     List<VentasPorProducto> buscarVentasPorProducto(@Param("idNegocio") int idNegocio, 
-                                                    @Param("idProducto") int idProducto);
+                                                    @Param("idProducto") int idProducto, 
+                                                    @Param("ania") int anio, 
+                                                    @Param("mes") int mes, 
+                                                    @Param("dia") int dia);
                                                          
 }
