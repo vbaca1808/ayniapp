@@ -31,7 +31,8 @@ import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
-import com.ayni.coperacion.response.RespuestaStd; 
+import com.ayni.coperacion.response.RespuestaStd;
+import com.ayni.coperacion.response.VentasPorProducto; 
 
 @Repository
 @Transactional
@@ -370,4 +371,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<PedidoPagoResponse> obtenerPedidoPago(@Param("idNegocio") int idNegocio, 
                                                          @Param("idPedido") int idPedido);
                 
+    @Query( value = "call sp_buscar_ventas_por_producto(:idNegocio, :idProducto)", nativeQuery = true)
+    List<VentasPorProducto> buscarVentasPorProducto(@Param("idNegocio") int idNegocio, 
+                                                    @Param("idPedido") int idPedido);
+                                                         
 }

@@ -36,6 +36,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
+import com.ayni.coperacion.response.VentasPorProducto;
 
 public interface IUsuarioService {
     
@@ -137,5 +138,7 @@ public interface IUsuarioService {
     List<ReporteCierreDetalleEfectivo> reporteCierraTiendaDetalleEfectivo(int idNegocio, int idTipoPago, int anio, int mes, int dia, String nombreUsuario, String numeroCelular);
        
     List<PedidoPagoResponse> obtenerPedidoPago(int idNegocio, int idPedido);
+
+    List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido);
 
 }

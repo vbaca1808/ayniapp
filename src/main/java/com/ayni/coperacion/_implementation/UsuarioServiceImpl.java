@@ -40,6 +40,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
+import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;  
 
 @Service
@@ -611,6 +612,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
+        }
+    }
+
+    @Override
+    public List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.buscarVentasPorProducto(idNegocio, idPedido);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'buscarVentasPorProducto'");
         }
     }
  

@@ -49,6 +49,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
+import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
 
 @RestController
@@ -386,7 +387,6 @@ public class CooperacionController {
         }      
     }
 
-    
     @PostMapping(value="/actualizarnegociopedido",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> actualizarNegocioPedido(@Valid @RequestBody 
     ActualizarNegocioPedidoDto actualizarNegocioPedidoDto) {
@@ -665,4 +665,15 @@ public class CooperacionController {
         }      
     }
 
+    @GetMapping(value="/buscarventasporproducto/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<VentasPorProducto>> buscarVentasPorProducto(@PathVariable int idnegocio, 
+    @PathVariable int idproducto) {
+        try { 
+            List<VentasPorProducto> lst = iUsuarioService.buscarVentasPorProducto(idnegocio, idproducto);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+    
 }
