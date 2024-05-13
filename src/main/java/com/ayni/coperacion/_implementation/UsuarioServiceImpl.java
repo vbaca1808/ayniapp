@@ -618,7 +618,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido, int tipoFiltroFecha) {
         try {
-            return usuarioRepository.buscarVentasPorProducto(idNegocio, idPedido, tipoFiltroFecha);
+            return usuarioRepository.buscarVentasPorProducto(idNegocio, idPedido, new Date(), tipoFiltroFecha);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'buscarVentasPorProducto'");
         }
