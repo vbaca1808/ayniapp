@@ -373,6 +373,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                 
     @Query( value = "call sp_buscar_ventas_por_producto(:idNegocio, :idProducto)", nativeQuery = true)
     List<VentasPorProducto> buscarVentasPorProducto(@Param("idNegocio") int idNegocio, 
-                                                    @Param("idPedido") int idPedido);
+                                                    @Param("idProducto") int idProducto);
                                                          
 }
