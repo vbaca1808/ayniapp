@@ -17,5 +17,6 @@ public interface PedidoGenerado {
     int getEstadoItemPedido();
     BigDecimal getCantidadAtendida(); 
     BigDecimal getCantidadAtendidaParaLLevar(); 
+    String getCodigoBarra();
     
 }
