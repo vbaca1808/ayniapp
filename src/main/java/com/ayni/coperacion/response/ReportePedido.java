@@ -32,5 +32,5 @@ public interface ReportePedido {
     int getEstadoCocina();
     int getCantidadPreparadaMesa();
     int getCantidadPreparadaLlevar();
-
+    int getCorrelativoUnicoMovNegocio();
 }
