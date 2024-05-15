@@ -696,9 +696,10 @@ public class CooperacionController {
         }      
     }
     
-    @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}//{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
-    @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, @PathVariable String numerocelular, 
+    @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,
+    @PathVariable int aniohasta, @PathVariable int meshasta, @PathVariable int diahasta, @PathVariable String numerocelular, 
     @PathVariable String nombreusuario) {
         try { 
             
@@ -865,7 +866,7 @@ public class CooperacionController {
                     
                 Sheet sheet = null;
                 String[] vCabecera = null;
-                List<Inventario> lstInventario = iUsuarioService.listarInventario(idnegocio, anio, mes, dia);  
+                List<Inventario> lstInventario = iUsuarioService.listarInventario(idnegocio, anio, mes, dia,aniohasta,meshasta,diahasta);  
 
                 sheet = workbook.createSheet("Inventario");
                 Map<String, Long> countByPrefix = lstInventario.stream()
