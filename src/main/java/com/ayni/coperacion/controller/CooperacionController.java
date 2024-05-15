@@ -691,7 +691,7 @@ public class CooperacionController {
         }      
     }
     
-    @GetMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, @PathVariable String numerocelular, 
     @PathVariable String nombreusuario) {
