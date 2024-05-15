@@ -1,6 +1,5 @@
 package com.ayni.coperacion.controller;
- 
-import java.io.ByteArrayOutputStream;
+  
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -8,8 +7,12 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.http.HttpHeaders;
-
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage;
+
+import java.io.ByteArrayOutputStream;
+ 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -62,9 +65,6 @@ import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
- 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @RestController
 @RequestMapping("/api")
@@ -807,6 +807,7 @@ public class CooperacionController {
             return ResponseEntity.ok().body(respuestaStd);
 
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
