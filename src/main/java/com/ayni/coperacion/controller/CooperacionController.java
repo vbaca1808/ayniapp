@@ -926,7 +926,7 @@ public class CooperacionController {
             if (tiporeporte == 1) {
                 vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
             } else if (tiporeporte == 2)  {
-                if (diahasta != dia) {
+                if (diahasta != dia && meshasta != mes && aniohasta != anio) {
                     vNombreArchivo = "Reporte_de_inventario_del_" + dia + "_" + mes + "_" + anio + "_al_" + 
                     diahasta + "_" + meshasta + "_" + aniohasta + ".xlsx";
                 } else {
@@ -961,7 +961,12 @@ public class CooperacionController {
                 helper.setSubject("Reporte Cierre: a la fecha " + anio + "/" + mes + "/" + dia);
                 //vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
             } else if (tiporeporte == 2) {
-                helper.setSubject("Reporte Inventario: a la fecha " + anio + "/" + mes + "/" + dia);
+                if (diahasta != dia && meshasta != mes && aniohasta != anio) {
+                    helper.setSubject("Reporte Inventario: Del " + anio + "/" + mes + "/" + dia + " al " + aniohasta + "/" + 
+                    meshasta + "/" + diahasta);
+                } else {
+                    helper.setSubject("Reporte Inventario: a la fecha " + anio + "/" + mes + "/" + dia);
+                }
             } 
             
             helper.setText("Reporte Ayni");
