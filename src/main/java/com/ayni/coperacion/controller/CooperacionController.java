@@ -1,11 +1,22 @@
 package com.ayni.coperacion.controller;
  
+import java.io.ByteArrayOutputStream;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+
+import org.springframework.http.HttpHeaders;
+
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity; 
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +62,9 @@ import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
+ 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @RestController
 @RequestMapping("/api")
@@ -677,4 +691,124 @@ public class CooperacionController {
         }      
     }
     
+    @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
+    @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, @PathVariable String numerocelular, 
+    @PathVariable String nombreusuario) {
+        try { 
+            
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+            ZoneId zonaLima = ZoneId.of("America/Lima");
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = null;
+            String vTitulo = "";
+            String vNombreArchivo = "";
+            String[] vCabecera = null;
+
+
+            if (tiporeporte == 1) {
+                
+                vTitulo = "Por Producto";
+
+                if (idrubronegocio == 1) {
+                    vCabecera = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
+                } else if (idrubronegocio == 2) {
+                    vCabecera = new String[] {"Producto", "Codigo Barra", "Cantidad", "Précio", "Importe Generado"};
+                }
+                
+                List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, numerocelular, 
+                nombreusuario);
+
+                for (int i = 0; i < lReporteCierre.size(); i++) {
+                    Row dataRow = sheet.createRow(i+1);
+                
+                    if (idrubronegocio == 1) {
+                        dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                        dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
+                        dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                    } else if (idrubronegocio == 2) {
+                        dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                        dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
+                        dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
+                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                    }
+                    /*CellStyle dateCellStyle = workbook.createCellStyle();
+                    CreationHelper createHelper = workbook.getCreationHelper();
+                    dateCellStyle.setDataFormat(
+                            createHelper.createDataFormat().getFormat("d/mm/yyyy hh:mm:ss AM/PM"));
+
+                    // Crear una celda para la fecha
+                    Cell cell = dataRow.createCell(2);
+                    cell.setCellValue(fechaDateSalida);
+                    cell.setCellStyle(dateCellStyle);
+
+                    cell = dataRow.createCell(3);
+                    cell.setCellValue(fechaDateLLegada);
+                    cell.setCellStyle(dateCellStyle);*/
+
+                }      
+            }
+
+            sheet = workbook.createSheet(vTitulo);
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < vCabecera.length; i++) {
+                headerRow.createCell(i).setCellValue(vCabecera[i]);                    
+            }
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+            workbook.close();
+
+            // Crear un recurso ByteArrayResource para el archivo Excel
+            ByteArrayResource resource = new ByteArrayResource(outputStream.toByteArray());
+            
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+            mailSender.setHost("smtp.gmail.com");
+            mailSender.setPort(587);
+            mailSender.setUsername("victor.baca.h@gmail.com");
+            mailSender.setPassword("ggzg kopc uqtv frru");
+
+            Properties props = mailSender.getJavaMailProperties();
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.debug", "true");
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo("victorbaca2@yahoo.es");
+            helper.setSubject("Adjunto: Archivo Excel");
+            helper.setText("Reporte Ayni");
+            helper.addAttachment(vNombreArchivo, resource);
+        
+            mailSender.send(message);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=datos.xlsx");
+
+            RespuestaStd respuestaStd = new RespuestaStd() {
+
+                @Override
+                public String getCodigo() {
+                    return "OK";
+                }
+
+                @Override
+                public String getMensaje() {
+                    return "Se Envio, Correctamente";
+                }
+
+                
+            };
+    
+            return ResponseEntity.ok().body(respuestaStd);
+
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 }
