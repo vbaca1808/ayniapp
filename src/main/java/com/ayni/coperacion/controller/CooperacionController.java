@@ -880,7 +880,7 @@ public class CooperacionController {
                             .collect(Collectors.toList());
                 }
 
-                vCabecera = new String[] {"Fecha Movimiento" , "Descripción Producto", "Código Barra", "Motivo", "Cantidad", "Documento"}; 
+                vCabecera = new String[] {"Fecha Movimiento" , "Descripción Producto", "Código Barra", "Motivo", "Ingreso", "Salida", "Documento"}; 
                 
                 Row headerRowPd = sheet.createRow(0);
 
@@ -894,8 +894,12 @@ public class CooperacionController {
                     dataRow.createCell(1).setCellValue(lstInventario.get(i).getDescripcionProducto());
                     dataRow.createCell(2).setCellValue(lstInventario.get(i).getCodigoBarra());
                     dataRow.createCell(3).setCellValue(lstInventario.get(i).getMotivo());
-                    dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial());
-                    dataRow.createCell(5).setCellValue(lstInventario.get(i).getDocumento());
+                    if (lstInventario.get(i).getTipo().contains("I")) {
+                        dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial());
+                    } else {
+                        dataRow.createCell(5).setCellValue(lstInventario.get(i).getStockInicial());
+                    }
+                    dataRow.createCell(6).setCellValue(lstInventario.get(i).getDocumento());
                 }
 
             }
