@@ -701,40 +701,128 @@ public class CooperacionController {
             ZoneId zonaLima = ZoneId.of("America/Lima");
 
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = null;
-            String vTitulo = "";
+            Sheet sheetPp = null;
+            Sheet sheetPc = null;
+            Sheet sheetTp = null;
+            Sheet sheetPd = null; 
             String vNombreArchivo = "";
-            String[] vCabecera = null;
+            String[] vCabeceraPp = null;
+            String[] vCabeceraPc = null;
+            String[] vCabeceraTp = null;
+            String[] vCabeceraPd = null;
 
 
-            if (tiporeporte == 1) {
-                
-                vTitulo = "Por Producto";
-
+            if (tiporeporte == 1) { 
                 if (idrubronegocio == 1) {
-                    vCabecera = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
+                    vCabeceraPd = new String[] {"Documento" , "Importe Doc.", "Importe Pagado"};
                 } else if (idrubronegocio == 2) {
-                    vCabecera = new String[] {"Producto", "Codigo Barra", "Cantidad", "Précio", "Importe Generado"};
+                    vCabeceraPp = new String[] {"Producto" , "Código de barra", "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
+                    vCabeceraPd = new String[] {"Documento" , "Importe Doc.", "Importe Pagado"};
                 }
                 
                 List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, numerocelular, 
                 nombreusuario);
+    
+                sheetPp = workbook.createSheet("Por Producto");
+                sheetPc = workbook.createSheet("Por Cliente");
+                sheetTp = workbook.createSheet("Por Tipo Pago");
+                sheetPd = workbook.createSheet("Por Documento");
+
+                Row headerRowPp = sheetPp.createRow(0);
+                Row headerRowPc = sheetPc.createRow(0);
+                Row headerRowTp = sheetTp.createRow(0);
+                Row headerRowPd = sheetPd.createRow(0);
+
+                for (int i = 0; i < vCabeceraPp.length; i++) {
+                    headerRowPp.createCell(i).setCellValue(vCabeceraPp[i]);                    
+                }
+
+                for (int i = 0; i < vCabeceraPc.length; i++) {
+                    headerRowPc.createCell(i).setCellValue(vCabeceraPc[i]);                    
+                }
+
+                for (int i = 0; i < vCabeceraTp.length; i++) {
+                    headerRowTp.createCell(i).setCellValue(vCabeceraTp[i]);                    
+                }
+
+                for (int i = 0; i < vCabeceraPd.length; i++) {
+                    headerRowPd.createCell(i).setCellValue(vCabeceraPd[i]);                    
+                }
+                
+                int filaPp = 0;
+                int filaPc = 0;
+                int filaTp = 0;
+                int filaPd = 0;
 
                 for (int i = 0; i < lReporteCierre.size(); i++) {
-                    Row dataRow = sheet.createRow(i+1);
-                
-                    if (idrubronegocio == 1) {
-                        dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
-                        dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
-                        dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
-                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
-                    } else if (idrubronegocio == 2) {
-                        dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
-                        dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
-                        dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
-                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
-                        dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                    
+                    if (lReporteCierre.get(i).getTipo().equals("A")) {
+                        filaPp++;
+                        Row dataRow = sheetPp.createRow(filaPp);
+                        if (idrubronegocio == 1) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                        } else if (idrubronegocio == 2) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(4).setCellValue(lReporteCierre.get(i).getDato5());
+                        }
                     }
+
+                    if (lReporteCierre.get(i).getTipo().equals("B")) {
+                        filaPc++;
+                        Row dataRow = sheetPc.createRow(filaPc);
+                        if (idrubronegocio == 1) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                        } else if (idrubronegocio == 2) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                        }
+                    }
+
+                    if (lReporteCierre.get(i).getTipo().equals("C")) {
+                        filaTp++;
+                        Row dataRow = sheetTp.createRow(filaTp);
+                        if (idrubronegocio == 1) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                        } else if (idrubronegocio == 2) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato1()); 
+                        }
+                    }
+
+                    if (lReporteCierre.get(i).getTipo().equals("D")) {
+                        filaPd++;
+                        Row dataRow = sheetPd.createRow(filaPd);
+                        if (idrubronegocio == 1) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                        } else if (idrubronegocio == 2) {
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + "" + lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato5());
+                        }
+                    }
+
                     /*CellStyle dateCellStyle = workbook.createCellStyle();
                     CreationHelper createHelper = workbook.getCreationHelper();
                     dateCellStyle.setDataFormat(
@@ -749,15 +837,28 @@ public class CooperacionController {
                     cell.setCellValue(fechaDateLLegada);
                     cell.setCellStyle(dateCellStyle);*/
 
-                }      
+                }    
+                
+                for (int i = 0; i < sheetPp.getRow(0).getPhysicalNumberOfCells(); i++) {
+                    sheetPp.autoSizeColumn(i);
+                }
+
+                for (int i = 0; i < sheetPc.getRow(0).getPhysicalNumberOfCells(); i++) {
+                    sheetPc.autoSizeColumn(i);
+                }
+
+                for (int i = 0; i < sheetTp.getRow(0).getPhysicalNumberOfCells(); i++) {
+                    sheetTp.autoSizeColumn(i);
+                }
+
+                for (int i = 0; i < sheetPd.getRow(0).getPhysicalNumberOfCells(); i++) {
+                    sheetPd.autoSizeColumn(i);
+                }
+
+
             }
 
-            sheet = workbook.createSheet(vTitulo);
-            Row headerRow = sheet.createRow(0);
-            for (int i = 0; i < vCabecera.length; i++) {
-                headerRow.createCell(i).setCellValue(vCabecera[i]);                    
-            }
-
+            vNombreArchivo = "Reporte.xlsx";
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
             workbook.close();
