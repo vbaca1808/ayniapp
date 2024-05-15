@@ -854,11 +854,12 @@ public class CooperacionController {
                 for (int i = 0; i < sheetPd.getRow(0).getPhysicalNumberOfCells(); i++) {
                     sheetPd.autoSizeColumn(i);
                 }
-
-
             }
 
-            vNombreArchivo = "Reporte.xlsx";
+            if (tiporeporte == 1) {
+                vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
+            }
+            
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
             workbook.close();
