@@ -4,7 +4,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.apache.poi.ss.usermodel.*;
@@ -701,18 +704,18 @@ public class CooperacionController {
             ZoneId zonaLima = ZoneId.of("America/Lima");
 
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheetPp = null;
-            Sheet sheetPc = null;
-            Sheet sheetTp = null;
-            Sheet sheetPd = null; 
             String vNombreArchivo = "";
-            String[] vCabeceraPp = null;
-            String[] vCabeceraPc = null;
-            String[] vCabeceraTp = null;
-            String[] vCabeceraPd = null;
 
 
             if (tiporeporte == 1) { 
+                String[] vCabeceraPp = null;
+                String[] vCabeceraPc = null;
+                String[] vCabeceraTp = null;
+                String[] vCabeceraPd = null;
+                Sheet sheetPp = null;
+                Sheet sheetPc = null;
+                Sheet sheetTp = null;
+                Sheet sheetPd = null; 
                 if (idrubronegocio == 1) {
                     vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
@@ -856,10 +859,53 @@ public class CooperacionController {
                 }
             }
 
+            if (tiporeporte == 2) {
+                    
+                Sheet sheet = null;
+                String[] vCabecera = null;
+                List<Inventario> lstInventario = iUsuarioService.listarInventario(idnegocio, anio, mes, dia);  
+
+                sheet = workbook.createSheet("Inventario");
+                Map<String, Long> countByPrefix = lstInventario.stream()
+                .map(x -> x.getIdProducto() + "") // Obtener el prefijo
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())); // Contar los registros por prefijo
+
+                if (countByPrefix != null) {
+                    lstInventario = lstInventario.stream()
+                            .filter(x -> {
+                                String prefix = x.getIdProducto() + ""; // Obtener el prefijo del registro actual
+                                Long count = countByPrefix.get(prefix);
+                                return count != null && count > 1; // Filtrar los registros que tengan más de una ocurrencia del mismo prefijo
+                            })
+                            .collect(Collectors.toList());
+                }
+
+                vCabecera = new String[] {"Fecha Movimiento" , "Descripción Producto", "Código Barra", "Motivo", "Cantidad", "Documento"}; 
+                
+                Row headerRowPd = sheet.createRow(0);
+
+                for (int i = 0; i < vCabecera.length; i++) {
+                    headerRowPd.createCell(i).setCellValue(vCabecera[i]);                    
+                }
+                
+                for (int i = 0; i < lstInventario.size(); i++) {
+                    Row dataRow = sheet.createRow(i+1);
+                    dataRow.createCell(0).setCellValue(lstInventario.get(i).getOrden1()); 
+                    dataRow.createCell(1).setCellValue(lstInventario.get(i).getDescripcionProducto());
+                    dataRow.createCell(2).setCellValue(lstInventario.get(i).getCodigoBarra());
+                    dataRow.createCell(3).setCellValue(lstInventario.get(i).getMotivo());
+                    dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial());
+                    dataRow.createCell(5).setCellValue(lstInventario.get(i).getDocumento());
+                }
+
+            }
+
             if (tiporeporte == 1) {
                 vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
+            } else if (tiporeporte == 2)  {
+                vNombreArchivo = "Reporte_de_inventario_corte_al_" + dia + "_" + mes + "_" + anio + ".xlsx";
             }
-            
+
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
             workbook.close();
@@ -882,7 +928,14 @@ public class CooperacionController {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo("victorbaca2@yahoo.es");
-            helper.setSubject("Adjunto: Archivo Excel");
+            
+            if (tiporeporte == 1) {
+                helper.setSubject("Reporte Cierre: a la fecha " + anio + "/" + mes + "/" + dia);
+                //vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
+            } else if (tiporeporte == 2) {
+                helper.setSubject("Reporte Inventario: a la fecha " + anio + "/" + mes + "/" + dia);
+            } 
+            
             helper.setText("Reporte Ayni");
             helper.addAttachment(vNombreArchivo, resource);
         

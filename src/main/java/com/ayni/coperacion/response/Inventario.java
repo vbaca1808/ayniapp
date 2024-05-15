@@ -3,6 +3,7 @@ package com.ayni.coperacion.response;
 
 public interface Inventario {
     
+    String getOrden1(); 
     String getFechaCorte(); 
     int getIdProducto(); 
     String getDescripcionProducto(); 
