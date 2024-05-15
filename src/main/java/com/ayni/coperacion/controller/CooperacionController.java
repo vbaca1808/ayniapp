@@ -910,7 +910,12 @@ public class CooperacionController {
             if (tiporeporte == 1) {
                 vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
             } else if (tiporeporte == 2)  {
-                vNombreArchivo = "Reporte_de_inventario_corte_al_" + dia + "_" + mes + "_" + anio + ".xlsx";
+                if (diahasta != dia) {
+                    vNombreArchivo = "Reporte_de_inventario_del_" + dia + "_" + mes + "_" + anio + "_al_" + 
+                    diahasta + "_" + meshasta + "_" + aniohasta + ".xlsx";
+                } else {
+                    vNombreArchivo = "Reporte_de_inventario_corte_al_" + dia + "_" + mes + "_" + anio + ".xlsx";
+                }
             }
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
