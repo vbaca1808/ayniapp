@@ -507,7 +507,7 @@ public class CooperacionController {
         }      
     }
     
-    @GetMapping(value="/listarinventario/{idnegocio}/{aniocorte}/{mescorte}/{diacorte}/{aniohasta}/{meshastsa}/{diahasta}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/listarinventario/{idnegocio}/{aniocorte}/{mescorte}/{diacorte}/{aniohasta}/{meshasta}/{diahasta}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Inventario>> listarInventario(@PathVariable int idnegocio,
                                                                         @PathVariable int aniocorte,
                                                                         @PathVariable int mescorte,
