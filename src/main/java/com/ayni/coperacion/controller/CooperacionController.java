@@ -901,7 +901,7 @@ public class CooperacionController {
 
                     if (vIdProducto != lstInventario.get(i).getIdProducto()) {
                         vIdProducto = lstInventario.get(i).getIdProducto();
-                        vTotal = new BigDecimal(lstInventario.get(i).getStockInicial().replace(",", "").replace(" ", ""));
+                        vTotal = BigDecimal.ZERO;
                     } 
 
 
