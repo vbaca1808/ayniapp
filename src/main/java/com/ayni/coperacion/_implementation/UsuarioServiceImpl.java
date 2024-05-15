@@ -409,9 +409,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte) {
+    public List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte, int anioHasta, int mesHasta, int diaHasta) {
         try {
-            return usuarioRepository.listarInventario(idNegocio, anioCorte, mesCorte, diaCorte);
+            return usuarioRepository.listarInventario(idNegocio, anioCorte, mesCorte, diaCorte, anioHasta, mesHasta, diaHasta);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'listarInventario'");
         }

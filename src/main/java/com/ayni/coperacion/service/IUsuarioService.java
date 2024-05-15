@@ -110,7 +110,7 @@ public interface IUsuarioService {
 
     List<RespuestaStd> compraNegocio(CompraNegocio compraNegocio);
 
-    List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte);
+    List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte, int anioHasta, int mesHasta, int diaHasta);
 
     List<AgendaServicios> agendaServicios(int idnegocio, int tipofiltro, int pais, int anio, int mes);
 

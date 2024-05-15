@@ -274,11 +274,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                      @Param("nombreUsuarioCajero") String nombreUsuarioCajero,
                                      @Param("numeroCelularCajero") String numeroCelularCajero);
                                      
-    @Query( value = "call sp_listar_inventario(:idNegocio, :anioCorte, :mesCorte, :diaCorte)", nativeQuery = true)
+    @Query( value = "call sp_listar_inventario(:idNegocio, :anioCorte, :mesCorte, :diaCorte, :anioHasta, :mesHasta, :diaHasta)", nativeQuery = true)
     List<Inventario> listarInventario(@Param("idNegocio") int idNegocio,
                                       @Param("anioCorte") int anioCorte,
                                       @Param("mesCorte") int mesCorte,
-                                      @Param("diaCorte") int diaCorte);
+                                      @Param("diaCorte") int diaCorte,
+                                      @Param("anioHasta") int anioHasta,
+                                      @Param("mesHasta") int mesHasta,
+                                      @Param("diaHasta") int diaHasta);
 
     @Query( value = "call sp_agenda_servicios(:idNegocio, :tipoFiltro, :fechaReferencia)", nativeQuery = true)
     List<AgendaServicios> agendaServicios(@Param("idNegocio") int idNegocio,

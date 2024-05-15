@@ -507,14 +507,16 @@ public class CooperacionController {
         }      
     }
     
-    @GetMapping(value="/listarinventario/{idnegocio}/{aniocorte}/{mescorte}/{diacorte}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/listarinventario/{idnegocio}/{aniocorte}/{mescorte}/{diacorte}/{aniohasta}/{meshastsa}/{diahasta}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Inventario>> listarInventario(@PathVariable int idnegocio,
                                                                         @PathVariable int aniocorte,
                                                                         @PathVariable int mescorte,
-                                                                        @PathVariable int diacorte) {
+                                                                        @PathVariable int diacorte,
+                                                                        @PathVariable int aniohasta,
+                                                                        @PathVariable int meshasta,
+                                                                        @PathVariable int diahasta) {
         try { 
-
-            List<Inventario> lst = iUsuarioService.listarInventario(idnegocio, aniocorte,mescorte,diacorte);
+            List<Inventario> lst = iUsuarioService.listarInventario(idnegocio, aniocorte, mescorte, diacorte, aniohasta, meshasta, diahasta);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
