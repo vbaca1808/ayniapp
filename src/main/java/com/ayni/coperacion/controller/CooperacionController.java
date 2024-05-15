@@ -15,7 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.mail.internet.MimeMessage;
 
 import java.io.ByteArrayOutputStream;
- 
+import java.math.BigDecimal;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -883,7 +884,8 @@ public class CooperacionController {
                             .collect(Collectors.toList());
                 }
 
-                vCabecera = new String[] {"Fecha Movimiento" , "Descripción Producto", "Código Barra", "Motivo", "Ingreso", "Salida", "Documento"}; 
+                vCabecera = new String[] {"Fecha Movimiento" , "Descripción Producto", "Código Barra", "Motivo", "Ingreso", 
+                                          "Salida", "Nuevo Saldo", "Documento"}; 
                 
                 Row headerRowPd = sheet.createRow(0);
 
@@ -891,18 +893,32 @@ public class CooperacionController {
                     headerRowPd.createCell(i).setCellValue(vCabecera[i]);                    
                 }
                 
+                int vIdProducto = 0;
+                BigDecimal vTotal = BigDecimal.ZERO;
+
                 for (int i = 0; i < lstInventario.size(); i++) {
                     Row dataRow = sheet.createRow(i+1);
+
+                    if (vIdProducto != lstInventario.get(i).getIdProducto()) {
+                        vIdProducto = lstInventario.get(i).getIdProducto();
+                        vTotal = new BigDecimal(lstInventario.get(i).getStockInicial().replace(",", "").replace(" ", ""));
+                    } 
+
+
                     dataRow.createCell(0).setCellValue(lstInventario.get(i).getOrden1()); 
                     dataRow.createCell(1).setCellValue(lstInventario.get(i).getDescripcionProducto());
                     dataRow.createCell(2).setCellValue(lstInventario.get(i).getCodigoBarra());
                     dataRow.createCell(3).setCellValue(lstInventario.get(i).getMotivo());
                     if (lstInventario.get(i).getTipo().contains("I")) {
+                        vTotal = vTotal.add(new BigDecimal(lstInventario.get(i).getStockInicial()));
                         dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial());
                     } else {
+                        vTotal = vTotal.subtract(new BigDecimal(lstInventario.get(i).getStockInicial()));
                         dataRow.createCell(5).setCellValue(lstInventario.get(i).getStockInicial());
                     }
-                    dataRow.createCell(6).setCellValue(lstInventario.get(i).getDocumento());
+                    
+                    dataRow.createCell(6).setCellValue(vTotal.toString());
+                    dataRow.createCell(7).setCellValue(lstInventario.get(i).getDocumento());
                 }
 
             }
