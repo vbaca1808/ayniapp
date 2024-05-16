@@ -9,6 +9,7 @@ public interface ListadoProductoTienda {
     BigDecimal getPrecio();
     BigDecimal getStock();
     String getCodigoBarra();
+    int getStockPorLote();
     String getNumeroLote();
     String getFechaVencimiento();
 
