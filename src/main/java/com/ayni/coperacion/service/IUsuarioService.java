@@ -11,6 +11,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -40,6 +41,8 @@ import com.ayni.coperacion.response.VentasPorProducto;
 
 public interface IUsuarioService {
     
+    List<RespuestaStd> crearNegocio(NegocioDto negocioDto);
+
     UsuarioReponse registro(UsuarioDto usuarioDto);
 
     List<RespuestaStd> validarUsuario(String numeroTelefono,

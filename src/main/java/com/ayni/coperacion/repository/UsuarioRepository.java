@@ -37,7 +37,19 @@ import com.ayni.coperacion.response.VentasPorProducto;
 @Repository
 @Transactional
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
- 
+
+    
+    @Query( value = "call sp_crear_negocio(:idNegocio, :nombreNegocio, :descripcion, :logo, " +
+    ":estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina)", nativeQuery = true)
+    List<RespuestaStd> crearNegocio(@Param("idNegocio") int idNegocio, 
+                                    @Param("nombreNegocio") String nombreNegocio, 
+                                    @Param("descripcion") String descripcion, 
+                                    @Param("logo") String logo, 
+                                    @Param("estadoNegocio") int estadoNegocio, 
+                                    @Param("rubroNegocio") int rubroNegocio, 
+                                    @Param("usarLectorBarraBusquedaManual") int usarLectorBarraBusquedaManual, 
+                                    @Param("envioPlatoDirectoACocina") int envioPlatoDirectoACocina);
+
     @Modifying
     @Query( value = "call sp_grabar_usuario(:numeroCelular,:nombreUsuario,:cliente," 
                   + ":colaborador,:actualizar, :codigoVerificacion)", nativeQuery = true)
@@ -380,5 +392,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                     @Param("idProducto") int idProducto, 
                                                     @Param("fechaActual") Date fechaActual, 
                                                     @Param("tipoFiltroFecha") int tipoFiltroFecha);
+
                                                          
 }

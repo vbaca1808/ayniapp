@@ -14,6 +14,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
@@ -621,6 +622,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.buscarVentasPorProducto(idNegocio, idPedido, new Date(), tipoFiltroFecha);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'buscarVentasPorProducto'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> crearNegocio(NegocioDto negocioDto) {
+        try {
+            return usuarioRepository.crearNegocio(negocioDto.getIdNegocio(), 
+            negocioDto.getNombreNegocio(), negocioDto.getDescripcion(), 
+            negocioDto.getLogo(), negocioDto.getEstadoNegocio(), 
+            negocioDto.getRubroNegocio(), negocioDto.getUsarLectorBarraBusquedaManual(), 
+            negocioDto.getEnvioPlatoDirectoACocina());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'crearNegocio'");
+
         }
     }
  

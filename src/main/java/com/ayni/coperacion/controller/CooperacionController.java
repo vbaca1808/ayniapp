@@ -38,6 +38,7 @@ import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
 import com.ayni.coperacion.dto.PedidoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -77,6 +78,17 @@ public class CooperacionController {
     
     @Autowired
 	private IUsuarioService iUsuarioService;
+
+    @PostMapping(value="/crearnegocio",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> crearNegocio(@Valid @RequestBody NegocioDto negocioDto) {
+        try {
+            List<RespuestaStd> lstRespuestaStd = iUsuarioService.crearNegocio(negocioDto);
+            return ResponseEntity.ok().body(lstRespuestaStd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
 
     @PostMapping(value="/crearusuario",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UsuarioReponse> registroUsuario(@Valid @RequestBody 
