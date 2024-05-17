@@ -106,7 +106,8 @@ public interface IUsuarioService {
     List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio);
     
     List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion,  
-                                            String logo, int estadoNegocio);
+                                            String logo, int estadoNegocio, int rubroNegocio, 
+                                            int usarLectorBarraBusquedaManual, int envioPlatoDirectoACocina);
 
     List<ConfiguracionNegocio> obtenerConfiguracionNegocio(int idNegocio);
 

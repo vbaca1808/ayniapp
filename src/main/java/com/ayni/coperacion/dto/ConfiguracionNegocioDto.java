@@ -12,5 +12,8 @@ public class ConfiguracionNegocioDto {
     private String descripcion; 
     private String logo;
     private int estadoNegocio;
-
+	private int rubroNegocio;
+	private int usarLectorBarraBusquedaManual;
+	private int envioPlatoDirectoACocina;
+    
 }

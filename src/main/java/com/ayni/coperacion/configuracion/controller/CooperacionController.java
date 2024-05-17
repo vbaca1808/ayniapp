@@ -489,7 +489,9 @@ public class CooperacionController {
         try {
             List<RespuestaStd> lst = iUsuarioService.
             configuracionNegocio(configuracionNegocioDto.getIdNegocio(), configuracionNegocioDto.getNombreNegocio(),
-            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), configuracionNegocioDto.getEstadoNegocio());
+            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), 
+            configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
+            configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), configuracionNegocioDto.getEnvioPlatoDirectoACocina());
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);

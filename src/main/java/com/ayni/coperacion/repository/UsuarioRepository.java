@@ -260,12 +260,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoUsuario> listadoUsuarioNegocio(@Param("idNegocio") int idNegocio);
     
     @Query( value = "call sp_configuracion_negocio(:idNegocio, :nombreNegocio, :descripcion, " +  
-     ":logo, :estadoNegocio)", nativeQuery = true)
+     ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocinao)", nativeQuery = true)
     List<RespuestaStd> configuracionNegocio(@Param("idNegocio") int idNegocio,  
                                             @Param("nombreNegocio") String nombreNegocio,  
                                             @Param("descripcion") String descripcion,  
                                             @Param("logo") String logo,  
-                                            @Param("estadoNegocio") int estadoNegocio);
+                                            @Param("estadoNegocio") int estadoNegocio,  
+                                            @Param("rubroNegocio") int rubroNegocio,  
+                                            @Param("usarLectorBarraBusquedaManual") int usarLectorBarraBusquedaManual,  
+                                            @Param("envioPlatoDirectoACocinao") int envioPlatoDirectoACocinao);
 
     @Query( value = "call sp_obtener_configuracion_negocio(:idNegocio)", nativeQuery = true)
     List<ConfiguracionNegocio> obtenerConfiguracionNegocio(@Param("idNegocio") int idNegocio);
