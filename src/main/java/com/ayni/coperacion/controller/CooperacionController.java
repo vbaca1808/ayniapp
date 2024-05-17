@@ -429,14 +429,15 @@ public class CooperacionController {
         }      
     }
     
-    @PostMapping(value="/agregarquitaadminusuario/{idnegocio}/{idusuario}/{nombreusuario}/{isadmin}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/agregarquitaadminusuario/{idnegocio}/{idusuario}/{nombreusuario}/{isadmin}/{admitir}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> agregarquitaAdminUsuario(@PathVariable int idnegocio,
                                                                        @PathVariable int idusuario,
                                                                        @PathVariable String nombreusuario,
-                                                                       @PathVariable int isadmin) {
+                                                                       @PathVariable int isadmin,
+                                                                       @PathVariable int admitir) {
         try {
             List<RespuestaStd> lst = iUsuarioService.agregarquitaAdminUsuario(idnegocio, 
-            idusuario, nombreusuario, isadmin);
+            idusuario, nombreusuario, isadmin, admitir);
 
              return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 

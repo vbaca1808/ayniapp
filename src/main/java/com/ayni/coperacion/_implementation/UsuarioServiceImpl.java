@@ -347,9 +347,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> agregarquitaAdminUsuario(int idNegocio, int idUsuario, String nombreusuario, int isAdmin) {
+    public List<RespuestaStd> agregarquitaAdminUsuario(int idNegocio, int idUsuario, 
+    String nombreusuario, int isAdmin, int admitir) {
         try {
-            return usuarioRepository.agregarquitaAdminUsuario(idNegocio, idUsuario, nombreusuario, isAdmin);
+            return usuarioRepository.agregarquitaAdminUsuario(idNegocio, idUsuario, nombreusuario, 
+            isAdmin, admitir);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'agregarquitaAdminUsuario'");
         }

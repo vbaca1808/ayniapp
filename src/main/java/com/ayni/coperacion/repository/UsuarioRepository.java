@@ -241,7 +241,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<RespuestaStd> agregarquitaAdminUsuario(@Param("idUsuario") int idNegocio,  
                                                 @Param("idUsuario") int idUsuario,  
                                                 @Param("nombreUsuario") String nombreUsuario, 
-                                                @Param("isAdmin") int isAdmin);
+                                                @Param("isAdmin") int isAdmin,
+                                                @Param("admitir") int admitir);
 
     @Query( value = "call sp_actualizar_id_negocio_usuario(:numerotelefono, :idNegocio, :colaborador)", nativeQuery = true)
     List<RespuestaStd> actualizarIdNegocioUsuario(@Param("numerotelefono") String numerotelefono,  
