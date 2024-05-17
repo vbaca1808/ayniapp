@@ -353,6 +353,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.agregarquitaAdminUsuario(idNegocio, idUsuario, nombreusuario, 
             isAdmin, admitir);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'agregarquitaAdminUsuario'");
         }
     }
