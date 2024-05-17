@@ -54,7 +54,7 @@ public interface IUsuarioService {
 
     List<Negocio> listadoNegocio();
 
-    List<CargoNegocio> listadoCargoNegocio(int pIdNegocio);
+    List<CargoNegocio> listadoCargoNegocio(int pIdNegocio, String pNumeroCelular, String pNombreUsuario);
 
     List<PedidoGenerado> obtenerPedido(int pdIdNegocio, int pIdPedido, String mesa);
 

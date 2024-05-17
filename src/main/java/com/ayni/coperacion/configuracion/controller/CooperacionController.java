@@ -1,4 +1,4 @@
-package com.ayni.coperacion.controller;
+package com.ayni.coperacion.configuracion.controller;
   
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -137,10 +137,13 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/listadocargonegocio/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CargoNegocio>> listadoCargoNegocio(@PathVariable int idnegocio) {
+    @GetMapping(value="/listadocargonegocio/{idnegocio}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CargoNegocio>> listadoCargoNegocio(@PathVariable int idnegocio,
+                                                                  @PathVariable String numerocelular, 
+                                                                  @PathVariable String nombreusuario) {
         try {
-            List<CargoNegocio> lst = iUsuarioService.listadoCargoNegocio(idnegocio); 
+            List<CargoNegocio> lst = iUsuarioService.listadoCargoNegocio(idnegocio, 
+            numerocelular, nombreusuario);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) {
             e.printStackTrace();
@@ -441,6 +444,7 @@ public class CooperacionController {
 
              return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }

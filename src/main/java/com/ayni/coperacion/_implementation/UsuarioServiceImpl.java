@@ -263,9 +263,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<CargoNegocio> listadoCargoNegocio(int pIdNegocio) {
+    public List<CargoNegocio> listadoCargoNegocio(int pIdNegocio, String numerocelular, 
+                                                  String nombreUsuario) {
         try {
-            return usuarioRepository.listadoCargoNegocio(pIdNegocio);
+            return usuarioRepository.listadoCargoNegocio(pIdNegocio, numerocelular, nombreUsuario);
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'listadoCargoNegocio'");
