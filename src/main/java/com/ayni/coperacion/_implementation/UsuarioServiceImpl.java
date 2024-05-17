@@ -51,6 +51,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	private UsuarioRepository usuarioRepository;
 
     @Override
+    public List<RespuestaStd> crearNegocio(NegocioDto negocioDto) {
+        try {
+            return usuarioRepository.crearNegocio(negocioDto.getIdNegocio(), 
+            negocioDto.getNombreNegocio(), negocioDto.getDescripcion(), 
+            negocioDto.getLogo(), negocioDto.getEstadoNegocio(), 
+            negocioDto.getRubroNegocio(), negocioDto.getUsarLectorBarraBusquedaManual(), 
+            negocioDto.getEnvioPlatoDirectoACocina(), negocioDto.getNumeroCelularUsuario(),
+            negocioDto.getNombreUsuario());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'crearNegocio'");
+
+        }
+    }
+
+    @Override
     public UsuarioReponse registro(UsuarioDto usuarioDto) {
         try {
             
@@ -625,19 +640,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
-    @Override
-    public List<RespuestaStd> crearNegocio(NegocioDto negocioDto) {
-        try {
-            return usuarioRepository.crearNegocio(negocioDto.getIdNegocio(), 
-            negocioDto.getNombreNegocio(), negocioDto.getDescripcion(), 
-            negocioDto.getLogo(), negocioDto.getEstadoNegocio(), 
-            negocioDto.getRubroNegocio(), negocioDto.getUsarLectorBarraBusquedaManual(), 
-            negocioDto.getEnvioPlatoDirectoACocina());
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'crearNegocio'");
-
-        }
-    }
  
 
 }
