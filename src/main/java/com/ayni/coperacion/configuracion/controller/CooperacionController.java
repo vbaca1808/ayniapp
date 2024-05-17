@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
+import com.ayni.coperacion.dto.AgregarQuitarAdminUsuarioDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
@@ -432,15 +433,17 @@ public class CooperacionController {
         }      
     }
     
-    @PostMapping(value="/agregarquitaadminusuario/{idnegocio}/{idusuario}/{nombreusuario}/{isadmin}/{admitir}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> agregarquitaAdminUsuario(@PathVariable int idnegocio,
-                                                                       @PathVariable int idusuario,
-                                                                       @PathVariable String nombreusuario,
-                                                                       @PathVariable int isadmin,
-                                                                       @PathVariable int admitir) {
+    @PostMapping(value="/agregarquitaadminusuario",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> agregarquitaAdminUsuario(@Valid @RequestBody 
+                                                AgregarQuitarAdminUsuarioDto agregarQuitarAdminUsuarioDto) {
         try {
-            List<RespuestaStd> lst = iUsuarioService.agregarquitaAdminUsuario(idnegocio, 
-            idusuario, nombreusuario, isadmin, admitir);
+            List<RespuestaStd> lst = iUsuarioService.agregarquitaAdminUsuario(
+                agregarQuitarAdminUsuarioDto.getIdNegocio(), 
+                agregarQuitarAdminUsuarioDto.getIdUsuario(), 
+                agregarQuitarAdminUsuarioDto.getNombreUsuario(), 
+                agregarQuitarAdminUsuarioDto.getIsAdmin(), 
+                agregarQuitarAdminUsuarioDto.getAdmitir(),
+                agregarQuitarAdminUsuarioDto.getDetalleCargoPermitidos());
 
              return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 

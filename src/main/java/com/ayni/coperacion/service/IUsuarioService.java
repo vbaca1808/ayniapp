@@ -99,7 +99,7 @@ public interface IUsuarioService {
     List<RespuestaStd> actualizarNegocioPedido(ActualizarNegocioPedidoDto actualizarNegocioPedidoDto);
  
     List<RespuestaStd> agregarquitaAdminUsuario(int idNegocio, int idUsuario, String nombreusuario, 
-    int isAdmin, int admitir);
+    int isAdmin, int admitir, String detalleCargoPermitidos);
 
     List<RespuestaStd> actualizarIdNegocioUsuario(String idUsuario, int idNegocio, int colaborador);
 

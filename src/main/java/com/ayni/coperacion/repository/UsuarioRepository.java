@@ -239,12 +239,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("ordenLista") int ordenLista,
                                                @Param("irCocina") int irCocina);
 
-    @Query( value = "call sp_agregarquita_admin_usuario(:idNegocio, :idUsuario, :nombreUsuario, :isAdmin, :admitir)", nativeQuery = true)
+    @Query( value = "call sp_agregarquita_admin_usuario(:idNegocio, :idUsuario, :nombreUsuario, " +
+    ":isAdmin, :admitir, :detalleCargoPermitidos)", nativeQuery = true)
     List<RespuestaStd> agregarquitaAdminUsuario(@Param("idNegocio") int idNegocio,  
                                                 @Param("idUsuario") int idUsuario,  
                                                 @Param("nombreUsuario") String nombreUsuario, 
                                                 @Param("isAdmin") int isAdmin,
-                                                @Param("admitir") int admitir);
+                                                @Param("admitir") int admitir,
+                                                @Param("detalleCargoPermitidos") String detalleCargoPermitidos);
 
     @Query( value = "call sp_actualizar_id_negocio_usuario(:numerotelefono, :idNegocio, :colaborador)", nativeQuery = true)
     List<RespuestaStd> actualizarIdNegocioUsuario(@Param("numerotelefono") String numerotelefono,  
