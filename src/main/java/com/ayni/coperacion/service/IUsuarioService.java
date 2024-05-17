@@ -98,7 +98,7 @@ public interface IUsuarioService {
  
     List<RespuestaStd> actualizarNegocioPedido(ActualizarNegocioPedidoDto actualizarNegocioPedidoDto);
  
-    List<RespuestaStd> agregarquitaAdminUsuario(int idUsuario, String nombreusuario, int isAdmin);
+    List<RespuestaStd> agregarquitaAdminUsuario(int idNegocio, int idUsuario, String nombreusuario, int isAdmin);
 
     List<RespuestaStd> actualizarIdNegocioUsuario(String idUsuario, int idNegocio, int colaborador);
 

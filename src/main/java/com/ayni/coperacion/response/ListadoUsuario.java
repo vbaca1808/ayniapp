@@ -6,5 +6,6 @@ public interface ListadoUsuario {
     String getNumeroCelular(); 
     String getNombreUsuario(); 
     int getIsAdmin();
+    int getEstado();
 
 }
