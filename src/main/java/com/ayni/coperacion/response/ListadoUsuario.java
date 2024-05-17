@@ -7,5 +7,6 @@ public interface ListadoUsuario {
     String getNombreUsuario(); 
     int getIsAdmin();
     int getEstado();
-
+    String getCargosPermitidos();
+    
 }
