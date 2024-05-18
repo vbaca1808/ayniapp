@@ -991,7 +991,12 @@ public class CooperacionController {
             helper.setTo("victorbaca2@yahoo.es");
             
             if (tiporeporte == 1) {
-                helper.setSubject("Reporte Cierre: a la fecha " + anio + "/" + mes + "/" + dia);
+                if (diahasta != dia || meshasta != mes || aniohasta != anio) {
+                    helper.setSubject("Reporte Cierre: Del " + anio + "/" + mes + "/" + dia + " al " + aniohasta + "/" + 
+                    meshasta + "/" + diahasta);
+                } else {
+                    helper.setSubject("Reporte Cierre: a la fecha " + anio + "/" + mes + "/" + dia);
+                } 
                 //vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
             } else if (tiporeporte == 2) {
                 if (diahasta != dia || meshasta != mes || aniohasta != anio) {
