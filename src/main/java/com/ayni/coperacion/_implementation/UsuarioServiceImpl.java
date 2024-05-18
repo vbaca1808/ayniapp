@@ -130,7 +130,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             UsuarioReponse usuarioReponse = new UsuarioReponse();
             usuarioReponse.setCodigoVerificacion("");
             usuarioReponse.setNumeroTelefono("");
-            usuarioReponse.setMensajeRespuesta(lst.get(0).getCodigo() + "&&" + lst.get(0).getMensaje());
+            usuarioReponse.setMensajeRespuesta(lst.get(0).getCodigo() + "##" + lst.get(0).getMensaje());
 
             return usuarioReponse;
 
