@@ -264,7 +264,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("nombreUsuario") String nombreUsuario);
     
     @Query( value = "call sp_configuracion_negocio(:idNegocio, :nombreNegocio, :descripcion, " +  
-     ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina)", nativeQuery = true)
+     ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, :correoElectronico)", nativeQuery = true)
     List<RespuestaStd> configuracionNegocio(@Param("idNegocio") int idNegocio,  
                                             @Param("nombreNegocio") String nombreNegocio,  
                                             @Param("descripcion") String descripcion,  
