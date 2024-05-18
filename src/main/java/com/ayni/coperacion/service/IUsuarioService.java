@@ -82,7 +82,8 @@ public interface IUsuarioService {
 
     List<ReporteCierre> reporteCierre(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, String numerocelular, String nombreusuario);
 
-    List<ReporteCierre> reporteCierreTienda(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, String numerocelular, String nombreusuario);
+    List<ReporteCierre> reporteCierreTienda(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, int anioSeleccionadoHasta, 
+    int mesSeleccionadoHasta, int diaSeleccionadoHasta, String numerocelular, String nombreusuario);
 
     List<ReporteCierreDetalle> reporteCierraTiendaDetalle(int idNegocio, int anioSeleccionado, int mesSeleccionado, int diaSeleccionado, 
                                                           String numeroCelular, String nombreUsuario, int idProducto);

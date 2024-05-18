@@ -345,6 +345,7 @@ public class CooperacionController {
         try {
             List<ReporteCierre> lst = iUsuarioService.reporteCierreTienda(reporteCierreDto.getIdNegocio(),
             reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado(), reporteCierreDto.getDiaSeleccionado(),
+            reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta(), reporteCierreDto.getDiaSeleccionadoHasta(),
             reporteCierreDto.getNumeroCelular(), reporteCierreDto.getNombreUsuario());
 
              return ResponseEntity.ok().body(lst);
@@ -761,8 +762,8 @@ public class CooperacionController {
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 }
                 
-                List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, numerocelular, 
-                nombreusuario);
+                List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, 
+                aniohasta, meshasta, diahasta, numerocelular, nombreusuario);
     
                 sheetPp = workbook.createSheet("Por Producto");
                 sheetPc = workbook.createSheet("Por Cliente");

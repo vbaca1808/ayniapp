@@ -17,6 +17,10 @@ public class ReporteCierreDto {
     private int mesSeleccionado;
     private int diaSeleccionado;
 
+    private int anioSeleccionadoHasta;
+    private int mesSeleccionadoHasta;
+    private int diaSeleccionadoHasta;
+
     private String numeroCelular;
     private String nombreUsuario;
 

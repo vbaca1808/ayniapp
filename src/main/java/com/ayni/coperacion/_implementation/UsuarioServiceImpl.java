@@ -465,10 +465,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ReporteCierre> reporteCierreTienda(int idNegocio, int anioSeleccionado, int mesSeleccionado,
-            int diaSeleccionado, String numerocelular, String nombreusuario) {
+    public List<ReporteCierre> reporteCierreTienda(int idNegocio, 
+            int anioSeleccionado, int mesSeleccionado, int diaSeleccionado,
+            int anioSeleccionadoHasta, int mesSeleccionadoHasta, int diaSeleccionadoHasta, String numerocelular, String nombreusuario) {
         try {
-            return usuarioRepository.reporteCierreTienda(idNegocio, anioSeleccionado, mesSeleccionado, diaSeleccionado,
+            return usuarioRepository.reporteCierreTienda(idNegocio, 
+            anioSeleccionado, mesSeleccionado, diaSeleccionado, anioSeleccionadoHasta, mesSeleccionadoHasta, diaSeleccionadoHasta,
             numerocelular, nombreusuario);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteCierreTienda'");

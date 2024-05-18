@@ -198,11 +198,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("nombreUsuario") String nombreUsuario);
                                       
     @Query( value = "call sp_reporte_cierre_tienda(:idNegocio, :anioSeleccionado, :mesSeleccionado, :diaSeleccionado, " +
-    ":numeroCelular, :nombreUsuario)", nativeQuery = true)
+    ":anioSeleccionadoHasta, :mesSeleccionadoHasta, :diaSeleccionadoHasta, :numeroCelular, :nombreUsuario)", nativeQuery = true)
     List<ReporteCierre> reporteCierreTienda(@Param("idNegocio") int idNegocio, 
                                             @Param("anioSeleccionado") int anioSeleccionado,
                                             @Param("mesSeleccionado") int mesSeleccionado,
                                             @Param("diaSeleccionado") int diaSeleccionado,
+                                            @Param("anioSeleccionadoHasta") int anioSeleccionadoHasta,
+                                            @Param("mesSeleccionadoHasta") int mesSeleccionadoHasta,
+                                            @Param("diaSeleccionadoHasta") int diaSeleccionadoHasta,
                                             @Param("numeroCelular") String numeroCelular,
                                             @Param("nombreUsuario") String nombreUsuario);
                                                 
