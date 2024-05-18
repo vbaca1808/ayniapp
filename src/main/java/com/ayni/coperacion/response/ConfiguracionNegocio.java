@@ -10,6 +10,6 @@ public interface ConfiguracionNegocio {
     int getRubroNegocio(); 
     int getUsarLectorBarraBusquedaManual(); 
     int getEnvioPlatoDirectoACocina();
-    int getCorreoElectronico();
-    
+    String getCorreoElectronico();
+
 }
