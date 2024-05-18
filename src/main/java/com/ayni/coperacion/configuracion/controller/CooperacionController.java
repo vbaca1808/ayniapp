@@ -753,12 +753,12 @@ public class CooperacionController {
                     vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
-                    vCabeceraPd = new String[] {"Documento" , "Importe Doc.", "Importe Pagado"};
+                    vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 } else if (idrubronegocio == 2) {
                     vCabeceraPp = new String[] {"Producto" , "Código de barra", "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
-                    vCabeceraPd = new String[] {"Documento" , "Importe Doc.", "Importe Pagado"};
+                    vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 }
                 
                 List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, numerocelular, 
