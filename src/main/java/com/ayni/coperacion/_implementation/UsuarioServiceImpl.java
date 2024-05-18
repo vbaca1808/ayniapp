@@ -649,6 +649,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> obtenerCorreoNegocio(int idNegocio) {
+        try {
+            return usuarioRepository.obtenerCorreoNegocio(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerCorreoNegocio'");
+        }
+    }
+
  
 
 }

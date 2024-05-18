@@ -740,7 +740,6 @@ public class CooperacionController {
             Workbook workbook = new XSSFWorkbook();
             String vNombreArchivo = "";
 
-
             if (tiporeporte == 1) { 
                 String[] vCabeceraPp = null;
                 String[] vCabeceraPc = null;
@@ -762,6 +761,13 @@ public class CooperacionController {
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 }
                 
+                List<RespuestaStd> lst = iUsuarioService.obtenerCorreoNegocio(idnegocio);
+                String vCorreoElectronico = "";
+
+                if (lst.size() > 0) {
+                    vCorreoElectronico = lst.get(0).getMensaje();
+                }
+
                 List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, 
                 aniohasta, meshasta, diahasta, numerocelular, nombreusuario);
     
@@ -988,7 +994,7 @@ public class CooperacionController {
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo("victorbaca2@yahoo.es");
+            helper.setTo(vCorreoElectronico);
             
             if (tiporeporte == 1) {
                 if (diahasta != dia || meshasta != mes || aniohasta != anio) {

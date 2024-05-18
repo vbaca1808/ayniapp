@@ -148,4 +148,6 @@ public interface IUsuarioService {
 
     List<VentasPorProducto> buscarVentasPorProducto(int idNegocio, int idPedido, int tipoFiltroFecha);
 
+    List<RespuestaStd> obtenerCorreoNegocio(int idNegocio);
+
 }

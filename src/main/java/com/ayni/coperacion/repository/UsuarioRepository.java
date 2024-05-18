@@ -412,5 +412,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                     @Param("fechaActual") Date fechaActual, 
                                                     @Param("tipoFiltroFecha") int tipoFiltroFecha);
 
-                                                         
+    @Query( value = "call sp_obtener_correo_negocio(:idNegocio)", nativeQuery = true)
+    List<RespuestaStd> obtenerCorreoNegocio(@Param("idNegocio") int idNegocio);
+    
 }
