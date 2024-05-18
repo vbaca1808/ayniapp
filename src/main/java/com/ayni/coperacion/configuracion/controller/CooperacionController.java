@@ -746,7 +746,7 @@ public class CooperacionController {
             if (lst.size() > 0) {
                 vCorreoElectronico = lst.get(0).getMensaje();
             }
-            
+
             if (tiporeporte == 1) { 
                 String[] vCabeceraPp = null;
                 String[] vCabeceraPc = null;
@@ -984,8 +984,8 @@ public class CooperacionController {
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
             mailSender.setHost("smtp.gmail.com");
             mailSender.setPort(587);
-            mailSender.setUsername("victor.baca.h@gmail.com");
-            mailSender.setPassword("ggzg kopc uqtv frru");
+            mailSender.setUsername("ayniapp24@gmail.com");
+            mailSender.setPassword("wypq niep foyl whiy");
 
             Properties props = mailSender.getJavaMailProperties();
             props.put("mail.transport.protocol", "smtp");
