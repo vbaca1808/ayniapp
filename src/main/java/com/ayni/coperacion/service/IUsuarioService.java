@@ -103,7 +103,7 @@ public interface IUsuarioService {
 
     List<RespuestaStd> actualizarIdNegocioUsuario(String idUsuario, int idNegocio, int colaborador);
 
-    List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio);
+    List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio, String numeroCelular, String nombreUsuario);
     
     List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion,  
                                             String logo, int estadoNegocio, int rubroNegocio, 

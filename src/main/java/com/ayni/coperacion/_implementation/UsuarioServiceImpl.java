@@ -378,9 +378,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio) {
+    public List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio, String numerCelular, String nombreUsuario) {
         try {
-            return usuarioRepository.listadoUsuarioNegocio(idNegocio);
+            return usuarioRepository.listadoUsuarioNegocio(idNegocio, numerCelular, nombreUsuario);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'listadoUsuarioNegocio'");
         }

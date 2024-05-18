@@ -474,8 +474,9 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/listadousuarionegocio/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ListadoUsuario>> listadoUsuarioNegocio(@PathVariable int idnegocio) {
+    @GetMapping(value="/listadousuarionegocio/{idnegocio}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoUsuario>> listadoUsuarioNegocio(@PathVariable int idnegocio,
+    @PathVariable String numerocelular,@PathVariable String nombreusuario) {
         try {
             List<ListadoUsuario> lst = iUsuarioService.listadoUsuarioNegocio(idnegocio);
             return ResponseEntity.ok().body(lst);
