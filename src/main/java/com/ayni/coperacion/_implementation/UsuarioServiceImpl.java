@@ -57,8 +57,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             negocioDto.getNombreNegocio(), negocioDto.getDescripcion(), 
             negocioDto.getLogo(), negocioDto.getEstadoNegocio(), 
             negocioDto.getRubroNegocio(), negocioDto.getUsarLectorBarraBusquedaManual(), 
-            negocioDto.getEnvioPlatoDirectoACocina(), negocioDto.getNumeroCelularUsuario(),
-            negocioDto.getNombreUsuario());
+            negocioDto.getEnvioPlatoDirectoACocina(), negocioDto.getCorreoElectronico(), 
+            negocioDto.getNumeroCelularUsuario(), negocioDto.getNombreUsuario());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'crearNegocio'");
 
@@ -388,11 +388,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion, String logo,
-            int estadoNegocio, int rubroNegocio, 
-            int usarLectorBarraBusquedaManual, int envioPlatoDirectoACocina) {
+            int estadoNegocio, int rubroNegocio, int usarLectorBarraBusquedaManual, 
+            int envioPlatoDirectoACocina, String correoElectronico) {
         try {
             return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
-            logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, envioPlatoDirectoACocina);
+            logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
+            envioPlatoDirectoACocina, correoElectronico);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'configuracionNegocio'");
         }

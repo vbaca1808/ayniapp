@@ -15,5 +15,6 @@ public class ConfiguracionNegocioDto {
 	private int rubroNegocio;
 	private int usarLectorBarraBusquedaManual;
 	private int envioPlatoDirectoACocina;
+	private String correoElectronico;
     
 }

@@ -15,6 +15,7 @@ public class NegocioDto {
     private int rubroNegocio;
     private int usarLectorBarraBusquedaManual; 
     private int envioPlatoDirectoACocina;
+    private String correoElectronico;
     private String numeroCelularUsuario;
     private String nombreUsuario;
 
