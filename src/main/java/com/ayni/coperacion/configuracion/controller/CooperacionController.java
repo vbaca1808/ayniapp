@@ -478,7 +478,7 @@ public class CooperacionController {
     public ResponseEntity<List<ListadoUsuario>> listadoUsuarioNegocio(@PathVariable int idnegocio,
     @PathVariable String numerocelular,@PathVariable String nombreusuario) {
         try {
-            List<ListadoUsuario> lst = iUsuarioService.listadoUsuarioNegocio(idnegocio);
+            List<ListadoUsuario> lst = iUsuarioService.listadoUsuarioNegocio(idnegocio, numerocelular, nombreusuario);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
