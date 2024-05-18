@@ -952,7 +952,12 @@ public class CooperacionController {
             }
 
             if (tiporeporte == 1) {
-                vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
+                if (diahasta != dia || meshasta != mes || aniohasta != anio) {
+                    vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + "_al_" + 
+                    diahasta + "_" + meshasta + "_" + aniohasta + ".xlsx";
+                } else {
+                    vNombreArchivo = "Reporte_de_caja_" + dia + "_" + mes + "_" + anio + ".xlsx";
+                } 
             } else if (tiporeporte == 2)  {
                 if (diahasta != dia || meshasta != mes || aniohasta != anio) {
                     vNombreArchivo = "Reporte_de_inventario_del_" + dia + "_" + mes + "_" + anio + "_al_" + 
