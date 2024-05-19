@@ -7,7 +7,7 @@ public interface ConfiguracionNegocio {
     String getDescripcion(); 
     String getLogo(); 
     int getEstadoNegocio();
-    int getRubroNegocio(); 
+    String getRubroNegocio(); 
     int getUsarLectorBarraBusquedaManual(); 
     int getEnvioPlatoDirectoACocina();
     String getCorreoElectronico();
