@@ -17,4 +17,7 @@ public interface ListadoMenu {
     String getEstadoPedido();
     String getDescripcion();
     BigDecimal getTotal();
+    int getPreparacionMesa();
+    int getPreparacionLlevar();
+    
 }
