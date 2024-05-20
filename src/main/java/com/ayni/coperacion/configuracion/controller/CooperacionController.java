@@ -763,7 +763,7 @@ public class CooperacionController {
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 } else if (idrubronegocio == 2) {
                     vCabeceraPp = new String[] {"Producto" , "Código de barra", "Cantidad Platos", "Précio", "Importe Generado"};
-                    vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 }
@@ -826,10 +826,9 @@ public class CooperacionController {
                         filaPc++;
                         Row dataRow = sheetPc.createRow(filaPc);
                         if (idrubronegocio == 1) {
-                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " - " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
-                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
-                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato4());
                         } else if (idrubronegocio == 2) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
