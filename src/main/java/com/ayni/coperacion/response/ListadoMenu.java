@@ -19,5 +19,7 @@ public interface ListadoMenu {
     BigDecimal getTotal();
     int getPreparacionMesa();
     int getPreparacionLlevar();
+    String getNumeroCelular();
+    String getNombreUsuario();
     
 }
