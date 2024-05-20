@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public interface ReporteCierreDetalleEfectivo {
     
-    int getMesa();  
+    String getMesa();  
     int getIdPedido();  
     String getFechaPago(); 
     BigDecimal getMontoPago();
