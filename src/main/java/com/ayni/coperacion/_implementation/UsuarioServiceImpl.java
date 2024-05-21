@@ -390,11 +390,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion, String logo,
             int estadoNegocio, int rubroNegocio, int usarLectorBarraBusquedaManual, 
-            int envioPlatoDirectoACocina, String correoElectronico) {
+            int envioPlatoDirectoACocina, String correoElectronico, String correlativos) {
         try {
             return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
             logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
-            envioPlatoDirectoACocina, correoElectronico);
+            envioPlatoDirectoACocina, correoElectronico, correlativos);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'configuracionNegocio'");
         }
