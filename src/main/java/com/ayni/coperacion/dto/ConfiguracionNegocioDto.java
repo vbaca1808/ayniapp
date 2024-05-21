@@ -16,5 +16,6 @@ public class ConfiguracionNegocioDto {
 	private int usarLectorBarraBusquedaManual;
 	private int envioPlatoDirectoACocina;
 	private String correoElectronico;
+	private String correlativo;
     
 }

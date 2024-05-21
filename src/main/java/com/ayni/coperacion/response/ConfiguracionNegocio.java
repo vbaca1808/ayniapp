@@ -11,5 +11,6 @@ public interface ConfiguracionNegocio {
     int getUsarLectorBarraBusquedaManual(); 
     int getEnvioPlatoDirectoACocina();
     String getCorreoElectronico();
+    String getCorrelativos();
 
 }
