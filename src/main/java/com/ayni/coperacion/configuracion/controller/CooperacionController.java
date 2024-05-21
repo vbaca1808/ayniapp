@@ -496,7 +496,8 @@ public class CooperacionController {
             configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
             configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), 
             configuracionNegocioDto.getEnvioPlatoDirectoACocina(), 
-            configuracionNegocioDto.getCorreoElectronico());
+            configuracionNegocioDto.getCorreoElectronico(),
+            configuracionNegocioDto.getCorrelativos());
 
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
