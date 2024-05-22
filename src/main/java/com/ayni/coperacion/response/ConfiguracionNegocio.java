@@ -11,7 +11,7 @@ public interface ConfiguracionNegocio {
     int getUsarLectorBarraBusquedaManual(); 
     int getEnvioPlatoDirectoACocina();
     int getGenerarComprobanteVenta();
-    int getYsarCorrelativoAutomatico();
+    int getUsarCorrelativoAutomatico();
     int getPedirNombreClientePedidosParaLlevar();
     String getCorreoElectronico();
     String getCorrelativos();
