@@ -10,6 +10,9 @@ public interface ConfiguracionNegocio {
     String getRubroNegocio(); 
     int getUsarLectorBarraBusquedaManual(); 
     int getEnvioPlatoDirectoACocina();
+    int getGenerarComprobanteVenta();
+    int getYsarCorrelativoAutomatico();
+    int getPedirNombreClientePedidosParaLlevar();
     String getCorreoElectronico();
     String getCorrelativos();
 
