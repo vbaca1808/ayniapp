@@ -148,7 +148,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("idProducto") int idProducto);
                     
     @Query( value = "call sp_pedido_pagado(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
-    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito, :soyCocina, :tipoDocumento, " + 
+    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito, :propina, :soyCocina, :tipoDocumento, " + 
     ":numeroDocumento)", nativeQuery = true)
     List<RespuestaStd> pedidoPagado(@Param("idNegocio") int idNegocio, 
                                     @Param("idPedido") int idPedido, 
@@ -161,6 +161,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("tarjeta") BigDecimal tarjeta,
                                     @Param("otros") BigDecimal otros,
                                     @Param("credito") BigDecimal credito,
+                                    @Param("propina") BigDecimal propina,
                                     @Param("soyCocina") int soyCocina,
                                     @Param("tipoDocumento") int tipoDocumento,
                                     @Param("numeroDocumento") String numeroDocumento);
