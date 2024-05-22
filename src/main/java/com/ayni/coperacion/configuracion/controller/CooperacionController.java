@@ -495,7 +495,10 @@ public class CooperacionController {
             configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), 
             configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
             configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), 
-            configuracionNegocioDto.getEnvioPlatoDirectoACocina(), 
+            configuracionNegocioDto.getEnvioPlatoDirectoACocina(),
+            configuracionNegocioDto.getGenerarComprobanteVenta(),
+            configuracionNegocioDto.getUsarCorrelativoAutomatico(),
+            configuracionNegocioDto.getPedirNombreClientePedidosParaLlevar(),
             configuracionNegocioDto.getCorreoElectronico(),
             configuracionNegocioDto.getCorrelativos());
 

@@ -15,6 +15,9 @@ public class NegocioDto {
     private int rubroNegocio;
     private int usarLectorBarraBusquedaManual; 
     private int envioPlatoDirectoACocina;
+    private int generarComprobanteVenta;
+    private int usarCorrelativoAutomatico;
+    private int pedirNombreClientePedidosParaLlevar;
     private String correoElectronico;
     private String numeroCelularUsuario;
     private String nombreUsuario;

@@ -40,7 +40,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     
     @Query( value = "call sp_crear_negocio(:idNegocio, :nombreNegocio, :descripcion, :logo, " +
-    ":estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, "+ 
+    ":estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, " + 
+    ":generarComprobanteVenta, :usarCorrelativoAutomatico, :pedirNombreClientePedidosParaLlevar, "+ 
     ":correoElectronico, :numeroCelularUsuario, :nombreUsuario)", nativeQuery = true)
     List<RespuestaStd> crearNegocio(@Param("idNegocio") int idNegocio, 
                                     @Param("nombreNegocio") String nombreNegocio, 
@@ -50,6 +51,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("rubroNegocio") int rubroNegocio, 
                                     @Param("usarLectorBarraBusquedaManual") int usarLectorBarraBusquedaManual, 
                                     @Param("envioPlatoDirectoACocina") int envioPlatoDirectoACocina, 
+                                    @Param("generarComprobanteVenta") int generarComprobanteVenta, 
+                                    @Param("usarCorrelativoAutomatico") int usarCorrelativoAutomatico, 
+                                    @Param("pedirNombreClientePedidosParaLlevar") int pedirNombreClientePedidosParaLlevar, 
                                     @Param("correoElectronico") String correoElectronico, 
                                     @Param("numeroCelularUsuario") String numeroCelularUsuario, 
                                     @Param("nombreUsuario") String nombreUsuario);

@@ -57,7 +57,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             negocioDto.getNombreNegocio(), negocioDto.getDescripcion(), 
             negocioDto.getLogo(), negocioDto.getEstadoNegocio(), 
             negocioDto.getRubroNegocio(), negocioDto.getUsarLectorBarraBusquedaManual(), 
-            negocioDto.getEnvioPlatoDirectoACocina(), negocioDto.getCorreoElectronico(), 
+            negocioDto.getEnvioPlatoDirectoACocina(), negocioDto.getGenerarComprobanteVenta(), negocioDto.getUsarCorrelativoAutomatico(),
+            negocioDto.getPedirNombreClientePedidosParaLlevar(), negocioDto.getCorreoElectronico(), 
             negocioDto.getNumeroCelularUsuario(), negocioDto.getNombreUsuario());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'crearNegocio'");
@@ -392,7 +393,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion, String logo,
             int estadoNegocio, int rubroNegocio, int usarLectorBarraBusquedaManual, 
-            int envioPlatoDirectoACocina, String correoElectronico, String correlativos) {
+            int envioPlatoDirectoACocina, int generarComprobanteVenta, 
+            int usarCorrelativoAutomatico, int pedirNombreClientePedidosParaLlevar,
+            String correoElectronico, String correlativos) {
         try {
             return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
             logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
