@@ -280,6 +280,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     
     @Query( value = "call sp_configuracion_negocio(:idNegocio, :nombreNegocio, :descripcion, " +  
      ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, " + 
+     ":generarComprobanteVenta, :usarCorrelativoAutomatico, :pedirNombreClientePedidosParaLlevar, " +
      ":correoElectronico, :correlativos)", nativeQuery = true)
     List<RespuestaStd> configuracionNegocio(@Param("idNegocio") int idNegocio,  
                                             @Param("nombreNegocio") String nombreNegocio,  
@@ -289,6 +290,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                             @Param("rubroNegocio") int rubroNegocio,  
                                             @Param("usarLectorBarraBusquedaManual") int usarLectorBarraBusquedaManual,  
                                             @Param("envioPlatoDirectoACocina") int envioPlatoDirectoACocina,
+                                            @Param("generarComprobanteVenta") int generarComprobanteVenta,
+                                            @Param("usarCorrelativoAutomatico") int usarCorrelativoAutomatico,
+                                            @Param("pedirNombreClientePedidosParaLlevar") int pedirNombreClientePedidosParaLlevar,
                                             @Param("correoElectronico") String correoElectronico,
                                             @Param("correlativos") String correlativos);
 

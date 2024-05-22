@@ -399,7 +399,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try {
             return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
             logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
-            envioPlatoDirectoACocina, correoElectronico, correlativos);
+            envioPlatoDirectoACocina, generarComprobanteVenta, usarCorrelativoAutomatico, pedirNombreClientePedidosParaLlevar, 
+            correoElectronico, correlativos);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'configuracionNegocio'");
         }
