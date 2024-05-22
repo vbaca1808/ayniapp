@@ -156,7 +156,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                String nombreCliente, int tipoDoc, String numeroDocumento) {
         try {
             List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-            new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, tipoDoc, numeroDocumento);
+            new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, 
+            tipoDoc, numeroDocumento);
 
             if (lst != null && lst.size() > 0) {
                 try {
@@ -632,11 +633,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> modificarPedidoPago(PedidoPagadoDto pedidoPagadoDto) {
         try {
+            if (pedidoPagadoDto.getPropina() == null) {
+                pedidoPagadoDto.setPropina(BigDecimal.ZERO);
+            }
+
             return usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
             pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
             new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
             pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
-            pedidoPagadoDto.getTipoDocumento(),pedidoPagadoDto.getNumeroDocumento());
+            pedidoPagadoDto.getPropina(), pedidoPagadoDto.getTipoDocumento(),
+            pedidoPagadoDto.getNumeroDocumento());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
         }

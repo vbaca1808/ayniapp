@@ -167,7 +167,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
                                     
     @Query( value = "call sp_modificar_pago_pedido(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " +
-    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito, :tipoDocumento, :numeroDocumento)", nativeQuery = true)
+    ":fechaProceso, :efectivo, :yape, :plin, :tarjeta, :otros, :credito, :propina, :tipoDocumento, " + 
+    ":numeroDocumento)", nativeQuery = true)
     List<RespuestaStd> modificarPagoPedido(@Param("idNegocio") int idNegocio, 
                                              @Param("idPedido") int idPedido, 
                                              @Param("numeroCelular") String numeroCelular,
@@ -179,6 +180,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                              @Param("tarjeta") BigDecimal tarjeta,
                                              @Param("otros") BigDecimal otros,
                                              @Param("credito") BigDecimal credito,
+                                             @Param("propina") BigDecimal propina,
                                              @Param("tipoDocumento") int tipoDocumento,
                                              @Param("numeroDocumento") String numeroDocumento);
 
