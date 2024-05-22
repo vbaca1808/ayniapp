@@ -33,4 +33,6 @@ public interface ReportePedido {
     int getCantidadPreparadaMesa();
     int getCantidadPreparadaLlevar();
     int getCorrelativoUnicoMovNegocio();
+    BigDecimal getPropina();
+
 }
