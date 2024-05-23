@@ -22,5 +22,6 @@ public interface ListadoMenu {
     String getNumeroCelular();
     String getNombreUsuario();
     int getIdGrupoProducto();
+    String getPalabraClave();
     
 }
