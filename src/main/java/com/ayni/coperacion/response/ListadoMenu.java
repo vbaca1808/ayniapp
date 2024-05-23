@@ -21,5 +21,6 @@ public interface ListadoMenu {
     int getPreparacionLlevar();
     String getNumeroCelular();
     String getNombreUsuario();
+    int getIdGrupoProducto();
     
 }
