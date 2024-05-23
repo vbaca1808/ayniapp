@@ -295,9 +295,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoCocina> listadoCocina(int idNegocio, int anio, int mes, int dia) {
+    public List<ListadoCocina> listadoCocina(int idNegocio, int negociocina, int anio, int mes, int dia) {
         try {
-            return usuarioRepository.listadoCocina(idNegocio, anio, mes, dia);
+            return usuarioRepository.listadoCocina(idNegocio, negociocina, anio, mes, dia);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'listadoCocina'");
         }
