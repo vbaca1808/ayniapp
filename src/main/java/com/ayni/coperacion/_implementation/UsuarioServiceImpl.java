@@ -340,7 +340,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try { 
 
             return usuarioRepository.actualizarNegocioPedido(actualizarNegocioPedidoDto.getIdNegocio(), 
-            actualizarNegocioPedidoDto.getIdProducto(), actualizarNegocioPedidoDto.getNombreProducto(), 
+            actualizarNegocioPedidoDto.getIdProducto(), actualizarNegocioPedidoDto.getNombreProducto(), actualizarNegocioPedidoDto.getPalabraClave(),
             actualizarNegocioPedidoDto.getPrecio(), actualizarNegocioPedidoDto.getIdGrupoProducto(), actualizarNegocioPedidoDto.getEstado(), 
             actualizarNegocioPedidoDto.getStockInicial(), actualizarNegocioPedidoDto.getCodigoBarra(),
             actualizarNegocioPedidoDto.getRecetaInsumo(), actualizarNegocioPedidoDto.getOrdenLista(), 

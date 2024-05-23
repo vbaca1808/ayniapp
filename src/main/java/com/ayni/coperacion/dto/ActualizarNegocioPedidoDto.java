@@ -12,6 +12,7 @@ public class ActualizarNegocioPedidoDto {
     private int idNegocio; 
     private int idProducto; 
     private String nombreProducto;
+    private String palabraClave;
     private BigDecimal precio; 
     private int idGrupoProducto; 
     private int estado; 
