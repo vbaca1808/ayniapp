@@ -89,7 +89,7 @@ public interface IUsuarioService {
                                                           String numeroCelular, String nombreUsuario, int idProducto);
 
 
-    List<ListadoCocina> listadoCocina(int idNegocio, int negociocina, int anio, int mes, int dia);
+    List<ListadoCocina> listadoCocina(int idNegocio, int negociococina, int anio, int mes, int dia);
 
     List<ListadoCajero> listadoCajero(int idNegocio, int anio, int mes, int dia);
 
