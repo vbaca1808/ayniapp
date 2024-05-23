@@ -344,7 +344,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             actualizarNegocioPedidoDto.getPrecio(), actualizarNegocioPedidoDto.getIdGrupoProducto(), actualizarNegocioPedidoDto.getEstado(), 
             actualizarNegocioPedidoDto.getStockInicial(), actualizarNegocioPedidoDto.getCodigoBarra(),
             actualizarNegocioPedidoDto.getRecetaInsumo(), actualizarNegocioPedidoDto.getOrdenLista(), 
-            actualizarNegocioPedidoDto.getProductoCocina(), actualizarNegocioPedidoDto.getCocinaNegocio());
+            actualizarNegocioPedidoDto.getProductoCocina(), actualizarNegocioPedidoDto.getIdNegocioCocina());
 
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarNegocioPedido'");

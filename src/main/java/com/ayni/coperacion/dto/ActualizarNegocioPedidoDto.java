@@ -16,7 +16,7 @@ public class ActualizarNegocioPedidoDto {
     private int idGrupoProducto; 
     private int estado; 
     private BigDecimal stockInicial;
-    private int cocinaNegocio; 
+    private int idNegocioCocina; 
     private String codigoBarra;
     private String recetaInsumo;
     private int ordenLista; 
