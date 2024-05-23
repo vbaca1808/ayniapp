@@ -12,5 +12,7 @@ public interface ListadoProducto {
     String getRecetaCompleta();
     int getOrdenLista(); 
     int getIrCocina(); 
-
+    String getGrupoProducto();
+    String getNegocioCocina();
+    
 }
