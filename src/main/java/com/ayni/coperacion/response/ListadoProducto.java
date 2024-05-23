@@ -6,6 +6,7 @@ public interface ListadoProducto {
     
     int getIdProducto(); 
     String getNombreProducto(); 
+    String getPalabraClave(); 
     BigDecimal getPrecio(); 
     int getEstado(); 
 	BigDecimal getStock();
