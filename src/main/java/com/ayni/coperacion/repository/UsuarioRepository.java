@@ -244,17 +244,20 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("diaSeleccionado") int diaSeleccionado);
 
     @Query( value = "call sp_actualizar_negocio_pedido(:idNegocio, :idProducto, " +
-	":nombreProducto, :precio, :estado, :stockInicial, :codigoBarra, :recetaInsumo, :ordenLista, :irCocina)", nativeQuery = true)
+	":nombreProducto, :precio, :idGrupoProducto, :estado, :stockInicial, :codigoBarra, " + 
+    ":recetaInsumo, :ordenLista, :irCocina, :idNegocioCocina)", nativeQuery = true)
     List<RespuestaStd> actualizarNegocioPedido(@Param("idNegocio") int idNegocio,  
                                                @Param("idProducto") int idProducto,
                                                @Param("nombreProducto") String nombreProducto,
                                                @Param("precio") BigDecimal precio,
+                                               @Param("idGrupoProducto") int idGrupoProducto,
                                                @Param("estado") int estado,
                                                @Param("stockInicial") BigDecimal stockInicial,
                                                @Param("codigoBarra") String codigoBarra,
                                                @Param("recetaInsumo") String recetaInsumo,
                                                @Param("ordenLista") int ordenLista,
-                                               @Param("irCocina") int irCocina);
+                                               @Param("irCocina") int irCocina,
+                                               @Param("idNegocioCocina") int idNegocioCocina);
 
     @Query( value = "call sp_agregarquita_admin_usuario(:idNegocio, :idUsuario, :nombreUsuario, " +
     ":isAdmin, :admitir, :detalleCargoPermitidos)", nativeQuery = true)

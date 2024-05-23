@@ -13,8 +13,10 @@ public class ActualizarNegocioPedidoDto {
     private int idProducto; 
     private String nombreProducto;
     private BigDecimal precio; 
+    private int idGrupoProducto; 
     private int estado; 
     private BigDecimal stockInicial;
+    private int cocinaNegocio; 
     private String codigoBarra;
     private String recetaInsumo;
     private int ordenLista; 
