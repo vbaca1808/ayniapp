@@ -34,5 +34,6 @@ public interface ReportePedido {
     int getCantidadPreparadaLlevar();
     int getCorrelativoUnicoMovNegocio();
     BigDecimal getPropina();
+    String getTiposDePago();
 
 }
