@@ -17,5 +17,6 @@ public interface ListadoCocina {
     int getPreparacionLlevar();
     BigDecimal getTotalPedido();
     int getEstadoPedido();
+    int getMinutos();
 
 }
