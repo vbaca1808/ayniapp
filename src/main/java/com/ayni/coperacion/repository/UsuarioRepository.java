@@ -229,13 +229,14 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("diaSeleccionado") int diaSeleccionado);
     
     @Query( value = "call sp_actualizar_estado_producto_cocina(:idNegocio, :idPedido, :idProducto," + 
-                    ":cantidadMesa, :cantidadLlevar, :estadoCocina)", nativeQuery = true)
+                    ":cantidadMesa, :cantidadLlevar, :estadoCocina, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> actualizarEstadoProductoCocina(@Param("idNegocio") int idNegocio, 
                                                       @Param("idPedido") int idPedido,
                                                       @Param("idProducto") int idProducto,
                                                       @Param("cantidadMesa") int cantidadMesa,
                                                       @Param("cantidadLlevar") int cantidadLlevar,
-                                                      @Param("estadoCocina") int estadoCocina);
+                                                      @Param("estadoCocina") int estadoCocina,
+                                                      @Param("fechaProceso") Date fechaProceso);
                                         
                                     
     @Query( value = "call sp_listado_cajero(:idNegocio, :anioSeleccionado, :mesSeleccionado, :diaSeleccionado)", nativeQuery = true)

@@ -309,7 +309,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.actualizarEstadoProductoCocina(actualizarEstadoProductoCocinaDto.getIdNegocio(), 
             actualizarEstadoProductoCocinaDto.getIdPedido(), actualizarEstadoProductoCocinaDto.getIdProducto(), 
             actualizarEstadoProductoCocinaDto.getCantidadMesa(), actualizarEstadoProductoCocinaDto.getCantidadLlevar(),
-            actualizarEstadoProductoCocinaDto.getEstadoCocina());
+            actualizarEstadoProductoCocinaDto.getEstadoCocina(), new Date());
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'actualizarEstadoProductoCocina'");
