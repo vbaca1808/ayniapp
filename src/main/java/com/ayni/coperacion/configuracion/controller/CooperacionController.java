@@ -820,7 +820,7 @@ public class CooperacionController {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
-                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato6()).add(
+                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato6()).multiply(
                                                                new BigDecimal(lReporteCierre.get(i).getDato3())).setScale(2,RoundingMode.HALF_UP).toString());
                             dataRow.createCell(4).setCellValue(lReporteCierre.get(i).getDato9());
                             dataRow.createCell(5).setCellValue(lReporteCierre.get(i).getDato5());
