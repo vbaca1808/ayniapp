@@ -765,7 +765,7 @@ public class CooperacionController {
                 Sheet sheetTp = null;
                 Sheet sheetPd = null; 
                 if (idrubronegocio == 1) {
-                    vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Adicional", "Importe Generado", "Grupo de Producto"};
+                    vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Total", "Adicional", "Importe Generado", "Grupo de Producto"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
