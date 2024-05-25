@@ -838,9 +838,11 @@ public class CooperacionController {
                         filaPc++;
                         Row dataRow = sheetPc.createRow(filaPc);
                         if (idrubronegocio == 1) {
-                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " - " + lReporteCierre.get(i).getDato2());
-                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
-                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato4());
+                            dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
+                            dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
+                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato3())
+                                                               .multiply(new BigDecimal(lReporteCierre.get(i).getDato4())).setScale(2,RoundingMode.HALF_UP).toString());
                         } else if (idrubronegocio == 2) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
