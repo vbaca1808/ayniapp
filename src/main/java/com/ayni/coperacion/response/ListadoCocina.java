@@ -18,5 +18,6 @@ public interface ListadoCocina {
     BigDecimal getTotalPedido();
     int getEstadoPedido();
     int getMinutos();
-
+    String getCorrelativoUnicoMovNegocio();
+    
 }
