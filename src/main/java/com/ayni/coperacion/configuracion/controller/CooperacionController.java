@@ -364,6 +364,9 @@ public class CooperacionController {
                 reporteCierreDetalleDto.getAnioSeleccionado(), 
                 reporteCierreDetalleDto.getMesSeleccionado(), 
                 reporteCierreDetalleDto.getDiaSeleccionado(), 
+                reporteCierreDetalleDto.getAnioSeleccionadoHasta(), 
+                reporteCierreDetalleDto.getMesSeleccionadoHasta(), 
+                reporteCierreDetalleDto.getDiaSeleccionadoHasta(), 
                 reporteCierreDetalleDto.getNumeroCelular(), 
                 reporteCierreDetalleDto.getNombreUsuario(), 
                 reporteCierreDetalleDto.getIdProducto());

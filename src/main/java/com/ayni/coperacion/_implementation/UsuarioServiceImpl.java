@@ -606,10 +606,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public List<ReporteCierreDetalle> reporteCierraTiendaDetalle(int idNegocio, int anioSeleccionado,
-            int mesSeleccionado, int diaSeleccionado, String numeroCelular, String nombreUsuario, int idProducto) {
+            int mesSeleccionado, int diaSeleccionado, int anioSeleccionadoHasta,
+            int mesSeleccionadoHasta, int diaSeleccionadoHasta, String numeroCelular, String nombreUsuario, int idProducto) {
         try {
             return usuarioRepository.reporteCierraTiendaDetalle(idNegocio, anioSeleccionado, mesSeleccionado, 
-                                                                diaSeleccionado, numeroCelular, nombreUsuario, 
+                                                                diaSeleccionado, anioSeleccionadoHasta, mesSeleccionadoHasta, 
+                                                                diaSeleccionadoHasta, numeroCelular, nombreUsuario, 
                                                                 idProducto);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteCierraTiendaDetalle'");
