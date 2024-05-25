@@ -10,5 +10,6 @@ public interface ReporteCierre {
     String getDato6();
     String getDato7();
     String getDato8();
+    String getDato9();
     String getTipo();
 }

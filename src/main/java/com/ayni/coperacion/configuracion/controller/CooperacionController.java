@@ -811,14 +811,15 @@ public class CooperacionController {
                 int filaPd = 0;
 
                 for (int i = 0; i < lReporteCierre.size(); i++) {
-                    
+                        
                     if (lReporteCierre.get(i).getTipo().equals("A")) {
                         filaPp++;
                         Row dataRow = sheetPp.createRow(filaPp);
                         if (idrubronegocio == 1) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
-                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato9());
                             dataRow.createCell(4).setCellValue(lReporteCierre.get(i).getDato5());
                             dataRow.createCell(5).setCellValue(lReporteCierre.get(i).getDato8());
                         } else if (idrubronegocio == 2) {
