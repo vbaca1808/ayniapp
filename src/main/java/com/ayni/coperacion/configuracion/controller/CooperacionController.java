@@ -764,7 +764,7 @@ public class CooperacionController {
                 Sheet sheetTp = null;
                 Sheet sheetPd = null; 
                 if (idrubronegocio == 1) {
-                    vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Importe Generado"};
+                    vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Adicional", "Importe Generado", "Grupo de Producto"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
@@ -818,8 +818,9 @@ public class CooperacionController {
                         if (idrubronegocio == 1) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
-                            dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
-                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato5());
+                            dataRow.createCell(3).setCellValue(lReporteCierre.get(i).getDato6());
+                            dataRow.createCell(4).setCellValue(lReporteCierre.get(i).getDato5());
+                            dataRow.createCell(5).setCellValue(lReporteCierre.get(i).getDato8());
                         } else if (idrubronegocio == 2) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
