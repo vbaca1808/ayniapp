@@ -1,5 +1,7 @@
 package com.ayni.coperacion.dto;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +20,6 @@ public class PedidoDto {
     private String direccionCliente; 
     private int tipoDoc; 
     private String numeroDocumento;
+    private BigDecimal comisionDelivery;
     
 }

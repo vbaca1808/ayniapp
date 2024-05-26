@@ -154,11 +154,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
-                               String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento) {
+                               String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
+                               BigDecimal comisionDelivery) {
         try {
             List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-            new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, 
-            tipoDoc, numeroDocumento);
+            new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+            tipoDoc, numeroDocumento, comisionDelivery);
 
             if (lst != null && lst.size() > 0) {
                 try {
