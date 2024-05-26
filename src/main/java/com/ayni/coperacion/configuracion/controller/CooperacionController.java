@@ -175,7 +175,7 @@ public class CooperacionController {
             int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
             pedidoDto.getIdPedido(), pedidoDto.getDetalleProducto(), pedidoDto.getMesa(), 
             pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
-            pedidoDto.getNombreCliente(), pedidoDto.getTipoDoc(), pedidoDto.getNumeroDocumento());
+            pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), pedidoDto.getNumeroDocumento());
 
             pedido.setIdPedido(idPedido);
             

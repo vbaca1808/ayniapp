@@ -15,6 +15,7 @@ public class PedidoDto {
     private String nombreUsuario; 
     private String docCliente; 
     private String nombreCliente; 
+    private String direccionCliente; 
     private int tipoDoc; 
     private String numeroDocumento;
     

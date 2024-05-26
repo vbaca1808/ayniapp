@@ -59,7 +59,7 @@ public interface IUsuarioService {
     List<PedidoGenerado> obtenerPedido(int pdIdNegocio, int pIdPedido, String mesa);
 
     int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa, 
-    String numeroCelular, String nombreUsuario,String docCliente,String nombreCliente,
+    String numeroCelular, String nombreUsuario,String docCliente,String nombreCliente, String direccionCliente,
     int tipoDoc, String numeroDocumento);
 
     Pedido borrarMenuPedido(int idnegocio, int idPedido, String numeroCelular, String nombreUsuario, int borrar);

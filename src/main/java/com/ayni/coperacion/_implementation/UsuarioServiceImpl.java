@@ -154,7 +154,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
-                               String nombreCliente, int tipoDoc, String numeroDocumento) {
+                               String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento) {
         try {
             List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
             new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, 
