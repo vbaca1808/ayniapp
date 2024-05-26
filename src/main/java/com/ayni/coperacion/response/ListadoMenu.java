@@ -21,6 +21,9 @@ public interface ListadoMenu {
     int getPreparacionLlevar();
     String getNumeroCelular();
     String getNombreUsuario();
+    String getNombreCliente();
+    String getDireccionCliente();
+    BigDecimal getComisionDelivery();
     int getIdGrupoProducto();
     String getPalabraClave();
     
