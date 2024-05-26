@@ -35,5 +35,6 @@ public interface ReportePedido {
     int getCorrelativoUnicoMovNegocio();
     BigDecimal getPropina();
     String getTiposDePago();
+    BigDecimal getComisionDelivery();
 
 }
