@@ -821,8 +821,8 @@ public class CooperacionController {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
-                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato6()).multiply(
-                                                               new BigDecimal(lReporteCierre.get(i).getDato3())).setScale(2,RoundingMode.HALF_UP).toString());
+                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato6().replaceAll(",","")).multiply(
+                                                               new BigDecimal(lReporteCierre.get(i).getDato3().replaceAll(",",""))).setScale(2,RoundingMode.HALF_UP).toString());
                             dataRow.createCell(4).setCellValue(lReporteCierre.get(i).getDato9());
                             dataRow.createCell(5).setCellValue(lReporteCierre.get(i).getDato5());
                             dataRow.createCell(6).setCellValue(lReporteCierre.get(i).getDato8());
@@ -842,8 +842,8 @@ public class CooperacionController {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
-                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato3())
-                                                               .multiply(new BigDecimal(lReporteCierre.get(i).getDato4())).setScale(2,RoundingMode.HALF_UP).toString());
+                            dataRow.createCell(3).setCellValue(new BigDecimal(lReporteCierre.get(i).getDato3().replaceAll(",",""))
+                                                               .multiply(new BigDecimal(lReporteCierre.get(i).getDato4().replaceAll(",",""))).setScale(2,RoundingMode.HALF_UP).toString());
                         } else if (idrubronegocio == 2) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
