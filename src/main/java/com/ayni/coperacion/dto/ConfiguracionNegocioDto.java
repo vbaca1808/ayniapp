@@ -20,7 +20,7 @@ public class ConfiguracionNegocioDto {
 	private int pedirNombreClientePedidosParaLlevar;
 	private String correoElectronico;
 	private String correlativos;
-	private String grupoProducto;
+	private String grupoProductos;
 	private String cocinas;
     
 }

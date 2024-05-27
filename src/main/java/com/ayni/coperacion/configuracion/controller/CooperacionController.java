@@ -506,7 +506,7 @@ public class CooperacionController {
             configuracionNegocioDto.getPedirNombreClientePedidosParaLlevar(),
             configuracionNegocioDto.getCorreoElectronico(),
             configuracionNegocioDto.getCorrelativos(),
-            configuracionNegocioDto.getGrupoProducto(),
+            configuracionNegocioDto.getGrupoProductos(),
             configuracionNegocioDto.getCocinas());
 
             return ResponseEntity.ok().body(lst);
