@@ -15,5 +15,7 @@ public interface ConfiguracionNegocio {
     int getPedirNombreClientePedidosParaLlevar();
     String getCorreoElectronico();
     String getCorrelativos();
-
+    String getGrupoProducto();
+    String getCocinas();
+    
 }

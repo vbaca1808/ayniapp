@@ -2,10 +2,7 @@ package com.ayni.coperacion.service;
  
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
-
-import org.springframework.data.repository.query.Param;
-
+import java.util.List; 
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
@@ -154,4 +151,9 @@ public interface IUsuarioService {
 
     List<RespuestaStd> obtenerCorreoNegocio(int idNegocio);
 
+    List<RespuestaStd> insertarGrupoProducto(int idNegocio, int idGrupoProducto, 
+    String descripcionGrupo, int ordenLista);
+
+    List<RespuestaStd> insertarCocinaNegocio(int idNegocio, int idCocina,String nombreCocina);
+    
 }

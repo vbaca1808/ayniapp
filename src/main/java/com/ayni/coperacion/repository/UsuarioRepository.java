@@ -445,4 +445,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_obtener_correo_negocio(:idNegocio)", nativeQuery = true)
     List<RespuestaStd> obtenerCorreoNegocio(@Param("idNegocio") int idNegocio);
     
+    @Modifying
+    @Query( value = "call sp_insertar_grupo_producto(:idNegocio, :idGrupoProducto, :descripcionGrupo, :ordenLista)", nativeQuery = true)
+    List<RespuestaStd> insertarGrupoProducto(@Param("idNegocio") int idNegocio,
+                                             @Param("idGrupoProducto") int idGrupoProducto,
+                                             @Param("descripcionGrupo") String descripcionGrupo,
+                                             @Param("ordenLista") int ordenLista);
+    @Modifying
+    @Query( value = "call sp_insertar_cocina_negocio(:idNegocio, :idCocina, :nombreCocina)", nativeQuery = true)
+    List<RespuestaStd> insertarCocinaNegocio(@Param("idNegocio") int idNegocio,
+                                             @Param("idCocina") int idCocina,
+                                             @Param("nombreCocina") String nombreCocina);
+
 }

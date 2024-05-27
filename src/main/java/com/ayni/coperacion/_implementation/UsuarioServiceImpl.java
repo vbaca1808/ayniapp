@@ -674,6 +674,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> insertarGrupoProducto(int idNegocio, int idGrupoProducto, String descripcionGrupo,
+            int ordenLista) {
+        try {
+            return usuarioRepository.insertarGrupoProducto(idNegocio, idGrupoProducto, descripcionGrupo, ordenLista);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'insertarGrupoProducto'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> insertarCocinaNegocio(int idNegocio, int idCocina, String nombreCocina) {
+        try {
+            return usuarioRepository.insertarCocinaNegocio(idNegocio, idCocina, nombreCocina);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'insertarCocinaNegocio'");
+        }
+    }
+
  
 
 }

@@ -736,16 +736,35 @@ public class CooperacionController {
         }      
     }
     
+    @PostMapping(value="/insertargrupoproducto/{idnegocio}/{idgrupoproducto}/{descripciongrupo}/{ordenlista}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> insertarGrupoProducto(@PathVariable int idnegocio, @PathVariable int idgrupoproducto, 
+                                                                    @PathVariable String descripciongrupo, @PathVariable int ordenlista) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.insertarGrupoProducto(idnegocio, idgrupoproducto, descripciongrupo, ordenlista);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+    
+    @PostMapping(value="/insertarcocinanegocio/{idnegocio}/{idcocina}/{nombrecocina}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> insertarCocinaNegocio(@PathVariable int idNegocio, @PathVariable  int idCocina,
+    @PathVariable String nombreCocina) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.insertarCocinaNegocio(idNegocio, idCocina, nombreCocina);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,
     @PathVariable int aniohasta, @PathVariable int meshasta, @PathVariable int diahasta, @PathVariable String numerocelular, 
     @PathVariable String nombreusuario) {
         try { 
-            
-            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
-            ZoneId zonaLima = ZoneId.of("America/Lima");
-
+             
             Workbook workbook = new XSSFWorkbook();
             String vNombreArchivo = "";
 
