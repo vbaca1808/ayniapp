@@ -396,12 +396,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
             int estadoNegocio, int rubroNegocio, int usarLectorBarraBusquedaManual, 
             int envioPlatoDirectoACocina, int generarComprobanteVenta, 
             int usarCorrelativoAutomatico, int pedirNombreClientePedidosParaLlevar,
-            String correoElectronico, String correlativos) {
+            String correoElectronico, String correlativos, String grupoProductos, 
+            String cocinas) {
         try {
             return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
             logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
             envioPlatoDirectoACocina, generarComprobanteVenta, usarCorrelativoAutomatico, pedirNombreClientePedidosParaLlevar, 
-            correoElectronico, correlativos);
+            correoElectronico, correlativos, grupoProductos, cocinas);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'configuracionNegocio'");
         }

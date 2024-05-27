@@ -110,7 +110,9 @@ public interface IUsuarioService {
                                             int envioPlatoDirectoACocina, int generarComprobanteVenta, 
                                             int usarCorrelativoAutomatico, int pedirNombreClientePedidosParaLlevar,
                                             String correoElectronico,
-                                            String correlativos);
+                                            String correlativos,
+                                            String grupoProductos,
+                                            String cocinas);
 
     List<ConfiguracionNegocio> obtenerConfiguracionNegocio(int idNegocio);
 
