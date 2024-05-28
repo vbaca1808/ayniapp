@@ -14,12 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -770,26 +772,31 @@ public class CooperacionController {
         try { 
 
             try (PDDocument document = new PDDocument()) {
-                PDPage page = new PDPage();
+                // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
+                PDRectangle pageSize = new PDRectangle(80, 50);
+                PDPage page = new PDPage(pageSize);
                 document.addPage(page);
-    
+            
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                contentStream.newLineAtOffset(100, 700);
-                contentStream.showText("Este es un PDF generado desde Spring Boot.");
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10); // Tamaño de fuente reducido para ajustarse al espacio
+                contentStream.newLineAtOffset(5, 40); // Ajusta la posición del texto para que quepa en la tiquetera
+                contentStream.showText("Este es un PDF generado para una tiquetera.");
                 contentStream.endText();
                 contentStream.close();
-    
+            
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 document.save(outputStream);
                 document.close();
-    
+            
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
-                headers.setContentDispositionFormData("filename", "documento.pdf");
-    
-                return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK); 
+                headers.setContentDispositionFormData("filename", "documento_tiquetera.pdf");
+            
+                return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
  
 
