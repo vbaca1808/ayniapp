@@ -10,6 +10,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage;
@@ -755,6 +760,39 @@ public class CooperacionController {
         try { 
             List<RespuestaStd> lst = iUsuarioService.insertarCocinaNegocio(idNegocio, idCocina, nombreCocina);
             return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/descargarpdf",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<byte[]> descargarPdf() {
+        try { 
+
+            try (PDDocument document = new PDDocument()) {
+                PDPage page = new PDPage();
+                document.addPage(page);
+    
+                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.newLineAtOffset(100, 700);
+                contentStream.showText("Este es un PDF generado desde Spring Boot.");
+                contentStream.endText();
+                contentStream.close();
+    
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                document.save(outputStream);
+                document.close();
+    
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.setContentDispositionFormData("filename", "documento.pdf");
+    
+                return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK); 
+            }
+ 
+
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
         }      
