@@ -781,7 +781,7 @@ public class CooperacionController {
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7); // Tamaño de fuente reducido para ajustarse al espacio
                 contentStream.newLineAtOffset(5, 40); // Ajusta la posición del texto para que quepa en la tiquetera
-                contentStream.showText("!!Este es un PDF");
+                contentStream.showText("Boleta de venta\nCabecera\nDetalle\nCodigoQR");
                 contentStream.endText();
                 contentStream.close();
             
