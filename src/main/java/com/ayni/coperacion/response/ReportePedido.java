@@ -36,5 +36,7 @@ public interface ReportePedido {
     BigDecimal getPropina();
     String getTiposDePago();
     BigDecimal getComisionDelivery();
+    int getTipoDoc();
+    String getNumeroDocumento();
 
 }
