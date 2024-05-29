@@ -463,5 +463,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_obtener_documento_venta(:idNegocio, :idPedido)", nativeQuery = true)
     List<DocumentoVentaResponse> obtenerDocumentoVenta(@Param("idNegocio") int idNegocio, 
                                                        @Param("idPedido") int idPedido);
+
+    @Query( value = "call sp_generar_documento_venta_a_doc_pagado(:idNegocio, :idPedido, :tipoDocumento)", nativeQuery = true)
+    List<RespuestaStd> generarDocumentoVentaADocPagado(@Param("idNegocio") int idNegocio, 
+                                                       @Param("idPedido") int idPedido, 
+                                                       @Param("tipoDocumento") int tipoDocumento);
     
 }

@@ -161,4 +161,6 @@ public interface IUsuarioService {
 
     List<DocumentoVentaResponse> obtenerDocumentoVenta(int idNegocio, int idPedido);
     
+    List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento);
+
 }

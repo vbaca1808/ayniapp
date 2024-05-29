@@ -704,4 +704,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento) {
+        try {
+            return usuarioRepository.generarDocumentoVentaADocPagado(idNegocio, idPedido, tipoDocumento);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'generarDocumentoVentaADocPagado'");
+        }
+    }
+
 }

@@ -99,6 +99,13 @@ public class CooperacionController {
     @Autowired
 	private IUsuarioService iUsuarioService;
 
+    
+    private final ResourceLoader resourceLoader;
+
+    public CooperacionController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     @PostMapping(value="/crearnegocio",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> crearNegocio(@Valid @RequestBody NegocioDto negocioDto) {
         try {
@@ -778,11 +785,19 @@ public class CooperacionController {
         }      
     }
 
-    private final ResourceLoader resourceLoader;
-
-    public CooperacionController(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+    @PostMapping(value="/generardocumentoventaadocpagado/{idnegocio}/{idpedido}/{tipodocumento}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> generarDocumentoVentaADocPagado(@PathVariable int idnegocio,
+                                                                              @PathVariable int idpedido,
+                                                                              @PathVariable int tipodocumento) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.generarDocumentoVentaADocPagado(idnegocio,
+            idpedido, tipodocumento);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
     }
+
     @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> descargarPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
         try { 
@@ -949,14 +964,14 @@ public class CooperacionController {
                 contentStream.showText(repeatString(" ", 4) + vDocumento + repeatString(" ", numeroEspacios.intValue()));
 
                 
-                if (vCliente.length() > 26) {
+                if (vCliente.length() > 35) {
                     // Dividir la razonSocial en dos líneas
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 35));
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", 4) + "Cliente: " + vCliente.substring(0, 26) + 
+                    String linea1 = repeatString(" ", 4) +  vCliente.substring(0, 35) + 
                     repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vCliente.substring(26, vCliente.length());
+                    String linea2 = vCliente.substring(35, vCliente.length());
                     
                     numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
@@ -976,7 +991,7 @@ public class CooperacionController {
                     
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) + "Cliente: " + vCliente + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText(repeatString(" ", 4) +  vCliente + repeatString(" ", numeroEspacios.intValue()));
                 }
 
 
