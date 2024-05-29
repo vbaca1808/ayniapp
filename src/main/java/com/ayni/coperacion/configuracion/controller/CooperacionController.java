@@ -764,8 +764,7 @@ public class CooperacionController {
     }
 
     @GetMapping(value="/obtenerdocumentospendientesimpresion/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pedido>> obtenerDocumentosPendientesImpresion(@PathVariable int idnegocio, 
-    @PathVariable int idproducto,@PathVariable int tipofiltrofecha) {
+    public ResponseEntity<List<Pedido>> obtenerDocumentosPendientesImpresion(@PathVariable int idnegocio) {
         try { 
             List<Pedido> lst = iUsuarioService.obtenerDocumentosPendientesImpresion(idnegocio);
             return ResponseEntity.ok().body(lst);
