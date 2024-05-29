@@ -163,4 +163,6 @@ public interface IUsuarioService {
     
     List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento);
 
+    List<Pedido> obtenerDocumentosPendientesImpresion(int idNegocio);
+    
 }

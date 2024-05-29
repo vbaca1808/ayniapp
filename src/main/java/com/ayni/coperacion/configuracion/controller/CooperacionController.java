@@ -762,6 +762,18 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
+
+    @GetMapping(value="/obtenerdocumentospendientesimpresion/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Pedido>> obtenerDocumentosPendientesImpresion(@PathVariable int idnegocio, 
+    @PathVariable int idproducto,@PathVariable int tipofiltrofecha) {
+        try { 
+            List<Pedido> lst = iUsuarioService.obtenerDocumentosPendientesImpresion(idnegocio);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     
     @PostMapping(value="/insertargrupoproducto/{idnegocio}/{idgrupoproducto}/{descripciongrupo}/{ordenlista}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> insertarGrupoProducto(@PathVariable int idnegocio, @PathVariable int idgrupoproducto, 

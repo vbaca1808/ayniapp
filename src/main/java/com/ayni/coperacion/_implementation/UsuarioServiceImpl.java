@@ -713,4 +713,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<Pedido> obtenerDocumentosPendientesImpresion(int idNegocio) {
+        try {
+            return usuarioRepository.obtenerDocumentosPendientesImpresion(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerDocumentosPendientesImpresion'");
+        }
+    }
+
 }
