@@ -769,6 +769,7 @@ public class CooperacionController {
             List<Pedido> lst = iUsuarioService.obtenerDocumentosPendientesImpresion(idnegocio);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
