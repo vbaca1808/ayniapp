@@ -783,19 +783,264 @@ public class CooperacionController {
 
             try (PDDocument document = new PDDocument()) {
                 // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
-                PDRectangle pageSize = new PDRectangle(80, 50);
+                PDRectangle pageSize = new PDRectangle(160,350);
                 PDPage page = new PDPage(pageSize);
                 document.addPage(page);
             
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7); // Tamaño de fuente reducido para ajustarse al espacio
-                contentStream.newLineAtOffset(5, 40); // Ajusta la posición del texto para que quepa en la tiquetera
-                
+                contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
+                contentStream.newLineAtOffset(0, 340); 
+
+                int numeroLetrasMaximoLinea = 44;
+                BigDecimal numeroEspacios = BigDecimal.ZERO;
+                BigDecimal valorDos = new BigDecimal("2");
                 if (cabecera != null) {
-                    contentStream.showText(cabecera.getRazonSocial());
-                    contentStream.showText(cabecera.getRucEmpresa());
+                    String razonSocial = cabecera.getRazonSocial();
+                   
+                    if (razonSocial.length() > 16) {
+                        // Dividir la razonSocial en dos líneas
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 16));
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                        String linea1 = repeatString(" ", numeroEspacios.intValue()) + razonSocial.substring(0, 16) + 
+                        repeatString(" ", numeroEspacios.intValue());
+                        String linea2 = razonSocial.substring(16, razonSocial.length());
+                        
+                        numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                        linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                        // Ajustar posición del texto para que quepa en la tiquetera
+                        contentStream.showText(linea1);
+
+                        contentStream.newLine(); // Nuevo inicio de línea 
+                        contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                        contentStream.showText(linea2); // Mostrar la segunda línea
+
+                    } else {
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - razonSocial.length()));
+                        
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + razonSocial + repeatString(" ", numeroEspacios.intValue()));
+                    }
+                     
                 }
+        
+                numeroEspacios = new BigDecimal(numeroLetrasMaximoLinea - (cabecera.getRucEmpresa().length() + 4));
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+
+                contentStream.newLineAtOffset(0, -12); // Ajuste vertical
+                contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + "RUC " + cabecera.getRucEmpresa() + 
+                repeatString(" ", numeroEspacios.intValue())); // Mostrar la segunda línea
+
+                String vDireccion = cabecera.getDireccion();
+                if (vDireccion.length() > 36) {
+                    // Dividir la razonSocial en dos líneas
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDireccion.substring(0, 36) + 
+                    repeatString(" ", numeroEspacios.intValue());
+                    String linea2 = vDireccion.substring(36, vDireccion.length());
+                    
+                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                    linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                    // Ajustar posición del texto para que quepa en la tiquetera
+                    contentStream.newLineAtOffset(0, -20); // Ajuste vertical
+                    contentStream.showText(linea1);
+
+                    contentStream.newLine(); // Nuevo inicio de línea 
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea2); // Mostrar la segunda línea
+
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccion.length()));
+                    
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, 20); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + vDireccion + repeatString(" ", numeroEspacios.intValue()));
+                }
+
+                
+                String vDescripcion = cabecera.getDescripcion();
+                if (vDescripcion.length() > 36) {
+                    // Dividir la razonSocial en dos líneas
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcion.substring(0, 36) + 
+                    repeatString(" ", numeroEspacios.intValue());
+                    String linea2 = vDescripcion.substring(36, vDescripcion.length());
+                    
+                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                    linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                    // Ajustar posición del texto para que quepa en la tiquetera
+                    contentStream.newLineAtOffset(0, -15); // Ajuste vertical
+                    contentStream.showText(linea1);
+
+                    contentStream.newLine(); // Nuevo inicio de línea 
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea2); // Mostrar la segunda línea
+
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcion.length()));
+                    
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, 15); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + vDescripcion + repeatString(" ", numeroEspacios.intValue()));
+                }
+
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
+                    
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()));
+
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getDocumento() + repeatString(" ", numeroEspacios.intValue()));
+                
+
+                String vDocumento = "Documento: " + cabecera.getDocCliente();
+                String vCliente = "Cliente: " + cabecera.getNombreCliente();
+                String vDireccionCliente = cabecera.getDireccionCliente();
+                
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDocumento.length()));
+                //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + vDocumento + repeatString(" ", numeroEspacios.intValue()));
+
+                
+                if (vCliente.length() > 26) {
+                    // Dividir la razonSocial en dos líneas
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+
+                    String linea1 = repeatString(" ", 4) + "Dirección: " + vCliente.substring(0, 26) + 
+                    repeatString(" ", numeroEspacios.intValue());
+                    String linea2 = vCliente.substring(26, vCliente.length());
+                    
+                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+
+                    linea2 = repeatString(" ", 4) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                    // Ajustar posición del texto para que quepa en la tiquetera
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea1);
+
+                    contentStream.newLine(); // Nuevo inicio de línea 
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea2); // Mostrar la segunda línea
+
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vCliente.length()));
+                    
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 4) + "Cliente: " + vCliente + repeatString(" ", numeroEspacios.intValue()));
+                }
+
+
+                if (vDireccionCliente.length() > 26) {
+                    // Dividir la razonSocial en dos líneas
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+
+                    String linea1 = repeatString(" ", 4) + "Dirección: " + vDireccionCliente.substring(0, 26) + 
+                    repeatString(" ", numeroEspacios.intValue());
+                    String linea2 = vDireccionCliente.substring(26, vDireccionCliente.length());
+                    
+                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+
+                    linea2 = repeatString(" ", 4) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                    // Ajustar posición del texto para que quepa en la tiquetera
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea1);
+
+                    contentStream.newLine(); // Nuevo inicio de línea 
+                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                    contentStream.showText(linea2); // Mostrar la segunda línea
+
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccionCliente.length()));
+                    
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 4) + "Dirección: " + vDireccionCliente + repeatString(" ", numeroEspacios.intValue()));
+                }
+                
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getFechaPedido().length()));
+                //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "F. Emision: " + cabecera.getFechaPedido() + repeatString(" ", numeroEspacios.intValue()));
+
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getMoneda().length()));
+                //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "Moneda: " + cabecera.getMoneda() + repeatString(" ", numeroEspacios.intValue()));
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + repeatString(" ", 4));
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "Descripción" + repeatString(" ", numeroLetrasMaximoLinea - 31) + 
+                "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4));
+
+                for (int i = 0; i < lstDocumentoVenta.size(); i++) {
+                    String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 30?30:
+                    lstDocumentoVenta.get(i).getDescripcionProducto().length()));
+                    String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
+                    String vTotal = lstDocumentoVenta.get(i).getTotalItem();
+
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 4) + vProducto + repeatString(" ", ((numeroLetrasMaximoLinea - 21)  - vProducto.length())) + 
+                    vPrecio + repeatString(" ", 3) + vTotal + repeatString(" ", 4));
+
+                }
+                
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + repeatString(" ", 4));
+
+                int vEspacios = 29;
+                String vGravado = "S/." + cabecera.getGravado();
+                String vIgv = "S/." + cabecera.getIgv();
+                String vTotalPedido = "S/." + cabecera.getTotalPedido();
+                
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "Gravado: " + repeatString(" ",(vEspacios - 2) - vGravado.length()) + vGravado);
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "I.G.V (10%): " + repeatString(" ",(vEspacios -6) - vIgv.length()) + vIgv);
+
+                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                contentStream.showText(repeatString(" ", 4) + "Total: " + repeatString(" ",vEspacios - vTotalPedido.length()) + vTotalPedido);
+
+                contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
+
+                contentStream.showText(repeatString(" ", 4) + 
+                "SON " + convertirNumeroALetras(new BigDecimal(cabecera.getTotalPedido().replace(",","")).intValue()).toUpperCase() + " Y " +
+                (new BigDecimal(cabecera.getTotalPedido().replace(",","")).remainder(BigDecimal.ONE).compareTo(new BigDecimal("9"))>0?"":"0") +
+                new BigDecimal(cabecera.getTotalPedido().replace(",","")).remainder(BigDecimal.ONE).intValue() + "/100 SOLES");
 
                 contentStream.endText();
                 contentStream.close();
@@ -1139,6 +1384,78 @@ public class CooperacionController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
+    }
+
+    
+
+    public static String repeatString(String str, int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append(str);
+        }
+        return sb.toString();
+    }
+
+
+    // Arrays para las unidades, decenas y centenas
+    private static final String[] unidades = {"", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"};
+    private static final String[] decenas = {"", "diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
+    private static final String[] especiales = {"", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"};
+    private static final String[] centenas = {"", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"};
+
+    // Método para convertir un número entre 0 y 999 a letras
+    private static String convertirNumero(int numero) {
+        if (numero < 10) {
+            return unidades[numero];
+        } else if (numero < 20) {
+            return especiales[numero - 10];
+        } else if (numero < 100) {
+            int unidad = numero % 10;
+            if (unidad == 0) {
+                return decenas[numero / 10];
+            } else {
+                return decenas[numero / 10] + " y " + unidades[unidad];
+            }
+        } else {
+            int centena = numero / 100;
+            int resto = numero % 100;
+            if (resto == 0) {
+                return centenas[centena];
+            } else {
+                return centenas[centena] + " " + convertirNumero(resto);
+            }
+        }
+    }
+
+    // Método principal para convertir un número a letras
+    public static String convertirNumeroALetras(int numero) {
+        if (numero == 0) {
+            return "cero";
+        }
+        String letras = "";
+        if (numero < 0) {
+            letras = "menos ";
+            numero = Math.abs(numero);
+        }
+        if (numero < 100) {
+            letras += convertirNumero(numero);
+        } else if (numero < 1000) {
+            letras += convertirNumero(numero);
+        } else if (numero < 1000000) {
+            int mil = numero / 1000;
+            int resto = numero % 1000;
+            if (mil == 1) {
+                letras += "mil";
+            } else {
+                letras += convertirNumero(mil) + " mil";
+            }
+            if (resto > 0) {
+                letras += " " + convertirNumero(resto);
+            }
+        } else {
+            letras = "Número fuera de rango";
+        }
+        return letras;
     }
 
 }

@@ -10,6 +10,7 @@ public interface DocumentoVentaResponse {
     String getDocumento();
     String getDocCliente();
     String getNombreCliente();
+    String getDireccionCliente();
     String getFechaPedido();
     String getMoneda();
     int getIdProducto();
