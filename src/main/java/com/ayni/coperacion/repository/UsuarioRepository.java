@@ -473,4 +473,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query( value = "call sp_obtener_documentos_pendientes_impresion(:idNegocio)", nativeQuery = true)
     List<PedidoInter> obtenerDocumentosPendientesImpresion(@Param("idNegocio") int idNegocio);
+
+    @Query( value = "call sp_cocina_pediente_generado(:idNegocio, :idPedido)", nativeQuery = true)
+    List<ListadoCocina> cocinaPedienteGenerado(@Param("idNegocio") int idNegocio,
+                                               @Param("idPedido") int idPedido);
+
 }

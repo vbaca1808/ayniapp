@@ -166,4 +166,5 @@ public interface IUsuarioService {
 
     List<PedidoInter> obtenerDocumentosPendientesImpresion(int idNegocio);
     
+    List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido);
 }

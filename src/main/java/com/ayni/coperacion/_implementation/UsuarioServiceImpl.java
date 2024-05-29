@@ -724,4 +724,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.cocinaPedienteGenerado(idNegocio, idPedido);         
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'cocinaPedienteGenerado'");
+        }
+    }
+
 }

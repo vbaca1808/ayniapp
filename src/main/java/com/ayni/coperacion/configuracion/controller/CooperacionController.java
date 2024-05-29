@@ -1121,6 +1121,120 @@ public class CooperacionController {
         }      
     }
 
+    @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
+        try { 
+             
+            List<ListadoCocina> lstDocumentoVenta = 
+            iUsuarioService.cocinaPedienteGenerado(idnegocio, idpedido);
+
+            try (PDDocument document = new PDDocument()) {
+                // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
+                PDRectangle pageSize = new PDRectangle(160,350);
+                PDPage page = new PDPage(pageSize);
+                document.addPage(page);
+                
+                // Dibujar la imagen en el contenido de la página
+                
+                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+ 
+                for (int i = 0; i < lstDocumentoVenta.size(); i++) {
+                    ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
+                    contentStream.newLineAtOffset(0, 330); 
+    
+                    int numeroLetrasMaximoLinea = 44;
+                    BigDecimal numeroEspacios = BigDecimal.ZERO;
+                    BigDecimal valorDos = new BigDecimal("2"); 
+             
+                    String vDescripcionProducto = listadoCocina.getDescripcionProducto();
+                    if (vDescripcionProducto.length() > 36) {
+                        // Dividir la razonSocial en dos líneas
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+    
+                        String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcionProducto.substring(0, 36) + 
+                        repeatString(" ", numeroEspacios.intValue());
+                        String linea2 = vDescripcionProducto.substring(36, vDescripcionProducto.length());
+                        
+                        numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+    
+                        linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+    
+                        // Ajustar posición del texto para que quepa en la tiquetera
+                        contentStream.newLineAtOffset(0, -20); // Ajuste vertical
+                        contentStream.showText(linea1);
+    
+                        contentStream.newLine(); // Nuevo inicio de línea 
+                        contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                        contentStream.showText(linea2); // Mostrar la segunda línea
+    
+                    } else {
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcionProducto.length()));
+                        
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        contentStream.newLineAtOffset(0, 20); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + vDescripcionProducto 
+                        + repeatString(" ", numeroEspacios.intValue()));
+                    }
+    
+                     
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
+                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                    contentStream.showText("Mesa :" + listadoCocina.getCantidadMesa() + repeatString(" ", numeroEspacios.intValue()));
+    
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText("Llevar :" + listadoCocina.getCantidadLlevar() + repeatString(" ", numeroEspacios.intValue()));
+                    
+    
+                    String vMesa = "Mesa: " + listadoCocina.getMesa();
+                    String vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
+                    
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
+                    //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+    
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(vMesa + repeatString(" ", numeroEspacios.intValue()));
+    
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 4) + vPedido + repeatString(" ", numeroEspacios.intValue()));
+    
+                }
+    
+                
+
+                contentStream.endText();
+                contentStream.close();
+            
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                document.save(outputStream);
+                document.close();
+            
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.setContentDispositionFormData("filename", "documento_tiquetera.pdf");
+            
+                return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+ 
+
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,
