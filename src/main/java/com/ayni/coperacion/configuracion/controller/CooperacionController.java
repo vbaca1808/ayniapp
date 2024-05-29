@@ -31,6 +31,8 @@ import java.math.RoundingMode;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -776,10 +778,15 @@ public class CooperacionController {
         }      
     }
 
+    private final ResourceLoader resourceLoader;
+
+    public CooperacionController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
     @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> descargarPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
         try { 
-            
+             
             List<DocumentoVentaResponse> lstDocumentoVenta = 
             iUsuarioService.obtenerDocumentoVenta(idnegocio, idpedido);
             
@@ -796,20 +803,20 @@ public class CooperacionController {
                 document.addPage(page);
                 
  
-                URL url = new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtxfAIkoY6Ls7r1qlsm1imsPb6vfyJcDX6SQ&s"); // Reemplaza "https://ejemplo.com/imagen.jpg" con la URL de tu imagen
-                BufferedImage bufferedImage = ImageIO.read(url);
-    
+                Resource resource = resourceLoader.getResource("classpath:logo_nautico.png"); // Reemplaza "imagen.jpg" con el nombre de tu imagen en los recursos
+                BufferedImage bufferedImage = ImageIO.read(resource.getInputStream());
                 // Crear un objeto PDImageXObject desde la imagen BufferedImage
                 PDImageXObject pdImage = LosslessFactory.createFromImage(document, bufferedImage);
-    
+
                 // Dibujar la imagen en el contenido de la página
                 
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
+                contentStream.drawImage(pdImage, 55, 290, 50, 50);
+
                 contentStream.beginText();
-                contentStream.drawImage(pdImage, 0, 340, 50, 50);
                 contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
-                contentStream.newLineAtOffset(0, 340); 
+                contentStream.newLineAtOffset(0, 275); 
 
                 int numeroLetrasMaximoLinea = 44;
                 BigDecimal numeroEspacios = BigDecimal.ZERO;
