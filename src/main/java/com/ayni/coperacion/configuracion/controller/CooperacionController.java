@@ -954,7 +954,7 @@ public class CooperacionController {
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", 4) +  vCliente.substring(0, 26) + 
+                    String linea1 = repeatString(" ", 4) + "Cliente: " + vCliente.substring(0, 26) + 
                     repeatString(" ", numeroEspacios.intValue());
                     String linea2 = vCliente.substring(26, vCliente.length());
                     
@@ -976,7 +976,7 @@ public class CooperacionController {
                     
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) +  vCliente + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText(repeatString(" ", 4) + "Cliente: " + vCliente + repeatString(" ", numeroEspacios.intValue()));
                 }
 
 
