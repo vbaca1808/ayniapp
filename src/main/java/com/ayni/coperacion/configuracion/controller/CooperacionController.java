@@ -58,6 +58,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -767,9 +768,18 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/descargarpdf",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<byte[]> descargarPdf() {
+    @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<byte[]> descargarPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
         try { 
+            
+            List<DocumentoVentaResponse> lstDocumentoVenta = 
+            iUsuarioService.obtenerDocumentoVenta(idnegocio, idpedido);
+            
+            DocumentoVentaResponse cabecera = null;
+
+            if (lstDocumentoVenta.size() > 0) {
+                cabecera = lstDocumentoVenta.get(0);
+            }
 
             try (PDDocument document = new PDDocument()) {
                 // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
@@ -781,7 +791,12 @@ public class CooperacionController {
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 7); // Tamaño de fuente reducido para ajustarse al espacio
                 contentStream.newLineAtOffset(5, 40); // Ajusta la posición del texto para que quepa en la tiquetera
-                contentStream.showText("Boleta de venta");
+                
+                if (cabecera != null) {
+                    contentStream.showText(cabecera.getRazonSocial());
+                    contentStream.showText(cabecera.getRucEmpresa());
+                }
+                
                 contentStream.endText();
                 contentStream.close();
             

@@ -15,6 +15,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -459,4 +460,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                              @Param("idCocina") int idCocina,
                                              @Param("nombreCocina") String nombreCocina);
 
+    @Query( value = "call sp_obtener_documento_venta(:idNegocio, :idPedido)", nativeQuery = true)
+    List<DocumentoVentaResponse> obtenerDocumentoVenta(@Param("idNegocio") int idNegocio, 
+                                                       @Param("idPedido") int idPedido);
+    
 }

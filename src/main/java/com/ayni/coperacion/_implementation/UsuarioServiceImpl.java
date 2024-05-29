@@ -22,6 +22,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
@@ -694,6 +695,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
- 
+    @Override
+    public List<DocumentoVentaResponse> obtenerDocumentoVenta(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.obtenerDocumentoVenta(idNegocio, idPedido);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerDocumentoVenta'");
+        }
+    }
 
 }
