@@ -76,6 +76,7 @@ import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
+import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
