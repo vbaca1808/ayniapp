@@ -713,7 +713,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'generarDocumentoVentaADocPagado'");
         }
     }
-
+ 
     @Override
     public List<PedidoInter> obtenerDocumentosPendientesImpresion(int idNegocio) {
         try {
