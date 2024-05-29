@@ -714,7 +714,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<Pedido> obtenerDocumentosPendientesImpresion(int idNegocio) {
+    public List<PedidoInter> obtenerDocumentosPendientesImpresion(int idNegocio) {
         try {
             return usuarioRepository.obtenerDocumentosPendientesImpresion(idNegocio);
         } catch (Exception e) {

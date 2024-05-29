@@ -28,6 +28,7 @@ import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
+import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
@@ -471,5 +472,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                        @Param("tipoDocumento") int tipoDocumento);
 
     @Query( value = "call sp_obtener_documentos_pendientes_impresion(:idNegocio)", nativeQuery = true)
-    List<Pedido> obtenerDocumentosPendientesImpresion(@Param("idNegocio") int idNegocio);
+    List<PedidoInter> obtenerDocumentosPendientesImpresion(@Param("idNegocio") int idNegocio);
 }
