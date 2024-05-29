@@ -16,11 +16,14 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -80,6 +83,11 @@ import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 @RestController
 @RequestMapping("/api")
@@ -786,10 +794,20 @@ public class CooperacionController {
                 PDRectangle pageSize = new PDRectangle(160,350);
                 PDPage page = new PDPage(pageSize);
                 document.addPage(page);
-            
+                
+ 
+                URL url = new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtxfAIkoY6Ls7r1qlsm1imsPb6vfyJcDX6SQ&s"); // Reemplaza "https://ejemplo.com/imagen.jpg" con la URL de tu imagen
+                BufferedImage bufferedImage = ImageIO.read(url);
+    
+                // Crear un objeto PDImageXObject desde la imagen BufferedImage
+                PDImageXObject pdImage = LosslessFactory.createFromImage(document, bufferedImage);
+    
+                // Dibujar la imagen en el contenido de la página
+                
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
                 contentStream.beginText();
+                contentStream.drawImage(pdImage, 0, 340, 50, 50);
                 contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
                 contentStream.newLineAtOffset(0, 340); 
 
