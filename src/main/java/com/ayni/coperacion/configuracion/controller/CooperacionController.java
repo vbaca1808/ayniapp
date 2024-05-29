@@ -1138,11 +1138,11 @@ public class CooperacionController {
                 
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
  
+                contentStream.beginText();
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
-                    contentStream.beginText();
                     contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
-                    contentStream.newLineAtOffset(0, 330); 
+                    contentStream.newLineAtOffset(0, 340); 
     
                     int numeroLetrasMaximoLinea = 44;
                     BigDecimal numeroEspacios = BigDecimal.ZERO;
@@ -1164,32 +1164,31 @@ public class CooperacionController {
                         linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
     
                         // Ajustar posición del texto para que quepa en la tiquetera
-                        contentStream.newLineAtOffset(0, -20); // Ajuste vertical
+                        contentStream.newLineAtOffset(15, -20); // Ajuste vertical
                         contentStream.showText(linea1);
     
                         contentStream.newLine(); // Nuevo inicio de línea 
-                        contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                        contentStream.newLineAtOffset(15, -10); // Ajuste vertical
                         contentStream.showText(linea2); // Mostrar la segunda línea
     
                     } else {
                         numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcionProducto.length()));
                         
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                        contentStream.newLineAtOffset(0, 20); // Posición inicial para la primera línea
-                        contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + vDescripcionProducto 
-                        + repeatString(" ", numeroEspacios.intValue()));
+                        contentStream.newLineAtOffset(15, -5); // Posición inicial para la primera línea
+                        contentStream.showText(vDescripcionProducto);
                     }
     
                      
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
                         
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                    contentStream.newLineAtOffset(15, -15); // Posición inicial para la primera línea
                     contentStream.showText("Mesa :" + listadoCocina.getCantidadMesa() + repeatString(" ", numeroEspacios.intValue()));
     
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
                     contentStream.showText("Llevar :" + listadoCocina.getCantidadLlevar() + repeatString(" ", numeroEspacios.intValue()));
                     
     
@@ -1200,10 +1199,10 @@ public class CooperacionController {
                     //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
     
-                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
                     contentStream.showText(vMesa + repeatString(" ", numeroEspacios.intValue()));
     
-                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
                     contentStream.showText(repeatString(" ", 4) + vPedido + repeatString(" ", numeroEspacios.intValue()));
     
                 }
