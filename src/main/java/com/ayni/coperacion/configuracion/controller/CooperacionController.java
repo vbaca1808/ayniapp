@@ -796,7 +796,7 @@ public class CooperacionController {
                     contentStream.showText(cabecera.getRazonSocial());
                     contentStream.showText(cabecera.getRucEmpresa());
                 }
-                
+
                 contentStream.endText();
                 contentStream.close();
             
@@ -816,6 +816,7 @@ public class CooperacionController {
  
 
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
