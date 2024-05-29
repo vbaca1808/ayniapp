@@ -980,36 +980,38 @@ public class CooperacionController {
                 }
 
 
-                if (vDireccionCliente.length() > 26) {
-                    // Dividir la razonSocial en dos líneas
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
-                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+                if (cabecera.getTipoDocumento().toUpperCase().contains("FACTURA")) {
+                    if (vDireccionCliente.length() > 26) {
+                        // Dividir la razonSocial en dos líneas
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 26));
+                        numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", 4) + "Dirección: " + vDireccionCliente.substring(0, 26) + 
-                    repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vDireccionCliente.substring(26, vDireccionCliente.length());
+                        String linea1 = repeatString(" ", 4) + "Dirección: " + vDireccionCliente.substring(0, 26) + 
+                        repeatString(" ", numeroEspacios.intValue());
+                        String linea2 = vDireccionCliente.substring(26, vDireccionCliente.length());
+                        
+                        numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                        numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
+
+                        linea2 = repeatString(" ", 4) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                        // Ajustar posición del texto para que quepa en la tiquetera
+                        contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                        contentStream.showText(linea1);
+
+                        contentStream.newLine(); // Nuevo inicio de línea 
+                        contentStream.newLineAtOffset(0, -10); // Ajuste vertical
+                        contentStream.showText(linea2); // Mostrar la segunda línea
+
+                    } else {
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccionCliente.length()));
+                        
+                        numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+                        contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 4) + "Dirección: " + vDireccionCliente + repeatString(" ", numeroEspacios.intValue()));
+                    }
                     
-                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
-                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
-
-                    linea2 = repeatString(" ", 4) + linea2 + repeatString(" ", numeroEspacios.intValue());
-
-                    // Ajustar posición del texto para que quepa en la tiquetera
-                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
-                    contentStream.showText(linea1);
-
-                    contentStream.newLine(); // Nuevo inicio de línea 
-                    contentStream.newLineAtOffset(0, -10); // Ajuste vertical
-                    contentStream.showText(linea2); // Mostrar la segunda línea
-
-                } else {
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccionCliente.length()));
-                    
-                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
-                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) + "Dirección: " + vDireccionCliente + repeatString(" ", numeroEspacios.intValue()));
                 }
-                
                 numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getFechaPedido().length()));
                 //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                 numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
