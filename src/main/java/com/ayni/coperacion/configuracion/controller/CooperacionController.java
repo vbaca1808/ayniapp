@@ -1195,7 +1195,7 @@ public class CooperacionController {
                         contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                         contentStream.showText(repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()));
 
-                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
                         contentStream.showText(listadoCocina.getNombreUsuario());
 
                         contentStream.newLineAtOffset(0, -11); // Posición inicial para la primera línea
