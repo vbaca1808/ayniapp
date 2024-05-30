@@ -857,7 +857,7 @@ public class CooperacionController {
                 contentStream.setFont(PDType1Font.COURIER_BOLD, 8); // Tamaño de fuente reducido para ajustarse al espacio 
                 contentStream.newLineAtOffset(0, 275); 
 
-                int numeroLetrasMaximoLinea = 27;
+                int numeroLetrasMaximoLinea = 30;
                 BigDecimal numeroEspacios = BigDecimal.ZERO;
                 BigDecimal valorDos = new BigDecimal("2");
                 if (cabecera != null) {
