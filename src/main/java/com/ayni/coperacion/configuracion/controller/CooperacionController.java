@@ -1074,7 +1074,7 @@ public class CooperacionController {
 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 17?17:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 16?16:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
