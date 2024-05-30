@@ -3,11 +3,15 @@ package com.ayni.coperacion.configuracion.controller;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -1121,18 +1125,31 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
-
+    
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        final Set<Object> seen = new HashSet<>();
+        return t -> seen.add(keyExtractor.apply(t));
+    }
  
-    @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
+    @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}/{tipolista}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido, 
+    @PathVariable int tipolista) {
         try { 
              
             List<ListadoCocina> lstDocumentoVenta = 
-            iUsuarioService.cocinaPedienteGenerado(idnegocio, idpedido);
+            iUsuarioService.cocinaPedienteGenerado(idnegocio, idpedido, tipolista);
+
+            long vCantidadRegistros = lstDocumentoVenta.size(); 
+            
+            Stream<ListadoCocina> lstPedidosDetalle = lstDocumentoVenta.stream().filter(distinctByKey(p -> p.getIdPedido()));
+            Stream<ListadoCocina> lstPedidosVenta = lstDocumentoVenta.stream().filter(x -> x.getDescripcionProducto().contains("&&&"));
+            vCantidadRegistros =  vCantidadRegistros + lstPedidosDetalle.count();
+            vCantidadRegistros = vCantidadRegistros * 70;
+            vCantidadRegistros = vCantidadRegistros + (lstPedidosVenta.count() * 25);
 
             try (PDDocument document = new PDDocument()) {
                 // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
-                PDRectangle pageSize = new PDRectangle(160,350);
+                PDRectangle pageSize = new PDRectangle(160,vCantidadRegistros);
                 PDPage page = new PDPage(pageSize);
                 document.addPage(page);
                 
@@ -1143,15 +1160,44 @@ public class CooperacionController {
                 contentStream.beginText();
                 
                 contentStream.setFont(PDType1Font.COURIER_BOLD, 9); // Tamaño de fuente reducido para ajustarse al espacio 
-                contentStream.newLineAtOffset(3, 340); 
+                contentStream.newLineAtOffset(3, vCantidadRegistros - 10); 
 
                 int numeroLetrasMaximoLinea = 28;
                 BigDecimal numeroEspacios = BigDecimal.ZERO;
                 BigDecimal valorDos = new BigDecimal("2"); 
+                int vIdPedido = 0;
+                String vMesa = "";
+                String vPedido = ""; 
+
 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
     
+                    
+                    if (vIdPedido != listadoCocina.getIdPedido()) {
+                        vMesa = "Número de Mesa: " + listadoCocina.getMesa();
+                        vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
+                        vIdPedido = listadoCocina.getIdPedido();
+
+                        contentStream.setFont(PDType1Font.COURIER, 9); // Tamaño de fuente reducido para ajustarse al espacio 
+                            
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
+                        //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+        
+                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 5) + vMesa + repeatString(" ", numeroEspacios.intValue()));
+        
+                        contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 7) + vPedido + repeatString(" ", numeroEspacios.intValue()));
+
+                        contentStream.newLineAtOffset(0, -11); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 4) + repeatString("-", 20));
+                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 4));
+                        
+                    }
+
                     contentStream.setFont(PDType1Font.COURIER_BOLD, 9); // Tamaño de fuente reducido para ajustarse al espacio 
                 
                     String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
@@ -1165,19 +1211,26 @@ public class CooperacionController {
                             contentStream.newLineAtOffset(0, -7);
                             contentStream.showText(linea.trim());
                         }
-
                     } else {                        
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.newLineAtOffset(0, -5);  
                         contentStream.showText(vDescripcionProducto);
+                    }
+
+                    if (listadoCocina.getActualizado() == 1) { 
+                        contentStream.newLineAtOffset(0, -10);  
+                        contentStream.showText(repeatString(" ", 15) + "(ACTUALIZADO)");
+                    } else if (listadoCocina.getActualizado() == 3) { 
+                        contentStream.newLineAtOffset(0, -10);  
+                        contentStream.showText(repeatString(" ", 15) + "(ELIMINADO)");
                     }
 
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
                     
                     if (!listadoCocina.getCantidadMesa().equals("0")) {
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                        contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                        contentStream.showText("Para la Mesa: " + listadoCocina.getCantidadMesa());
+                        contentStream.newLineAtOffset(0, -15);  
+                        contentStream.showText("Cantidad(Mesa): " + listadoCocina.getCantidadMesa());
 
                         if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                             if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
@@ -1205,7 +1258,7 @@ public class CooperacionController {
                         numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
-                        contentStream.showText("Para Llevar: " + listadoCocina.getCantidadLlevar());
+                        contentStream.showText("Cantidad(Llevar): " + listadoCocina.getCantidadLlevar());
                     
                         if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                             if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
@@ -1226,23 +1279,11 @@ public class CooperacionController {
                         }
 
                     }
-                    contentStream.setFont(PDType1Font.COURIER, 9); // Tamaño de fuente reducido para ajustarse al espacio 
-                
-                    String vMesa = "Número de Mesa: " + listadoCocina.getMesa();
-                    String vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
-                    
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
-                    //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
-    
-                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 5) + vMesa + repeatString(" ", numeroEspacios.intValue()));
-    
-                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 5) + vPedido + repeatString(" ", numeroEspacios.intValue()));
-                    
-                    contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 25));
+                     
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea 
+                    contentStream.showText(repeatString("-", 29));
+                    contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea 
+                    contentStream.showText(repeatString(" ", 2));
 
                 }
     

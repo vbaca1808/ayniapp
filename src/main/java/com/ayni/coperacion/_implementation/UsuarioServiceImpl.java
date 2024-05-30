@@ -725,9 +725,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido) {
+    public List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido, int tipolista) {
         try {
-            return usuarioRepository.cocinaPedienteGenerado(idNegocio, idPedido);         
+            return usuarioRepository.cocinaPedienteGenerado(idNegocio, idPedido, tipolista);         
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'cocinaPedienteGenerado'");
         }

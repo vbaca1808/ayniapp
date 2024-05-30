@@ -19,5 +19,6 @@ public interface ListadoCocina {
     int getEstadoPedido();
     int getMinutos();
     String getCorrelativoUnicoMovNegocio();
+    int getActualizado();
     
 }
