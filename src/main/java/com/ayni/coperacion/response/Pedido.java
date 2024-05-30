@@ -9,6 +9,6 @@ public class Pedido {
     
     private int idPedido;
     public String mensaje;
-    public byte[] documento;
+    public String documento;
 
 }

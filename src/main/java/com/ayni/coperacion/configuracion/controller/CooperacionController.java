@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -208,9 +209,12 @@ public class CooperacionController {
             pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
             pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
             pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
-
-            pedido.setDocumento(sbGenerarDocumento(pedidoDto.getIdNegocio(),idPedido,0));
-
+            
+            byte[] bytesDocumento = sbGenerarDocumento(pedidoDto.getIdNegocio(), idPedido, 0);
+            String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
+            
+            // Establecer la cadena Base64 como el campo documento del objeto Pedido
+            pedido.setDocumento(documentoBase64);
             pedido.setIdPedido(idPedido);
             
             return ResponseEntity.ok().body(pedido);
