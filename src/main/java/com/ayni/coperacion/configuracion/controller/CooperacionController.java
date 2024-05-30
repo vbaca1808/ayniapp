@@ -1074,13 +1074,14 @@ public class CooperacionController {
 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 18?18:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 11?11:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
 
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) + vProducto + repeatString(" ", ((numeroLetrasMaximoLinea - 12)  - vProducto.length())) + 
+                    contentStream.showText(repeatString(" ", 4) + vProducto + 
+                    repeatString(" ", ((numeroLetrasMaximoLinea - 3)  - vProducto.length())) + 
                     vPrecio + repeatString(" ", 3) + vTotal + repeatString(" ", 4));
 
                 }
