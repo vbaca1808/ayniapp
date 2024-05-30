@@ -1189,6 +1189,9 @@ public class CooperacionController {
                         numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
         
                         contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.showText(repeatString(" ", 5) + listadoCocina.getNombreUsuario() + repeatString(" ", numeroEspacios.intValue()));
+
+                        contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                         contentStream.showText(repeatString(" ", 5) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()));
         
                         contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea

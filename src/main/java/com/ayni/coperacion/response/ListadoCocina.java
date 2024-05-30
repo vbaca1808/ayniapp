@@ -20,5 +20,7 @@ public interface ListadoCocina {
     int getMinutos();
     String getCorrelativoUnicoMovNegocio();
     int getActualizado();
+    String getNumeroCelular();
+    String getNombreUsuario();
     
 }
