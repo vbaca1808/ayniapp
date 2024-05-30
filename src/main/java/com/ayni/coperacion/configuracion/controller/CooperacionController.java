@@ -1081,7 +1081,7 @@ public class CooperacionController {
 
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                     contentStream.showText(repeatString(" ", 4) + vProducto + " " +  
-                    vPrecio + repeatString(" ", 3) + vTotal + repeatString(" ", 4));
+                    vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4));
 
                 }
                 
