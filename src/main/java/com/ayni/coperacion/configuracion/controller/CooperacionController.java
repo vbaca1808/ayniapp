@@ -934,14 +934,14 @@ public class CooperacionController {
 
                 
                 String vDescripcion = cabecera.getDescripcion();
-                if (vDescripcion.length() > 20) {
+                if (vDescripcion.length() > 25) {
                     // Dividir la razonSocial en dos líneas
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 20));
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 25));
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcion.substring(0, 20) + 
+                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcion.substring(0, 25) + 
                     repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vDescripcion.substring(20, vDescripcion.length());
+                    String linea2 = vDescripcion.substring(25, vDescripcion.length());
                     
                     numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
