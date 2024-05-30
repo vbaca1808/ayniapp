@@ -1233,7 +1233,7 @@ public class CooperacionController {
                     if (!listadoCocina.getCantidadMesa().equals("0")) {
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         contentStream.newLineAtOffset(0, -15);  
-                        contentStream.showText("Cantidad(Mesa): " + listadoCocina.getCantidadMesa());
+                        contentStream.showText("(Mesa)Cantidad: " + listadoCocina.getCantidadMesa());
 
                         if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                             if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
@@ -1261,7 +1261,7 @@ public class CooperacionController {
                         numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
-                        contentStream.showText("Cantidad(Llevar): " + listadoCocina.getCantidadLlevar());
+                        contentStream.showText("(Llevar)Cantidad: " + listadoCocina.getCantidadLlevar());
                     
                         if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                             if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
