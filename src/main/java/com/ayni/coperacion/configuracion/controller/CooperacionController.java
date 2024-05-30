@@ -1165,7 +1165,7 @@ public class CooperacionController {
                 contentStream.setFont(PDType1Font.COURIER_BOLD, 10); // Tamaño de fuente reducido para ajustarse al espacio 
                 contentStream.newLineAtOffset(3, vCantidadRegistros - 10); 
 
-                int numeroLetrasMaximoLinea = 19;
+                int numeroLetrasMaximoLinea = 24;
                 BigDecimal numeroEspacios = BigDecimal.ZERO;
                 BigDecimal valorDos = new BigDecimal("2"); 
                 int vIdPedido = 0;
@@ -1204,13 +1204,13 @@ public class CooperacionController {
                     contentStream.setFont(PDType1Font.COURIER_BOLD, 10); // Tamaño de fuente reducido para ajustarse al espacio 
                 
                     String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
-                    if (vDescripcionProducto.length() > 19) {
+                    if (vDescripcionProducto.length() > 24) {
                         // Dividir la razonSocial en dos líneas
                         int vContador = 0;
                         while (vContador < vDescripcionProducto.length()) {
                             String linea = vDescripcionProducto.substring(vContador, 
                             (vDescripcionProducto.length() > vContador + 28?vContador + 28: vDescripcionProducto.length()));
-                            vContador = vContador + 19;
+                            vContador = vContador + 24;
                             contentStream.newLineAtOffset(0, -7);
                             contentStream.showText(linea.trim());
                         }
@@ -1247,8 +1247,8 @@ public class CooperacionController {
 
                                 while (vContador < vDetalle.length()) {
                                     String linea = vDetalle.substring(vContador, 
-                                    (vDetalle.length() > vContador + 19?vContador + 19: vDetalle.length()));
-                                    vContador = vContador + 19;
+                                    (vDetalle.length() > vContador + 24?vContador + 24: vDetalle.length()));
+                                    vContador = vContador + 24;
                                     contentStream.newLineAtOffset(0, -7);
                                     contentStream.showText(linea.trim());
                                 }
@@ -1275,8 +1275,8 @@ public class CooperacionController {
                                 
                                 while (vContador < vDetalle.length()) {
                                     String linea = vDetalle.substring(vContador, 
-                                    (vDetalle.length() > vContador + 28?vContador + 28: vDetalle.length()));
-                                    vContador = vContador + 28;
+                                    (vDetalle.length() > vContador + 24?vContador + 24: vDetalle.length()));
+                                    vContador = vContador + 24;
                                     contentStream.newLineAtOffset(0, -7);
                                     contentStream.showText(linea.trim());
                                 }
@@ -1287,7 +1287,7 @@ public class CooperacionController {
                     }
                      
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea 
-                    contentStream.showText(repeatString("-", 29));
+                    contentStream.showText(repeatString("-", 24));
                     contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea 
                     contentStream.showText(repeatString(" ", 2));
 
