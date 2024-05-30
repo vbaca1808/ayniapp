@@ -1220,6 +1220,9 @@ public class CooperacionController {
                     if (listadoCocina.getActualizado() == 1) { 
                         contentStream.newLineAtOffset(0, -10);  
                         contentStream.showText(repeatString(" ", 15) + "(ACTUALIZADO)");
+                    }  else if (listadoCocina.getActualizado() == 2) { 
+                        contentStream.newLineAtOffset(0, -10);  
+                        contentStream.showText(repeatString(" ", 15) + "(AGREGADO)");
                     } else if (listadoCocina.getActualizado() == 3) { 
                         contentStream.newLineAtOffset(0, -10);  
                         contentStream.showText(repeatString(" ", 15) + "(ELIMINADO)");
