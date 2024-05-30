@@ -1088,7 +1088,7 @@ public class CooperacionController {
                 contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                 contentStream.showText(repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + repeatString(" ", 4));
 
-                int vEspacios = 15;
+                int vEspacios = 19;
                 String vGravado = "S/." + cabecera.getGravado();
                 String vIgv = "S/." + cabecera.getIgv();
                 String vTotalPedido = "S/." + cabecera.getTotalPedido();
