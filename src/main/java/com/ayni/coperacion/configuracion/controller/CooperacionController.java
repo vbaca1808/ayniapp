@@ -1188,14 +1188,15 @@ public class CooperacionController {
                         //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
         
-                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
-                        contentStream.showText(repeatString(" ", 5) + listadoCocina.getNombreUsuario() + repeatString(" ", numeroEspacios.intValue()));
 
                         contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                         contentStream.showText(repeatString(" ", 5) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()));
         
                         contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                         contentStream.showText(repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()));
+
+                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
+                        contentStream.showText(listadoCocina.getNombreUsuario());
 
                         contentStream.newLineAtOffset(0, -11); // Posición inicial para la primera línea
                         contentStream.showText(repeatString(" ", 4) + repeatString("-", 20));
@@ -1214,7 +1215,7 @@ public class CooperacionController {
                             String linea = vDescripcionProducto.substring(vContador, 
                             (vDescripcionProducto.length() > vContador + 28?vContador + 28: vDescripcionProducto.length()));
                             vContador = vContador + 24;
-                            contentStream.newLineAtOffset(0, -7);
+                            contentStream.newLineAtOffset(0, -14);
                             contentStream.showText(linea.trim());
                         }
                     } else {                        
