@@ -848,7 +848,7 @@ public class CooperacionController {
                 contentStream.drawImage(pdImage, 55, 290, 50, 50);
 
                 contentStream.beginText();
-                contentStream.setFont(PDType1Font.COURIER_BOLD, 7); // Tamaño de fuente reducido para ajustarse al espacio 
+                contentStream.setFont(PDType1Font.COURIER_BOLD, 9); // Tamaño de fuente reducido para ajustarse al espacio 
                 contentStream.newLineAtOffset(0, 275); 
 
                 int numeroLetrasMaximoLinea = 44;
