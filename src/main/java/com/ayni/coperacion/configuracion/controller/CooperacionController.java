@@ -995,7 +995,7 @@ public class CooperacionController {
 
                     String linea1 = repeatString(" ", 4) +  vCliente.substring(0, 25) + 
                     repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vCliente.substring(25, vCliente.length());
+                    String linea2 = vCliente.substring(25, vCliente.length()).trim();
                     
                     numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
@@ -1074,7 +1074,7 @@ public class CooperacionController {
 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 16?16:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 18?18:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
@@ -1107,6 +1107,9 @@ public class CooperacionController {
                 "SON " + convertirNumeroALetras(new BigDecimal(cabecera.getTotalPedido().replace(",","")).intValue()).toUpperCase() + " Y " +
                 (new BigDecimal(cabecera.getTotalPedido().replace(",","")).remainder(BigDecimal.ONE).compareTo(new BigDecimal("9"))>0?"":"0") +
                 new BigDecimal(cabecera.getTotalPedido().replace(",","")).remainder(BigDecimal.ONE).intValue() + "/100 SOLES");
+                
+                contentStream.newLineAtOffset(0, -20);  
+                contentStream.showText(repeatString(" ", 4));
 
                 contentStream.endText();
                 contentStream.close();
