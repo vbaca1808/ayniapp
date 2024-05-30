@@ -988,14 +988,14 @@ public class CooperacionController {
                 contentStream.showText(repeatString(" ", 4) + vDocumento + repeatString(" ", numeroEspacios.intValue()));
 
                 
-                if (vCliente.length() > 35) {
+                if (vCliente.length() > 25) {
                     // Dividir la razonSocial en dos líneas
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 35));
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 25));
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", 4) +  vCliente.substring(0, 35) + 
+                    String linea1 = repeatString(" ", 4) +  vCliente.substring(0, 25) + 
                     repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vCliente.substring(35, vCliente.length());
+                    String linea2 = vCliente.substring(25, vCliente.length());
                     
                     numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP); 
