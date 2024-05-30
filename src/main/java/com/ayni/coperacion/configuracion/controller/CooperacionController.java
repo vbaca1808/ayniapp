@@ -209,6 +209,8 @@ public class CooperacionController {
             pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
             pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
 
+            pedido.setDocumento(sbGenerarDocumento(pedidoDto.getIdNegocio(),idPedido,0));
+
             pedido.setIdPedido(idPedido);
             
             return ResponseEntity.ok().body(pedido);
@@ -1131,12 +1133,9 @@ public class CooperacionController {
         return t -> seen.add(keyExtractor.apply(t));
     }
  
-    @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}/{tipolista}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido, 
-    @PathVariable int tipolista) {
-        try { 
-             
-            List<ListadoCocina> lstDocumentoVenta = 
+    public byte[] sbGenerarDocumento(int idnegocio, int idpedido, int tipolista) throws IOException {
+
+        List<ListadoCocina> lstDocumentoVenta = 
             iUsuarioService.cocinaPedienteGenerado(idnegocio, idpedido, tipolista);
 
             long vCantidadRegistros = lstDocumentoVenta.size(); 
@@ -1289,9 +1288,7 @@ public class CooperacionController {
                     contentStream.showText(repeatString(" ", 2));
 
                 }
-    
-                
-
+     
                 contentStream.endText();
                 contentStream.close();
             
@@ -1299,17 +1296,20 @@ public class CooperacionController {
                 document.save(outputStream);
                 document.close();
             
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_PDF);
-                headers.setContentDispositionFormData("filename", "documento_tiquetera.pdf");
-            
-                return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return  outputStream.toByteArray();
             }
- 
 
+    }
+    @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}/{tipolista}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido, 
+    @PathVariable int tipolista) {
+        try { 
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("filename", "documento_tiquetera.pdf");
+        
+            return new ResponseEntity<>(sbGenerarDocumento(idnegocio, idpedido, tipolista), headers, HttpStatus.OK);
+            
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
