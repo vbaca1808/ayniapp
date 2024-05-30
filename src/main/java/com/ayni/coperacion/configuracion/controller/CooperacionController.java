@@ -1074,13 +1074,13 @@ public class CooperacionController {
 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 30?30:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 17?17:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
 
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) + vProducto + repeatString(" ", ((numeroLetrasMaximoLinea - 21)  - vProducto.length())) + 
+                    contentStream.showText(repeatString(" ", 4) + vProducto + repeatString(" ", ((numeroLetrasMaximoLinea - 12)  - vProducto.length())) + 
                     vPrecio + repeatString(" ", 3) + vTotal + repeatString(" ", 4));
 
                 }
@@ -1088,7 +1088,7 @@ public class CooperacionController {
                 contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                 contentStream.showText(repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + repeatString(" ", 4));
 
-                int vEspacios = 29;
+                int vEspacios = 15;
                 String vGravado = "S/." + cabecera.getGravado();
                 String vIgv = "S/." + cabecera.getIgv();
                 String vTotalPedido = "S/." + cabecera.getTotalPedido();
