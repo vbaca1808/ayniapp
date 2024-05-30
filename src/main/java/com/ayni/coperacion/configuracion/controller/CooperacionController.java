@@ -1205,7 +1205,7 @@ public class CooperacionController {
                         numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
-                        contentStream.showText("Para Llevar: " + listadoCocina.getCantidadLlevar() + repeatString(" ", numeroEspacios.intValue()));
+                        contentStream.showText("Para Llevar: " + listadoCocina.getCantidadLlevar());
                     
                         if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                             if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
@@ -1236,10 +1236,10 @@ public class CooperacionController {
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
     
                     contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 10) + vMesa + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText(repeatString(" ", 5) + vMesa + repeatString(" ", numeroEspacios.intValue()));
     
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 10) + vPedido + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText(repeatString(" ", 5) + vPedido + repeatString(" ", numeroEspacios.intValue()));
                     
                     contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
                     contentStream.showText(repeatString(" ", 25));
