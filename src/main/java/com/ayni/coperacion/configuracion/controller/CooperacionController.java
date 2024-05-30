@@ -15,6 +15,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -1121,6 +1122,7 @@ public class CooperacionController {
         }      
     }
 
+ 
     @GetMapping(value="/descargarpedidopdf/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> descargarPedidoPdf(@PathVariable int idnegocio, @PathVariable int idpedido) {
         try { 
@@ -1139,72 +1141,109 @@ public class CooperacionController {
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
  
                 contentStream.beginText();
+                
+                contentStream.setFont(PDType1Font.COURIER_BOLD, 9); // Tamaño de fuente reducido para ajustarse al espacio 
+                contentStream.newLineAtOffset(3, 340); 
+
+                int numeroLetrasMaximoLinea = 28;
+                BigDecimal numeroEspacios = BigDecimal.ZERO;
+                BigDecimal valorDos = new BigDecimal("2"); 
+
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
-                    contentStream.setFont(PDType1Font.COURIER, 6); // Tamaño de fuente reducido para ajustarse al espacio 
-                    contentStream.newLineAtOffset(0, 340); 
     
-                    int numeroLetrasMaximoLinea = 44;
-                    BigDecimal numeroEspacios = BigDecimal.ZERO;
-                    BigDecimal valorDos = new BigDecimal("2"); 
-             
-                    String vDescripcionProducto = listadoCocina.getDescripcionProducto();
-                    if (vDescripcionProducto.length() > 36) {
+                    contentStream.setFont(PDType1Font.COURIER_BOLD, 9); // Tamaño de fuente reducido para ajustarse al espacio 
+                
+                    String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
+                    if (vDescripcionProducto.length() > 28) {
                         // Dividir la razonSocial en dos líneas
-                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
-                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-    
-                        String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcionProducto.substring(0, 36) + 
-                        repeatString(" ", numeroEspacios.intValue());
-                        String linea2 = vDescripcionProducto.substring(36, vDescripcionProducto.length());
-                        
-                        numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
-                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-    
-                        linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
-    
-                        // Ajustar posición del texto para que quepa en la tiquetera
-                        contentStream.newLineAtOffset(15, -20); // Ajuste vertical
-                        contentStream.showText(linea1);
-    
-                        contentStream.newLine(); // Nuevo inicio de línea 
-                        contentStream.newLineAtOffset(15, -10); // Ajuste vertical
-                        contentStream.showText(linea2); // Mostrar la segunda línea
-    
-                    } else {
-                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcionProducto.length()));
-                        
+                        int vContador = 0;
+                        while (vContador < vDescripcionProducto.length()) {
+                            String linea = vDescripcionProducto.substring(vContador, 
+                            (vDescripcionProducto.length() > vContador + 28?vContador + 28: vDescripcionProducto.length()));
+                            vContador = vContador + 28;
+                            contentStream.newLineAtOffset(0, -7);
+                            contentStream.showText(linea.trim());
+                        }
+
+                    } else {                        
                         numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                        contentStream.newLineAtOffset(15, -5); // Posición inicial para la primera línea
+                        contentStream.newLineAtOffset(0, -5); // Posición inicial para la primera línea
                         contentStream.showText(vDescripcionProducto);
                     }
-    
-                     
+
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
-                        
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    contentStream.newLineAtOffset(15, -15); // Posición inicial para la primera línea
-                    contentStream.showText("Mesa :" + listadoCocina.getCantidadMesa() + repeatString(" ", numeroEspacios.intValue()));
-    
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
-                    contentStream.showText("Llevar :" + listadoCocina.getCantidadLlevar() + repeatString(" ", numeroEspacios.intValue()));
                     
-    
-                    String vMesa = "Mesa: " + listadoCocina.getMesa();
+                    if (!listadoCocina.getCantidadMesa().equals("0")) {
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                        contentStream.showText("Para la Mesa: " + listadoCocina.getCantidadMesa());
+
+                        if (listadoCocina.getDescripcionProducto().contains("&&&")) {
+                            if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
+                                contentStream.newLineAtOffset(0, -10);
+                                
+                                String vDetalle = "Detalle: " + listadoCocina.getDescripcionProducto().split("&&&")[1];
+                                int vContador = 0;
+
+                                while (vContador < vDetalle.length()) {
+                                    String linea = vDetalle.substring(vContador, 
+                                    (vDetalle.length() > vContador + 28?vContador + 28: vDetalle.length()));
+                                    vContador = vContador + 28;
+                                    contentStream.newLineAtOffset(0, -7);
+                                    contentStream.showText(linea.trim());
+                                }
+
+                                //contentStream.showText("Detalle: " + listadoCocina.getDescripcionProducto().split("&&&")[1]);        
+                            }
+                        }
+
+                    }
+
+
+                    if (!listadoCocina.getCantidadLlevar().equals("0")) {
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
+                        contentStream.showText("Para Llevar: " + listadoCocina.getCantidadLlevar() + repeatString(" ", numeroEspacios.intValue()));
+                    
+                        if (listadoCocina.getDescripcionProducto().contains("&&&")) {
+                            if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
+                                contentStream.newLineAtOffset(0, -10);
+                                
+                                String vDetalle = "Detalle: " + listadoCocina.getDescripcionProducto().split("&&&")[2];
+                                int vContador = 0;
+                                
+                                while (vContador < vDetalle.length()) {
+                                    String linea = vDetalle.substring(vContador, 
+                                    (vDetalle.length() > vContador + 28?vContador + 28: vDetalle.length()));
+                                    vContador = vContador + 28;
+                                    contentStream.newLineAtOffset(0, -7);
+                                    contentStream.showText(linea.trim());
+                                }
+                                       
+                            }
+                        }
+
+                    }
+                    contentStream.setFont(PDType1Font.COURIER, 9); // Tamaño de fuente reducido para ajustarse al espacio 
+                
+                    String vMesa = "Número de Mesa: " + listadoCocina.getMesa();
                     String vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
                     
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
                     //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
     
-                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
-                    contentStream.showText(vMesa + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 10) + vMesa + repeatString(" ", numeroEspacios.intValue()));
     
-                    contentStream.newLineAtOffset(15, -10); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", 4) + vPedido + repeatString(" ", numeroEspacios.intValue()));
-    
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 10) + vPedido + repeatString(" ", numeroEspacios.intValue()));
+                    
+                    contentStream.newLineAtOffset(0, -20); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 25));
+
                 }
     
                 
