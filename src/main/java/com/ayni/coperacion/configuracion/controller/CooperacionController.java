@@ -27,6 +27,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1329,11 +1330,22 @@ public class CooperacionController {
     }
 
     @PostMapping(value="/modificarmenupedidounitario",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> modificarMenuPedidoUnitario(@Valid @RequestBody 
+    public ResponseEntity<Pedido> modificarMenuPedidoUnitario(@Valid @RequestBody 
     MenuPedidoUnitarioDto menuPedidoUnitario) {
         try {  
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
-            return ResponseEntity.ok().body(lst);
+
+            byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
+            menuPedidoUnitario.getIdPedido(), 1);
+
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
+            pedido.setMensaje("");
+
+            String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
+            pedido.setDocumento(documentoBase64);
+            return ResponseEntity.ok().body(pedido);
+
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
         }      
@@ -1647,6 +1659,12 @@ public class CooperacionController {
                 @Override
                 public String getMensaje() {
                     return "Se Envio, Correctamente";
+                }
+
+                @Override
+                public byte[] getDocumento() {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'getDocumento'");
                 }
 
                 
