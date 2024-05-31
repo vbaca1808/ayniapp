@@ -824,7 +824,7 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}{nv}/",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}/{nv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> descargarPdf(@PathVariable int idnegocio, 
     @PathVariable int idpedido, @PathVariable int nv) {
         try { 
