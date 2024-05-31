@@ -5,5 +5,6 @@ public interface PedidoInter {
     
     int getIdPedido();
     String getMensaje();
+    int getTipoDoc();
 
 }
