@@ -21,5 +21,6 @@ public interface DocumentoVentaResponse {
     String getGravado();
     String getIgv();
     String getCondicionPago();
+    int getMesa();
     
 }
