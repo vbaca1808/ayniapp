@@ -969,7 +969,7 @@ public class CooperacionController {
                         
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                     contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()-5) + "M-" + cabecera.getMesa() + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()-5) + "M-" + cabecera.getMesa() + repeatString(" ", 3) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()));
 
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
