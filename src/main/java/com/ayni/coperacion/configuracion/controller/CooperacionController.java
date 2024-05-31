@@ -964,17 +964,25 @@ public class CooperacionController {
                     contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + vDescripcion + repeatString(" ", numeroEspacios.intValue()));
                 }
 
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
-                    
-                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()));
+                if (nv == 1) {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
+                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()));
 
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
-                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
-                contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getDocumento() + repeatString(" ", numeroEspacios.intValue()));
-                
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + cabecera.getDocumento() + repeatString(" ", numeroEspacios.intValue()));
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
+                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + "Nota de Venta" + repeatString(" ", numeroEspacios.intValue()));
+
+                }
 
                 if (nv == 1) {
                     String vDocumento = "Documento: " + cabecera.getDocCliente();
@@ -1073,7 +1081,7 @@ public class CooperacionController {
                 contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                 contentStream.showText(repeatString(" ", 4) + "Descripción" + repeatString(" ", numeroLetrasMaximoLinea - 31) + 
                 "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4));
-
+ 
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
                     (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 13?13:
