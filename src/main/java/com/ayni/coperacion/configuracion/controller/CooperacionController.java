@@ -58,7 +58,7 @@ import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.InsumoDto;
-import com.ayni.coperacion.dto.MenuPedidoUnitario;
+import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
 import com.ayni.coperacion.dto.PedidoDto;
@@ -1330,7 +1330,7 @@ public class CooperacionController {
 
     @PostMapping(value="/modificarmenupedidounitario",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> modificarMenuPedidoUnitario(@Valid @RequestBody 
-    MenuPedidoUnitario menuPedidoUnitario) {
+    MenuPedidoUnitarioDto menuPedidoUnitario) {
         try {  
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
             return ResponseEntity.ok().body(lst);

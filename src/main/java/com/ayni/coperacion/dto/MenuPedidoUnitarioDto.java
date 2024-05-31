@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MenuPedidoUnitario {
+public class MenuPedidoUnitarioDto {
     
 	private int idNegocio;
 	private int idPedido;

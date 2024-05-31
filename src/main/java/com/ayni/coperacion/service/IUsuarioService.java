@@ -8,7 +8,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
-import com.ayni.coperacion.dto.MenuPedidoUnitario;
+import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
@@ -169,5 +169,5 @@ public interface IUsuarioService {
     
     List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido, int tipolista);
 
-    List<RespuestaStd> modificarMenuPedidoUnitario(MenuPedidoUnitario menuPedidoUnitario);
+    List<RespuestaStd> modificarMenuPedidoUnitario(MenuPedidoUnitarioDto menuPedidoUnitario);
 }
