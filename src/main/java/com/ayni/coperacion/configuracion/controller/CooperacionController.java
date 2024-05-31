@@ -1335,16 +1335,20 @@ public class CooperacionController {
         try {  
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
 
-            byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
-            menuPedidoUnitario.getIdPedido(), 1);
+            if(lst.size() > 0) {
+                byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
+                menuPedidoUnitario.getIdPedido(), 1);
 
-            Pedido pedido = new Pedido();
-            pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
-            pedido.setMensaje("");
+                Pedido pedido = new Pedido();
+                pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
+                pedido.setMensaje("");
 
-            String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
-            pedido.setDocumento(documentoBase64);
-            return ResponseEntity.ok().body(pedido);
+                String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
+                pedido.setDocumento(documentoBase64);
+                return ResponseEntity.ok().body(pedido);
+            } else {
+                return ResponseEntity.ok().body(null);
+            }
 
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
@@ -1660,12 +1664,7 @@ public class CooperacionController {
                 public String getMensaje() {
                     return "Se Envio, Correctamente";
                 }
-
-                @Override
-                public byte[] getDocumento() {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'getDocumento'");
-                }
+ 
 
                 
             };
