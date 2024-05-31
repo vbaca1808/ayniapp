@@ -14,6 +14,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.MenuPedidoUnitario;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.UsuarioDto;
@@ -730,6 +731,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.cocinaPedienteGenerado(idNegocio, idPedido, tipolista);         
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'cocinaPedienteGenerado'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> modificarMenuPedidoUnitario(MenuPedidoUnitario menuPedidoUnitario) {
+        try {
+            return usuarioRepository.modificarMenuPedidoUnitario(menuPedidoUnitario.getIdNegocio(), 
+            menuPedidoUnitario.getIdPedido(), menuPedidoUnitario.getIdProducto(), 
+            menuPedidoUnitario.getCantidad(), menuPedidoUnitario.getCantidadLLevar(), 
+            menuPedidoUnitario.getDescripcion(), menuPedidoUnitario.getTotal());
+
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'modificarMenuPedidoUnitario'");
         }
     }
 

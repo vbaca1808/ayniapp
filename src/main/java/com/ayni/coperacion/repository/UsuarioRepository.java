@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository; 
+import org.springframework.stereotype.Repository;
+
+import com.ayni.coperacion.dto.MenuPedidoUnitario;
 import com.ayni.coperacion.entidades.Usuario;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
@@ -479,4 +481,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("idPedido") int idPedido,
                                                @Param("tipoLista") int tipoLista);
 
+    @Query( value = "call sp_modificar_menu_pedido_unitario(:idNegocio, :idPedido, :idProducto, :cantidad, :cantidadLlevar, :descripcion, :total)", nativeQuery = true)
+    List<RespuestaStd> modificarMenuPedidoUnitario(@Param("idNegocio") int idNegocio,
+                                                   @Param("idPedido") int idPedido,
+                                                   @Param("idProducto") int tipoLista,
+                                                   @Param("cantidad") int cantidad,
+                                                   @Param("cantidadLlevar") int cantidadLlevar,
+                                                   @Param("descripcion") String descripcion,
+                                                   @Param("total") BigDecimal total);
+                                        
 }
