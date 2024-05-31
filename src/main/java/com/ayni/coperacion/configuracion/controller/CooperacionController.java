@@ -980,7 +980,7 @@ public class CooperacionController {
                         
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                     contentStream.newLineAtOffset(0, -15); // Posición inicial para la primera línea
-                    contentStream.showText(repeatString(" ", numeroEspacios.intValue()) + "Nota de Venta" + repeatString(" ", numeroEspacios.intValue()));
+                    contentStream.showText("M-" + repeatString(" ", numeroEspacios.intValue()-5) + "Nota de Venta" + repeatString(" ", numeroEspacios.intValue()));
 
                 }
 
