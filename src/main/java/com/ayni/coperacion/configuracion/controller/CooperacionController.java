@@ -1152,7 +1152,7 @@ public class CooperacionController {
             Stream<ListadoCocina> lstPedidosDetalle = lstDocumentoVenta.stream().filter(distinctByKey(p -> p.getIdPedido()));
             Stream<ListadoCocina> lstPedidosVenta = lstDocumentoVenta.stream().filter(x -> x.getDescripcionProducto().contains("&&&"));
             vCantidadRegistros =  vCantidadRegistros + lstPedidosDetalle.count();
-            vCantidadRegistros = vCantidadRegistros * 70;
+            vCantidadRegistros = vCantidadRegistros * 150;
             vCantidadRegistros = vCantidadRegistros + (lstPedidosVenta.count() * 25);
 
             try (PDDocument document = new PDDocument()) {
