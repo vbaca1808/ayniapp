@@ -22,5 +22,6 @@ public interface DocumentoVentaResponse {
     String getIgv();
     String getCondicionPago();
     int getMesa();
+    String getNombreUsuario();
     
 }

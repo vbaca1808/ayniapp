@@ -1125,6 +1125,12 @@ public class CooperacionController {
                 contentStream.newLineAtOffset(0, -20);  
                 contentStream.showText(repeatString(" ", 4));
 
+                contentStream.newLineAtOffset(0, -20);  
+                contentStream.showText("Mesera: " + cabecera.getNombreUsuario());
+
+                contentStream.newLineAtOffset(0, -20);  
+                contentStream.showText(repeatString(" ", 4));
+
                 contentStream.endText();
                 contentStream.close();
             
