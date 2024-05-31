@@ -840,7 +840,7 @@ public class CooperacionController {
 
             try (PDDocument document = new PDDocument()) {
                 // Tamaño de página para una tiquetera típica (por ejemplo, 80 mm de ancho y 50 mm de alto)
-                PDRectangle pageSize = new PDRectangle(160,350);
+                PDRectangle pageSize = new PDRectangle(160,400);
                 PDPage page = new PDPage(pageSize);
                 document.addPage(page);
                 
@@ -854,11 +854,11 @@ public class CooperacionController {
                 PDImageXObject pdImage = LosslessFactory.createFromImage(document, bufferedImage);
 
                 // Dibujar la imagen en el contenido de la página 
-                contentStream.drawImage(pdImage, 55, 290, 50, 50);
+                contentStream.drawImage(pdImage, 55, 340, 50, 50);
 
                 contentStream.beginText();
                 contentStream.setFont(PDType1Font.COURIER_BOLD, 8); // Tamaño de fuente reducido para ajustarse al espacio 
-                contentStream.newLineAtOffset(0, 275); 
+                contentStream.newLineAtOffset(0, 325); 
 
                 if (cabecera != null) {
                     String razonSocial = cabecera.getRazonSocial();
@@ -1125,8 +1125,8 @@ public class CooperacionController {
                 contentStream.newLineAtOffset(0, -20);  
                 contentStream.showText(repeatString(" ", 4));
 
-                contentStream.newLineAtOffset(0, -20);  
-                contentStream.showText("Mesera: " + cabecera.getNombreUsuario());
+                contentStream.newLineAtOffset(0, -5);  
+                contentStream.showText(repeatString(" ", 4) +  "Mesera: " + cabecera.getNombreUsuario());
 
                 contentStream.newLineAtOffset(0, -20);  
                 contentStream.showText(repeatString(" ", 4));
