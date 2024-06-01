@@ -1444,8 +1444,7 @@ public class CooperacionController {
 
                 }
                     
-                vTextoAnidado = vTextoAnidado + repeatString("-", 24) + "\n";
-                vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "\n";
+                vTextoAnidado = vTextoAnidado + repeatString("-", 24) + "\n\n\n\n"; 
 
             }
             
