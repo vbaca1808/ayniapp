@@ -1257,8 +1257,7 @@ public class CooperacionController {
 
                     linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
  
-                    vTextoAnidado = vTextoAnidado + linea1 + "\n";
- 
+                    vTextoAnidado = vTextoAnidado + linea1 + "\n"; 
                     vTextoAnidado = vTextoAnidado + linea2 + "\n";  
 
                 } else {
@@ -1419,7 +1418,7 @@ public class CooperacionController {
  
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) +  "Mesera: " + cabecera.getNombreUsuario() + "\n";
  
-                vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
+                vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n\n\n\n";
                 final String vTexto = vTextoAnidado;
 
                 RespuestaStd respuestaStd = new RespuestaStd() {
