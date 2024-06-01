@@ -22,5 +22,6 @@ public interface ListadoCocina {
     int getActualizado();
     String getNumeroCelular();
     String getNombreUsuario();
+    int getIrCocina();
     
 }
