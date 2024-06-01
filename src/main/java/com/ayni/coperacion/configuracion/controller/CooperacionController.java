@@ -1449,7 +1449,8 @@ public class CooperacionController {
             }
 
             lstDocumentoVenta = lstDocumentoVenta.stream().filter(x -> x.getIrCocina() == 1).collect(Collectors.toList());
-
+            vIdPedido = 0;
+            
             for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                 ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
 
