@@ -1159,7 +1159,7 @@ public class CooperacionController {
 
     
     @GetMapping(value="/descargarpdftexto/{idnegocio}/{idpedido}/{nv}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> descargarPdfFormatoTexto(@PathVariable int idnegocio, 
+    public ResponseEntity<RespuestaStd> descargarPdfFormatoTexto(@PathVariable int idnegocio, 
     @PathVariable int idpedido, @PathVariable int nv) {
         try { 
              
@@ -1420,8 +1420,23 @@ public class CooperacionController {
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) +  "Mesera: " + cabecera.getNombreUsuario() + "\n";
  
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
-             
-                return ResponseEntity.ok().body(vTextoAnidado);
+                final String vTexto = vTextoAnidado;
+
+                RespuestaStd respuestaStd = new RespuestaStd() {
+
+                    @Override
+                    public String getCodigo() {
+                        // TODO Auto-generated method stub
+                        return "OK";
+                    }
+
+                    @Override
+                    public String getMensaje() {
+                        return vTexto;
+                    }
+                    
+                };
+                return ResponseEntity.ok().body(respuestaStd);
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
