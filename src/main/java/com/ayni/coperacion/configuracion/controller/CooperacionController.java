@@ -1374,13 +1374,13 @@ public class CooperacionController {
                 }
             
                 String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
-                if (vDescripcionProducto.length() > 24) {
+                if (vDescripcionProducto.length() > 32) {
                     // Dividir la razonSocial en dos líneas
                     int vContador = 0;
                     while (vContador < vDescripcionProducto.length()) {
                         String linea = vDescripcionProducto.substring(vContador, 
-                        (vDescripcionProducto.length() > vContador + 28?vContador + 28: vDescripcionProducto.length()));
-                        vContador = vContador + 24;
+                        (vDescripcionProducto.length() > vContador + 32?vContador + 32: vDescripcionProducto.length()));
+                        vContador = vContador + 32;
                         vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                     }
                 } else {                        
@@ -1404,13 +1404,13 @@ public class CooperacionController {
                     if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                         if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
                             
-                            String vDetalle = "DETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[1];
+                            String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[1];
                             int vContador = 0;
 
                             while (vContador < vDetalle.length()) {
                                 String linea = vDetalle.substring(vContador, 
-                                (vDetalle.length() > vContador + 24?vContador + 24: vDetalle.length()));
-                                vContador = vContador + 24;
+                                (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
+                                vContador = vContador + 32;
                                 vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                             }
 
@@ -1429,13 +1429,13 @@ public class CooperacionController {
                     if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                         if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
                             
-                            String vDetalle = "DETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[2];
+                            String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[2];
                             int vContador = 0;
                             
                             while (vContador < vDetalle.length()) {
                                 String linea = vDetalle.substring(vContador, 
-                                (vDetalle.length() > vContador + 24?vContador + 24: vDetalle.length()));
-                                vContador = vContador + 24;
+                                (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
+                                vContador = vContador + 32;
                                 vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                             }
                                     
