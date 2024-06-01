@@ -1373,12 +1373,12 @@ public class CooperacionController {
                     repeatString(" ", 4) + "\n";
                 }
                  
-                vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", numeroLetrasMaximoLinea - 31) + 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", 7) + 
                 "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4) + "\n";
  
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 13?13:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 12?12:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
