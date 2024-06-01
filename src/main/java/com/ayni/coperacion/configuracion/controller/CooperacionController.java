@@ -1369,6 +1369,7 @@ public class CooperacionController {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", 20) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(MESERA)" + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
                     
                 }
@@ -1447,6 +1448,7 @@ public class CooperacionController {
                 vTextoAnidado = vTextoAnidado + repeatString("-", 32) + "\n\n"; 
 
             }
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 32) + "\n\n\n"; 
 
             lstDocumentoVenta = lstDocumentoVenta.stream().filter(x -> x.getIrCocina() == 1).collect(Collectors.toList());
             vIdPedido = 0;
