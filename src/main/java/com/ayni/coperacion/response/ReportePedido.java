@@ -38,5 +38,6 @@ public interface ReportePedido {
     BigDecimal getComisionDelivery();
     int getTipoDoc();
     String getNumeroDocumento();
+    int getIrCocina();
 
 }
