@@ -1478,8 +1478,8 @@ public class CooperacionController {
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
 
             if(lst.size() > 0) {
-                //byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
-                menuPedidoUnitario.getIdPedido(), 1);
+                /*byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
+                menuPedidoUnitario.getIdPedido(), 1);*/
 
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
