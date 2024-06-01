@@ -1385,7 +1385,7 @@ public class CooperacionController {
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
  
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
-                    repeatString(" ",(vProducto.length()> 16?1:16-vProducto.length())) +  
+                    repeatString(" ",(vProducto.length()> 17?1:17-vProducto.length())) +  
                     vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
                     (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
 
