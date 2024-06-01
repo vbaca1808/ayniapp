@@ -1386,7 +1386,8 @@ public class CooperacionController {
  
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
                     repeatString(" ",(vProducto.length()> 18?1:18-vProducto.length())) +  
-                    vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4) + "\n";
+                    vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
+                    (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
 
                 }
                 
