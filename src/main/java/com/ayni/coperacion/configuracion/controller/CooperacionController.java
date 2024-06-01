@@ -1373,17 +1373,19 @@ public class CooperacionController {
                     repeatString(" ", 4) + "\n";
                 }
                  
-                vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "Descripción" + repeatString(" ", numeroLetrasMaximoLinea - 31) + 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", numeroLetrasMaximoLinea - 31) + 
                 "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4) + "\n";
  
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
                     (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 13?13:
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
+                    
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
  
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + vProducto + " " +  
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
+                    repeatString(" ",(vProducto.length()> 18?1:18-vProducto.length())) +  
                     vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4) + "\n";
 
                 }
