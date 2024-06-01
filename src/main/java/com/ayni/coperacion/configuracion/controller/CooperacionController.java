@@ -1443,8 +1443,7 @@ public class CooperacionController {
                     }
 
                 }
-                    
-                vTextoAnidado = vTextoAnidado + repeatString("-", 24) + "\n\n\n\n"; 
+                     
 
             }
             
