@@ -1478,15 +1478,16 @@ public class CooperacionController {
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
 
             if(lst.size() > 0) {
-                byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
+                //byte[] bytesDocumento = sbGenerarDocumento(menuPedidoUnitario.getIdNegocio(), 
                 menuPedidoUnitario.getIdPedido(), 1);
 
                 Pedido pedido = new Pedido();
                 pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
                 pedido.setMensaje("");
 
-                String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
-                pedido.setDocumento(documentoBase64);
+                //String documentoBase64 = Base64.encodeBase64String(bytesDocumento);
+                pedido.setDocumento(sbGenerarDocumentoTextoPlano(menuPedidoUnitario.getIdNegocio(), menuPedidoUnitario.getIdPedido(), 
+                (menuPedidoUnitario.getIdPedido() > 0?1:0)));
                 return ResponseEntity.ok().body(pedido);
             } else {
                 return ResponseEntity.ok().body(null);
