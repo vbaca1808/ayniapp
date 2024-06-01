@@ -1450,7 +1450,7 @@ public class CooperacionController {
 
             lstDocumentoVenta = lstDocumentoVenta.stream().filter(x -> x.getIrCocina() == 1).collect(Collectors.toList());
             vIdPedido = 0;
-            
+
             for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                 ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
 
@@ -1467,6 +1467,7 @@ public class CooperacionController {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", 20) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(COCINA)" + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
                     
                 }
