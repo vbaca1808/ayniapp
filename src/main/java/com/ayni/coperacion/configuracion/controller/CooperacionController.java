@@ -204,7 +204,7 @@ public class CooperacionController {
     public ResponseEntity<Pedido> crearMenuPedido(@Valid @RequestBody PedidoDto pedidoDto) {
         try {
 
-            if (pedidoDto.getNumeroCelular().equals("") && pedidoDto.getNombreUsuario().equals("")) {
+            if (!pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
                 Pedido pedido = new Pedido();
 
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
