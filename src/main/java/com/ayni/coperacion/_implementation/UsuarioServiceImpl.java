@@ -160,14 +160,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
                                BigDecimal comisionDelivery) {
         try {
-            List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-            new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
-            tipoDoc, numeroDocumento, comisionDelivery);
 
-            if (lst != null && lst.size() > 0) {
-                try {
-                    return Integer.parseInt(lst.get(0).getCodigo());   
-                } catch (Exception e) {
+            List<Pedido> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa);
+
+            if (lstValidarMesaOcupada.size() > 0) {
+                List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
+                new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+                tipoDoc, numeroDocumento, comisionDelivery);
+
+                if (lst != null && lst.size() > 0) {
+                    try {
+                        return Integer.parseInt(lst.get(0).getCodigo());   
+                    } catch (Exception e) {
+                        return 0;
+                    }
+                } else {
                     return 0;
                 }
             } else {
