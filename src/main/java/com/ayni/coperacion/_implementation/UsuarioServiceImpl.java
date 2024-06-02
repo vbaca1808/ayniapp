@@ -747,4 +747,124 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public boolean envioFacturaElectronica(String firma, String distrito,String razonSocial, String ruc, String certificadoDigital, 
+    String numeroDocumento, String razonSocialEmisor, String rucEmisor, 
+    String direccionEmisor, String formaPago, String igv, String gravado, String total, String porcIgv,
+    List<String> lstItems) {
+        try {
+            // CABECERA XML
+            String facturaXml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>';";
+            facturaXml = facturaXml + "<Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" ";
+            facturaXml = facturaXml + "xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" ";
+            facturaXml = facturaXml + "xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\" "; 
+            facturaXml = facturaXml + "xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:ext=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" ";
+            facturaXml = facturaXml + "xmlns:sac=\"urn:oasis:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1\" ";
+            facturaXml = facturaXml + "xmlns:udt=\"urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2\">";
+            // ----------- >>
+
+            facturaXml = facturaXml + "<ext:UBLExtensions><ext:UBLExtension><ext:ExtensionContent>"; 
+            facturaXml = facturaXml + "<ds:Signature Id=\"VitekeySign\">";
+            facturaXml = facturaXml + "<ds:SignedInfo><ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>";
+            facturaXml = facturaXml + "<ds:SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\"/>";
+            facturaXml = facturaXml + "<ds:Reference URI=\"\"><ds:Transforms><ds:Transform Algorithm=\"";
+            facturaXml = facturaXml + "http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/><ds:Transform Algorithm=\"";
+            facturaXml = facturaXml + "http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>";
+            facturaXml = facturaXml + "</ds:Transforms><ds:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/>";
+            facturaXml = facturaXml + "<ds:DigestValue>IBeTfLOITZagGDlFGm8LZCyFA7g=</ds:DigestValue></ds:Reference></ds:SignedInfo>";
+            facturaXml = facturaXml + "<ds:SignatureValue>";
+            facturaXml = facturaXml + firma + "</ds:SignatureValue>";
+            facturaXml = facturaXml + "<ds:KeyInfo><ds:X509Data>";
+            facturaXml = facturaXml + "<ds:X509SubjectName>C=PE,L=" + distrito + ",O=";
+            facturaXml = facturaXml + razonSocial + ",";
+            facturaXml = facturaXml + "OU=Validado por SUNAT,";
+            facturaXml = facturaXml + "OU=FACTURA ELECTRONICA RUC " + ruc + ",";
+            facturaXml = facturaXml + "CN=SOFTWARE DE FACTURACION ELECTRONICA,";
+            facturaXml = facturaXml + "1.2.840.113549.1.9.1=#161a70657263792e616e7469636f6e6140766974656b65792e636f6d,";
+            facturaXml = facturaXml + "STREET=CAL.GERMAN SCHEREIBER NRO. 276 INT. 240 URB. SANTA ANA</ds:X509SubjectName>";
+            facturaXml = facturaXml + "<ds:X509Certificate>";
+            facturaXml = facturaXml + certificadoDigital + "</ds:X509Certificate>";
+            facturaXml = facturaXml + "</ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent></ext:UBLExtension>";
+            facturaXml = facturaXml + "</ext:UBLExtensions><cbc:UBLVersionID>2.1</cbc:UBLVersionID><cbc:CustomizationID>2.0</cbc:CustomizationID>";
+            facturaXml = facturaXml + "<cbc:ID>"+ numeroDocumento + "</cbc:ID>";
+            facturaXml = facturaXml + "<cbc:IssueDate>2024-05-28</cbc:IssueDate>";
+            facturaXml = facturaXml + "<cbc:IssueTime>14:30:18</cbc:IssueTime>";
+            facturaXml = facturaXml + "<cbc:InvoiceTypeCode listID=\"0101\">01</cbc:InvoiceTypeCode>";
+            facturaXml = facturaXml + "<cbc:Note languageLocaleID=\"1000\"><![CDATA[TRECE Y 00/100]]></cbc:Note>";
+            facturaXml = facturaXml + "<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>";
+            facturaXml = facturaXml + "<cac:Signature>";
+            facturaXml = facturaXml + "<cbc:ID>KEYFACIL</cbc:ID>";
+            facturaXml = facturaXml + "<cac:SignatoryParty><cac:PartyIdentification>";
+            facturaXml = facturaXml + "<cbc:ID>" + rucEmisor + "</cbc:ID>";
+            facturaXml = facturaXml + "</cac:PartyIdentification><cac:PartyName>";
+            facturaXml = facturaXml + "<cbc:Name><![CDATA[" + razonSocialEmisor + "]]></cbc:Name>";
+            facturaXml = facturaXml + "</cac:PartyName></cac:SignatoryParty><cac:DigitalSignatureAttachment><cac:ExternalReference>";
+            facturaXml = facturaXml + "<cbc:URI>https://keyfacil.com</cbc:URI>";
+            facturaXml = facturaXml + "</cac:ExternalReference>";
+            facturaXml = facturaXml + "</cac:DigitalSignatureAttachment>";
+            facturaXml = facturaXml + "</cac:Signature><cac:AccountingSupplierParty><cac:Party><cac:PartyIdentification>";
+            facturaXml = facturaXml + "<cbc:ID schemeAgencyName=\"PE:SUNAT\" schemeID=\"6\" schemeName=\"Documento de Identidad\" ";
+            facturaXml = facturaXml + "schemeURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06\">";
+            facturaXml = facturaXml + rucEmisor;
+            facturaXml = facturaXml + "</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>";
+            facturaXml = facturaXml + "<![CDATA[" +  razonSocialEmisor +"]]></cbc:Name></cac:PartyName><cac:PartyLegalEntity>";
+            facturaXml = facturaXml + "<cbc:RegistrationName><![CDATA[" +  razonSocialEmisor + "]]></cbc:RegistrationName>";
+            facturaXml = facturaXml + "<cac:RegistrationAddress><cbc:AddressTypeCode listAgencyName=\"PE:SUNAT\" "; 
+            facturaXml = facturaXml + "listName=\"Establecimientos anexos\">0000</cbc:AddressTypeCode><cac:AddressLine>";
+            facturaXml = facturaXml + "<cbc:Line><![CDATA[" + direccionEmisor + "]]></cbc:Line></cac:AddressLine></cac:RegistrationAddress>";
+            facturaXml = facturaXml + "</cac:PartyLegalEntity></cac:Party></cac:AccountingSupplierParty><cac:AccountingCustomerParty>";
+            facturaXml = facturaXml + "<cac:Party><cac:PartyIdentification><cbc:ID schemeAgencyName=\"PE:SUNAT\" schemeID=\"6\" ";
+            facturaXml = facturaXml + "schemeName=\"Documento de Identidad\" schemeURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06\">";
+            facturaXml = facturaXml + rucEmisor + "</cbc:ID></cac:PartyIdentification><cac:PartyLegalEntity><cbc:RegistrationName>";
+            facturaXml = facturaXml + "<![CDATA[" + razonSocialEmisor + "]]></cbc:RegistrationName><cac:RegistrationAddress>";
+            facturaXml = facturaXml + "<cac:AddressLine><cbc:Line><![CDATA[" + direccionEmisor + "]]></cbc:Line></cac:AddressLine>";
+            facturaXml = facturaXml + "</cac:RegistrationAddress></cac:PartyLegalEntity></cac:Party></cac:AccountingCustomerParty>";
+            facturaXml = facturaXml + "<cac:PaymentTerms><cbc:ID>FormaPago</cbc:ID><cbc:PaymentMeansID>";
+            facturaXml = facturaXml + formaPago + "</cbc:PaymentMeansID></cac:PaymentTerms>";
+            facturaXml = facturaXml + "<cac:TaxTotal><cbc:TaxAmount currencyID=\"PEN\">";
+            facturaXml = facturaXml + igv + "</cbc:TaxAmount><cac:TaxSubtotal><cbc:TaxableAmount currencyID=\"PEN\">";
+            facturaXml = facturaXml + gravado + "</cbc:TaxableAmount>";
+            facturaXml = facturaXml + "<cbc:TaxAmount currencyID=\"PEN\">" + igv + "</cbc:TaxAmount>";
+            facturaXml = facturaXml + "<cac:TaxCategory><cac:TaxScheme>";
+            facturaXml = facturaXml + "<cbc:ID>1000</cbc:ID><cbc:Name>IGV</cbc:Name><cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>";
+            facturaXml = facturaXml + "</cac:TaxScheme></cac:TaxCategory></cac:TaxSubtotal></cac:TaxTotal>";
+            facturaXml = facturaXml + "<cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID=\"PEN\">";
+            facturaXml = facturaXml + gravado + "</cbc:LineExtensionAmount>";
+            facturaXml = facturaXml + "<cbc:TaxInclusiveAmount currencyID=\"PEN\">"+ total +"</cbc:TaxInclusiveAmount>";
+            facturaXml = facturaXml + "<cbc:PayableAmount currencyID=\"PEN\">" + total + "</cbc:PayableAmount>";
+            facturaXml = facturaXml + "</cac:LegalMonetaryTotal>";
+
+            int vContador = 0;
+            for (int i = 0; i < lstItems.size(); i++) {
+                vContador++;
+                facturaXml = facturaXml + "<cac:InvoiceLine>";
+                facturaXml = facturaXml + "<cbc:ID>" + vContador + "</cbc:ID>";
+                facturaXml = facturaXml + "<cbc:InvoicedQuantity unitCode=\"NIU\">1.0000000000</cbc:InvoicedQuantity>";
+                facturaXml = facturaXml + "<cbc:LineExtensionAmount currencyID=\"PEN\">"+ gravado +"</cbc:LineExtensionAmount>";
+                facturaXml = facturaXml + "<cac:PricingReference><cac:AlternativeConditionPrice>";
+                facturaXml = facturaXml + "<cbc:PriceAmount currencyID=\"PEN\">" + total + "</cbc:PriceAmount>";
+                facturaXml = facturaXml + "<cbc:PriceTypeCode>01</cbc:PriceTypeCode></cac:AlternativeConditionPrice>";
+                facturaXml = facturaXml + "</cac:PricingReference><cac:TaxTotal>";
+                facturaXml = facturaXml + "<cbc:TaxAmount currencyID=\"PEN\">" + igv + "</cbc:TaxAmount>";
+                facturaXml = facturaXml + "<cac:TaxSubtotal><cbc:TaxableAmount currencyID=\"PEN\">" + gravado + "</cbc:TaxableAmount>";
+                facturaXml = facturaXml + "<cbc:TaxAmount currencyID=\"PEN\">" + igv + "</cbc:TaxAmount>";
+                facturaXml = facturaXml + "<cac:TaxCategory><cbc:Percent>" + porcIgv + "</cbc:Percent>";
+                facturaXml = facturaXml + "<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode><cac:TaxScheme><cbc:ID>1000</cbc:ID>";
+                facturaXml = facturaXml + "<cbc:Name>IGV</cbc:Name><cbc:TaxTypeCode>VAT</cbc:TaxTypeCode></cac:TaxScheme></cac:TaxCategory>";
+                facturaXml = facturaXml + "</cac:TaxSubtotal></cac:TaxTotal>";
+                facturaXml = facturaXml + "<cac:Item>";
+                facturaXml = facturaXml + "<cbc:Description><![CDATA[" + lstItems.get(i).split("##")[0] + "]]></cbc:Description>";
+                facturaXml = facturaXml + "<cac:SellersItemIdentification><cbc:ID><![CDATA[" + lstItems.get(i).split("##")[1] + "]]></cbc:ID>";
+                facturaXml = facturaXml + "</cac:SellersItemIdentification></cac:Item>";
+                facturaXml = facturaXml + "<cac:Price><cbc:PriceAmount currencyID=\"PEN\">"+ gravado + "</cbc:PriceAmount>";
+                facturaXml = facturaXml + "</cac:Price></cac:InvoiceLine>";
+            }
+            facturaXml = facturaXml + "</Invoice>";
+
+            return true;
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'envioFacturaElectronica'");
+        }
+    }
+
 }

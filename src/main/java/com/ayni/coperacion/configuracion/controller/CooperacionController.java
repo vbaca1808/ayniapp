@@ -204,24 +204,27 @@ public class CooperacionController {
     public ResponseEntity<Pedido> crearMenuPedido(@Valid @RequestBody PedidoDto pedidoDto) {
         try {
 
-            Pedido pedido = new Pedido();
+            if (pedidoDto.getNumeroCelular().equals("") && pedidoDto.getNombreUsuario().equals("")) {
+                Pedido pedido = new Pedido();
 
-            int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
-            pedidoDto.getIdPedido(), pedidoDto.getDetalleProducto(), pedidoDto.getMesa(), 
-            pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
-            pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
-            pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
-            /*byte[] bytesDocumento = sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
-            (pedidoDto.getIdPedido() > 0?1:0));
-            String documentoBase64 = Base64.encodeBase64String(bytesDocumento);*/
-            
-            // Establecer la cadena Base64 como el campo documento del objeto Pedido
-            pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
-            (pedidoDto.getIdPedido() > 0?1:0))); // documentoBase64
-            pedido.setIdPedido(idPedido);
-            
-            return ResponseEntity.ok().body(pedido);
-
+                int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
+                pedidoDto.getIdPedido(), pedidoDto.getDetalleProducto(), pedidoDto.getMesa(), 
+                pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
+                pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
+                pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
+                /*byte[] bytesDocumento = sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
+                (pedidoDto.getIdPedido() > 0?1:0));
+                String documentoBase64 = Base64.encodeBase64String(bytesDocumento);*/
+                
+                // Establecer la cadena Base64 como el campo documento del objeto Pedido
+                pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
+                (pedidoDto.getIdPedido() > 0?1:0))); // documentoBase64
+                pedido.setIdPedido(idPedido);
+                
+                return ResponseEntity.ok().body(pedido);
+            } else { 
+                return ResponseEntity.status(500).body(null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
@@ -283,6 +286,9 @@ public class CooperacionController {
         try {
  
             List<RespuestaStd> lst = iUsuarioService.pedidoPagado(pedidoPagadoDto);
+
+            iUsuarioService.envioFacturaElectronica(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
             return ResponseEntity.ok().body(lst);
             
         } catch (Exception e) {

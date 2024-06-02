@@ -170,4 +170,9 @@ public interface IUsuarioService {
     List<ListadoCocina> cocinaPedienteGenerado(int idNegocio, int idPedido, int tipolista);
 
     List<RespuestaStd> modificarMenuPedidoUnitario(MenuPedidoUnitarioDto menuPedidoUnitario);
+
+    boolean envioFacturaElectronica(String firma, String distrito,String razonSocial, String ruc, String certificadoDigital, 
+    String numeroDocumento, String razonSocialEmisor, String rucEmisor, 
+    String direccionEmisor, String formaPago, String igv, String gravado, String total, String porcIgv,
+    List<String> lstItems);
 }
