@@ -287,7 +287,7 @@ public class CooperacionController {
  
             List<RespuestaStd> lst = iUsuarioService.pedidoPagado(pedidoPagadoDto);
 
-            iUsuarioService.envioFacturaElectronica(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            //iUsuarioService.envioFacturaElectronica(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
             return ResponseEntity.ok().body(lst);
             
