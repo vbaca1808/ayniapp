@@ -1894,7 +1894,7 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> grabarOtrosMovimientosCajero(
         @PathVariable int idnegocio, @PathVariable int idoperacion, @PathVariable int tipoope, @PathVariable BigDecimal importe) {
         try {  
-           return ResponseEntity.status(500).body(
+           return ResponseEntity.ok().body(
             iUsuarioService.grabarOtrosMovimientosCajero(idnegocio, idoperacion, new Date(), tipoope, importe));
         } catch (Exception e) { 
             e.printStackTrace();
