@@ -100,7 +100,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<RespuestaStd> crearMenuPedido(@Param("idNegocio") int idNegocio, 
                                        @Param("idPedido") int idPedido, 
                                        @Param("fechaPedido") Date fechaPedido, 
-                                       @Param("detalleProducto") List<ListadoMenuDto> detalleProducto, 
+                                       @Param("detalleProducto") String detalleProducto, 
                                        @Param("mesa") int mesa,
                                        @Param("numeroCelular") String numeroCelular, 
                                        @Param("nombreUsuario") String nombreUsuario,

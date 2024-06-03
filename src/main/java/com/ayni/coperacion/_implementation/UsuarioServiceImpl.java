@@ -157,7 +157,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public int crearMenuPedido(int idNegocio, int idPedido, List<ListadoMenuDto> detalleProducto, int mesa,
+    public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
                                BigDecimal comisionDelivery) {
