@@ -165,6 +165,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa);
 
+            System.out.println("DETALLE");
+            System.out.println(detalleProducto);
+            System.out.println("============");
+            
             if (lstValidarMesaOcupada.size() <= 0) {
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
                 new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
