@@ -1,6 +1,7 @@
 package com.ayni.coperacion.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ public class PedidoDto {
 
     private int idNegocio;
     private int idPedido;
-    private String detalleProducto;
+    private List<ListadoMenuDto> detalleProducto;
     private int mesa;
     private String numeroCelular;
     private String nombreUsuario; 

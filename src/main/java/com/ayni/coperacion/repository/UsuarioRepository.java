@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.entidades.Usuario;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -99,7 +100,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<RespuestaStd> crearMenuPedido(@Param("idNegocio") int idNegocio, 
                                        @Param("idPedido") int idPedido, 
                                        @Param("fechaPedido") Date fechaPedido, 
-                                       @Param("detalleProducto") String detalleProducto, 
+                                       @Param("detalleProducto") List<ListadoMenuDto> detalleProducto, 
                                        @Param("mesa") int mesa,
                                        @Param("numeroCelular") String numeroCelular, 
                                        @Param("nombreUsuario") String nombreUsuario,

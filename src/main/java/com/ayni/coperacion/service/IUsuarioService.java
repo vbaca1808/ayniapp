@@ -8,6 +8,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -58,7 +59,7 @@ public interface IUsuarioService {
 
     List<PedidoGenerado> obtenerPedido(int pdIdNegocio, int pIdPedido, String mesa);
 
-    int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa, 
+    int crearMenuPedido(int idNegocio, int idPedido, List<ListadoMenuDto> detalleProducto, int mesa, 
     String numeroCelular, String nombreUsuario,String docCliente,String nombreCliente, String direccionCliente,
     int tipoDoc, String numeroDocumento, BigDecimal comisionDelivery);
 

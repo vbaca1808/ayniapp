@@ -14,6 +14,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -156,7 +157,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
+    public int crearMenuPedido(int idNegocio, int idPedido, List<ListadoMenuDto> detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
                                BigDecimal comisionDelivery) {
