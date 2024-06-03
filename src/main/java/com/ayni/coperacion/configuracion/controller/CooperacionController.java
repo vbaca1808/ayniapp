@@ -205,8 +205,9 @@ public class CooperacionController {
     @PostMapping(value="/crearmenupedido",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pedido> crearMenuPedido(@Valid @RequestBody PedidoDto pedidoDto) {
         try {
-
-            if (!pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
+            
+            if (pedidoDto.getNumeroCelular() != null && pedidoDto.getNombreUsuario() != null && 
+                !pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
                 Pedido pedido = new Pedido();
 
                 
