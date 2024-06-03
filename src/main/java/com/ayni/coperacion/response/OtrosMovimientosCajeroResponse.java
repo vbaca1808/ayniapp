@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public interface OtrosMovimientosCajeroResponse {
     
-    int getIdNegocio();
+    int getId();
     String getMovimiento();
     BigDecimal getImporte();
 }
