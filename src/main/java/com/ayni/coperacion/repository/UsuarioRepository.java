@@ -89,10 +89,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoMenu> listadoMenu(@Param("idNegocio") int idNegocio, 
                                   @Param("idPedido") int idPedido);
 
-    @Query( value = "call sp_validar_mesa_ocupada(:idNegocio,:mesa)", nativeQuery = true)
+    @Query( value = "call sp_validar_mesa_ocupada(:idNegocio, :mesa, :numeroCelular)", nativeQuery = true)
     List<PedidoResponse> validarMesaOcupada(@Param("idNegocio") int idNegocio, 
-                                    @Param("mesa") int mesa);
-                                
+                                            @Param("mesa") int mesa, 
+                                            @Param("numeroCelular") String numeroCelular);
+
     @Modifying
     @Query( value = "call sp_crear_menu_pedido(:idNegocio, :idPedido, :fechaPedido, :detalleProducto, " + 
                     ":mesa, :numeroCelular, :nombreUsuario, :docCliente, :nombreCliente, :direccionCliente, " +

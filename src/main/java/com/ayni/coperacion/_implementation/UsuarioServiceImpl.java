@@ -163,13 +163,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                BigDecimal comisionDelivery) {
         try {
 
-            List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa);
+            List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular);
 
             System.out.println("DETALLE");
             System.out.println(detalleProducto);
             System.out.println("============");
             
-            if (lstValidarMesaOcupada.size() <= 0) {
+            if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
                 new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
