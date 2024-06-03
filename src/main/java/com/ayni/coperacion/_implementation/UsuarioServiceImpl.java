@@ -35,6 +35,7 @@ import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
+import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
@@ -877,6 +878,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return true;
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'envioFacturaElectronica'");
+        }
+    }
+
+    @Override
+    public List<OtrosMovimientosCajeroResponse> listarOtrosMovimientosCajero(int idNegocio, Date fechaOperacion) {
+        try {
+            return usuarioRepository.listarOtrosMovimientosCajero(idNegocio, fechaOperacion);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'listarOtrosMovimientos'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> grabarOtrosMovimientosCajero(int idNegocio, int idOperacion, Date fechaOpe, int tipoOpe,
+            BigDecimal importe) {
+        try {
+            return usuarioRepository.grabarOtrosMovimientosCajero(idNegocio, idOperacion, fechaOpe, tipoOpe, importe);
+        } catch (Exception e) {    
+            throw new UnsupportedOperationException("Unimplemented method 'grabarOtrosMovimientosCajero'");
         }
     }
 

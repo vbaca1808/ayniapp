@@ -29,6 +29,7 @@ import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
+import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
@@ -496,5 +497,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                    @Param("cantidadLlevar") int cantidadLlevar,
                                                    @Param("descripcion") String descripcion,
                                                    @Param("total") BigDecimal total);
+
+    @Query( value = "call sp_listar_otros_movimientos(:idNegocio, :fechaOperacion)", nativeQuery = true)
+    List<OtrosMovimientosCajeroResponse> listarOtrosMovimientosCajero(@Param("idNegocio") int idNegocio,
+                                              @Param("fechaOperacion") Date fechaOperacion);
                                         
+    @Query( value = "call sp_grabar_otros_movimientos_cajero(:idNegocio, :idOperacion, :fechaOpe, :tipoOpe, :importe)", nativeQuery = true)
+    List<RespuestaStd> grabarOtrosMovimientosCajero(@Param("idNegocio") int idNegocio,
+                                                    @Param("idOperacion") int idOperacion,
+                                                    @Param("fechaOpe") Date fechaOpe,
+                                                    @Param("tipoOpe") int tipoOpe,
+                                                    @Param("importe") BigDecimal importe);
+
 }

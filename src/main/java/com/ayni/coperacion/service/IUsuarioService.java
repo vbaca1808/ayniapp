@@ -2,7 +2,10 @@ package com.ayni.coperacion.service;
  
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
+
+import org.springframework.data.repository.query.Param;
+
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
@@ -28,6 +31,7 @@ import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
+import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
@@ -176,4 +180,10 @@ public interface IUsuarioService {
     String numeroDocumento, String razonSocialEmisor, String rucEmisor, 
     String direccionEmisor, String formaPago, String igv, String gravado, String total, String porcIgv,
     List<String> lstItems);
+
+    List<OtrosMovimientosCajeroResponse> listarOtrosMovimientosCajero(int idNegocio, Date fechaOperacion);
+       
+    List<RespuestaStd> grabarOtrosMovimientosCajero(int idNegocio, int idOperacion, Date fechaOpe,
+                                                    int tipoOpe,BigDecimal importe);
+
 }

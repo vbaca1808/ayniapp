@@ -82,6 +82,7 @@ import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
+import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse;
 import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
@@ -1868,6 +1869,33 @@ public class CooperacionController {
         
             return new ResponseEntity<>(sbGenerarDocumento(idnegocio, idpedido, tipolista), headers, HttpStatus.OK);
             
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/listarotrosmovimientoscajero/{idnegocio}/{hoy}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OtrosMovimientosCajeroResponse>> listarOtrosMovimientosCajero(@PathVariable int idnegocio, @PathVariable int hoy) {
+        try {  
+            if (hoy==1) {
+                return ResponseEntity.ok().body(iUsuarioService.listarOtrosMovimientosCajero(idnegocio, new Date()));
+            } else {
+                return ResponseEntity.ok().body(iUsuarioService.listarOtrosMovimientosCajero(idnegocio, new Date()));
+            }
+            
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @PostMapping(value="/grabarotrosmovimientoscajero/{idnegocio}/{idoperacion}/{tipoope}/{importe}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> grabarOtrosMovimientosCajero(
+        @PathVariable int idnegocio, @PathVariable int idoperacion, @PathVariable int tipoope, @PathVariable BigDecimal importe) {
+        try {  
+           return ResponseEntity.status(500).body(
+            iUsuarioService.grabarOtrosMovimientosCajero(idnegocio, idoperacion, new Date(), tipoope, importe));
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
