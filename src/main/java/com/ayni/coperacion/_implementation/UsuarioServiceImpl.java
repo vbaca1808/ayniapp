@@ -38,6 +38,7 @@ import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
+import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
@@ -161,7 +162,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                BigDecimal comisionDelivery) {
         try {
 
-            List<Pedido> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa);
+            List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa);
 
             if (lstValidarMesaOcupada.size() <= 0) {
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
