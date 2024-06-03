@@ -32,6 +32,7 @@ import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
+import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
@@ -88,7 +89,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                   @Param("idPedido") int idPedido);
 
     @Query( value = "call sp_validar_mesa_ocupada(:idNegocio,:mesa)", nativeQuery = true)
-    List<Pedido> validarMesaOcupada(@Param("idNegocio") int idNegocio, 
+    List<PedidoResponse> validarMesaOcupada(@Param("idNegocio") int idNegocio, 
                                     @Param("mesa") int mesa);
                                 
     @Modifying
