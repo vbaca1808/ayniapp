@@ -94,6 +94,7 @@ import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
+import com.google.gson.Gson;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -207,8 +208,12 @@ public class CooperacionController {
             if (!pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
                 Pedido pedido = new Pedido();
 
+                
+                Gson gson = new Gson();
+                String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
+
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
-                pedidoDto.getIdPedido(), pedidoDto.getDetalleProducto(), pedidoDto.getMesa(), 
+                pedidoDto.getIdPedido(), jsonDetalleProducto, pedidoDto.getMesa(), 
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
