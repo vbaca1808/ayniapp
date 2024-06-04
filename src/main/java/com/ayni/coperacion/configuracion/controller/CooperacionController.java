@@ -1,7 +1,5 @@
 package com.ayni.coperacion.configuracion.controller;
-  
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+   
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -14,23 +12,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpStatus; 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.common.PDRectangle; 
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
-import javax.mail.internet.MimeMessage;
-import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.mail.internet.MimeMessage; 
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.ByteArrayOutputStream; 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -97,9 +91,7 @@ import com.ayni.coperacion.response.VentasPorProducto;
 import com.ayni.coperacion.service.IUsuarioService;
 import com.google.gson.Gson;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
+import java.awt.image.BufferedImage; 
 import javax.imageio.ImageIO;
 
 @RestController
