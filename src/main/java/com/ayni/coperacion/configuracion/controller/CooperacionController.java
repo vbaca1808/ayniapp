@@ -213,23 +213,15 @@ public class CooperacionController {
                 
                 Gson gson = new Gson();
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
-                System.out.println(jsonDetalleProducto);
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
                 pedidoDto.getIdPedido(), jsonDetalleProducto, pedidoDto.getMesa(), 
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
-                /*byte[] bytesDocumento = sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
-                (pedidoDto.getIdPedido() > 0?1:0));
-                String documentoBase64 = Base64.encodeBase64String(bytesDocumento);*/
-                
-                // Establecer la cadena Base64 como el campo documento del objeto Pedido
                 pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
-                (pedidoDto.getIdPedido() > 0?1:0))); // documentoBase64
+                (pedidoDto.getIdPedido() > 0?1:0))); 
                 pedido.setIdPedido(idPedido);
                 
-                System.out.println(jsonDetalleProducto);
-                System.out.println(pedido.getDocumento());
                 return ResponseEntity.ok().body(pedido);
             } else { 
                 return ResponseEntity.status(500).body(null);
