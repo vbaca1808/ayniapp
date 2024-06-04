@@ -202,18 +202,23 @@ public class CooperacionController {
                 !pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
                 Pedido pedido = new Pedido();
 
-                
                 Gson gson = new Gson();
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
+                System.out.println(jsonDetalleProducto);
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
                 pedidoDto.getIdPedido(), jsonDetalleProducto, pedidoDto.getMesa(), 
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
+
                 pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
                 (pedidoDto.getIdPedido() > 0?1:0))); 
+
                 pedido.setIdPedido(idPedido);
                 
+                System.out.println("Celular :" + pedidoDto.getNumeroCelular());
+                System.out.println("Usuario :" + pedidoDto.getNombreUsuario());
+
                 return ResponseEntity.ok().body(pedido);
             } else { 
                 return ResponseEntity.status(500).body(null);
