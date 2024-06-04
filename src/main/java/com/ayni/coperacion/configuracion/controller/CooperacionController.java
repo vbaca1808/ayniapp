@@ -1732,6 +1732,7 @@ public class CooperacionController {
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                     vTextoAnidado = vTextoAnidado + "(LLEVAR)CANTIDAD: " + listadoCocina.getCantidadLlevar() + "\n";
                 
+                    System.out.println("Descripcion" + listadoCocina.getDescripcionProducto());
                     if (listadoCocina.getDescripcionProducto().contains("&&&")) {
                         if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
                             
