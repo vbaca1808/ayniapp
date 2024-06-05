@@ -215,7 +215,7 @@ public class CooperacionController {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
                     (pedidoDto.getIdPedido() > 0?1:0))); 
                 } else {
-                    pedido.setDocumento("");
+                    pedido.setDocumento(" ");
                 }
 
                 pedido.setIdPedido(idPedido);
@@ -603,6 +603,7 @@ public class CooperacionController {
             List<ListadoMenu> lst = iUsuarioService.obtenerMenuPedido(idnegocio, idpedido);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
