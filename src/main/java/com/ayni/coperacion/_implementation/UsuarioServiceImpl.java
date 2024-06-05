@@ -896,4 +896,22 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio) {
+        try {
+            return usuarioRepository.obtenerListadoMenuInicial(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerListadoMenu'");
+        }
+    }
+
+    @Override
+    public List<ListadoMenu> obtenerMenuPedido(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.obtenerMenuPedido(idNegocio, idPedido);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerMenuPedido'");
+        }
+    }
+
 }

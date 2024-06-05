@@ -211,8 +211,12 @@ public class CooperacionController {
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
 
-                pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
-                (pedidoDto.getIdPedido() > 0?1:0))); 
+                if (pedidoDto.getIdNegocio() == 25) {
+                    pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
+                    (pedidoDto.getIdPedido() > 0?1:0))); 
+                } else {
+                    pedido.setDocumento("");
+                }
 
                 pedido.setIdPedido(idPedido);
                 
@@ -581,6 +585,28 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
+
+    @GetMapping(value="/obtenerlistadomenuinicial/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoMenu>> obtenerListadoMenuInicial(@PathVariable int idnegocio) {
+        try {
+            List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/obtenermenupedido/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoMenu>> obtenerMenuPedido(@PathVariable int idnegocio,
+                                                               @PathVariable int idpedido) {
+        try {
+            List<ListadoMenu> lst = iUsuarioService.obtenerMenuPedido(idnegocio, idpedido);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 
     @PostMapping(value="/compranegocio",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> compraNegocio(@Valid @RequestBody CompraNegocio compraNegocio) {

@@ -126,6 +126,8 @@ public interface IUsuarioService {
 
     List<ListadoProductoTienda> obtenerListadoProductoTienda(int idNegocio, String codigoBarra);
 
+    List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio);
+
     List<RespuestaStd> compraNegocio(CompraNegocio compraNegocio);
 
     List<Inventario> listarInventario(int idNegocio, int anioCorte, int mesCorte, int diaCorte, int anioHasta, int mesHasta, int diaHasta);
@@ -185,5 +187,8 @@ public interface IUsuarioService {
        
     List<RespuestaStd> grabarOtrosMovimientosCajero(int idNegocio, int idOperacion, Date fechaOpe,
                                                     int tipoOpe,BigDecimal importe);
+
+    List<ListadoMenu> obtenerMenuPedido(int idNegocio, int idPedido);
+ 
 
 }
