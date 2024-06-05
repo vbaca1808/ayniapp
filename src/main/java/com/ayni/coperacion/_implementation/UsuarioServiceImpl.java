@@ -164,7 +164,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                BigDecimal comisionDelivery) {
         try {
 
-            List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular);
+            List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular,
+            new Date());
  
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
