@@ -23,5 +23,7 @@ public interface ListadoCocina {
     String getNumeroCelular();
     String getNombreUsuario();
     int getIrCocina();
+    int getCantidadModificadaMesa();
+    int getCantidadModificadaLlevar();
     
 }
