@@ -1107,13 +1107,24 @@ public class CooperacionController {
                     "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4) + "\n";
                 } else {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", 16) + 
-                    "P.V." + repeatString(" ", 5) + "TOTAL" + repeatString(" ", 4) + "\n";
+                    "P.V." + repeatString(" ", 4) + "TOTAL" + repeatString(" ", 4) + "\n";
                 }
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
-                    String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> (idnegocio!=26?12:23)?(idnegocio!=26?12:23):
-                    lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     
+                    
+                    String vProducto = lstDocumentoVenta.get(i).getCantidad() + " " + lstDocumentoVenta.get(i).getDescripcionProducto();
+
+                    if (idnegocio == 26) {
+                        vProducto = vProducto.replace("(Personal)", "(P)");
+                        vProducto = vProducto.replace("(Mediana)", "(M)");
+                        vProducto = vProducto.replace("(Familiar)", "(F)");
+                    }
+
+                    vProducto = vProducto.substring(0, 
+                    (vProducto.length()> (idnegocio!=26?12:25)?(idnegocio!=26?12:25):vProducto.length()));
+                    
+
+
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
  
@@ -1124,8 +1135,8 @@ public class CooperacionController {
                         (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
                     } else {
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
-                        repeatString(" ",(vProducto.length()> 35?1:35-vProducto.length())) +  
-                        vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
+                        repeatString(" ",(vProducto.length()> 26?1:26-vProducto.length())) +  
+                        vPrecio + repeatString(" ", 4) + vTotal + repeatString(" ", 4 - 
                         (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
                     }
                 }

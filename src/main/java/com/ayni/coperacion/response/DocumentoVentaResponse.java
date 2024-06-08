@@ -14,6 +14,7 @@ public interface DocumentoVentaResponse {
     String getFechaPedido();
     String getMoneda();
     int getIdProducto();
+    int getCantidad();
     String getDescripcionProducto();
     String getPrecioVenta();
     String getTotalItem();
