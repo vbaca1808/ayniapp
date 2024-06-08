@@ -1685,8 +1685,14 @@ public class CooperacionController {
             int vIdPedido = 0;
             String vMesa = "";
             String vPedido = ""; 
+            int vMargenSegunNegocio = 0;
 
             String vTextoAnidado = "";
+            if (idnegocio == 26) {
+                vMargenSegunNegocio = 15;
+            } else {
+                vMargenSegunNegocio = 0;
+            }
             if (idnegocio != 26) {
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
@@ -1700,12 +1706,12 @@ public class CooperacionController {
                         //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
                         numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
                         
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 5) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                         vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", 20) + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(MESERA)" + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", 20) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15 + vMargenSegunNegocio) + "(MESERA)" + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + "\n";
                         
                     }
                 
