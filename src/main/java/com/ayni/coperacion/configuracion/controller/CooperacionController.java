@@ -893,6 +893,12 @@ public class CooperacionController {
             BigDecimal valorDos = new BigDecimal("2"); 
             String vTextoAnidado = "";
 
+            if (idnegocio==26) {
+                numeroLetrasMaximoLinea = 46;
+            } else {
+                numeroLetrasMaximoLinea = 32;
+            }
+
             if (cabecera != null) {
                 String razonSocial = cabecera.getRazonSocial();
             
@@ -919,7 +925,8 @@ public class CooperacionController {
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - razonSocial.length()));
                     
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                    vTextoAnidado = vTextoAnidado + numeroEspacios.intValue() + razonSocial + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + 
+                    razonSocial + repeatString(" ", numeroEspacios.intValue()) + "\n";
                 }
                 
             }
@@ -953,55 +960,62 @@ public class CooperacionController {
                 numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccion.length()));
                 
                 numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                vTextoAnidado = vTextoAnidado + numeroEspacios.intValue() + vDireccion + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + vDireccion +
+                                                repeatString(" ", numeroEspacios.intValue()) + "\n";
             }
 
+            String vDescripcion = cabecera.getDescripcion();
+            if (vDescripcion.length() > 25) {
+                // Dividir la razonSocial en dos líneas
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 25));
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+
+                String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcion.substring(0, 25) + 
+                repeatString(" ", numeroEspacios.intValue());
+                String linea2 = vDescripcion.substring(25, vDescripcion.length());
                 
-                String vDescripcion = cabecera.getDescripcion();
-                if (vDescripcion.length() > 25) {
-                    // Dividir la razonSocial en dos líneas
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 25));
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
 
-                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDescripcion.substring(0, 25) + 
-                    repeatString(" ", numeroEspacios.intValue());
-                    String linea2 = vDescripcion.substring(25, vDescripcion.length());
+                linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+
+                vTextoAnidado = vTextoAnidado + linea1 + "\n"; 
+                vTextoAnidado = vTextoAnidado + linea2 + "\n";  
+
+            } else {
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcion.length()));
+                
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + vDescripcion +
+                repeatString(" ", numeroEspacios.intValue()) + "\n";
+            }
+
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String vHoraAtencion = formato.format(new Date());
+
+            vHoraAtencion = "Hora de Atención: " + vHoraAtencion;
+            
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 5) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     
-                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-
-                    linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
- 
-                    vTextoAnidado = vTextoAnidado + linea1 + "\n"; 
-                    vTextoAnidado = vTextoAnidado + linea2 + "\n";  
-
-                } else {
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDescripcion.length()));
+            if (nv == 1) {
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
                     
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + vDescripcion +
-                    repeatString(" ", numeroEspacios.intValue()) + "\n";
-                }
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()-5) + "M-" + cabecera.getMesa() + 
+                repeatString(" ", 3) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()) + "\n";
 
-                if (nv == 1) {
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
-                        
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()-5) + "M-" + cabecera.getMesa() + 
-                    repeatString(" ", 3) + cabecera.getTipoDocumento() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + cabecera.getDocumento() + 
+                repeatString(" ", numeroEspacios.intValue()) + "\n";
+            } else {
+                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
+                    
+                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + "Nota de Venta" + 
+                repeatString(" ", numeroEspacios.intValue()) + "\n";
 
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getDocumento().length()));                    
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + cabecera.getDocumento() + 
-                    repeatString(" ", numeroEspacios.intValue()) + "\n";
-                } else {
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
-                        
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + "Nota de Venta" + 
-                    repeatString(" ", numeroEspacios.intValue()) + "\n";
-
-                }
+            }
 
                 if (nv == 1) {
                     String vDocumento = "Documento: " + cabecera.getDocCliente();
@@ -1088,22 +1102,32 @@ public class CooperacionController {
                     repeatString(" ", 4) + "\n";
                 }
                  
-                vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", 7) + 
-                "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4) + "\n";
- 
+                if (idnegocio != 26) {
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", 7) + 
+                    "P.V." + repeatString(" ", 3) + "TOTAL" + repeatString(" ", 4) + "\n";
+                } else {
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + "Descripcion" + repeatString(" ", 16) + 
+                    "P.V." + repeatString(" ", 5) + "TOTAL" + repeatString(" ", 4) + "\n";
+                }
                 for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                     String vProducto = lstDocumentoVenta.get(i).getDescripcionProducto().substring(0, 
-                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> 12?12:
+                    (lstDocumentoVenta.get(i).getDescripcionProducto().length()> (idnegocio!=26?12:23)?(idnegocio!=26?12:23):
                     lstDocumentoVenta.get(i).getDescripcionProducto().length()));
                     
                     String vPrecio = lstDocumentoVenta.get(i).getPrecioVenta();
                     String vTotal = lstDocumentoVenta.get(i).getTotalItem();
  
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
-                    repeatString(" ",(vProducto.length()> 17?1:17-vProducto.length())) +  
-                    vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
-                    (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
-
+                    if (idnegocio != 26) {
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
+                        repeatString(" ",(vProducto.length()> 17?1:17-vProducto.length())) +  
+                        vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
+                        (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
+                    } else {
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
+                        repeatString(" ",(vProducto.length()> 35?1:35-vProducto.length())) +  
+                        vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4 - 
+                        (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
+                    }
                 }
                 
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + 
@@ -1114,12 +1138,19 @@ public class CooperacionController {
                 String vIgv = "S/." + cabecera.getIgv();
                 String vTotalPedido = "S/." + cabecera.getTotalPedido();
                 
+                if (idnegocio != 26) {
+                    vEspacios = 19;
+                } else {
+                    vEspacios = 31;
+                }
+
                 if (nv == 1) { 
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "Gravado: " + 
                     repeatString(" ",(vEspacios - 2) - vGravado.length()) + vGravado + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "I.G.V (10%): " + 
                     repeatString(" ",(vEspacios -6) - vIgv.length()) + vIgv + "\n";
                 }
+                
  
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "Total: " + repeatString(" ",vEspacios - vTotalPedido.length()) + 
                 vTotalPedido + "\n";
