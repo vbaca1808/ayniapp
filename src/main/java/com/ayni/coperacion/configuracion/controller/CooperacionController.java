@@ -930,33 +930,35 @@ public class CooperacionController {
             repeatString(" ", numeroEspacios.intValue()) + "\n"; // Mostrar la segunda línea
 
             String vDireccion = cabecera.getDireccion();
-            if (vDireccion.length() > 36) {
-                // Dividir la razonSocial en dos líneas
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
-                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+            if (idnegocio != 26) {
+                if (vDireccion.length() > 36) {
+                    // Dividir la razonSocial en dos líneas
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 36));
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
 
-                String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDireccion.substring(0, 36) + 
-                repeatString(" ", numeroEspacios.intValue());
-                String linea2 = vDireccion.substring(36, vDireccion.length());
-                
-                numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
-                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                    String linea1 = repeatString(" ", numeroEspacios.intValue()) + vDireccion.substring(0, 36) + 
+                    repeatString(" ", numeroEspacios.intValue());
+                    String linea2 = vDireccion.substring(36, vDireccion.length());
+                    
+                    numeroEspacios =  new BigDecimal((numeroLetrasMaximoLinea - linea2.length()));                        
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
 
-                linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
- 
-                vTextoAnidado = vTextoAnidado + linea1 + "\n";
- 
-                vTextoAnidado = vTextoAnidado + linea2 + "\n" ; // Mostrar la segunda línea
+                    linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
+    
+                    vTextoAnidado = vTextoAnidado + linea1 + "\n";
+    
+                    vTextoAnidado = vTextoAnidado + linea2 + "\n" ; // Mostrar la segunda línea
 
-            } else {
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccion.length()));
-                
-                numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
-                vTextoAnidado = vTextoAnidado + numeroEspacios.intValue() + vDireccion + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                } else {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vDireccion.length()));
+                    
+                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
+                    vTextoAnidado = vTextoAnidado + numeroEspacios.intValue() + vDireccion + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                }
             }
-
-                
-                String vDescripcion = cabecera.getDescripcion();
+            
+            String vDescripcion = cabecera.getDescripcion();
+            if (idnegocio != 26) {
                 if (vDescripcion.length() > 25) {
                     // Dividir la razonSocial en dos líneas
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - 25));
@@ -970,7 +972,7 @@ public class CooperacionController {
                     numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP); 
 
                     linea2 = repeatString(" ", numeroEspacios.intValue()) + linea2 + repeatString(" ", numeroEspacios.intValue());
- 
+
                     vTextoAnidado = vTextoAnidado + linea1 + "\n"; 
                     vTextoAnidado = vTextoAnidado + linea2 + "\n";  
 
@@ -981,7 +983,8 @@ public class CooperacionController {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", numeroEspacios.intValue()) + vDescripcion +
                     repeatString(" ", numeroEspacios.intValue()) + "\n";
                 }
-
+            }
+            
                 if (nv == 1) {
                     numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - cabecera.getTipoDocumento().length()));
                         
