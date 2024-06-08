@@ -1803,6 +1803,7 @@ public class CooperacionController {
 
                 if (vIdPedido != listadoCocina.getIdPedido()) {
                     vMesa = "Número de Mesa: " + listadoCocina.getMesa();
+                    vMesa = "Hora de Atención: " + new Date().toString();
                     vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
                     vIdPedido = listadoCocina.getIdPedido();
 
