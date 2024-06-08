@@ -1813,8 +1813,8 @@ public class CooperacionController {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-",  numeroLetrasMaximoLinea-2) + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroLetrasMaximoLinea - 9) + "(COCINA)" + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ",1) + repeatString("-",  numeroLetrasMaximoLinea-2) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroLetrasMaximoLinea - 3) + "(COCINA)" + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + "\n";
                     
                 }
