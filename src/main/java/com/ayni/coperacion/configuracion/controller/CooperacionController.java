@@ -1175,11 +1175,9 @@ public class CooperacionController {
                     }
                 }
 
- 
-                if (idnegocio != 26 || (idnegocio == 26 && nv == 0)) {
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "Total: " + repeatString(" ",vEspacios - vTotalPedido.length()) + 
-                    vTotalPedido + "\n";
-                }
+  
+                vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "Total: " + repeatString(" ",vEspacios - vTotalPedido.length()) + 
+                vTotalPedido + "\n"; 
 
                 
                 if (idnegocio != 26 || (idnegocio == 26 && nv == 0)) {
