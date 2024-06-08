@@ -1891,12 +1891,11 @@ public class CooperacionController {
 
                 }
                     
-                vTextoAnidado = vTextoAnidado + repeatString("-", 32) + "\n\n"; 
+                vTextoAnidado = vTextoAnidado + repeatString("-", numeroLetrasMaximoLinea - 3) + "\n\n"; 
 
             }
 
-            
-            vTextoAnidado = vTextoAnidado + repeatString("-", 32) + "\n\n\n";
+             
             
             return vTextoAnidado;
         
