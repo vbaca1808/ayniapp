@@ -1674,105 +1674,106 @@ public class CooperacionController {
             String vPedido = ""; 
 
             String vTextoAnidado = "";
-            
-            for (int i = 0; i < lstDocumentoVenta.size(); i++) {
-                ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
+            if (idnegocio != 26) {
+                for (int i = 0; i < lstDocumentoVenta.size(); i++) {
+                    ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
 
-                if (vIdPedido != listadoCocina.getIdPedido()) {
-                    vMesa = "Número de Mesa: " + listadoCocina.getMesa();
-                    vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
-                    vIdPedido = listadoCocina.getIdPedido();
+                    if (vIdPedido != listadoCocina.getIdPedido()) {
+                        vMesa = "Número de Mesa: " + listadoCocina.getMesa();
+                        vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
+                        vIdPedido = listadoCocina.getIdPedido();
 
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
-                    //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
-                    
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 5) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
-                    vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", 20) + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(MESERA)" + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
-                    
-                }
-            
-                String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
-                if (vDescripcionProducto.length() > 32) {
-                    // Dividir la razonSocial en dos líneas
-                    int vContador = 0;
-                    while (vContador < vDescripcionProducto.length()) {
-                        String linea = vDescripcionProducto.substring(vContador, 
-                        (vDescripcionProducto.length() > vContador + 32?vContador + 32: vDescripcionProducto.length()));
-                        vContador = vContador + 32;
-                        vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vMesa.length()));
+                        //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+                        
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 5) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 7) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                        vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", 20) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(MESERA)" + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + "\n";
+                        
                     }
-                } else {                        
-                    vTextoAnidado = vTextoAnidado + vDescripcionProducto.toUpperCase() + "\n";
-                }
-
-                if (listadoCocina.getActualizado() == 1) {
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(ACTUALIZADO)\n";
-                }  else if (listadoCocina.getActualizado() == 2) { 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(AGREGADO)\n";
-                } else if (listadoCocina.getActualizado() == 3) { 
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(ELIMINADO)\n";
-                }
-
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
                 
-                if (!listadoCocina.getCantidadMesa().equals("0")) {
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    vTextoAnidado = vTextoAnidado + "(MESA)CANTIDAD: " + listadoCocina.getCantidadMesa().toUpperCase() + "\n";
-
-                    if (listadoCocina.getDescripcionProducto().contains("&&&")) {
-                        if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
-                            
-                            String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[1];
-                            int vContador = 0;
-
-                            while (vContador < vDetalle.length()) {
-                                String linea = vDetalle.substring(vContador, 
-                                (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
-                                vContador = vContador + 32;
-                                vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
-                            }
-
-                            //contentStream.showText("Detalle: " + listadoCocina.getDescripcionProducto().split("&&&")[1]);        
+                    String vDescripcionProducto = listadoCocina.getDescripcionProducto().split("&&&")[0];
+                    if (vDescripcionProducto.length() > 32) {
+                        // Dividir la razonSocial en dos líneas
+                        int vContador = 0;
+                        while (vContador < vDescripcionProducto.length()) {
+                            String linea = vDescripcionProducto.substring(vContador, 
+                            (vDescripcionProducto.length() > vContador + 32?vContador + 32: vDescripcionProducto.length()));
+                            vContador = vContador + 32;
+                            vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                         }
+                    } else {                        
+                        vTextoAnidado = vTextoAnidado + vDescripcionProducto.toUpperCase() + "\n";
                     }
 
-                }
-
-
-                if (!listadoCocina.getCantidadLlevar().equals("0")) {
-                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
-                    numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                    vTextoAnidado = vTextoAnidado + "(LLEVAR)CANTIDAD: " + listadoCocina.getCantidadLlevar() + "\n";
-                
-                    System.out.println("Descripcion" + listadoCocina.getDescripcionProducto());
-                    if (listadoCocina.getDescripcionProducto().contains("&&&")) {
-                        if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
-                            
-                            String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[2];
-                            int vContador = 0;
-                            
-                            while (vContador < vDetalle.length()) {
-                                String linea = vDetalle.substring(vContador, 
-                                (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
-                                vContador = vContador + 32;
-                                vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
-                            }
-                                    
-                        }
+                    if (listadoCocina.getActualizado() == 1) {
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(ACTUALIZADO)\n";
+                    }  else if (listadoCocina.getActualizado() == 2) { 
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(AGREGADO)\n";
+                    } else if (listadoCocina.getActualizado() == 3) { 
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 15) + "(ELIMINADO)\n";
                     }
 
-                }
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));
                     
-                vTextoAnidado = vTextoAnidado + repeatString("-", 32) + "\n\n"; 
+                    if (!listadoCocina.getCantidadMesa().equals("0")) {
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        vTextoAnidado = vTextoAnidado + "(MESA)CANTIDAD: " + listadoCocina.getCantidadMesa().toUpperCase() + "\n";
 
+                        if (listadoCocina.getDescripcionProducto().contains("&&&")) {
+                            if (!listadoCocina.getDescripcionProducto().split("&&&")[1].trim().equals("")) {
+                                
+                                String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[1];
+                                int vContador = 0;
+
+                                while (vContador < vDetalle.length()) {
+                                    String linea = vDetalle.substring(vContador, 
+                                    (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
+                                    vContador = vContador + 32;
+                                    vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
+                                }
+
+                                //contentStream.showText("Detalle: " + listadoCocina.getDescripcionProducto().split("&&&")[1]);        
+                            }
+                        }
+
+                    }
+
+
+                    if (!listadoCocina.getCantidadLlevar().equals("0")) {
+                        numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - listadoCocina.getCantidadMesa().length()));                    
+                        numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                        vTextoAnidado = vTextoAnidado + "(LLEVAR)CANTIDAD: " + listadoCocina.getCantidadLlevar() + "\n";
+                    
+                        System.out.println("Descripcion" + listadoCocina.getDescripcionProducto());
+                        if (listadoCocina.getDescripcionProducto().contains("&&&")) {
+                            if (!listadoCocina.getDescripcionProducto().split("&&&")[2].trim().equals("")) {
+                                
+                                String vDetalle = "\nDETALLE: " + listadoCocina.getDescripcionProducto().toUpperCase().split("&&&")[2];
+                                int vContador = 0;
+                                
+                                while (vContador < vDetalle.length()) {
+                                    String linea = vDetalle.substring(vContador, 
+                                    (vDetalle.length() > vContador + 32?vContador + 32: vDetalle.length()));
+                                    vContador = vContador + 32;
+                                    vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
+                                }
+                                        
+                            }
+                        }
+
+                    }
+                        
+                    vTextoAnidado = vTextoAnidado + repeatString("-", 32) + "\n\n"; 
+
+                }
+                vTextoAnidado = vTextoAnidado + repeatString(" ", 32) + "\n\n\n"; 
             }
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 32) + "\n\n\n"; 
-
+            
             lstDocumentoVenta = lstDocumentoVenta.stream().filter(x -> x.getIrCocina() == 1).collect(Collectors.toList());
             vIdPedido = 0;
 
