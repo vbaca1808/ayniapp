@@ -1689,7 +1689,7 @@ public class CooperacionController {
 
             String vTextoAnidado = "";
             if (idnegocio == 26) {
-                numeroLetrasMaximoLinea = 50;
+                numeroLetrasMaximoLinea = 46;
                 vMargenSegunNegocio = 9;
             } else {
                 numeroLetrasMaximoLinea = 24;
