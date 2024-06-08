@@ -1711,7 +1711,7 @@ public class CooperacionController {
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                         vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", 20 + vMargenSegunNegocio) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", numeroLetrasMaximoLinea-2) + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 15 + vMargenSegunNegocio) + "(MESERA)" + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + "\n";
                         
@@ -1813,8 +1813,8 @@ public class CooperacionController {
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", 20) + "\n";
-                    vTextoAnidado = vTextoAnidado + repeatString(" ", 15 + vMargenSegunNegocio) + "(COCINA)" + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-",  numeroLetrasMaximoLinea-2) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", numeroLetrasMaximoLinea - 9) + "(COCINA)" + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + "\n";
                     
                 }
