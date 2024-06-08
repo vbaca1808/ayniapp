@@ -1690,7 +1690,7 @@ public class CooperacionController {
             String vTextoAnidado = "";
             if (idnegocio == 26) {
                 numeroLetrasMaximoLinea = 35;
-                vMargenSegunNegocio = 10;
+                vMargenSegunNegocio = 9;
             } else {
                 numeroLetrasMaximoLinea = 24;
                 vMargenSegunNegocio = 0;
@@ -1711,7 +1711,7 @@ public class CooperacionController {
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                         vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
-                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", 20) + "\n";
+                        vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + repeatString("-", 20 + vMargenSegunNegocio) + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 15 + vMargenSegunNegocio) + "(MESERA)" + "\n";
                         vTextoAnidado = vTextoAnidado + repeatString(" ", 4 + vMargenSegunNegocio) + "\n";
                         
