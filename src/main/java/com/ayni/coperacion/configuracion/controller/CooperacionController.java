@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1798,12 +1799,18 @@ public class CooperacionController {
             lstDocumentoVenta = lstDocumentoVenta.stream().filter(x -> x.getIrCocina() == 1).collect(Collectors.toList());
             vIdPedido = 0;
 
+            String vHoraAtencion = "";
             for (int i = 0; i < lstDocumentoVenta.size(); i++) {
                 ListadoCocina listadoCocina = lstDocumentoVenta.get(i);
 
                 if (vIdPedido != listadoCocina.getIdPedido()) {
                     vMesa = "Número de Mesa: " + listadoCocina.getMesa();
-                    vMesa = "Hora de Atención: " + new Date().toString();
+
+                    
+                    SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    vHoraAtencion = formato.format(new Date());
+
+                    vHoraAtencion = "Hora de Atención: " + vHoraAtencion;
                     vPedido = "N° Pedido: " + listadoCocina.getIdPedido(); 
                     vIdPedido = listadoCocina.getIdPedido();
 
@@ -1812,6 +1819,7 @@ public class CooperacionController {
                     numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
                     
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vMesa.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 7 + vMargenSegunNegocio) + vPedido.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
                     vTextoAnidado = vTextoAnidado + listadoCocina.getNombreUsuario() + "\n";
                     vTextoAnidado = vTextoAnidado + repeatString(" ",1) + repeatString("-",  numeroLetrasMaximoLinea-2) + "\n";
