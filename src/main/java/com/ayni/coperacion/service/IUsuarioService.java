@@ -190,5 +190,6 @@ public interface IUsuarioService {
 
     List<ListadoMenu> obtenerMenuPedido(int idNegocio, int idPedido);
  
+    List<RespuestaStd> transferirMesa(int idNegocio, int idPedido, String numeroCelularDestino, String nombreUsuarioDestino);
 
 }

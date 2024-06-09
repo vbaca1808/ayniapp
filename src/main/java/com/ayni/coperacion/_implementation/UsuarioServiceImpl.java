@@ -915,4 +915,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> transferirMesa(int idNegocio, int idPedido, String numeroCelularDestino,
+            String nombreUsuarioDestino) {
+        try {
+            return usuarioRepository.transferirMesa(idNegocio, idPedido, numeroCelularDestino, nombreUsuarioDestino);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'transferirMesa'");
+        }
+    }
+
 }

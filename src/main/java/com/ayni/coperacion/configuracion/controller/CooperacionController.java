@@ -857,6 +857,19 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/transferirmesa/{idnegocio}/{idpedido}/{numerocelulardestino}/{nombreusuariodestino}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> transferirMesa(@PathVariable int idnegocio,
+                                                             @PathVariable int idpedido,
+                                                             @PathVariable String numerocelulardestino,
+                                                             @PathVariable String nombreusuariodestino) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.transferirMesa(idnegocio, idpedido, numerocelulardestino, nombreusuariodestino);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     @GetMapping(value="/descargarpdf/{idnegocio}/{idpedido}/{nv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<byte[]> descargarPdf(@PathVariable int idnegocio, 
     @PathVariable int idpedido, @PathVariable int nv) {
@@ -870,8 +883,6 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
-
-
     
     @GetMapping(value="/descargarpdftexto/{idnegocio}/{idpedido}/{nv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> descargarPdfFormatoTexto(@PathVariable int idnegocio, 
@@ -1862,7 +1873,6 @@ public class CooperacionController {
 
                 if (vIdPedido != listadoCocina.getIdPedido()) {
                     vMesa = "Número de Mesa: " + listadoCocina.getMesa();
-
                     
                     SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     vHoraAtencion = formato.format(new Date());

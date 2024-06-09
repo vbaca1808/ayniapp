@@ -9,10 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import com.ayni.coperacion.dto.ListadoMenuDto;
-import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
+import org.springframework.stereotype.Repository; 
 import com.ayni.coperacion.entidades.Usuario;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
@@ -29,8 +26,7 @@ import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
 import com.ayni.coperacion.response.ListadoUsuario;
 import com.ayni.coperacion.response.Negocio;
-import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse;
-import com.ayni.coperacion.response.Pedido;
+import com.ayni.coperacion.response.OtrosMovimientosCajeroResponse; 
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
@@ -516,5 +512,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                     @Param("fechaOpe") Date fechaOpe,
                                                     @Param("tipoOpe") int tipoOpe,
                                                     @Param("importe") BigDecimal importe);
+                                        
+    @Query( value = "call sp_transferir_mesa(:idNegocio, :idPedido, :numeroCelularDestino, :nombreUsuarioDestino)", nativeQuery = true)
+    List<RespuestaStd> transferirMesa(@Param("idNegocio") int idNegocio,
+                                      @Param("idPedido") int idPedido,
+                                      @Param("numeroCelularDestino") String numeroCelularDestino,
+                                      @Param("nombreUsuarioDestino") String nombreUsuarioDestino);
 
 }
