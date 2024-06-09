@@ -12,4 +12,5 @@ public interface ReporteCierre {
     String getDato8();
     String getDato9();
     String getTipo();
+    String getDocumento();
 }
