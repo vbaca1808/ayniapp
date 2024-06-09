@@ -8,7 +8,12 @@ public class MyScheduledTasks {
  
     @Scheduled(cron = "0 0/5 * * * *") // Se ejecuta cada hora
     public void sendHourlyEmail() {
-        // Coloca aquí el código para enviar el correo
+        System.out.println("Ejecuto EJECUTO EJCUTO");
+        System.out.println("Ejecuto EJECUTO EJCUTO");
+        System.out.println("Ejecuto EJECUTO EJCUTO");
+        System.out.println("Ejecuto EJECUTO EJCUTO");
+        System.out.println("Ejecuto EJECUTO EJCUTO");
+        System.out.println("Ejecuto EJECUTO EJCUTO");
     }
 
 }
