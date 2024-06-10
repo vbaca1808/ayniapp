@@ -44,7 +44,7 @@ public class TareasProgramadas {
                 MimeMessage message = mailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(message, true);
                 helper.setTo("victorbaca2@yahoo.es");
-                helper.setSubject("Reporte de incidencias Ayni");
+                helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
         
                 String htmlBody = "<h1>Reporte Ayni</h1>"
                                 + "<table border=\"1\">"
