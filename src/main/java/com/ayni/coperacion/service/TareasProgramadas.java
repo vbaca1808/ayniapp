@@ -20,7 +20,7 @@ public class TareasProgramadas {
     @Autowired
 	private IUsuarioService iUsuarioService;
 
-    @Scheduled(cron = "0 */2 * * * *") 
+    @Scheduled(cron = "0 */30 * * * *") 
     public void sendHourlyEmail() {
         try {
             
@@ -63,7 +63,7 @@ public class TareasProgramadas {
                         + "<th>Hora atendida</th>"
                         + "<th>Tiempo demorado</th>"
                         + "</tr>";
-                        
+
 
                         for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
                             htmlBody = htmlBody + "<tr>"
