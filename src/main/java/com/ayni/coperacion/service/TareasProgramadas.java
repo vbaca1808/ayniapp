@@ -61,11 +61,11 @@ public class TareasProgramadas {
                     for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
                         htmlBody = htmlBody + "<tr>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidad() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getFechaModificacion() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getFechaAtencion() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getMinutosDemora() + "</td>"
+                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getCantidad() + "</td>"
+                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
+                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getFechaModificacion() + "</td>"
+                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getFechaAtencion() + "</td>"
+                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getMinutosDemora() + "</td>"
                         + "</tr>";
                     }
 
