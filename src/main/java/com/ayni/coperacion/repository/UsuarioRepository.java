@@ -493,14 +493,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("idPedido") int idPedido,
                                                @Param("tipoLista") int tipoLista);
 
-    @Query( value = "call sp_modificar_menu_pedido_unitario(:idNegocio, :idPedido, :idProducto, :cantidad, :cantidadLlevar, :descripcion, :total)", nativeQuery = true)
+    @Query( value = "call sp_modificar_menu_pedido_unitario(:idNegocio, :idPedido, :idProducto, :cantidad, :cantidadLlevar, " + 
+    ":descripcion, :total, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> modificarMenuPedidoUnitario(@Param("idNegocio") int idNegocio,
                                                    @Param("idPedido") int idPedido,
                                                    @Param("idProducto") int tipoLista,
                                                    @Param("cantidad") int cantidad,
                                                    @Param("cantidadLlevar") int cantidadLlevar,
                                                    @Param("descripcion") String descripcion,
-                                                   @Param("total") BigDecimal total);
+                                                   @Param("total") BigDecimal total,
+                                                   @Param("fechaProceso") Date fechaProceso);
 
     @Query( value = "call sp_listar_otros_movimientos(:idNegocio, :fechaOperacion)", nativeQuery = true)
     List<OtrosMovimientosCajeroResponse> listarOtrosMovimientosCajero(@Param("idNegocio") int idNegocio,
