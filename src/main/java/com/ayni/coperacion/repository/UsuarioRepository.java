@@ -494,7 +494,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("idPedido") int idPedido,
                                                @Param("tipoLista") int tipoLista);
 
-    @Query( value = "call sp_modificar_menu_pedido_unitario(:idNegocio, :idPedido, :idProducto, :cantidad, :cantidadLlevar, :cantidadTaper " + 
+    @Query( value = "call sp_modificar_menu_pedido_unitario(:idNegocio, :idPedido, :idProducto, :cantidad, :cantidadLlevar, :cantidadTaper, " + 
     ":descripcion, :total, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> modificarMenuPedidoUnitario(@Param("idNegocio") int idNegocio,
                                                    @Param("idPedido") int idPedido,

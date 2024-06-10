@@ -752,7 +752,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.modificarMenuPedidoUnitario(menuPedidoUnitario.getIdNegocio(), 
             menuPedidoUnitario.getIdPedido(), menuPedidoUnitario.getIdProducto(), 
             menuPedidoUnitario.getCantidad(), menuPedidoUnitario.getCantidadLLevar(), menuPedidoUnitario.getTaper().intValue(),
-            menuPedidoUnitario.getDescripcion().replace("''", "'"), menuPedidoUnitario.getTotal(), new Date());
+            menuPedidoUnitario.getDescripcion(), menuPedidoUnitario.getTotal(), new Date());
 
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarMenuPedidoUnitario'");
