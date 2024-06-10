@@ -212,7 +212,7 @@ public class CooperacionController {
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
 
-                if (pedidoDto.getIdNegocio() == 25 || pedidoDto.getIdNegocio() == 26) {
+                if (pedidoDto.getIdNegocio() == 25 || (pedidoDto.getIdNegocio() == 26 && pedidoDto.getIdPedido() <= 0)) {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
                     (pedidoDto.getIdPedido() > 0?1:0))); 
                 } else {
@@ -2242,7 +2242,7 @@ public class CooperacionController {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(menuPedidoUnitario.getIdNegocio(), menuPedidoUnitario.getIdPedido(), 
                     (menuPedidoUnitario.getIdPedido() > 0?1:0)));
                 }
-                
+
                 return ResponseEntity.ok().body(pedido);
             } else {
                 return ResponseEntity.ok().body(null);
