@@ -47,7 +47,7 @@ public class TareasProgramadas {
                     helper.setTo("victorbaca2@yahoo.es");
                     helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
             
-                    String htmlBody = "<h1>Confirmaciones Tardías de Productos</h1>"
+                    String htmlBody = "<h1>Confirmaciones Tard&iacute;as de Productos</h1>"
                                     + "<table border=\"1\">"
                                     + "<tr>"
                                     + "<th>Descripción Producto</th>"
