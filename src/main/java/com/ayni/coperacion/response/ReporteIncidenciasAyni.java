@@ -12,5 +12,6 @@ public interface ReporteIncidenciasAyni {
     int getCantidadAtendidaParaLlevar();
     int getMinutosDemora();
     String getTipo();
+    String getCorreoElectronico();
 
 }
