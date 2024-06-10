@@ -34,6 +34,7 @@ import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
+import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.VentasPorProducto; 
@@ -514,11 +515,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                     @Param("fechaOpe") Date fechaOpe,
                                                     @Param("tipoOpe") int tipoOpe,
                                                     @Param("importe") BigDecimal importe);
-                                        
+
     @Query( value = "call sp_transferir_mesa(:idNegocio, :idPedido, :numeroCelularDestino, :nombreUsuarioDestino)", nativeQuery = true)
     List<RespuestaStd> transferirMesa(@Param("idNegocio") int idNegocio,
                                       @Param("idPedido") int idPedido,
                                       @Param("numeroCelularDestino") String numeroCelularDestino,
                                       @Param("nombreUsuarioDestino") String nombreUsuarioDestino);
+
+    @Query( value = "call sp_reporte_incidencias_ayni(:idNegocio, :fechaProceso)", nativeQuery = true)
+    List<ReporteIncidenciasAyni> reporteIncidenciasAyni(@Param("idNegocio") int idNegocio,
+                                                        @Param("fechaProceso") Date fechaProceso);
 
 }

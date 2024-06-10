@@ -44,6 +44,7 @@ import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
+import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -922,6 +923,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.transferirMesa(idNegocio, idPedido, numeroCelularDestino, nombreUsuarioDestino);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'transferirMesa'");
+        }
+    }
+
+    @Override
+    public List<ReporteIncidenciasAyni> reporteIncidenciasAyni(int idNegocio) {
+        try {
+            return usuarioRepository.reporteIncidenciasAyni(idNegocio, new Date());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnsupportedOperationException("Unimplemented method 'reporteIncidenciasAyni'");
         }
     }
 

@@ -39,6 +39,7 @@ import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
+import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -191,5 +192,7 @@ public interface IUsuarioService {
     List<ListadoMenu> obtenerMenuPedido(int idNegocio, int idPedido);
  
     List<RespuestaStd> transferirMesa(int idNegocio, int idPedido, String numeroCelularDestino, String nombreUsuarioDestino);
+
+    List<ReporteIncidenciasAyni> reporteIncidenciasAyni(int idNegocio);
 
 }
