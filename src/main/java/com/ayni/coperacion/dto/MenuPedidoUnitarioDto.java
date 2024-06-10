@@ -16,5 +16,6 @@ public class MenuPedidoUnitarioDto {
 	private int cantidadLLevar;
 	private String descripcion;
 	private BigDecimal total;
+	private BigDecimal taper;
 
 }

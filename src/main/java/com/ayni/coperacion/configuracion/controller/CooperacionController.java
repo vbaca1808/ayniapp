@@ -2229,6 +2229,13 @@ public class CooperacionController {
     public ResponseEntity<Pedido> modificarMenuPedidoUnitario(@Valid @RequestBody 
     MenuPedidoUnitarioDto menuPedidoUnitario) {
         try {  
+            
+            if (menuPedidoUnitario.getTaper() == null) {
+                menuPedidoUnitario.setTaper(BigDecimal.ZERO);
+            } else {
+                
+            }
+
             List<RespuestaStd> lst = iUsuarioService.modificarMenuPedidoUnitario(menuPedidoUnitario);
 
             if(lst.size() > 0) {
