@@ -10,6 +10,7 @@ public interface ReporteIncidenciasAyni {
     int getCantidadAtendida(); 
     int getCantidadParaLLevar(); 
     int getCantidadAtendidaParaLlevar();
+    int getMinutosDemora();
     String getTipo();
 
 }

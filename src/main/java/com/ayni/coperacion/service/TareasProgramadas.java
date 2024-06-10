@@ -50,20 +50,22 @@ public class TareasProgramadas {
                     String htmlBody = "<h1>Confirmaciones Tard&iacute;as de Productos</h1>"
                                     + "<table border=\"1\">"
                                     + "<tr>"
-                                    + "<th>Descripción Producto</th>"
+                                    + "<th>Descripci&oacute;n producto</th>"
                                     + "<th>Cantidad (Mesa)</th>"
-                                    + "<th>Cantidad Atendida</th>"
-                                    + "<th>Cantidad (Llevar)</th>"
-                                    + "<th>Cantidad Atendida Llevar</th>"
+                                    + "<th>Cantidad atendida</th>"
+                                    + "<th>Hora solicitada</th>"
+                                    + "<th>Hora atendida</th>"
+                                    + "<th>Tiempo demorado</th>"
                                     + "</tr>";
 
                     for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
                         htmlBody = htmlBody + "<tr>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidad() + "</td>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadParaLLevar() + "</td>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendidaParaLlevar() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getFechaModificacion() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getFechaAtencion() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getMinutosDemora() + "</td>"
                         + "</tr>";
                     }
 
