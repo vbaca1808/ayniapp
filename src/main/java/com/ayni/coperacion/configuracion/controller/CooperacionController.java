@@ -2156,9 +2156,9 @@ public class CooperacionController {
                         listadoCierreTienda.getDato1() + "\n";
                     }
 
-                    vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                    /*vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
                     repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
-                    listadoCierreTienda.getDato1() + "\n";
+                    listadoCierreTienda.getDato1() + "\n";*/
                 }
 
                 vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
