@@ -2143,6 +2143,19 @@ public class CooperacionController {
                         vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                     }
                 } else {
+                    
+                    if (vDescripcionPago == null) { vDescripcionPago = ""; }
+
+                    if (listadoCierreTienda.getDato1() == null) {
+                        vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                        repeatString(" ", 45 - (vDescripcionPago.length() + 0)) + 
+                        "" + "\n";
+                    } else {
+                        vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                        repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
+                        listadoCierreTienda.getDato1() + "\n";
+                    }
+
                     vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
                     repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
                     listadoCierreTienda.getDato1() + "\n";
