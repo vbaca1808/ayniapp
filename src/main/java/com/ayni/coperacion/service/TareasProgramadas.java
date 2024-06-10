@@ -63,6 +63,7 @@ public class TareasProgramadas {
                         + "<th>Hora atendida</th>"
                         + "<th>Tiempo demorado</th>"
                         + "</tr>";
+                        
 
                         for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
                             htmlBody = htmlBody + "<tr>"
