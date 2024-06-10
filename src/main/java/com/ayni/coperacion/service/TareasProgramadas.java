@@ -58,9 +58,9 @@ public class TareasProgramadas {
 
                 for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
                     htmlBody = htmlBody + "<tr>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(i).getDescripcionProducto() + "</td>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(i).getCantidadAtendida() + "</td>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(i).getCantidadAtendidaParaLlevar() + "</td>"
+                    + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
+                    + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
+                    + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendidaParaLlevar() + "</td>"
                     + "<td>Dato 4</td>"
                     + "<td>Dato 5</td>"
                     + "</tr>";
