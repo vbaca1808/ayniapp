@@ -166,7 +166,7 @@ public class TareasProgramadas {
 
                     if (lstRendimiento.size() > 0) {
                             
-                        htmlBody = htmlBody + "<br><br><h1>Pedidos Atendidos por mesera</h1>"
+                        htmlBody = htmlBody + "<br><br><h1>Pedidos Atendidos por mesera del Mes</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Mesero</th>"
