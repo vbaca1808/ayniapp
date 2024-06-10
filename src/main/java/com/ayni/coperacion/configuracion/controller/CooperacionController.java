@@ -2161,8 +2161,10 @@ public class CooperacionController {
                     listadoCierreTienda.getDato1() + "\n";*/
                 }
 
-                vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
-  
+                if (listadoCierreTienda.getDato1() !=  null) {
+                    vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
+                }
+                
                 //vTextoAnidado = vTextoAnidado + repeatString("-", numeroLetrasMaximoLinea - 3) + "\n\n"; 
             }
 
