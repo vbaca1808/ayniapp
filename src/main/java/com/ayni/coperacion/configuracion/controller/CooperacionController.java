@@ -2124,47 +2124,49 @@ public class CooperacionController {
 
             for (int i = 0; i < lReporteCierreTipoPago.size(); i++) {
                 ReporteCierre listadoCierreTienda = lReporteCierreTipoPago.get(i);
-                numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vTitulo.length()));
-                //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
-                numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
-                                
-                String vDescripcionPago = listadoCierreTienda.getDato2(); 
+                if ( listadoCierreTienda != null) {
+                    numeroEspacios = new BigDecimal((numeroLetrasMaximoLinea - vTitulo.length()));
+                    //numeroEspacios = numeroEspacios.divide(valorDos).setScale(0,RoundingMode.UP);
+                    numeroEspacios = numeroEspacios.subtract(new BigDecimal("4")).setScale(0,RoundingMode.UP);
+                                    
+                    String vDescripcionPago = listadoCierreTienda.getDato2(); 
 
-                if (vDescripcionPago.length() > 31) {
-                    int vContador = 0;
-                    while (vContador < vDescripcionPago.length()) {
-                        String linea = vDescripcionPago.substring(vContador, 
-                        (vDescripcionPago.length() > vContador + 31?vContador + 31: vDescripcionPago.length())) + 
-                        repeatString(" ", 3);
-                        if (vContador == 0) {
-                            linea = linea + repeatString(" ", 10) + listadoCierreTienda.getDato1(); 
+                    if (vDescripcionPago.length() > 31) {
+                        int vContador = 0;
+                        while (vContador < vDescripcionPago.length()) {
+                            String linea = vDescripcionPago.substring(vContador, 
+                            (vDescripcionPago.length() > vContador + 31?vContador + 31: vDescripcionPago.length())) + 
+                            repeatString(" ", 3);
+                            if (vContador == 0) {
+                                linea = linea + repeatString(" ", 10) + listadoCierreTienda.getDato1(); 
+                            }
+                            vContador = vContador + 31;
+                            vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                         }
-                        vContador = vContador + 31;
-                        vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
-                    }
-                } else {
-                    
-                    if (vDescripcionPago == null) { vDescripcionPago = ""; }
-
-                    if (listadoCierreTienda.getDato1() == null) {
-                        vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                        repeatString(" ", 45 - (vDescripcionPago.length() + 0)) + 
-                        "" + "\n";
                     } else {
-                        vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                        
+                        if (vDescripcionPago == null) { vDescripcionPago = ""; }
+
+                        if (listadoCierreTienda.getDato1() == null) {
+                            vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                            repeatString(" ", 45 - (vDescripcionPago.length() + 0)) + 
+                            "" + "\n";
+                        } else {
+                            vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
+                            repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
+                            listadoCierreTienda.getDato1() + "\n";
+                        }
+
+                        /*vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
                         repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
-                        listadoCierreTienda.getDato1() + "\n";
+                        listadoCierreTienda.getDato1() + "\n";*/
                     }
 
-                    /*vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                    repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
-                    listadoCierreTienda.getDato1() + "\n";*/
+                    
+                    if (listadoCierreTienda.getDato1() !=  null) {
+                        vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
+                    }
                 }
-
-                if (listadoCierreTienda.getDato1() !=  null) {
-                    vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
-                }
-                
                 //vTextoAnidado = vTextoAnidado + repeatString("-", numeroLetrasMaximoLinea - 3) + "\n\n"; 
             }
 
