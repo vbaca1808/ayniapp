@@ -47,23 +47,23 @@ public class TareasProgramadas {
                     helper.setTo("victorbaca2@yahoo.es");
                     helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
             
-                    String htmlBody = "<h1>Reporte Ayni</h1>"
+                    String htmlBody = "<h1>Confirmaciones Tardías de Productos</h1>"
                                     + "<table border=\"1\">"
                                     + "<tr>"
-                                    + "<th>Columna 1</th>"
-                                    + "<th>Columna 2</th>"
-                                    + "<th>Columna 3</th>"
-                                    + "<th>Columna 4</th>"
-                                    + "<th>Columna 5</th>"
+                                    + "<th>Descripción Producto</th>"
+                                    + "<th>Cantidad (Mesa)</th>"
+                                    + "<th>Cantidad Atendida</th>"
+                                    + "<th>Cantidad (Llevar)</th>"
+                                    + "<th>Cantidad Atendida Llevar</th>"
                                     + "</tr>";
 
                     for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
                         htmlBody = htmlBody + "<tr>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadParaLLevar() + "</td>"
                         + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendidaParaLlevar() + "</td>"
-                        + "<td>Dato 4</td>"
-                        + "<td>Dato 5</td>"
                         + "</tr>";
                     }
 
