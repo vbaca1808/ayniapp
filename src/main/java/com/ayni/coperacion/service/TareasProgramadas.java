@@ -29,48 +29,50 @@ public class TareasProgramadas {
                 List<ReporteIncidenciasAyni> lstReporteIncidenciasAyni = 
                 iUsuarioService.reporteIncidenciasAyni(vNegocios[i]);
 
-                JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-                mailSender.setHost("smtp.gmail.com");
-                mailSender.setPort(587);
-                mailSender.setUsername("ayniapp24@gmail.com");
-                mailSender.setPassword("wypq niep foyl whiy");
-        
-                Properties props = mailSender.getJavaMailProperties();
-                props.put("mail.transport.protocol", "smtp");
-                props.put("mail.smtp.auth", "true");
-                props.put("mail.smtp.starttls.enable", "true");
-                props.put("mail.debug", "true");
-        
-                MimeMessage message = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message, true);
-                helper.setTo("victorbaca2@yahoo.es");
-                helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
-        
-                String htmlBody = "<h1>Reporte Ayni</h1>"
-                                + "<table border=\"1\">"
-                                + "<tr>"
-                                + "<th>Columna 1</th>"
-                                + "<th>Columna 2</th>"
-                                + "<th>Columna 3</th>"
-                                + "<th>Columna 4</th>"
-                                + "<th>Columna 5</th>"
-                                + "</tr>";
+                if (lstReporteIncidenciasAyni.size() > 0) {
+                    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+                    mailSender.setHost("smtp.gmail.com");
+                    mailSender.setPort(587);
+                    mailSender.setUsername("ayniapp24@gmail.com");
+                    mailSender.setPassword("wypq niep foyl whiy");
+            
+                    Properties props = mailSender.getJavaMailProperties();
+                    props.put("mail.transport.protocol", "smtp");
+                    props.put("mail.smtp.auth", "true");
+                    props.put("mail.smtp.starttls.enable", "true");
+                    props.put("mail.debug", "true");
+            
+                    MimeMessage message = mailSender.createMimeMessage();
+                    MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                    helper.setTo("victorbaca2@yahoo.es");
+                    helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
+            
+                    String htmlBody = "<h1>Reporte Ayni</h1>"
+                                    + "<table border=\"1\">"
+                                    + "<tr>"
+                                    + "<th>Columna 1</th>"
+                                    + "<th>Columna 2</th>"
+                                    + "<th>Columna 3</th>"
+                                    + "<th>Columna 4</th>"
+                                    + "<th>Columna 5</th>"
+                                    + "</tr>";
 
-                for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
-                    htmlBody = htmlBody + "<tr>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
-                    + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendidaParaLlevar() + "</td>"
-                    + "<td>Dato 4</td>"
-                    + "<td>Dato 5</td>"
-                    + "</tr>";
+                    for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
+                        htmlBody = htmlBody + "<tr>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
+                        + "<td>" + lstReporteIncidenciasAyni.get(j).getCantidadAtendidaParaLlevar() + "</td>"
+                        + "<td>Dato 4</td>"
+                        + "<td>Dato 5</td>"
+                        + "</tr>";
+                    }
+
+                    htmlBody = htmlBody + "</table>";                    
+                    helper.setText(htmlBody, true);
+            
+                    mailSender.send(message);
+                    System.out.println("Correo enviado exitosamente.");
                 }
-
-                htmlBody = htmlBody + "</table>";                    
-                helper.setText(htmlBody, true);
-        
-                mailSender.send(message);
-                System.out.println("Correo enviado exitosamente.");
             }
             
         } catch (Exception e) {
