@@ -20,7 +20,7 @@ public class TareasProgramadas {
     @Autowired
 	private IUsuarioService iUsuarioService;
 
-    @Scheduled(cron = "0 */30 * * * *") 
+    @Scheduled(cron = "0 */2 * * * *") 
     public void sendHourlyEmail() {
         try {
             
@@ -35,7 +35,7 @@ public class TareasProgramadas {
                     mailSender.setHost("smtp.gmail.com");
                     mailSender.setPort(587);
                     mailSender.setUsername("ayniapp24@gmail.com");
-                    mailSender.setPassword("wypq niep foyl whiy");
+                    mailSender.setPassword("xmxe dvht ergu egki");
             
                     Properties props = mailSender.getJavaMailProperties();
                     props.put("mail.transport.protocol", "smtp");
@@ -75,9 +75,10 @@ public class TareasProgramadas {
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
                             + "</tr>";
                         }
+
+                        htmlBody = htmlBody + "</table>";     
                     }
 
-                    htmlBody = htmlBody + "</table>";     
 
                     
 
@@ -86,7 +87,7 @@ public class TareasProgramadas {
 
                     if (lstProductosPreparados.size() > 0) {
                             
-                        htmlBody = "</br></br><h1>Confirmaciones Tard&iacute;as de Productos preparados</h1>"
+                        htmlBody = htmlBody + "</br></br><h1>Confirmaciones Tard&iacute;as de Productos preparados</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Descripci&oacute;n producto</th>"
@@ -107,6 +108,8 @@ public class TareasProgramadas {
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
                             + "</tr>";
                         }
+                        htmlBody = htmlBody + "</table>";     
+
                     }
                     helper.setText(htmlBody, true);
             
