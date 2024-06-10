@@ -20,11 +20,11 @@ public class TareasProgramadas {
     @Autowired
 	private IUsuarioService iUsuarioService;
 
-    @Scheduled(cron = "0 */30 * * * *") 
+    @Scheduled(cron = "0 0 12,15,18,21 * * *") 
     public void sendHourlyEmail() {
         try {
             
-            int[] vNegocios = {1};
+            int[] vNegocios = {1,18,25,26};
 
             for (int i = 0; i < vNegocios.length; i++) {
                 List<ReporteIncidenciasAyni> lstReporteIncidenciasAyni = 
@@ -59,6 +59,7 @@ public class TareasProgramadas {
                         + "<th>Descripci&oacute;n producto</th>"
                         + "<th>Cantidad (Mesa)</th>"
                         + "<th>Cantidad atendida</th>"
+                        + "<th>Mesero</th>"
                         + "<th>Hora solicitada</th>"
                         + "<th>Hora atendida</th>"
                         + "<th>Tiempo demorado</th>"
@@ -70,6 +71,7 @@ public class TareasProgramadas {
                             + "<td>" + lstProductosNoPreparados.get(j).getDescripcionProducto() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidad() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getNombreUsuario() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaModificacion() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaAtencion() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
@@ -93,6 +95,7 @@ public class TareasProgramadas {
                         + "<th>Descripci&oacute;n producto</th>"
                         + "<th>Cantidad (Mesa)</th>"
                         + "<th>Cantidad atendida</th>"
+                        + "<th>Mesero</th>"
                         + "<th>Hora solicitada</th>"
                         + "<th>Hora atendida</th>"
                         + "<th>Tiempo demorado</th>"
@@ -103,6 +106,7 @@ public class TareasProgramadas {
                             + "<td>" + lstProductosPreparados.get(j).getDescripcionProducto() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidad() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getNombreUsuario() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaModificacion() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaAtencion() + "</td>"
                             + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getMinutosDemora() + "</td>"
