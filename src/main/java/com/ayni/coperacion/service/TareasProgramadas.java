@@ -2,6 +2,7 @@ package com.ayni.coperacion.service;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import javax.mail.internet.MimeMessage;
 
@@ -47,29 +48,65 @@ public class TareasProgramadas {
                     helper.setTo("victorbaca2@yahoo.es");
                     helper.setSubject("Reporte de incidencias Ayni " + vNegocios[i]);
             
-                    String htmlBody = "<h1>Confirmaciones Tard&iacute;as de Productos</h1>"
-                                    + "<table border=\"1\">"
-                                    + "<tr>"
-                                    + "<th>Descripci&oacute;n producto</th>"
-                                    + "<th>Cantidad (Mesa)</th>"
-                                    + "<th>Cantidad atendida</th>"
-                                    + "<th>Hora solicitada</th>"
-                                    + "<th>Hora atendida</th>"
-                                    + "<th>Tiempo demorado</th>"
-                                    + "</tr>";
+                    List<ReporteIncidenciasAyni> lstProductosNoPreparados = lstReporteIncidenciasAyni.stream().filter(x -> x.getTipo().equals("A"))
+                    .collect(Collectors.toList());
+                    String htmlBody = "";
 
-                    for (int j = 0; j < lstReporteIncidenciasAyni.size(); j++) {
-                        htmlBody = htmlBody + "<tr>"
-                        + "<td>" + lstReporteIncidenciasAyni.get(j).getDescripcionProducto() + "</td>"
-                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getCantidad() + "</td>"
-                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getCantidadAtendida() + "</td>"
-                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getFechaModificacion() + "</td>"
-                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getFechaAtencion() + "</td>"
-                        + "<td style=\"text-align: center;\">" + lstReporteIncidenciasAyni.get(j).getMinutosDemora() + "</td>"
+                    if (lstProductosNoPreparados.size() > 0) {
+                        htmlBody = "<h1>Confirmaciones Tard&iacute;as de Productos no preparados</h1>"
+                        + "<table border=\"1\">"
+                        + "<tr>"
+                        + "<th>Descripci&oacute;n producto</th>"
+                        + "<th>Cantidad (Mesa)</th>"
+                        + "<th>Cantidad atendida</th>"
+                        + "<th>Hora solicitada</th>"
+                        + "<th>Hora atendida</th>"
+                        + "<th>Tiempo demorado</th>"
                         + "</tr>";
+
+                        for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
+                            htmlBody = htmlBody + "<tr>"
+                            + "<td>" + lstProductosNoPreparados.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
+                            + "</tr>";
+                        }
                     }
 
-                    htmlBody = htmlBody + "</table>";                    
+                    htmlBody = htmlBody + "</table>";     
+
+                    
+
+                    List<ReporteIncidenciasAyni> lstProductosPreparados = lstReporteIncidenciasAyni.stream().filter(x -> x.getTipo().equals("B"))
+                    .collect(Collectors.toList());
+
+                    if (lstProductosPreparados.size() > 0) {
+                            
+                        htmlBody = "</br></br><h1>Confirmaciones Tard&iacute;as de Productos preparados</h1>"
+                        + "<table border=\"1\">"
+                        + "<tr>"
+                        + "<th>Descripci&oacute;n producto</th>"
+                        + "<th>Cantidad (Mesa)</th>"
+                        + "<th>Cantidad atendida</th>"
+                        + "<th>Hora solicitada</th>"
+                        + "<th>Hora atendida</th>"
+                        + "<th>Tiempo demorado</th>"
+                        + "</tr>";
+                        
+                        for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
+                            htmlBody = htmlBody + "<tr>"
+                            + "<td>" + lstProductosNoPreparados.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
+                            + "</tr>";
+                        }
+                    }
                     helper.setText(htmlBody, true);
             
                     mailSender.send(message);
