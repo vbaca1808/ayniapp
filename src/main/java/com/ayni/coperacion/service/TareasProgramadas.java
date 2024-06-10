@@ -23,7 +23,7 @@ public class TareasProgramadas {
     public void sendHourlyEmail() {
         try {
             
-            int[] vNegocios = {18, 25, 26};
+            int[] vNegocios = {1};
 
             for (int i = 0; i < vNegocios.length; i++) {
                 List<ReporteIncidenciasAyni> lstReporteIncidenciasAyni = 
