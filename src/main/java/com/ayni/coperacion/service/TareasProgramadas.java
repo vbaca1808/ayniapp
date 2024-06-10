@@ -98,14 +98,14 @@ public class TareasProgramadas {
                         + "<th>Tiempo demorado</th>"
                         + "</tr>";
                         
-                        for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
+                        for (int j = 0; j < lstProductosPreparados.size(); j++) {
                             htmlBody = htmlBody + "<tr>"
-                            + "<td>" + lstProductosNoPreparados.get(j).getDescripcionProducto() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidad() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidadAtendida() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaModificacion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaAtencion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
+                            + "<td>" + lstProductosPreparados.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getMinutosDemora() + "</td>"
                             + "</tr>";
                         }
                         htmlBody = htmlBody + "</table>";     
