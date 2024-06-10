@@ -195,4 +195,7 @@ public interface IUsuarioService {
 
     List<ReporteIncidenciasAyni> reporteIncidenciasAyni(int idNegocio);
 
+    List<RespuestaStd> actualizarHoraAtencionControlMesa(int idNegocio);
+
+
 }

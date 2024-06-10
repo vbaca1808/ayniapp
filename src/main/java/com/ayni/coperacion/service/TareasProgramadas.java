@@ -53,7 +53,7 @@ public class TareasProgramadas {
                     String htmlBody = "";
 
                     if (lstProductosNoPreparados.size() > 0) {
-                        htmlBody = "<h1>Confirmaciones Tard&iacute;as de Productos no preparados</h1>"
+                        htmlBody = "<h1>Atenciones Tard&iacute;as de Productos no preparados</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Descripci&oacute;n producto</th>"
@@ -89,7 +89,7 @@ public class TareasProgramadas {
 
                     if (lstProductosPreparados.size() > 0) {
                             
-                        htmlBody = htmlBody + "</br></br><h1>Confirmaciones Tard&iacute;as de Productos preparados</h1>"
+                        htmlBody = htmlBody + "<br><br><h1>Atenciones Tard&iacute;as de Productos preparados</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Descripci&oacute;n producto</th>"
@@ -128,4 +128,12 @@ public class TareasProgramadas {
 
     }
 
+    @Scheduled(cron = "0 */10 * * * *")
+    public void actualizarFechaControl() {
+        int[] aNegocio = {1,18,25};
+
+        for (int i = 0; i < aNegocio.length; i++) {
+            iUsuarioService.actualizarHoraAtencionControlMesa(aNegocio[i]);            
+        }
+    }
 }

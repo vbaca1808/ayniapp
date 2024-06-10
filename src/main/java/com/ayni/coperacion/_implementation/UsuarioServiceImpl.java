@@ -936,4 +936,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> actualizarHoraAtencionControlMesa(int idNegocio) {
+        try {
+            return usuarioRepository.actualizarHoraAtencionControlMesa(idNegocio, new Date());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'actualizarHoraAtencionControlMesa'");
+        }
+    }
+
 }

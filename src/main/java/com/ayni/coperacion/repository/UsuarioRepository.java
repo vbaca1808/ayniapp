@@ -526,4 +526,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ReporteIncidenciasAyni> reporteIncidenciasAyni(@Param("idNegocio") int idNegocio,
                                                         @Param("fechaProceso") Date fechaProceso);
 
+    @Query( value = "call sp_actualizar_hora_atencion_control_mesa(:idNegocio, :fechaProceso)", nativeQuery = true)
+    List<RespuestaStd> actualizarHoraAtencionControlMesa(@Param("idNegocio") int idNegocio,
+                                                         @Param("fechaProceso") Date fechaProceso);
+
 }
