@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TareasProgramadas {
  
-    @Scheduled(cron = "0 */2 * * * *") 
+    @Scheduled(cron = "0 */30 * * * *") 
     public void sendHourlyEmail() {
         try {
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -55,7 +55,7 @@ public class TareasProgramadas {
             mailSender.send(message);
             System.out.println("Correo enviado exitosamente.");            
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
     }
