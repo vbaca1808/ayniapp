@@ -2545,7 +2545,7 @@ public class CooperacionController {
             helper.setText("Reporte Ayni");
             helper.addAttachment(vNombreArchivo, resource);
         
-            mailSender.send(message);
+            
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=datos.xlsx");
