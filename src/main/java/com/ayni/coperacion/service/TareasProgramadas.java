@@ -20,7 +20,7 @@ public class TareasProgramadas {
     @Autowired
 	private IUsuarioService iUsuarioService;
 
-    @Scheduled(cron = "0 */2 * * * *") 
+    @Scheduled(cron = "0 */30 * * * *") 
     public void sendHourlyEmail() {
         try {
             
