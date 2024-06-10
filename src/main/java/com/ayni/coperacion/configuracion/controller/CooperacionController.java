@@ -2164,7 +2164,7 @@ public class CooperacionController {
 
                     
                     if (listadoCierreTienda.getDato1() !=  null) {
-                        vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1())); 
+                        vTotalCobrado = vTotalCobrado.add(new BigDecimal(listadoCierreTienda.getDato1().replace(",", ""))); 
                     }
                 }
                 //vTextoAnidado = vTextoAnidado + repeatString("-", numeroLetrasMaximoLinea - 3) + "\n\n"; 
