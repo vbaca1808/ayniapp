@@ -946,7 +946,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> cambiarMesaPedido(int idNegocio, int idPedido, int mesa) {
         try {
-            return usuarioRepository.cambiarMesaPedido(idNegocio, idPedido, mesa);
+            return usuarioRepository.cambiarMesaPedido(idNegocio, idPedido, mesa, new Date());
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'cambiarMesaPedido'");
