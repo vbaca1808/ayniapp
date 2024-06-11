@@ -99,7 +99,7 @@ public class TareasProgramadas {
                     }
 
                     List<ReporteIncidenciasAyni> lstProductosNoPreparadosLlevar = lstReporteIncidenciasAyni.stream()
-                    .filter(x -> x.getTipo().equals("A") && x.getCantidad() > 0).collect(Collectors.toList());
+                    .filter(x -> x.getTipo().equals("A") && x.getCantidadParaLLevar() > 0).collect(Collectors.toList());
                     
                     if (lstProductosNoPreparadosLlevar.size() > 0) {
                         htmlBody = htmlBody + "<h1>Atenciones Tard&iacute;as de Productos no preparados para Llevar</h1>"
