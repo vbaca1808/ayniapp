@@ -197,5 +197,5 @@ public interface IUsuarioService {
 
     List<RespuestaStd> actualizarHoraAtencionControlMesa(int idNegocio);
 
-
+    List<RespuestaStd> cambiarMesaPedido(int idNegocio, int idPedido, int mesa);
 }

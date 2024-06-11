@@ -1,8 +1,7 @@
 package com.ayni.coperacion._implementation;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.LocalDate;
+import java.math.RoundingMode; 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -13,8 +12,7 @@ import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
-import com.ayni.coperacion.dto.InsumoDto;
-import com.ayni.coperacion.dto.ListadoMenuDto;
+import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -942,6 +940,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.actualizarHoraAtencionControlMesa(idNegocio, new Date());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarHoraAtencionControlMesa'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> cambiarMesaPedido(int idNegocio, int idPedido, int mesa) {
+        try {
+            return usuarioRepository.cambiarMesaPedido(idNegocio, idPedido, mesa);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'cambiarMesaPedido'");
         }
     }
 

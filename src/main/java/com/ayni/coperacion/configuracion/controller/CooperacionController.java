@@ -10,7 +10,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus; 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -23,13 +22,11 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
 import javax.mail.internet.MimeMessage; 
-
 import java.io.ByteArrayOutputStream; 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -2256,6 +2253,17 @@ public class CooperacionController {
                 return ResponseEntity.ok().body(null);
             }
 
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @PostMapping(value="/cambiarmesapedido/{idnegocio}/{idpedido}/{mesadestino}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> modificarMenuPedidoUnitario(@PathVariable int idnegocio, @PathVariable int idpedido, 
+    @PathVariable int mesadestino) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.cambiarMesaPedido(idnegocio, idpedido, mesadestino);
+            return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
         }      
