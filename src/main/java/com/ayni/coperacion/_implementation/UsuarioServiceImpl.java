@@ -948,6 +948,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try {
             return usuarioRepository.cambiarMesaPedido(idNegocio, idPedido, mesa);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'cambiarMesaPedido'");
         }
     }

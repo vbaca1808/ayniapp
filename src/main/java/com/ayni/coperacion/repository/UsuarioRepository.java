@@ -533,6 +533,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                          
     @Query( value = "call sp_cambiar_mesa_pedido(:idNegocio, :idPedido, :mesaDestino)", nativeQuery = true)
     List<RespuestaStd> cambiarMesaPedido(@Param("idNegocio") int idNegocio, @Param("idPedido") int idPedido,
-                                         @Param("mesa") int mesa);
+                                         @Param("mesaDestino") int mesa);
 
 }
