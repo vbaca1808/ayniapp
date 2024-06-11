@@ -1233,7 +1233,7 @@ public class CooperacionController {
 
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
                     repeatString(" ",(vProducto.length()> 18?1:18-vProducto.length())) +  
-                    vPrecio + repeatString(" ", 4) + vTotal + repeatString(" ", 4 - 
+                    vPrecio + repeatString(" ", 3) + vTotal + repeatString(" ", 4 - 
                     (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
 
                 }
@@ -1250,7 +1250,7 @@ public class CooperacionController {
                 if (idnegocio != 26) {
                     vEspacios = 19;
                 } else {
-                    vEspacios = 31;
+                    vEspacios = 32;
                 }
 
                 
