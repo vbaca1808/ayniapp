@@ -1222,6 +1222,22 @@ public class CooperacionController {
                         (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
                     }
                 }
+
+                if (cabecera != null && cabecera.getComisionDelivery() != null &&
+                    cabecera.getComisionDelivery().compareTo(BigDecimal.ZERO) > 0) {
+                    
+                    String vProducto = "Delivery".substring(0, 
+                    ("Delivery".length()> 13?13:"Delivery".length()));
+                    String vPrecio = cabecera.getComisionDelivery().setScale(2,RoundingMode.HALF_UP).toString();
+                    String vTotal = cabecera.getComisionDelivery().setScale(2,RoundingMode.HALF_UP).toString();
+
+                    vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
+                    repeatString(" ",(vProducto.length()> 26?1:26-vProducto.length())) +  
+                    vPrecio + repeatString(" ", 4) + vTotal + repeatString(" ", 4 - 
+                    (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
+                    
+                }
+                
                 
                 vTextoAnidado = vTextoAnidado + repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + 
                 repeatString(" ", 4) + "\n";
@@ -1570,6 +1586,8 @@ public class CooperacionController {
                     vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4));
 
                 }
+
+                
                 
                 contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                 contentStream.showText(repeatString(" ", 4) + repeatString("-", numeroLetrasMaximoLinea - 8) + repeatString(" ", 4));

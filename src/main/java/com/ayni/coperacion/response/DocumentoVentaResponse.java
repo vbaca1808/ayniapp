@@ -1,5 +1,7 @@
 package com.ayni.coperacion.response;
 
+import java.math.BigDecimal;
+
 public interface DocumentoVentaResponse {
     
     String getRazonSocial();
@@ -24,5 +26,6 @@ public interface DocumentoVentaResponse {
     String getCondicionPago();
     int getMesa();
     String getNombreUsuario();
+    BigDecimal getComisionDelivery();
     
 }
