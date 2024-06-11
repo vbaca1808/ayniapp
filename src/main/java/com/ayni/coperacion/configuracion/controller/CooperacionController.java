@@ -1232,10 +1232,10 @@ public class CooperacionController {
                     String vTotal = cabecera.getComisionDelivery().setScale(2,RoundingMode.HALF_UP).toString();
 
                     vTextoAnidado = vTextoAnidado + repeatString(" ", 2) + vProducto + 
-                    repeatString(" ",(vProducto.length()> 26?1:26-vProducto.length())) +  
+                    repeatString(" ",(vProducto.length()> 16?1:16-vProducto.length())) +  
                     vPrecio + repeatString(" ", 4) + vTotal + repeatString(" ", 4 - 
                     (vTotal.length() > 4?(4 -vTotal.length()):0)) + "\n";
-                    
+
                 }
                 
                 
