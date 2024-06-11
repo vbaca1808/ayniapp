@@ -1250,7 +1250,7 @@ public class CooperacionController {
                 if (idnegocio != 26) {
                     vEspacios = 19;
                 } else {
-                    vEspacios = 32;
+                    vEspacios = 33;
                 }
 
                 
@@ -1584,9 +1584,20 @@ public class CooperacionController {
                     contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
                     contentStream.showText(repeatString(" ", 4) + vProducto + " " +  
                     vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4));
-
                 }
 
+                if(cabecera != null && cabecera.getComisionDelivery() != null && 
+                   cabecera.getComisionDelivery().compareTo(BigDecimal.ZERO) > 0) {
+ 
+                    String vProducto = "Delivery";
+                    String vPrecio = cabecera.getComisionDelivery().setScale(2,RoundingMode.HALF_UP).toString();
+                    String vTotal = cabecera.getComisionDelivery().setScale(2,RoundingMode.HALF_UP).toString();
+
+                    contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
+                    contentStream.showText(repeatString(" ", 4) + vProducto + "     " +  
+                    vPrecio + repeatString(" ", 2) + vTotal + repeatString(" ", 4));
+
+                }
                 
                 
                 contentStream.newLineAtOffset(0, -10); // Posición inicial para la primera línea
