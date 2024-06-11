@@ -2265,6 +2265,7 @@ public class CooperacionController {
             List<RespuestaStd> lst = iUsuarioService.cambiarMesaPedido(idnegocio, idpedido, mesadestino);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }

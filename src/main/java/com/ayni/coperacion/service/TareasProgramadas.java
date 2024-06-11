@@ -65,12 +65,12 @@ public class TareasProgramadas {
                      vNegocios[i] == 25?"Cheff Nautico":
                      vNegocios[i] == 26?"Punta Roca":""));
             
-                    List<ReporteIncidenciasAyni> lstProductosNoPreparados = lstReporteIncidenciasAyni.stream().filter(x -> x.getTipo().equals("A"))
-                    .collect(Collectors.toList());
+                    List<ReporteIncidenciasAyni> lstProductosNoPreparadosMesa = lstReporteIncidenciasAyni.stream()
+                    .filter(x -> x.getTipo().equals("A") && x.getCantidad() > 0).collect(Collectors.toList());
                     String htmlBody = "";
 
-                    if (lstProductosNoPreparados.size() > 0) {
-                        htmlBody = "<h1>Atenciones Tard&iacute;as de Productos no preparados</h1>"
+                    if (lstProductosNoPreparadosMesa.size() > 0) {
+                        htmlBody = "<h1>Atenciones Tard&iacute;as de Productos no preparados para mesa</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Descripci&oacute;n producto</th>"
@@ -83,27 +83,59 @@ public class TareasProgramadas {
                         + "</tr>";
 
 
-                        for (int j = 0; j < lstProductosNoPreparados.size(); j++) {
+                        for (int j = 0; j < lstProductosNoPreparadosMesa.size(); j++) {
                             htmlBody = htmlBody + "<tr>"
-                            + "<td>" + lstProductosNoPreparados.get(j).getDescripcionProducto() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidad() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getCantidadAtendida() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getNombreUsuario() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaModificacion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getFechaAtencion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparados.get(j).getMinutosDemora() + "</td>"
+                            + "<td>" + lstProductosNoPreparadosMesa.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getNombreUsuario() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosMesa.get(j).getMinutosDemora() + "</td>"
                             + "</tr>";
                         }
 
                         htmlBody = htmlBody + "</table>";     
                     }
 
-                    List<ReporteIncidenciasAyni> lstProductosPreparados = lstReporteIncidenciasAyni.stream().filter(x -> x.getTipo().equals("B"))
-                    .collect(Collectors.toList());
+                    List<ReporteIncidenciasAyni> lstProductosNoPreparadosLlevar = lstReporteIncidenciasAyni.stream()
+                    .filter(x -> x.getTipo().equals("A") && x.getCantidad() > 0).collect(Collectors.toList());
+                    
+                    if (lstProductosNoPreparadosLlevar.size() > 0) {
+                        htmlBody = htmlBody + "<h1>Atenciones Tard&iacute;as de Productos no preparados para Llevar</h1>"
+                        + "<table border=\"1\">"
+                        + "<tr>"
+                        + "<th>Descripci&oacute;n producto</th>"
+                        + "<th>Cantidad (Llevar)</th>"
+                        + "<th>Cantidad atendida para Llevar</th>"
+                        + "<th>Mesero</th>"
+                        + "<th>Hora solicitada</th>"
+                        + "<th>Hora atendida</th>"
+                        + "<th>Tiempo demorado</th>"
+                        + "</tr>";
 
-                    if (lstProductosPreparados.size() > 0) {
+
+                        for (int j = 0; j < lstProductosNoPreparadosLlevar.size(); j++) {
+                            htmlBody = htmlBody + "<tr>"
+                            + "<td>" + lstProductosNoPreparadosLlevar.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getCantidadParaLLevar() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getCantidadAtendidaParaLlevar() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getNombreUsuario() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosNoPreparadosLlevar.get(j).getMinutosDemora() + "</td>"
+                            + "</tr>";
+                        }
+
+                        htmlBody = htmlBody + "</table>";     
+                    }
+
+                    List<ReporteIncidenciasAyni> lstProductosPreparadosMesa = lstReporteIncidenciasAyni.stream()
+                    .filter(x -> x.getTipo().equals("B") && x.getCantidad() > 0).collect(Collectors.toList());
+
+                    if (lstProductosPreparadosMesa.size() > 0) {
                             
-                        htmlBody = htmlBody + "<br><br><h1>Atenciones Tard&iacute;as de Productos preparados</h1>"
+                        htmlBody = htmlBody + "<br><br><h1>Atenciones Tard&iacute;as de Productos preparados para mesa</h1>"
                         + "<table border=\"1\">"
                         + "<tr>"
                         + "<th>Descripci&oacute;n producto</th>"
@@ -115,15 +147,47 @@ public class TareasProgramadas {
                         + "<th>Tiempo demorado</th>"
                         + "</tr>";
                         
-                        for (int j = 0; j < lstProductosPreparados.size(); j++) {
+                        for (int j = 0; j < lstProductosPreparadosMesa.size(); j++) {
                             htmlBody = htmlBody + "<tr>"
-                            + "<td>" + lstProductosPreparados.get(j).getDescripcionProducto() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidad() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getCantidadAtendida() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getNombreUsuario() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaModificacion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getFechaAtencion() + "</td>"
-                            + "<td style=\"text-align: center;\">" + lstProductosPreparados.get(j).getMinutosDemora() + "</td>"
+                            + "<td>" + lstProductosPreparadosMesa.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getNombreUsuario() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosMesa.get(j).getMinutosDemora() + "</td>"
+                            + "</tr>";
+                        }
+                        htmlBody = htmlBody + "</table>";     
+
+                    }
+
+                    List<ReporteIncidenciasAyni> lstProductosPreparadosLlevar = lstReporteIncidenciasAyni.stream()
+                    .filter(x -> x.getTipo().equals("B") && x.getCantidadParaLLevar() > 0).collect(Collectors.toList());
+
+                    if (lstProductosPreparadosLlevar.size() > 0) {
+                            
+                        htmlBody = htmlBody + "<br><br><h1>Atenciones Tard&iacute;as de Productos preparados para llevar</h1>"
+                        + "<table border=\"1\">"
+                        + "<tr>"
+                        + "<th>Descripci&oacute;n producto</th>"
+                        + "<th>Cantidad (Mesa)</th>"
+                        + "<th>Cantidad atendida</th>"
+                        + "<th>Mesero</th>"
+                        + "<th>Hora solicitada</th>"
+                        + "<th>Hora atendida</th>"
+                        + "<th>Tiempo demorado</th>"
+                        + "</tr>";
+                        
+                        for (int j = 0; j < lstProductosPreparadosLlevar.size(); j++) {
+                            htmlBody = htmlBody + "<tr>"
+                            + "<td>" + lstProductosPreparadosLlevar.get(j).getDescripcionProducto() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getCantidad() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getCantidadAtendida() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getNombreUsuario() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getFechaModificacion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getFechaAtencion() + "</td>"
+                            + "<td style=\"text-align: center;\">" + lstProductosPreparadosLlevar.get(j).getMinutosDemora() + "</td>"
                             + "</tr>";
                         }
                         htmlBody = htmlBody + "</table>";     
