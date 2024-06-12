@@ -2325,7 +2325,7 @@ public class CooperacionController {
                 Sheet sheetPc = null;
                 Sheet sheetTp = null;
                 Sheet sheetPd = null; 
-                if (idrubronegocio == 1) {
+                if (idrubronegocio == 1 || idrubronegocio == 4) {
                     vCabeceraPp = new String[] {"Plato" , "Cantidad Platos", "Précio", "Total", "Adicional", "Importe Generado", "Grupo de Producto"};
                     vCabeceraPc = new String[] {"Cliente" , "Cantidad Platos", "Précio", "Importe Generado"};
                     vCabeceraTp = new String[] {"Efectivo" , "Importe Cobrado"};
