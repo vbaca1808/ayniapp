@@ -8,5 +8,6 @@ public interface ReporteCierreDetalleEfectivo {
     int getIdPedido();  
     String getFechaPago(); 
     BigDecimal getMontoPago();
+    String getCorrelativoUnicoMovNegocio();
       
 }
