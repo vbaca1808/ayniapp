@@ -2518,11 +2518,11 @@ public class CooperacionController {
                     dataRow.createCell(2).setCellValue(lstInventario.get(i).getCodigoBarra());
                     dataRow.createCell(3).setCellValue(lstInventario.get(i).getMotivo());
                     if (lstInventario.get(i).getTipo().contains("I")) {
-                        vTotal = vTotal.add(new BigDecimal(lstInventario.get(i).getStockInicial()));
-                        dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial());
+                        vTotal = vTotal.add(new BigDecimal(lstInventario.get(i).getStockInicial().replace(",", "")));
+                        dataRow.createCell(4).setCellValue(lstInventario.get(i).getStockInicial().replace(",", ""));
                     } else {
-                        vTotal = vTotal.subtract(new BigDecimal(lstInventario.get(i).getStockInicial()));
-                        dataRow.createCell(5).setCellValue(lstInventario.get(i).getStockInicial());
+                        vTotal = vTotal.subtract(new BigDecimal(lstInventario.get(i).getStockInicial().replace(",", "")));
+                        dataRow.createCell(5).setCellValue(lstInventario.get(i).getStockInicial().replace(",", ""));
                     }
                     
                     dataRow.createCell(6).setCellValue(vTotal.toString());
@@ -2559,13 +2559,12 @@ public class CooperacionController {
             mailSender.setPort(587);
             mailSender.setUsername("ayniapp24@gmail.com");
             mailSender.setPassword("xmxe dvht ergu egki");
-
+    
             Properties props = mailSender.getJavaMailProperties();
             props.put("mail.transport.protocol", "smtp");
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.debug", "true");
-
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(vCorreoElectronico);
@@ -2588,9 +2587,7 @@ public class CooperacionController {
             } 
             
             helper.setText("Reporte Ayni");
-            helper.addAttachment(vNombreArchivo, resource);
-        
-            
+            helper.addAttachment(vNombreArchivo, resource); 
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=datos.xlsx");
@@ -2611,6 +2608,8 @@ public class CooperacionController {
                 
             };
     
+            mailSender.send(message);
+
             return ResponseEntity.ok().body(respuestaStd);
 
         } catch (Exception e) { 
