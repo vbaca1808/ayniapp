@@ -39,6 +39,8 @@ import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
+import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
+import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
@@ -201,4 +203,9 @@ public interface IUsuarioService {
     List<RespuestaStd> cambiarMesaPedido(int idNegocio, int idPedido, int mesa);
 
     List<RespuestaStd> actualizarCorteInventario(Date fechaCorte);
+
+    List<ReporteCierreDetalleCliente> reporteCierreTiendaDetalleCliente(int idNegocio, String docCliente);
+
+    List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(int idNegocio, int idPedido);
+      
 }

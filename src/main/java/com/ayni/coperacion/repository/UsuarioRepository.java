@@ -33,6 +33,8 @@ import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
+import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
+import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
@@ -535,4 +537,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<RespuestaStd> cambiarMesaPedido(@Param("idNegocio") int idNegocio, @Param("idPedido") int idPedido,
                                          @Param("mesaDestino") int mesa, @Param("fecha") Date fecha);
 
+    @Query( value = "call sp_reporte_cierre_tienda_detalle_cliente(:idNegocio, :docCliente)", nativeQuery = true)
+    List<ReporteCierreDetalleCliente> reporteCierreTiendaDetalleCliente(@Param("idNegocio") int idNegocio, @Param("docCliente") String docCliente);
+
+    @Query( value = "call sp_reporte_cierre_tienda_detalle_documento(:idNegocio, :idPedido)", nativeQuery = true)
+    List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(@Param("idNegocio") int idNegocio, @Param("idPedido") int idPedido);
+                                         
 }

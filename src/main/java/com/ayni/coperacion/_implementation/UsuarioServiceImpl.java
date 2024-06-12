@@ -41,6 +41,8 @@ import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
+import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
+import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReporteIncidenciasAyni;
 import com.ayni.coperacion.response.ReportePedido;
@@ -959,6 +961,24 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.actualizarCorteInventario(fechaCorte);            
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'actualizarCorteInventario'");
+        }
+    }
+
+    @Override
+    public List<ReporteCierreDetalleCliente> reporteCierreTiendaDetalleCliente(int idNegocio, String docCliente) {
+        try {
+            return usuarioRepository.reporteCierreTiendaDetalleCliente(idNegocio, docCliente);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteCierreTiendaDetalleCliente'");
+        }
+    }
+
+    @Override
+    public List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.reporteCierreTiendaDetalleDocumento(idNegocio, idPedido);            
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteCierreTiendaDetalleDocumento'");
         }
     }
 

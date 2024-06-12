@@ -81,6 +81,8 @@ import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
+import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
+import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
@@ -2298,6 +2300,31 @@ public class CooperacionController {
             return ResponseEntity.status(500).body(null);
         }      
     }
+
+    @GetMapping(value="/reportecierretiendadetallecliente/{idnegocio}/{doccliente}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteCierreDetalleCliente>> reporteCierreTiendaDetalleCliente(
+        @PathVariable int idnegocio, @PathVariable String doccliente) {
+        try {
+            List<ReporteCierreDetalleCliente> lst = iUsuarioService.reporteCierreTiendaDetalleCliente(idnegocio, doccliente);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/reportecierretiendadetalledocumento/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteCierreDetalleDocumento>> reporteCierreTiendaDetalleDocumento(@PathVariable int idnegocio, @PathVariable int idpedido, 
+    @PathVariable int mesadestino) {
+        try {
+            List<ReporteCierreDetalleDocumento> lst = iUsuarioService.reporteCierreTiendaDetalleDocumento(idnegocio, idpedido);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
 
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
