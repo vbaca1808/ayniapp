@@ -953,4 +953,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> actualizarCorteInventario(Date fechaCorte) {
+        try {
+            return usuarioRepository.actualizarCorteInventario(fechaCorte);            
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'actualizarCorteInventario'");
+        }
+    }
+
 }

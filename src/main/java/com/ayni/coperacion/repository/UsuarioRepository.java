@@ -367,7 +367,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                           @Param("fechaReferencia") ZonedDateTime fechaReferencia);
                                           
     @Query( value = "call sp_actualizar_corte_inventario(:fechaCorte)", nativeQuery = true)
-    List<RespuestaStd> actualizarCorteInventario(@Param("fechaCorte") ZonedDateTime fechaCorte);
+    List<RespuestaStd> actualizarCorteInventario(@Param("fechaCorte") Date fechaCorte);
                                       
     @Query( value = "call sp_otros_movimiento(:tipoMovimiento,:idNegocio,:idProducto," +
     ":cantidad,:fechaMovimiento)", nativeQuery = true)

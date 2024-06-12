@@ -2,6 +2,7 @@ package com.ayni.coperacion.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -293,5 +294,14 @@ public class TareasProgramadas {
         
         System.out.println("Fecha control Actualizada");
 
+    }
+
+    @Scheduled(cron = "0 0 4 * * *")
+    public void sbActualizarStockInicial() {
+        try {
+            iUsuarioService.actualizarCorteInventario(new Date());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

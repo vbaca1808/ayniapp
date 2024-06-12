@@ -1,6 +1,7 @@
 package com.ayni.coperacion.service;
  
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -198,4 +199,6 @@ public interface IUsuarioService {
     List<RespuestaStd> actualizarHoraAtencionControlMesa(int idNegocio);
 
     List<RespuestaStd> cambiarMesaPedido(int idNegocio, int idPedido, int mesa);
+
+    List<RespuestaStd> actualizarCorteInventario(Date fechaCorte);
 }
