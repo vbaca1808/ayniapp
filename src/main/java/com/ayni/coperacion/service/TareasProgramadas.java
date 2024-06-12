@@ -301,7 +301,7 @@ public class TareasProgramadas {
         try {
             iUsuarioService.actualizarCorteInventario(new Date());
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
     }
 }
