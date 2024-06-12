@@ -2299,7 +2299,6 @@ public class CooperacionController {
         }      
     }
 
-
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,
@@ -2338,7 +2337,6 @@ public class CooperacionController {
                     vCabeceraPd = new String[] {"Documento" , "Estado", "Importe Doc.", "Importe Pagado"};
                 }
                 
-
                 List<ReporteCierre> lReporteCierre = iUsuarioService.reporteCierreTienda(idnegocio, anio, mes, dia, 
                 aniohasta, meshasta, diahasta, numerocelular, nombreusuario);
     
@@ -2560,7 +2558,7 @@ public class CooperacionController {
             mailSender.setHost("smtp.gmail.com");
             mailSender.setPort(587);
             mailSender.setUsername("ayniapp24@gmail.com");
-            mailSender.setPassword("wypq niep foyl whiy");
+            mailSender.setPassword("xmxe dvht ergu egki");
 
             Properties props = mailSender.getJavaMailProperties();
             props.put("mail.transport.protocol", "smtp");
@@ -2621,6 +2619,123 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/envarreporteinventariocorreo/{idnegocio}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RespuestaStd> enviarReporteInventarioCorreo(@PathVariable int idnegocio, 
+    @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, @PathVariable int aniohasta, 
+    @PathVariable int meshasta, @PathVariable int diahasta) {
+
+        try {
+            
+            Workbook workbook = new XSSFWorkbook();
+            String vNombreArchivo = "";
+            int vIdProducto = 0;
+            List<RespuestaStd> lst = iUsuarioService.obtenerCorreoNegocio(idnegocio);
+            
+            String vCorreoElectronico = "";
+
+            if (lst.size() > 0) {
+                vCorreoElectronico = lst.get(0).getMensaje();
+            }
+
+            String[] vCabecera = null;
+            Sheet sheet = null;
+            vCabecera = new String[] {"Descripción" , "Fecha Mov.", "Hora Mov.", "Motivo", "Documento o Referencia", "Cantidad", "Nuevo Saldo"};
+
+            List<Inventario> lstInventario = iUsuarioService.listarInventario(idnegocio, anio, mes, dia, 
+            aniohasta, meshasta, diahasta);
+
+            sheet = workbook.createSheet("Inventario");
+            
+            Row headerRowPp = sheet.createRow(0);
+            
+            for (int i = 0; i < vCabecera.length; i++) {
+                headerRowPp.createCell(i).setCellValue(vCabecera[i]);                    
+            }
+
+            BigDecimal vTotal = BigDecimal.ZERO;            
+            for (int i = 0; i < lstInventario.size(); i++) {
+                Row dataRow = sheet.createRow(i+1);
+                
+                if (vIdProducto != lstInventario.get(i).getIdProducto()) {
+                    vIdProducto = lstInventario.get(i).getIdProducto();
+                } 
+
+                dataRow.createCell(0).setCellValue(lstInventario.get(i).getDescripcionProducto());
+                dataRow.createCell(1).setCellValue(lstInventario.get(i).getFechaCorte()); 
+                dataRow.createCell(2).setCellValue(lstInventario.get(i).getFechaCorte()); 
+                dataRow.createCell(3).setCellValue(lstInventario.get(i).getMotivo());  
+                dataRow.createCell(4).setCellValue(lstInventario.get(i).getDocumento()); 
+                dataRow.createCell(5).setCellValue(lstInventario.get(i).getStockInicial());
+                dataRow.createCell(6).setCellValue("0"); 
+
+            }
+
+            if (dia == diahasta && mes == meshasta && anio == aniohasta) {
+                vNombreArchivo = "Reporte_de_inventario_" + dia + "_" + mes + "_" + anio + ".xlsx";    
+            } else {
+                vNombreArchivo = "Reporte_de_inventario_" + dia + "_" + mes + "_" + anio + "_al_" + 
+                diahasta + "_" + meshasta + "_" + aniohasta + ".xlsx";    
+            }
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+            workbook.close();
+
+            ByteArrayResource resource = new ByteArrayResource(outputStream.toByteArray());
+            
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+            mailSender.setHost("smtp.gmail.com");
+            mailSender.setPort(587);
+            mailSender.setUsername("ayniapp24@gmail.com");
+            mailSender.setPassword("wypq niep foyl whiy");
+
+            Properties props = mailSender.getJavaMailProperties();
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.debug", "true");
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(vCorreoElectronico);
+            
+            if (diahasta != dia || meshasta != mes || aniohasta != anio) {
+                helper.setSubject("Reporte Inventario: Del " + anio + "/" + mes + "/" + dia + " al " + aniohasta + "/" + 
+                meshasta + "/" + diahasta);
+            } else {
+                helper.setSubject("Reporte Inventario: a la fecha " + anio + "/" + mes + "/" + dia);
+            } 
+        
+            helper.setText("Reporte Inventario");
+            helper.addAttachment(vNombreArchivo, resource);
+        
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=datos.xlsx");
+
+            RespuestaStd respuestaStd = new RespuestaStd() {
+
+                @Override
+                public String getCodigo() {
+                    return "OK";
+                }
+
+                @Override
+                public String getMensaje() {
+                    return "Se Envio, Correctamente";
+                }
+ 
+
+                
+            };
+    
+            return ResponseEntity.ok().body(respuestaStd);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+
+    }
     
 
     public static String repeatString(String str, int count) {

@@ -14,5 +14,6 @@ public interface Inventario {
     String getDocumento();
     String getTipo();
     int getid();
+    String getCorreoElectronico();
 
 }
