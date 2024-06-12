@@ -2314,8 +2314,8 @@ public class CooperacionController {
     }
 
     @GetMapping(value="/reportecierretiendadetalledocumento/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReporteCierreDetalleDocumento>> reporteCierreTiendaDetalleDocumento(@PathVariable int idnegocio, @PathVariable int idpedido, 
-    @PathVariable int mesadestino) {
+    public ResponseEntity<List<ReporteCierreDetalleDocumento>> reporteCierreTiendaDetalleDocumento(@
+    PathVariable int idnegocio, @PathVariable int idpedido) {
         try {
             List<ReporteCierreDetalleDocumento> lst = iUsuarioService.reporteCierreTiendaDetalleDocumento(idnegocio, idpedido);
             return ResponseEntity.ok().body(lst);
