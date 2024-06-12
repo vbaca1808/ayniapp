@@ -2376,7 +2376,7 @@ public class CooperacionController {
                     if (lReporteCierre.get(i).getTipo().equals("A")) {
                         filaPp++;
                         Row dataRow = sheetPp.createRow(filaPp);
-                        if (idrubronegocio == 1) {
+                        if (idrubronegocio == 1 || idrubronegocio == 4) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato6());
@@ -2397,7 +2397,7 @@ public class CooperacionController {
                     if (lReporteCierre.get(i).getTipo().equals("B")) {
                         filaPc++;
                         Row dataRow = sheetPc.createRow(filaPc);
-                        if (idrubronegocio == 1) {
+                        if (idrubronegocio == 1 || idrubronegocio == 4) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + " " + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato4());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato3());
@@ -2414,7 +2414,7 @@ public class CooperacionController {
                     if (lReporteCierre.get(i).getTipo().equals("C")) {
                         filaTp++;
                         Row dataRow = sheetTp.createRow(filaTp);
-                        if (idrubronegocio == 1) {
+                        if (idrubronegocio == 1 || idrubronegocio == 4) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato1()); 
                         } else if (idrubronegocio == 2) {
@@ -2426,7 +2426,7 @@ public class CooperacionController {
                     if (lReporteCierre.get(i).getTipo().equals("D")) {
                         filaPd++;
                         Row dataRow = sheetPd.createRow(filaPd);
-                        if (idrubronegocio == 1) {
+                        if (idrubronegocio == 1 || idrubronegocio == 4) {
                             dataRow.createCell(0).setCellValue(lReporteCierre.get(i).getDato1() + lReporteCierre.get(i).getDato2());
                             dataRow.createCell(1).setCellValue(lReporteCierre.get(i).getDato3());
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato4());
