@@ -12,5 +12,6 @@ public interface ListadoProductoTienda {
     int getStockPorLote();
     String getNumeroLote();
     String getFechaVencimiento();
-
+    String getRutaProducto();
+    
 }
