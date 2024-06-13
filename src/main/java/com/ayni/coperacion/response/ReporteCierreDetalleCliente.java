@@ -6,7 +6,7 @@ public interface ReporteCierreDetalleCliente {
     
     int getIdPedido();
     BigDecimal getCantidad();
-    int getDescripcionProducto();
+    String getDescripcionProducto();
     BigDecimal getPrecio();
     BigDecimal getImporte();
 
