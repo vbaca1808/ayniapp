@@ -2138,7 +2138,7 @@ public class CooperacionController {
 
                 vTotalCantidad = vTotalCantidad.add(new BigDecimal(listadoCierreTienda.getDato3().replace(".00","")));
                 if (listadoCierreTienda.getDato5() != null) {
-                    vTotalVendido = vTotalVendido.add(new BigDecimal(listadoCierreTienda.getDato5()));
+                    vTotalVendido = vTotalVendido.add(new BigDecimal(listadoCierreTienda.getDato5().replace(",", "")));
                 }
                 //vTextoAnidado = vTextoAnidado + repeatString("-", numeroLetrasMaximoLinea - 3) + "\n\n"; 
             }
