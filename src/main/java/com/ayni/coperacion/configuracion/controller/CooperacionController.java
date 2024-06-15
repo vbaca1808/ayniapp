@@ -604,8 +604,13 @@ public class CooperacionController {
     }
     
     @PostMapping(value="/configuracionnegocio",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> configuracionNegocio(@Valid @RequestBody ConfiguracionNegocioDto configuracionNegocioDto) {
+    public ResponseEntity<List<RespuestaStd>> configuracionNegocio(@Valid @RequestBody 
+    ConfiguracionNegocioDto configuracionNegocioDto) {
         try {
+
+            configuracionNegocioDto.setUuidCocina("00001101-0000-1000-8000-00805F9B34FB");
+            configuracionNegocioDto.setUuidMesero("00001101-0000-1000-8000-00805F9B34FB");
+
             List<RespuestaStd> lst = iUsuarioService.
             configuracionNegocio(configuracionNegocioDto);
 
