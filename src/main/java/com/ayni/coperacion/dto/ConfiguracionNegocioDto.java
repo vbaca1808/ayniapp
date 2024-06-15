@@ -15,7 +15,7 @@ public class ConfiguracionNegocioDto {
     private String rucEmpresa;
     private String razonSocial;
     private String direccion;
-    private BigDecimal igv;
+    private BigDecimal porcentajeIgv;
     private String logo;
     private int estadoNegocio;
 	private int rubroNegocio;
