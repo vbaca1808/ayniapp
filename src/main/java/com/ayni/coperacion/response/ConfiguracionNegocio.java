@@ -19,6 +19,7 @@ public interface ConfiguracionNegocio {
     int getGenerarComprobanteVenta();
     int getUsarCorrelativoAutomatico();
     int getPedirNombreClientePedidosParaLlevar();
+    int getPedirMarcajePersonal();
     String getCorreoElectronico();
     String getCorrelativos();
     String getGrupoProducto();

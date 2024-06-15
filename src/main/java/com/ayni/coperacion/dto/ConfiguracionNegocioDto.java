@@ -24,6 +24,7 @@ public class ConfiguracionNegocioDto {
 	private int generarComprobanteVenta;
 	private int usarCorrelativoAutomatico;
 	private int pedirNombreClientePedidosParaLlevar;
+	private int pedirMarcajePersonal;
 	private String correoElectronico;
 	private String correlativos;
 	private String grupoProductos;
