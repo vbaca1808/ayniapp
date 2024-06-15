@@ -346,7 +346,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> validarUsuario(String numeroTelefono, String nombreUsuario, String codigoVerificacion) {
         try {
-            return usuarioRepository.validarUsuario(numeroTelefono, nombreUsuario, codigoVerificacion);
+            return usuarioRepository.validarUsuario(numeroTelefono, nombreUsuario, codigoVerificacion, new Date());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'validarUsuario'");
         }

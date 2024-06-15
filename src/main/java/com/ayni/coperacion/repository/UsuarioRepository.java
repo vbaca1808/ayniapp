@@ -73,9 +73,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Param("colaborador") int colaborador,
     @Param("actualizar") int actualizar, @Param("codigoVerificacion") String codigoVerificacion);
 
-    @Query( value = "call sp_validar_usuario(:numeroTelefono,:nombreUsuario,:codigoVerificacion)", nativeQuery = true)
+    @Query( value = "call sp_validar_usuario(:numeroTelefono,:nombreUsuario,:codigoVerificacion, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> validarUsuario(@Param("numeroTelefono") String numeroTelefono,
-    @Param("nombreUsuario") String nombreUsuario, @Param("codigoVerificacion") String codigoVerificacion);
+                                      @Param("nombreUsuario") String nombreUsuario, 
+                                      @Param("codigoVerificacion") String codigoVerificacion,
+                                      @Param("fechaProceso") Date fechaProceso);
 
     @Query( value = "call sp_listado_negocio()", nativeQuery = true)
     List<Negocio> listadoNegocio();
