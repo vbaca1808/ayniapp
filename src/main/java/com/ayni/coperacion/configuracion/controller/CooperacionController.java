@@ -56,6 +56,7 @@ import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
 import com.ayni.coperacion.dto.PedidoDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
+import com.ayni.coperacion.dto.PromocionDto;
 import com.ayni.coperacion.dto.ReporteCierreDetalleDto;
 import com.ayni.coperacion.dto.ReporteCierreDto;
 import com.ayni.coperacion.dto.UsuarioDto;
@@ -79,6 +80,7 @@ import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
+import com.ayni.coperacion.response.Promociones;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -2323,6 +2325,28 @@ public class CooperacionController {
         @PathVariable int idnegocio, @PathVariable String numerocelular, @PathVariable int tipomarca) {
         try {
             List<RespuestaStd> lst = iUsuarioService.registraMarcaPersonal(idnegocio, numerocelular, tipomarca);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/listarpromociones/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Promociones>> listarPromociones(@PathVariable int idnegocio) {
+        try {
+            List<Promociones> lst = iUsuarioService.listarPromociones(idnegocio);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @PostMapping(value="/generarpromocion",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> generarPromocion(@Valid @RequestBody PromocionDto promocionDto) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.generarpromocion(promocionDto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

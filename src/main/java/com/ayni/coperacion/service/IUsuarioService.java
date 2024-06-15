@@ -5,6 +5,8 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.repository.query.Param;
 
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
@@ -17,6 +19,7 @@ import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
+import com.ayni.coperacion.dto.PromocionDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
@@ -38,6 +41,7 @@ import com.ayni.coperacion.response.Pedido;
 import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
+import com.ayni.coperacion.response.Promociones;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -201,6 +205,10 @@ public interface IUsuarioService {
 
     List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(int idNegocio, int idPedido);
       
-    List<RespuestaStd> registraMarcaPersonal(int idNegocio, String numeroCelular, 
-                                             int tipoMarca);
+    List<RespuestaStd> registraMarcaPersonal(int idNegocio, String numeroCelular, int tipoMarca);
+
+    List<Promociones> listarPromociones(int idNegocio);
+
+    List<RespuestaStd> generarpromocion(PromocionDto promocionDto);
+    
 }

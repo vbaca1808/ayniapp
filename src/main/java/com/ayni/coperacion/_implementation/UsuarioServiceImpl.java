@@ -17,6 +17,7 @@ import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
+import com.ayni.coperacion.dto.PromocionDto;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -40,6 +41,7 @@ import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
+import com.ayni.coperacion.response.Promociones;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -50,7 +52,8 @@ import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
-import com.ayni.coperacion.service.IUsuarioService;  
+import com.ayni.coperacion.service.IUsuarioService;
+import com.google.gson.Gson;  
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -1000,6 +1003,30 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.registraMarcaPersonal(idNegocio, numeroCelular, tipoMarca, new Date());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'registraMarcaPersonal'");
+        }
+    }
+
+    @Override
+    public List<Promociones> listarPromociones(int idNegocio) {
+        try {
+            return usuarioRepository.listarPromociones(idNegocio);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'listarPromociones'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> generarpromocion(PromocionDto promocionDto) {
+        try {
+            Gson gson = new Gson();
+            String jsonDetalleProducto = gson.toJson(promocionDto.getDetalleProducto());
+            
+            return usuarioRepository.generarpromocion(promocionDto.getIdNegocio(),
+            promocionDto.getNombrePromocion(), jsonDetalleProducto, promocionDto.getFechaInicioPromocion(),
+            promocionDto.getFechaFinalPromocion(), promocionDto.getPrecio(),
+            promocionDto.getCantidadProductos());        
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'generarpromocion'");
         }
     }
 

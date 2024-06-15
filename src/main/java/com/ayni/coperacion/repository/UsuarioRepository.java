@@ -31,6 +31,7 @@ import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
+import com.ayni.coperacion.response.Promociones;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -563,6 +564,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                              @Param("numeroCelular") String numeroCelular, 
                                              @Param("tipoMarca") int tipoMarca, 
                                              @Param("fechaMarca") Date fechaMarca);
+
+    @Query( value = "call sp_listar_promociones(:idNegocio)", nativeQuery = true)
+    List<Promociones> listarPromociones(@Param("idNegocio") int idNegocio);
+
+    @Query( value = "call sp_generar_promocion(:idNegocio, :nombrePromocion, :detalleProducto, " +
+    ":fechaInicioPromocion, :fechaFinalPromocion, :precio, :cantidadProductos)", nativeQuery = true)
+    List<RespuestaStd> generarpromocion(@Param("idNegocio") int idNegocio, @Param("nombrePromocion") String nombrePromocion, 
+    @Param("detalleProducto") String detalleProducto, @Param("fechaInicioPromocion") Date fechaInicioPromocion,
+    @Param("fechaFinalPromocion") Date fechaFinalPromocion, @Param("precio") BigDecimal precio, 
+    @Param("cantidadProductos") int cantidadProductos);
               
     
 }
