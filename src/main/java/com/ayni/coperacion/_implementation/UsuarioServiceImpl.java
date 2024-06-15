@@ -993,4 +993,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> registraMarcaPersonal(int idNegocio, String numeroCelular, 
+            int tipoMarca) {
+        try {
+            return usuarioRepository.registraMarcaPersonal(idNegocio, numeroCelular, tipoMarca, new Date());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'registraMarcaPersonal'");
+        }
+    }
+
 }

@@ -2318,6 +2318,17 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/registrarmarcapersonal/{idnegocio}/{numerocelular}/{tipomarca}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> registrarMarcaPersonal(
+        @PathVariable int idnegocio, @PathVariable String numerocelular, @PathVariable int tipomarca) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.registraMarcaPersonal(idnegocio, numerocelular, tipomarca);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
 
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 

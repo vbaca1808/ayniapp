@@ -557,5 +557,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query( value = "call sp_reporte_cierre_tienda_detalle_documento(:idNegocio, :idPedido)", nativeQuery = true)
     List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(@Param("idNegocio") int idNegocio, @Param("idPedido") int idPedido);
-                                         
+
+    @Query( value = "call sp_registra_marca_personal(:idNegocio, :numeroCelular, :tipoMarca, :fechaMarca)", nativeQuery = true)
+    List<RespuestaStd> registraMarcaPersonal(@Param("idNegocio") int idNegocio,  
+                                             @Param("numeroCelular") String numeroCelular, 
+                                             @Param("tipoMarca") int tipoMarca, 
+                                             @Param("fechaMarca") Date fechaMarca);
+              
+    
 }

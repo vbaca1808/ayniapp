@@ -201,4 +201,6 @@ public interface IUsuarioService {
 
     List<ReporteCierreDetalleDocumento> reporteCierreTiendaDetalleDocumento(int idNegocio, int idPedido);
       
+    List<RespuestaStd> registraMarcaPersonal(int idNegocio, String numeroCelular, 
+                                             int tipoMarca);
 }
