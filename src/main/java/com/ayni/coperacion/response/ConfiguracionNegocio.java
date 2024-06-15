@@ -17,5 +17,13 @@ public interface ConfiguracionNegocio {
     String getCorrelativos();
     String getGrupoProducto();
     String getCocinas();
+    String getDireccionBluetoothCocina();
+    String getDireccionBluetoothMesero();
+    String getUuidCocina();
+    String getUuidMesera();
+    int getMinutosEntregaCocina();
+    int getMinutosEntregaNoCocina();
+    int getMinutosMesaParalizada();
+    int getCodigoProductoTaper();
     
 }
