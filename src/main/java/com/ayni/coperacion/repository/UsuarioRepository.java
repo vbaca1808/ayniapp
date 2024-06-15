@@ -301,13 +301,17 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                @Param("nombreUsuario") String nombreUsuario);
     
     @Query( value = "call sp_configuracion_negocio(:idNegocio, :nombreNegocio, :descripcion, " +  
-     ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, " + 
+     ":ruc, :razonSocial, :direccion, :igv, :logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, " + 
      ":generarComprobanteVenta, :usarCorrelativoAutomatico, :pedirNombreClientePedidosParaLlevar, " +
      ":correoElectronico, :correlativos, :grupoProductos, :cocinas, :direccionBluetoothCocina, :direccionBluetoothMesero," + 
      ":uuidCocina, :uuidMesero, :minutosEntregaCocina, :minutosEntregaNoCocina, :minutosMesaParalizada, :codigoProductoTaper)", nativeQuery = true)
     List<RespuestaStd> configuracionNegocio(@Param("idNegocio") int idNegocio,  
                                             @Param("nombreNegocio") String nombreNegocio,  
                                             @Param("descripcion") String descripcion,  
+                                            @Param("ruc") String ruc,  
+                                            @Param("razonSocial") String razonSocial,  
+                                            @Param("direccion") String direccion,  
+                                            @Param("igv") BigDecimal igv,  
                                             @Param("logo") String logo,  
                                             @Param("estadoNegocio") int estadoNegocio,  
                                             @Param("rubroNegocio") int rubroNegocio,  

@@ -412,7 +412,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try {
             return usuarioRepository.configuracionNegocio(configuracionNegocioDto.getIdNegocio(), 
             configuracionNegocioDto.getNombreNegocio(),
-            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), 
+            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getRucEmpresa(),
+            configuracionNegocioDto.getRazonSocial(), configuracionNegocioDto.getDireccion(),
+            configuracionNegocioDto.getPorcentajeIgv(),  configuracionNegocioDto.getLogo(),
             configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
             configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), 
             configuracionNegocioDto.getEnvioPlatoDirectoACocina(),
