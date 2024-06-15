@@ -11,6 +11,7 @@ import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
+import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
@@ -116,15 +117,7 @@ public interface IUsuarioService {
 
     List<ListadoUsuario> listadoUsuarioNegocio(int idNegocio, String numeroCelular, String nombreUsuario);
     
-    List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion,  
-                                            String logo, int estadoNegocio, int rubroNegocio, 
-                                            int usarLectorBarraBusquedaManual, 
-                                            int envioPlatoDirectoACocina, int generarComprobanteVenta, 
-                                            int usarCorrelativoAutomatico, int pedirNombreClientePedidosParaLlevar,
-                                            String correoElectronico,
-                                            String correlativos,
-                                            String grupoProductos,
-                                            String cocinas);
+    List<RespuestaStd> configuracionNegocio(ConfiguracionNegocioDto configuracionNegocio);
 
     List<ConfiguracionNegocio> obtenerConfiguracionNegocio(int idNegocio);
 

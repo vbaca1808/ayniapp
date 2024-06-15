@@ -303,7 +303,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_configuracion_negocio(:idNegocio, :nombreNegocio, :descripcion, " +  
      ":logo, :estadoNegocio, :rubroNegocio, :usarLectorBarraBusquedaManual, :envioPlatoDirectoACocina, " + 
      ":generarComprobanteVenta, :usarCorrelativoAutomatico, :pedirNombreClientePedidosParaLlevar, " +
-     ":correoElectronico, :correlativos, :grupoProductos, :cocinas)", nativeQuery = true)
+     ":correoElectronico, :correlativos, :grupoProductos, :cocinas, :direccionBluetoothCocina, :direccionBluetoothMesero," + 
+     ":uuidCocina, :uuidMesero, :minutosEntregaCocina, :minutosEntregaNoCocina, :minutosMesaParalizada, :codigoProductoTaper)", nativeQuery = true)
     List<RespuestaStd> configuracionNegocio(@Param("idNegocio") int idNegocio,  
                                             @Param("nombreNegocio") String nombreNegocio,  
                                             @Param("descripcion") String descripcion,  
@@ -318,7 +319,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                             @Param("correoElectronico") String correoElectronico,
                                             @Param("correlativos") String correlativos,
                                             @Param("grupoProductos") String grupoProductos,
-                                            @Param("cocinas") String cocinas);
+                                            @Param("cocinas") String cocinas,
+                                            @Param("direccionBluetoothCocina") String direccionBluetoothCocina,
+                                            @Param("direccionBluetoothMesero") String direccionBluetoothMesero,
+                                            @Param("uuidCocina") String uuidCocina,
+                                            @Param("uuidMesero") String uuidMesero,
+                                            @Param("minutosEntregaCocina") int minutosEntregaCocina,
+                                            @Param("minutosEntregaNoCocina") int minutosEntregaNoCocina,
+                                            @Param("minutosMesaParalizada") int minutosMesaParalizada,
+                                            @Param("codigoProductoTaper") int ccodigoProductoTaperocinas);
 
     @Query( value = "call sp_obtener_configuracion_negocio(:idNegocio)", nativeQuery = true)
     List<ConfiguracionNegocio> obtenerConfiguracionNegocio(@Param("idNegocio") int idNegocio);

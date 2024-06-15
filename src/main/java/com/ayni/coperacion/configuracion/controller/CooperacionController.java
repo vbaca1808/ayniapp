@@ -607,19 +607,7 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> configuracionNegocio(@Valid @RequestBody ConfiguracionNegocioDto configuracionNegocioDto) {
         try {
             List<RespuestaStd> lst = iUsuarioService.
-            configuracionNegocio(configuracionNegocioDto.getIdNegocio(), 
-            configuracionNegocioDto.getNombreNegocio(),
-            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), 
-            configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
-            configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), 
-            configuracionNegocioDto.getEnvioPlatoDirectoACocina(),
-            configuracionNegocioDto.getGenerarComprobanteVenta(),
-            configuracionNegocioDto.getUsarCorrelativoAutomatico(),
-            configuracionNegocioDto.getPedirNombreClientePedidosParaLlevar(),
-            configuracionNegocioDto.getCorreoElectronico(),
-            configuracionNegocioDto.getCorrelativos(),
-            configuracionNegocioDto.getGrupoProductos(),
-            configuracionNegocioDto.getCocinas());
+            configuracionNegocio(configuracionNegocioDto);
 
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 

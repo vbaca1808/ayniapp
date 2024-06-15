@@ -12,6 +12,7 @@ import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
+import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
@@ -407,17 +408,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> configuracionNegocio(int idNegocio, String nombreNegocio, String descripcion, String logo,
-            int estadoNegocio, int rubroNegocio, int usarLectorBarraBusquedaManual, 
-            int envioPlatoDirectoACocina, int generarComprobanteVenta, 
-            int usarCorrelativoAutomatico, int pedirNombreClientePedidosParaLlevar,
-            String correoElectronico, String correlativos, String grupoProductos, 
-            String cocinas) {
+    public List<RespuestaStd> configuracionNegocio(ConfiguracionNegocioDto configuracionNegocioDto) {
         try {
-            return usuarioRepository.configuracionNegocio(idNegocio, nombreNegocio, descripcion, 
-            logo, estadoNegocio, rubroNegocio, usarLectorBarraBusquedaManual, 
-            envioPlatoDirectoACocina, generarComprobanteVenta, usarCorrelativoAutomatico, pedirNombreClientePedidosParaLlevar, 
-            correoElectronico, correlativos, grupoProductos, cocinas);
+            return usuarioRepository.configuracionNegocio(configuracionNegocioDto.getIdNegocio(), 
+            configuracionNegocioDto.getNombreNegocio(),
+            configuracionNegocioDto.getDescripcion(), configuracionNegocioDto.getLogo(), 
+            configuracionNegocioDto.getEstadoNegocio(), configuracionNegocioDto.getRubroNegocio(),
+            configuracionNegocioDto.getUsarLectorBarraBusquedaManual(), 
+            configuracionNegocioDto.getEnvioPlatoDirectoACocina(),
+            configuracionNegocioDto.getGenerarComprobanteVenta(),
+            configuracionNegocioDto.getUsarCorrelativoAutomatico(),
+            configuracionNegocioDto.getPedirNombreClientePedidosParaLlevar(),
+            configuracionNegocioDto.getCorreoElectronico(),
+            configuracionNegocioDto.getCorrelativos(),
+            configuracionNegocioDto.getGrupoProductos(),
+            configuracionNegocioDto.getCocinas(),configuracionNegocioDto.getDireccionBluetoothCocina(),
+            configuracionNegocioDto.getDireccionBluetoothMesero(), configuracionNegocioDto.getUuidCocina(),
+            configuracionNegocioDto.getUuidMesero(), configuracionNegocioDto.getMinutosEntregaCocina(),
+            configuracionNegocioDto.getMinutosEntregaNoCocina(), configuracionNegocioDto.getMinutosMesaParalizada(),
+            configuracionNegocioDto.getCodigoProductoTaper());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'configuracionNegocio'");
         }

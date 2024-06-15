@@ -22,5 +22,13 @@ public class ConfiguracionNegocioDto {
 	private String correlativos;
 	private String grupoProductos;
 	private String cocinas;
+	private String direccionBluetoothCocina;
+	private String direccionBluetoothMesero;
+	private String uuidCocina;
+	private String uuidMesero;
+	private int minutosEntregaCocina;
+	private int minutosEntregaNoCocina;
+	private int minutosMesaParalizada;
+	private int codigoProductoTaper;
     
 }
