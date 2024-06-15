@@ -1,10 +1,16 @@
 package com.ayni.coperacion.response;
 
+import java.math.BigDecimal;
+
 public interface ConfiguracionNegocio {
     
-    int getId(); 
-    String getNombreNegocio(); 
-    String getDescripcion(); 
+    int getId();
+    String getNombreNegocio();
+    String getDescripcion();
+    String getRucEmpresa();
+    String getRazonSocial();
+    String getDireccion();
+    BigDecimal getPorcentajeIgv(); 
     String getLogo(); 
     int getEstadoNegocio();
     String getRubroNegocio(); 

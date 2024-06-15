@@ -1,5 +1,7 @@
 package com.ayni.coperacion.dto;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,10 @@ public class ConfiguracionNegocioDto {
     private int idNegocio; 
     private String nombreNegocio; 
     private String descripcion; 
+    private String rucEmpresa;
+    private String razonSocial;
+    private String direccion;
+    private BigDecimal igv;
     private String logo;
     private int estadoNegocio;
 	private int rubroNegocio;
