@@ -651,6 +651,7 @@ public class CooperacionController {
             List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }
