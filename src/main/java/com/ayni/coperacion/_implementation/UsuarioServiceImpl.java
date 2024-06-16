@@ -1063,7 +1063,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 promocionDto.setFechaFinalPromocion(promocionDto.getFechaFinalPromocion().replace(" a.m.", ""));
             }
 
-            return usuarioRepository.generarpromocion(promocionDto.getIdNegocio(),
+            return usuarioRepository.generarPromocion(promocionDto.getIdNegocio(), promocionDto.getIdPromocion(),
             promocionDto.getNombrePromocion(), jsonDetalleProducto, 
             promocionDto.getFechaInicioPromocion(),
             promocionDto.getFechaFinalPromocion(), promocionDto.getPrecio(),

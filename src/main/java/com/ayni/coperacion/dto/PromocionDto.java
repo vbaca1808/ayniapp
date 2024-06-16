@@ -12,6 +12,7 @@ import lombok.Setter;
 public class PromocionDto {
 
     private int idNegocio;
+    private int idPromocion;
 	private String nombrePromocion;
 	private List<DetalleProductoPromocionDto> detalleProducto;
 	private String fechaInicioPromocion;
