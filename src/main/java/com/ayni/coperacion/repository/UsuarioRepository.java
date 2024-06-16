@@ -571,8 +571,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_generar_promocion(:idNegocio, :nombrePromocion, :detalleProducto, " +
     ":fechaInicioPromocion, :fechaFinalPromocion, :precio, :cantidadProductos)", nativeQuery = true)
     List<RespuestaStd> generarpromocion(@Param("idNegocio") int idNegocio, @Param("nombrePromocion") String nombrePromocion, 
-    @Param("detalleProducto") String detalleProducto, @Param("fechaInicioPromocion") Date fechaInicioPromocion,
-    @Param("fechaFinalPromocion") Date fechaFinalPromocion, @Param("precio") BigDecimal precio, 
+    @Param("detalleProducto") String detalleProducto, @Param("fechaInicioPromocion") String fechaInicioPromocion,
+    @Param("fechaFinalPromocion") String fechaFinalPromocion, @Param("precio") BigDecimal precio, 
     @Param("cantidadProductos") int cantidadProductos);
               
     

@@ -14,8 +14,8 @@ public class PromocionDto {
     private int idNegocio;
 	private String nombrePromocion;
 	private List<DetalleProductoPromocionDto> detalleProducto;
-	private Date fechaInicioPromocion;
-	private Date fechaFinalPromocion;
+	private String fechaInicioPromocion;
+	private String fechaFinalPromocion;
 	private BigDecimal precio;
 	private int cantidadProductos;
 
