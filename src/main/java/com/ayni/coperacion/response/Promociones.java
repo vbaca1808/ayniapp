@@ -10,6 +10,7 @@ public interface Promociones {
     String getFechaFinalPromocion();
     BigDecimal getPrecio();
     BigDecimal getCantidadProductos();
+    String getDetalle();
     
 }
 

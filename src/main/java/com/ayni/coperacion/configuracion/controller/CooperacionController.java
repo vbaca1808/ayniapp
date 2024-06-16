@@ -2346,7 +2346,7 @@ public class CooperacionController {
     @PostMapping(value="/generarpromocion",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> generarPromocion(@Valid @RequestBody PromocionDto promocionDto) {
         try {
-            List<RespuestaStd> lst = iUsuarioService.generarpromocion(promocionDto);
+            List<RespuestaStd> lst = iUsuarioService.generarPromocion(promocionDto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

@@ -209,6 +209,6 @@ public interface IUsuarioService {
 
     List<Promociones> listarPromociones(int idNegocio);
 
-    List<RespuestaStd> generarpromocion(PromocionDto promocionDto);
+    List<RespuestaStd> generarPromocion(PromocionDto promocionDto);
     
 }

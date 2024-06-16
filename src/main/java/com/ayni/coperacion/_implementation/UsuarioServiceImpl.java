@@ -1016,7 +1016,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> generarpromocion(PromocionDto promocionDto) {
+    public List<RespuestaStd> generarPromocion(PromocionDto promocionDto) {
         try {
             Gson gson = new Gson();
             String jsonDetalleProducto = gson.toJson(promocionDto.getDetalleProducto());
