@@ -1069,6 +1069,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             promocionDto.getFechaFinalPromocion(), promocionDto.getPrecio(),
             promocionDto.getCantidadProductos());        
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'generarpromocion'");
         }
     }
