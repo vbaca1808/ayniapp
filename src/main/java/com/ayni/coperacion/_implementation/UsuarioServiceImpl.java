@@ -1021,8 +1021,51 @@ public class UsuarioServiceImpl implements IUsuarioService {
             Gson gson = new Gson();
             String jsonDetalleProducto = gson.toJson(promocionDto.getDetalleProducto());
             
+            if (promocionDto.getFechaInicioPromocion().contains("p.m.")) {
+                String[] aFecha = promocionDto.getFechaInicioPromocion().split(" ");
+                String[] aHora = aFecha[1].split(":");
+                
+                aHora[0] = aHora[0].replace("01", "13");
+                aHora[0] = aHora[0].replace("02", "14");
+                aHora[0] = aHora[0].replace("03", "15");
+                aHora[0] = aHora[0].replace("04", "16");
+                aHora[0] = aHora[0].replace("05", "17");
+                aHora[0] = aHora[0].replace("06", "18");
+                aHora[0] = aHora[0].replace("07", "19");
+                aHora[0] = aHora[0].replace("08", "20");
+                aHora[0] = aHora[0].replace("09", "21");
+                aHora[0] = aHora[0].replace("10", "22");
+                aHora[0] = aHora[0].replace("11", "23");
+                
+                promocionDto.setFechaInicioPromocion(aFecha[0] + " " + aHora[0] + ":" + aHora[1] + ":" + aHora[2]);
+            } else {
+                promocionDto.setFechaInicioPromocion(promocionDto.getFechaInicioPromocion().replace(" a.m.", ""));
+            }
+
+            if (promocionDto.getFechaFinalPromocion().contains("p.m.")) {
+                String[] aFecha = promocionDto.getFechaFinalPromocion().split(" ");
+                String[] aHora = aFecha[1].split(":");
+                
+                aHora[0] = aHora[0].replace("01", "13");
+                aHora[0] = aHora[0].replace("02", "14");
+                aHora[0] = aHora[0].replace("03", "15");
+                aHora[0] = aHora[0].replace("04", "16");
+                aHora[0] = aHora[0].replace("05", "17");
+                aHora[0] = aHora[0].replace("06", "18");
+                aHora[0] = aHora[0].replace("07", "19");
+                aHora[0] = aHora[0].replace("08", "20");
+                aHora[0] = aHora[0].replace("09", "21");
+                aHora[0] = aHora[0].replace("10", "22");
+                aHora[0] = aHora[0].replace("11", "23");
+
+                promocionDto.setFechaFinalPromocion(aFecha[0] + " " + aHora[0] + ":" + aHora[1] + ":" + aHora[2]);
+            } else {
+                promocionDto.setFechaFinalPromocion(promocionDto.getFechaFinalPromocion().replace(" a.m.", ""));
+            }
+
             return usuarioRepository.generarpromocion(promocionDto.getIdNegocio(),
-            promocionDto.getNombrePromocion(), jsonDetalleProducto, promocionDto.getFechaInicioPromocion(),
+            promocionDto.getNombrePromocion(), jsonDetalleProducto, 
+            promocionDto.getFechaInicioPromocion(),
             promocionDto.getFechaFinalPromocion(), promocionDto.getPrecio(),
             promocionDto.getCantidadProductos());        
         } catch (Exception e) {
