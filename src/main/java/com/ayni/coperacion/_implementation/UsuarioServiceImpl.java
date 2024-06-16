@@ -917,6 +917,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         try {
             return usuarioRepository.obtenerListadoMenuInicial(idNegocio);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'obtenerListadoMenu'");
         }
     }
