@@ -51,6 +51,7 @@ import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.OtrosMovimientosDto;
@@ -204,6 +205,15 @@ public class CooperacionController {
                 !pedidoDto.getNumeroCelular().equals("") && !pedidoDto.getNombreUsuario().equals("")) {
                 Pedido pedido = new Pedido();
 
+                if (pedidoDto.getDetalleProducto() != null && pedidoDto.getDetalleProducto().size() > 0) {
+                    for (int i = 0; i < pedidoDto.getDetalleProducto().size(); i++) {
+                        ListadoMenuDto item = pedidoDto.getDetalleProducto().get(i);
+                        if (item != null && item.getPromocion() != null && item.getPromocion().equals("")) {
+                            item.setPromocion("N");
+                        }
+                    }
+                }
+                
                 Gson gson = new Gson();
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
                 System.out.println(jsonDetalleProducto);

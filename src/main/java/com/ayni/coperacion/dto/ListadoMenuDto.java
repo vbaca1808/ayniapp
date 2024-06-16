@@ -15,5 +15,6 @@ public class ListadoMenuDto {
     private int cantidadLLevar;
     private BigDecimal precio;
     private BigDecimal total;
+    private String promocion;
 
 }
