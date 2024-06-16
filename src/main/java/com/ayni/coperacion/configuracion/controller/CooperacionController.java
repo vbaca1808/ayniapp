@@ -208,12 +208,12 @@ public class CooperacionController {
                 if (pedidoDto.getDetalleProducto() != null && pedidoDto.getDetalleProducto().size() > 0) {
                     for (int i = 0; i < pedidoDto.getDetalleProducto().size(); i++) {
                         ListadoMenuDto item = pedidoDto.getDetalleProducto().get(i);
-                        if (item != null && item.getPromocion() != null && item.getPromocion().equals("")) {
+                        if (item != null && (item.getPromocion() == null || item.getPromocion().equals(""))) {
                             item.setPromocion("N");
                         }
                     }
                 }
-                
+
                 Gson gson = new Gson();
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
                 System.out.println(jsonDetalleProducto);
