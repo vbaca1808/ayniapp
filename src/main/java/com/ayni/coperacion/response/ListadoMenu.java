@@ -26,5 +26,6 @@ public interface ListadoMenu {
     BigDecimal getComisionDelivery();
     int getIdGrupoProducto();
     String getPalabraClave();
+    String getNombreCocina();
     
 }
