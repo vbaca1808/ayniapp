@@ -208,7 +208,7 @@ public class CooperacionController {
                 if (pedidoDto.getDetalleProducto() != null && pedidoDto.getDetalleProducto().size() > 0) {
                     for (int i = 0; i < pedidoDto.getDetalleProducto().size(); i++) {
                         ListadoMenuDto item = pedidoDto.getDetalleProducto().get(i);
-                        if (item != null && (item.getPromocion() == null || item.getPromocion().equals(""))) {
+                        if (item != null && (item.getPromocion() == null || item.getPromocion().trim().equals(""))) {
                             item.setPromocion("N");
                         }
                     }
@@ -2358,6 +2358,17 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> generarPromocion(@Valid @RequestBody PromocionDto promocionDto) {
         try {
             List<RespuestaStd> lst = iUsuarioService.generarPromocion(promocionDto);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @PostMapping(value="/anulardocventa/{idnegocio}/{idpedido}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> anularDocVenta(@PathVariable int idnegocio, @PathVariable int idpedido) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.anularDocVenta(idnegocio, idpedido);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

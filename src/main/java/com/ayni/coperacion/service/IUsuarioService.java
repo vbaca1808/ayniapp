@@ -211,4 +211,6 @@ public interface IUsuarioService {
 
     List<RespuestaStd> generarPromocion(PromocionDto promocionDto);
     
+    List<RespuestaStd> anularDocVenta(int idNegocio, int idPedido);
+
 }

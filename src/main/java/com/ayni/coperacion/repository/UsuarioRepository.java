@@ -575,4 +575,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Param("fechaInicioPromocion") String fechaInicioPromocion, @Param("fechaFinalPromocion") String fechaFinalPromocion, 
     @Param("precio") BigDecimal precio, @Param("cantidadProductos") int cantidadProductos);
 
+    @Query( value = "call sp_anular_doc_venta(:idNegocio, :idPedido, :fechaProceso)", nativeQuery = true)
+    List<RespuestaStd> anularDocVenta(@Param("idNegocio") int idNegocio, 
+    @Param("idPedido") int idPedido, @Param("fechaProceso") Date fechaProceso);
+
 }

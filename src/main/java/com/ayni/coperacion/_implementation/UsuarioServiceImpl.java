@@ -1075,4 +1075,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> anularDocVenta(int idNegocio, int idPedido) {
+        try {
+            return usuarioRepository.anularDocVenta(idNegocio, idPedido, new Date());            
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'anularDocVenta'");
+        }
+    }
+
 }
