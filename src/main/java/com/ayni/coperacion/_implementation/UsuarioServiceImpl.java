@@ -219,11 +219,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> pedidoPagado(PedidoPagadoDto pedidoPagadoDto) {
         try {
+            
+            if (pedidoPagadoDto.getPropina() == null) {
+                pedidoPagadoDto.setPropina(BigDecimal.ZERO);
+            }
+
+            if (pedidoPagadoDto.getDescuento() == null) {
+                pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
+            }
+            
             return usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
             pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
             pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
             pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
-            pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
+            pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
             pedidoPagadoDto.getNumeroDocumento());
         } catch (Exception e) {
             e.printStackTrace();
@@ -675,12 +684,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoPagadoDto.setPropina(BigDecimal.ZERO);
             }
 
+            if (pedidoPagadoDto.getDescuento() == null) {
+                pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
+            }
+
             return usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
             pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
             new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
             pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
-            pedidoPagadoDto.getPropina(), pedidoPagadoDto.getTipoDocumento(),
-            pedidoPagadoDto.getNumeroDocumento());
+            pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
+            pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
         }

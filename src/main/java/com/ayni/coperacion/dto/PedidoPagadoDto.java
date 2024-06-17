@@ -21,6 +21,7 @@ public class PedidoPagadoDto {
 	private BigDecimal otros;
 	private BigDecimal credito;
 	private BigDecimal propina;
+	private BigDecimal descuento;
 	private int soyCocina;
 	private int tipoDocumento;
 	private String numeroDocumento;

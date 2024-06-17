@@ -298,7 +298,7 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> pedidoPagado(@Valid @RequestBody 
                                                             PedidoPagadoDto pedidoPagadoDto) {
         try {
- 
+  
             List<RespuestaStd> lst = iUsuarioService.pedidoPagado(pedidoPagadoDto);
 
             //iUsuarioService.envioFacturaElectronica(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
