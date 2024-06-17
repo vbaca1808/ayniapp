@@ -39,5 +39,6 @@ public interface ReportePedido {
     int getTipoDoc();
     String getNumeroDocumento();
     int getIrCocina();
+    BigDecimal getDescuento();
 
 }
