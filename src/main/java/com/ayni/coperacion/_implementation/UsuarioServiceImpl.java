@@ -1,11 +1,25 @@
 package com.ayni.coperacion._implementation;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream; 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.math.RoundingMode; 
+import java.math.RoundingMode;
+import java.net.HttpURLConnection;
+import java.net.URL; 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream; 
+import java.io.OutputStream; 
+import java.util.Base64; 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
@@ -791,8 +805,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     String numeroDocumento, String razonSocialEmisor, String rucEmisor, 
     String direccionEmisor, String formaPago, String igv, String gravado, String total, String porcIgv,
     List<String> lstItems) {
-        try {
-            // CABECERA XML
+        try {            
             String facturaXml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>';";
             facturaXml = facturaXml + "<Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" ";
             facturaXml = facturaXml + "xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" ";
@@ -800,8 +813,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
             facturaXml = facturaXml + "xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" xmlns:ext=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" ";
             facturaXml = facturaXml + "xmlns:sac=\"urn:oasis:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1\" ";
             facturaXml = facturaXml + "xmlns:udt=\"urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2\">";
-            // ----------- >>
-
             facturaXml = facturaXml + "<ext:UBLExtensions><ext:UBLExtension><ext:ExtensionContent>"; 
             facturaXml = facturaXml + "<ds:Signature Id=\"VitekeySign\">";
             facturaXml = facturaXml + "<ds:SignedInfo><ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>";
@@ -811,8 +822,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             facturaXml = facturaXml + "http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>";
             facturaXml = facturaXml + "</ds:Transforms><ds:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/>";
             facturaXml = facturaXml + "<ds:DigestValue>IBeTfLOITZagGDlFGm8LZCyFA7g=</ds:DigestValue></ds:Reference></ds:SignedInfo>";
-            facturaXml = facturaXml + "<ds:SignatureValue>";
-            facturaXml = facturaXml + firma + "</ds:SignatureValue>";
+            /*facturaXml = facturaXml + "<ds:SignatureValue>";
+            facturaXml = facturaXml + firma + "</ds:SignatureValue>";*/
             facturaXml = facturaXml + "<ds:KeyInfo><ds:X509Data>";
             facturaXml = facturaXml + "<ds:X509SubjectName>C=PE,L=" + distrito + ",O=";
             facturaXml = facturaXml + razonSocial + ",";
@@ -821,15 +832,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             facturaXml = facturaXml + "CN=SOFTWARE DE FACTURACION ELECTRONICA,";
             facturaXml = facturaXml + "1.2.840.113549.1.9.1=#161a70657263792e616e7469636f6e6140766974656b65792e636f6d,";
             facturaXml = facturaXml + "STREET=CAL.GERMAN SCHEREIBER NRO. 276 INT. 240 URB. SANTA ANA</ds:X509SubjectName>";
-            facturaXml = facturaXml + "<ds:X509Certificate>";
-            facturaXml = facturaXml + certificadoDigital + "</ds:X509Certificate>";
+            /*facturaXml = facturaXml + "<ds:X509Certificate>";
+            facturaXml = facturaXml + certificadoDigital + "</ds:X509Certificate>";*/
             facturaXml = facturaXml + "</ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent></ext:UBLExtension>";
             facturaXml = facturaXml + "</ext:UBLExtensions><cbc:UBLVersionID>2.1</cbc:UBLVersionID><cbc:CustomizationID>2.0</cbc:CustomizationID>";
             facturaXml = facturaXml + "<cbc:ID>"+ numeroDocumento + "</cbc:ID>";
-            facturaXml = facturaXml + "<cbc:IssueDate>2024-05-28</cbc:IssueDate>";
-            facturaXml = facturaXml + "<cbc:IssueTime>14:30:18</cbc:IssueTime>";
+            facturaXml = facturaXml + "<cbc:IssueDate>2024-06-17</cbc:IssueDate>";
+            facturaXml = facturaXml + "<cbc:IssueTime>19:02:18</cbc:IssueTime>";
             facturaXml = facturaXml + "<cbc:InvoiceTypeCode listID=\"0101\">01</cbc:InvoiceTypeCode>";
-            facturaXml = facturaXml + "<cbc:Note languageLocaleID=\"1000\"><![CDATA[TRECE Y 00/100]]></cbc:Note>";
+            facturaXml = facturaXml + "<cbc:Note languageLocaleID=\"1000\"><![CDATA[CIENTO DIECIOCHO Y 00/100]]></cbc:Note>";
             facturaXml = facturaXml + "<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>";
             facturaXml = facturaXml + "<cac:Signature>";
             facturaXml = facturaXml + "<cbc:ID>KEYFACIL</cbc:ID>";
@@ -898,13 +909,173 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 facturaXml = facturaXml + "<cac:Price><cbc:PriceAmount currencyID=\"PEN\">"+ gravado + "</cbc:PriceAmount>";
                 facturaXml = facturaXml + "</cac:Price></cac:InvoiceLine>";
             }
-            facturaXml = facturaXml + "</Invoice>";
+            facturaXml = facturaXml + "</Invoice>"; 
+
+            byte[] xmlBytes = facturaXml.getBytes("UTF-8");  
+            byte[] zipBytes = crearArchivoZip("10437413903-01-F001-1.xml", xmlBytes); 
+            System.out.println("Bytes del ZIP generados con éxito.");
+
+            // Configurar las credenciales para el servicio SOAP
+            String username = "10437413903Sa143256";
+            String password =   "43741390";
+
+            // URL del servicio SOAP
+            String endpoint = "https://e-beta.sunat.gob.pe:443/ol-ti-itcpfegem-beta/billService";
+            URL url = new URL(endpoint);
+
+            // Crear conexión HTTP
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "text/xml;charset=UTF-8");
+
+            // Agregar cabecera de seguridad WSSE (UsernameToken)
+            String wsseHeader = generateWSSEHeader(username, password);
+            conn.setRequestProperty("Authorization", wsseHeader);
+
+            // Crear el mensaje SOAP con el archivo ZIP adjunto
+            String soapMessage = generateSOAPMessage(zipBytes);
+
+            // Enviar el mensaje SOAP
+            OutputStream os = conn.getOutputStream();
+            os.write(soapMessage.getBytes("UTF-8"));
+            os.flush();
+
+            // Verificar la respuesta del servidor
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream is = conn.getInputStream();
+                // Convertir la respuesta a bytes
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = is.read(buffer)) != -1) {
+                    baos.write(buffer, 0, len);
+                }
+                byte[] zipBytesReturn = baos.toByteArray();
+                
+                // Cerrar streams
+                baos.close();
+                is.close();
+
+                ByteArrayInputStream bis = new ByteArrayInputStream(zipBytesReturn);
+                ZipInputStream zis = new ZipInputStream(bis);
+
+                ZipEntry zipEntry = zis.getNextEntry();
+                while (zipEntry != null) {
+                    String fileName = zipEntry.getName();
+                    
+                    // Si el archivo es el XML que buscas, leer su contenido
+                    if (fileName.endsWith(".xml")) {
+                        ByteArrayOutputStream baosXml = new ByteArrayOutputStream();
+                        int length;
+                        while ((length = zis.read(buffer)) > 0) {
+                            baosXml.write(buffer, 0, length);
+                        }
+                        String xmlContent = baosXml.toString("UTF-8");
+                        
+                        // Aquí puedes procesar xmlContent según tus necesidades
+                        System.out.println("Contenido del XML:");
+                        System.out.println(xmlContent);
+                        
+                        // Cerrar el ByteArrayOutputStream del XML
+                        baosXml.close();
+                    }
+                    
+                    // Avanzar al siguiente archivo dentro del ZIP
+                    zis.closeEntry();
+                    zipEntry = zis.getNextEntry();
+                }
+                
+                zis.close();
+
+            } else {
+
+                // Respuesta de error
+                InputStream errorStream = conn.getErrorStream();
+                if (errorStream != null) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
+                    StringBuilder errorResponse = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        errorResponse.append(line);
+                    }
+                    reader.close();
+                    
+                    // Aquí puedes manejar el cuerpo de la respuesta de error
+                    System.out.println("Código de error HTTP: " + responseCode);
+                    System.out.println("Cuerpo de la respuesta de error:");
+                    System.out.println(errorResponse.toString());
+                } else {
+                    // Si no hay errorStream disponible, manejarlo según tu caso
+                    System.out.println("Código de error HTTP: " + responseCode);
+                    System.out.println("No se pudo obtener el cuerpo de la respuesta de error.");
+                }
+                
+            }
+
+            System.out.println("Response Code: " + responseCode);
+            conn.disconnect();
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'envioFacturaElectronica'");
         }
     }
+
+    private static byte[] crearArchivoZip(String nombreArchivo, byte[] contenido) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ZipOutputStream zipOut = new ZipOutputStream(baos);
+        ZipEntry zipEntry = new ZipEntry(nombreArchivo);
+        zipOut.putNextEntry(zipEntry);
+        zipOut.write(contenido);
+        zipOut.closeEntry();
+        zipOut.close();
+        return baos.toByteArray();
+    }
+
+     // Método para generar la cabecera WSSE (UsernameToken)
+     private static String generateWSSEHeader(String username, String password) {
+        String wsseHeader = "UsernameToken Username=\"" + username + "\", PasswordDigest=\"" + password + "\", Nonce=\"" + generateNonce() + "\"";
+        return wsseHeader;
+    }
+
+    // Método para generar un nonce aleatorio (simulado)
+    private static String generateNonce() {
+        return "nonce12345";
+    }
+
+    // Método para generar el mensaje SOAP con el archivo ZIP adjunto
+    private static String generateSOAPMessage(byte[] zipBytes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ");
+        sb.append("xmlns:ser=\"http://service.sunat.gob.pe\" xmlns:wsse=\"http://docs.oasisopen.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\">");
+        sb.append("<soapenv:Header>");
+        sb.append("<wsse:Security>");
+        sb.append("<wsse:UsernameToken>");
+        sb.append("<wsse:Username>10437413903Sa143256</wsse:Username>");
+        sb.append("<wsse:Password>437413903</wsse:Password>");
+        sb.append("</wsse:UsernameToken>");
+        sb.append("</wsse:Security>");
+        sb.append("</soapenv:Header>");
+        sb.append("<soapenv:Body>");
+        sb.append("<ser:sendBill>");
+        sb.append("<fileName>10437413903-01-F001-1.zip</fileName>");
+        sb.append("<contentFile>cid:10437413903-01-F001-1.zip</contentFile>");
+        sb.append("</ser:sendBill>");
+        sb.append("</soapenv:Body>");
+        sb.append("</soapenv:Envelope>");
+
+        String soapMessage = sb.toString();
+
+        // Agregar el archivo ZIP como parte del mensaje SOAP (en realidad, deberías adjuntar el ZIP como archivo adjunto real usando MIME, aquí se simula con Content ID 'cid')
+        // Enviar el archivo ZIP como contenido adjunto
+        String soapMessageWithAttachment = soapMessage.replace("cid:20100066603-01-F001-1.zip", Base64.getEncoder().encodeToString(zipBytes));
+        return soapMessageWithAttachment;
+    }
+
 
     @Override
     public List<OtrosMovimientosCajeroResponse> listarOtrosMovimientosCajero(int idNegocio, Date fechaOperacion) {

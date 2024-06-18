@@ -1,5 +1,6 @@
 package com.ayni.coperacion.configuracion.controller;
    
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -304,6 +305,25 @@ public class CooperacionController {
             //iUsuarioService.envioFacturaElectronica(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
             return ResponseEntity.ok().body(lst);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
+    @GetMapping(value="/enviosunat",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> envioSunat() {
+        try {
+   
+            List<String> lstItems = new ArrayList<>();
+            lstItems.add("PRODUCTO DE PRUEBA##P1");
+
+            iUsuarioService.envioFacturaElectronica("", "San Luis", "Victor Baca Huaripaucar", 
+            "10437413903", "", "F001-1", "Victor Alejandro Baca Huaripaucar", "10437413903", "Direccion de prueba", "Contado",
+            "18.00", "100.00", "118.00", "1800", lstItems);
+
+            return ResponseEntity.ok().body(null);
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -2514,20 +2534,6 @@ public class CooperacionController {
                             dataRow.createCell(2).setCellValue(lReporteCierre.get(i).getDato5());
                         }
                     }
-
-                    /*CellStyle dateCellStyle = workbook.createCellStyle();
-                    CreationHelper createHelper = workbook.getCreationHelper();
-                    dateCellStyle.setDataFormat(
-                            createHelper.createDataFormat().getFormat("d/mm/yyyy hh:mm:ss AM/PM"));
-
-                    // Crear una celda para la fecha
-                    Cell cell = dataRow.createCell(2);
-                    cell.setCellValue(fechaDateSalida);
-                    cell.setCellStyle(dateCellStyle);
-
-                    cell = dataRow.createCell(3);
-                    cell.setCellValue(fechaDateLLegada);
-                    cell.setCellStyle(dateCellStyle);*/
 
                 }    
                 
