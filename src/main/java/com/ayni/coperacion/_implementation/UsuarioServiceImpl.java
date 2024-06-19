@@ -806,7 +806,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     String direccionEmisor, String formaPago, String igv, String gravado, String total, String porcIgv,
     List<String> lstItems) {
         try {            
-            String facturaXml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>';";
+            String facturaXml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?> ";
             facturaXml = facturaXml + "<Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" ";
             facturaXml = facturaXml + "xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" ";
             facturaXml = facturaXml + "xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\" "; 
@@ -821,9 +821,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
             facturaXml = facturaXml + "http://www.w3.org/2000/09/xmldsig#enveloped-signature\"/><ds:Transform Algorithm=\"";
             facturaXml = facturaXml + "http://www.w3.org/TR/2001/REC-xml-c14n-20010315\"/>";
             facturaXml = facturaXml + "</ds:Transforms><ds:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/>";
-            facturaXml = facturaXml + "<ds:DigestValue>IBeTfLOITZagGDlFGm8LZCyFA7g=</ds:DigestValue></ds:Reference></ds:SignedInfo>";
-            /*facturaXml = facturaXml + "<ds:SignatureValue>";
-            facturaXml = facturaXml + firma + "</ds:SignatureValue>";*/
+            facturaXml = facturaXml + "<ds:DigestValue>+pruib33lOapq6GSw58GgQLR8VGIGqANloj4EqB1cb4=</ds:DigestValue></ds:Reference></ds:SignedInfo>";
+            facturaXml = facturaXml + "<ds:SignatureValue>";
+            facturaXml = facturaXml + firma + "</ds:SignatureValue>";
             facturaXml = facturaXml + "<ds:KeyInfo><ds:X509Data>";
             facturaXml = facturaXml + "<ds:X509SubjectName>C=PE,L=" + distrito + ",O=";
             facturaXml = facturaXml + razonSocial + ",";
@@ -832,13 +832,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
             facturaXml = facturaXml + "CN=SOFTWARE DE FACTURACION ELECTRONICA,";
             facturaXml = facturaXml + "1.2.840.113549.1.9.1=#161a70657263792e616e7469636f6e6140766974656b65792e636f6d,";
             facturaXml = facturaXml + "STREET=CAL.GERMAN SCHEREIBER NRO. 276 INT. 240 URB. SANTA ANA</ds:X509SubjectName>";
-            /*facturaXml = facturaXml + "<ds:X509Certificate>";
-            facturaXml = facturaXml + certificadoDigital + "</ds:X509Certificate>";*/
+            facturaXml = facturaXml + "<ds:X509Certificate>";
+            facturaXml = facturaXml + certificadoDigital + "</ds:X509Certificate>";
             facturaXml = facturaXml + "</ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent></ext:UBLExtension>";
             facturaXml = facturaXml + "</ext:UBLExtensions><cbc:UBLVersionID>2.1</cbc:UBLVersionID><cbc:CustomizationID>2.0</cbc:CustomizationID>";
             facturaXml = facturaXml + "<cbc:ID>"+ numeroDocumento + "</cbc:ID>";
-            facturaXml = facturaXml + "<cbc:IssueDate>2024-06-17</cbc:IssueDate>";
-            facturaXml = facturaXml + "<cbc:IssueTime>19:02:18</cbc:IssueTime>";
+            facturaXml = facturaXml + "<cbc:IssueDate>2024-06-18</cbc:IssueDate>";
+            facturaXml = facturaXml + "<cbc:IssueTime>11:00:00</cbc:IssueTime>";
             facturaXml = facturaXml + "<cbc:InvoiceTypeCode listID=\"0101\">01</cbc:InvoiceTypeCode>";
             facturaXml = facturaXml + "<cbc:Note languageLocaleID=\"1000\"><![CDATA[CIENTO DIECIOCHO Y 00/100]]></cbc:Note>";
             facturaXml = facturaXml + "<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>";
@@ -909,15 +909,326 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 facturaXml = facturaXml + "<cac:Price><cbc:PriceAmount currencyID=\"PEN\">"+ gravado + "</cbc:PriceAmount>";
                 facturaXml = facturaXml + "</cac:Price></cac:InvoiceLine>";
             }
-            facturaXml = facturaXml + "</Invoice>"; 
+
+            facturaXml = facturaXml + "</Invoice>";
+
+            /*String facturaXml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>";
+            facturaXml = facturaXml + 
+            "<Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\" xmlns:cac=\"" + 
+            "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\" xmlns:cbc=\"" + 
+            "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\" xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"" + 
+            "xmlns:ext=\"urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2\" xmlns:sac=\"" + 
+            "urn:oasis:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1\" xmlns:udt=\"" + 
+            "urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2\">" +
+            "<ext:UBLExtensions>" + 
+            "<ext:UBLExtension>" +
+            "<ext:ExtensionContent>" +
+            "<ds:Signature Id=\"signatureKG\">" + 
+            "<ds:SignedInfo>" + 
+            "<ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/TR/2001/REC-xml-c14n20010315#WithComments\"/>" + 
+            "<ds:SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#dsa-sha1\"/>" + 
+            "<ds:Reference URI=\"\">" + 
+            "<ds:Transforms>" + 
+            "<ds:Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#envelopedsignature\"/>" + 
+            "</ds:Transforms>" + 
+            "<ds:DigestMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#sha1\"/>" + 
+            "<ds:DigestValue>+pruib33lOapq6GSw58GgQLR8VGIGqANloj4EqB1cb4=</ds:DigestValue>" + 
+            "</ds:Reference>" + 
+            "</ds:SignedInfo>" + 
+            "<ds:SignatureValue>Oatv5xMfFInuGqiX9SoLDTy2yuLf0tTlMFkWtkdw1z/Ss6kiDz+vIgZhgKfIaxp+JbVy57GT52f10VLMLatdwPVRbrWmz1/NIy5CWp1xWMaM6fC/9SXV0O1Lqopk0UeX2I2yuf05QhmVfjgUu6GnS3m6o6zM9J36iDvMVZyj7vbJTwI8SfWjTSNqxXlqPQ==</ds:SignatureValue>" + 
+            "<ds:KeyInfo>" +
+            "<ds:X509Data>" +
+            "<ds:X509Certificate>MIIF9TCCBN2gAwIBAgIGAK0oRTg/MA0GCSqGSIb3DQEBCwUAMFkxCzAJBgNVBAYTAlRSMUowSAYD" +
+            "VQQDDEFNYWxpIE3DvGjDvHIgRWxla3Ryb25payBTZXJ0aWZpa2EgSGl6bWV0IFNhxJ9sYXnEsWPEsXPEsSAtIFRlc3QgMTAeFw0wOTEwMjAxMTM3MTJaFw0xNDEwMTkxMTM3MTJaMIGgMRowGAYDVQQL" +
+            "DBFHZW5lbCBNw7xkw7xybMO8azEUMBIGA1UEBRMLMTAwMDAwMDAwMDIxbDBqBgNVBAMMY0F5ZMSxbiBHcm91cCAtIFR1cml6bSDEsHRoYWxhdCDEsGhyYWNhdCBUZWtzdGlsIMSwbsWfYWF0IFBhemFy" +
+            "iMwtPnC2DRjdsyGv3bxwRZr9wXMRrMNwRjyFe9JPA7bSscEgaXwzDUG5FCvfS/PNT+XCce+VECAx6Q3R1ZRSA49fYz6tDB4Ia5HVBXZODmrCs26XisHF6kuS5N/yGg8E7VC1BRr/SmxXeLTdjQYAfo7l" +
+            "xCz4dT6wP5TOiBvF+lyWW1bi9nbliXyb/e5HjCp4k/ra9LTskjbY/Ukl5O8G9JEAViZkjvxDX7T0yVRHgMGiioIKVMwU6Lrtln607BNurLwED0OeoZ4wBgkBiB5vXofreXrfN2pHZ2=</ds:X509Certificate>" +
+            "</ds:X509Data>" +
+            "</ds:KeyInfo>" +
+            "</ds:Signature>" +
+            "</ext:ExtensionContent>" +
+            "</ext:UBLExtension>" +
+            "</ext:UBLExtensions>" +
+            "<cbc:UBLVersionID>2.1</cbc:UBLVersionID>" +
+            "<cbc:CustomizationID>2.0</cbc:CustomizationID>" +
+            "<cbc:ProfileID" +
+            "schemeName=\" SUNAT:Identificador de Tipo de Operación" +
+            "schemeAgencyName=\"PE:SUNAT\"" +
+            "schemeURI=\" urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo17\">0101</cbc:ProfileID> " +
+            "<cbc:ID>F002-10</cbc:ID>" +
+            "<cbc:IssueDate>2017-04-28</cbc:IssueDate>" +
+            "<cbc:IssueTime>11:40:21</cbc:IssueTime>" +
+            "<cbc:DueDate>2017-05-28</cbc:DueDate>" +
+            "<cbc:InvoiceTypeCode" +
+            "listAgencyName=\"PE:SUNAT\"" +
+            "listName=\"SUNAT:Identificador de Tipo de Documento\"" +
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01\">01</cbc:InvoiceTypeCode>" +
+            "<cbc:Note" +
+            "languageLocaleID=\"1000\">MIL OCHOCIENTOS CINCUENTA Y OCHO CON 59/100 Soles</cbc:Note>" +
+            "<cbc:Note" +
+            "languageLocaleID=\"3000\">05010020170428000005</cbc:Note>" +
+            "<cbc:DocumentCurrencyCode" +
+            "listID=\"ISO 4217 Alpha\"" +
+            "listName=\"Currency\"" +
+            "listAgencyName=\"United Nations Economic Commission for Europe\">PEN</cbc:DocumentCurrencyCode>" +
+            "<cac:DespatchDocumentReference>" + 
+            "<cbc:ID>031-002020</cbc:ID>" + 
+            "<cbc:DocumentTypeCode" + 
+            "listAgencyName=\"PE:SUNAT\"" + 
+            "listName=\"SUNAT:Identificador de guía relacionada\"" +
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01\">09</cbc:DocumentTypeCode>" +
+            "</cac:DespatchDocumentReference>" + 
+            "<cac:AdditionalDocumentReference>" + 
+            "<cbc:ID>024099</cbc:ID>" + 
+            "<cbc:DocumentTypeCode" + 
+            "listAgencyName=\"PE:SUNAT\"" + 
+            "listName=\"SUNAT: Identificador de documento relacionado\"" + 
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo12\">99</cbc:DocumentTypeCode>" + 
+            "</cac:AdditionalDocumentReference>" + 
+            "<cac:AccountingSupplierParty>" +
+            "<cac:Party>" +
+            "<cac:PartyName>" +
+            "<cbc:Name><![CDATA[K&G Laboratorios]]></cbc:Name>" +
+            "</cac:PartyName>" +
+            "<cac:PartyTaxScheme>" +
+            "<cbc:RegistrationName><![CDATA[K&G Asociados S. A.]]></cbc:RegistrationName>" +
+            "<CompanyID" +
+            "schemeID=\"6\"" +
+            "schemeName=\"SUNAT:Identificador de Documento de Identidad\"" +
+            "schemeAgencyName=\"PE:SUNAT\"" +
+            "schemeURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06\">20100113612</CompanyID>" +
+            "<cac:TaxScheme>" +
+            "<cbc:ID>-</cbc:ID>" +
+            "</cac:TaxScheme>" +
+            "<cac:RegistrationAddress>" +
+            "<cbc:AddressTypeCode>0001</cbc:AddressTypeCode>" +
+            "</cac:RegistrationAddress>" +
+            "</cac:PartyTaxScheme>" +
+            "</cac:Party>" +
+            "</cac:AccountingSupplierParty>" +
+            "<cac:AccountingCustomerParty>" +
+            "<cac:Party>" +
+            "<cac:PartyTaxScheme>" +
+            "<cbc:RegistrationName><![CDATA[CECI FARMA IMPORT S.R.L.]]></cbc:RegistrationName>" +
+            "<cbc:CompanyID schemeID=\"6\"" +
+            "schemeName=\"SUNAT:Identificador de Documento de Identidad\"" +
+            "schemeAgencyName=\"PE:SUNAT\"" +
+            "schemeURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06\">20102420706</cbc:CompanyID>" +
+            "<cac:TaxScheme>" + 
+            "<cbc:ID>-</cbc:ID>" + 
+            "</cac:TaxScheme>" + 
+            "</cac:PartyTaxScheme>" + 
+            "</cac:Party>" + 
+            "</cac:AccountingCustomerParty>" + 
+            "<cac:DeliveryTerms>" + 
+            "<cac:DeliveryLocation >" + 
+            "<cac:Address>" + 
+            "<cbc:StreetName>CALLE NEGOCIOS # 420</cbc:StreetName>" + 
+            "<cbc:CitySubdivisionName/>" + 
+            "<cbc:CityName>LIMA</cbc:CityName>" + 
+            "<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>" + 
+            "<cbc:CountrySubentityCode>150141</cbc:CountrySubentityCode>" + 
+            "<cbc:District>SURQUILLO</cbc:District>" + 
+            "<cac:Country>" + 
+            "<cbc:IdentificationCode" + 
+            "listID=\"ISO 3166-1\"" + 
+            "listAgencyName=\"United Nations Economic Commission for Europe\"" + 
+            "listName=\"Country\">PE</cbc:IdentificationCode>" + 
+            "</cac:Country>" + 
+            "</cac:Address>" + 
+            "</cac:DeliveryLocation>" + 
+            "</cac:DeliveryTerms>" + 
+            "<cac:AllowanceCharge>" + 
+            "<cbc:ChargeIndicator>False</cbc:ChargeIndicator>" + 
+            "<cbc:AllowanceChargeReasonCode>00</cbc:AllowanceChargeReasonCode>" + 
+            "<cbc:Amount currencyID=\"PEN\">60.00</cbc:Amount>" + 
+            "<cbc:BaseAmount currencyID=\"PEN\">1439.48</cbc:BaseAmount>" + 
+            "</cac:AllowanceCharge>" + 
+            "<cac:TaxTotal>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">259.11</cbc:TaxAmount>" + 
+            "<cac:TaxSubtotal>" + 
+            "<cbc:TaxableAmount currencyID=\"PEN\">1439.48</cbc:TaxableAmount>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">259.11</cbc:TaxAmount>" + 
+            "<cac:TaxCategory>" + 
+            "<cbc:ID" + 
+            "schemeID=\"UN/ECE 5305\"" + 
+            "schemeName=\"Tax Category Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for Europe\">S</cbc:ID>" + 
+            "<cac:TaxScheme>" + 
+            "<cbc:ID schemeID=\"UN/ECE 5305\" schemeAgencyID=\"6\">1000</cbc:ID>" + 
+            "<cbc:Name>IGV</cbc:Name>" + 
+            "<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>" + 
+            "</cac:TaxScheme>" + 
+            "</cac:TaxCategory>" + 
+            "</cac:TaxSubtotal>" + 
+            "<cac:TaxSubtotal>" + 
+            "<cbc:TaxableAmount currencyID=\"PEN\">320.00</cbc:TaxableAmount>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">0.00</cbc:TaxAmount>" + 
+            "<cac:TaxCategory>" + 
+            "<cbc:ID" + 
+            "schemeID=\"UN/ECE 5305\"" + 
+            "schemeName=\"Tax Category Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for Europe\">E</cbc:ID>" + 
+            "<cac:TaxScheme>" + 
+            "<cbc:ID schemeID=\"UN/ECE 5305\" schemeAgencyID=\"6\">9997</cbc:ID>" + 
+            "<cbc:Name>EXONERADO</cbc:Name>" + 
+            "<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>" + 
+            "</cac:TaxScheme>" + 
+            "</cac:TaxCategory>" + 
+            "</cac:TaxSubtotal>" + 
+            "</cac:TaxTotal>" + 
+            "<cac:LegalMonetaryTotal>" + 
+            "<cbc:LineExtensionAmount currencyID=\"PEN\">1439.48</cbc:LineExtensionAmount> " + 
+            "<cbc:TaxInclusiveAmount currencyID=\"PEN\">1698.59</cbc:TaxInclusiveAmount> " + 
+            "<cbc:AllowanceTotalAmount currencyID=\"PEN\">60.00</cbc:AllowanceTotalAmount> " + 
+            "<cbc:ChargeTotalAmount currencyID=\"PEN\">320.00</cbc:ChargeTotalAmount> " + 
+            "<cbc:PrepaidAmount currencyID=\"PEN\">100.00</cbc:PrepaidAmount>" + 
+            "<cbc:PayableAmount currencyID=\"PEN\">1858.59</cbc:PayableAmount>" + 
+            "</cac:LegalMonetaryTotal>" + 
+            "<cac:InvoiceLine>" + 
+            "<cbc:ID>1</cbc:ID>" + 
+            "<cbc:InvoicedQuantity" + 
+            "unitCode=\"CS\"" + 
+            "unitCodeListID=\"UN/ECE rec 20\"" + 
+            "unitCodeListAgencyName=\"United Nations Economic Commission for Europe\">50</cbc:InvoicedQuantity>" + 
+            "<cbc:LineExtensionAmount currencyID=\"PEN\">1439.48</cbc:LineExtensionAmount>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:PricingReference>" + 
+            "<cac:AlternativeConditionPrice>" + 
+            "<cbc:PriceAmount currencyID=\"PEN\">34.99</cbc:PriceAmount>" + 
+            "<cbc:PriceTypeCode listName=\"SUNAT:Indicador de Tipo de Precio\" listAgencyName=\"PE:SUNAT\"" + 
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16\">01</cbc:PriceTypeCode>" + 
+            "</cac:AlternativeConditionPrice>" + 
+            "</cac:PricingReference>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:PricingReference>" + 
+            "<cac:AlternativeConditionPrice>" + 
+            "<cbc:PriceAmount currencyID=\"PEN\">250.00</cbc:PriceAmount>" + 
+            "<cbc:PriceTypeCode" + 
+            "listName=\"SUNAT:Indicador de Tipo de Precio\"" + 
+            "listAgencyName=\"PE:SUNAT\"" + 
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16\">02</cbc:PriceTypeCode>" + 
+            "</cac:AlternativeConditionPrice>" + 
+            "</cac:PricingReference>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:AllowanceCharge>" + 
+            "<cbc:ChargeIndicator>false</cbc:ChargeIndicator>" + 
+            "<cbc:AllowanceChargeReasonCode>00</cbc:AllowanceChargeReasonCode>" + 
+            "<cbc:Amount currencyID=\"PEN\">143.95</cbc:Amount>" + 
+            "<cbc:BaseAmount currencyID=\"PEN\">1439.48</cbc:BaseAmount>" + 
+            "</cac:AllowanceCharge>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:AllowanceCharge>" + 
+            "<cbc:ChargeIndicator>true</cbc:ChargeIndicator>" + 
+            "<cbc:AllowanceChargeReasonCode>50</cbc:AllowanceChargeReasonCode>" + 
+            "<cbc:MultiplierFactorNumeric>0.10</cbc:MultiplierFactorNumeric>" + 
+            "<cbc:Amount currencyID=\"PEN\">44.82</cbc:Amount>" + 
+            "<cbc:BaseAmount currencyID=\"PEN\">448.20</cbc:BaseAmount>" + 
+            "</cac:AllowanceCharge>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:TaxTotal>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">259.11</cbc:TaxAmount>" + 
+            "<cac:TaxSubtotal>" + 
+            "<cbc:TaxableAmount currencyID=\"PEN\">1439.48</cbc:TaxableAmount>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">259.11</cbc:TaxAmount>" + 
+            "<cac:TaxCategory>" + 
+            "<cbc:ID" + 
+            "schemeID=\"UN/ECE 5305\"" + 
+            "schemeName=\"Tax Category Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for Europe\">S</cbc:ID>" + 
+            "<cbc:Percent>18.00</cbc:Percent>" + 
+            "<cbc:TaxExemptionReasonCode" + 
+            "listAgencyName=\"PE:SUNAT\"" + 
+            "listName=\"SUNAT:Codigo de Tipo de Afectación del IGV\"" + 
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07\">10</cbc:TaxExemptionReasonCode>" + 
+            "<cac:TaxScheme>" + 
+            "<cbc:ID schemeID=\"UN/ECE 5153\" schemeName=\"Tax Scheme Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for \"" + 
+            "Europe\">1000</cbc:ID>" + 
+            "<cbc:Name>IGV</cbc:Name>" + 
+            "<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>" + 
+            "</cac:TaxScheme>" + 
+            "</cac:TaxCategory>" + 
+            "</cac:TaxSubtotal>" + 
+            "</cac:TaxTotal>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:TaxTotal>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">1750.52</cbc:TaxAmount>" + 
+            "<cac:TaxSubtotal>" + 
+            "<cbc:TaxableAmount currencyID=\"PEN\">8752.60</cbc:TaxableAmount>" + 
+            "<cbc:TaxAmount currencyID=\"PEN\">1750.52</cbc:TaxAmount>" + 
+            "<cac:TaxCategory>" + 
+            "<cbc:ID" + 
+            "schemeID=\"UN/ECE 5305\"" + 
+            "schemeName=\"Tax Category Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for Europe\">S</cbc:ID>" + 
+            "<cbc:Percent>20.00</cbc:Percent>" + 
+            "<cbc:TaxExemptionReasonCode" + 
+            "listAgencyName=\"PE:SUNAT\"" + 
+            "listName=\"SUNAT:Codigo de Tipo de Afectación del IGV\"" + 
+            "listURI=\"urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07\">10</cbc:TaxExemptionReasonCode>" + 
+            "<cac:TierRange>01</cac:TierRange>" + 
+            "<cac:TaxScheme>" + 
+            "<cbc:ID schemeID=\"UN/ECE 5153\" schemeName=\"Tax Scheme Identifier\"" + 
+            "schemeAgencyName=\"United Nations Economic Commission for Europe\">2000</cbc:ID>" + 
+            "<cbc:Name>ISC</cbc:Name>" + 
+            "<cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>" + 
+            "</cac:TaxScheme>" + 
+            "</cac:TaxCategory>" + 
+            "</cac:TaxSubtotal>" + 
+            "</cac:TaxTotal>" +  
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:Item>" + 
+            "<cbc:Description><![CDATA[CAPTOPRIL 1000mg X 30]]></cbc:Description>" + 
+            "</cac:Item>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:Item>" + 
+            "<cbc:SellersItemIdentification>" + 
+            "<ID>Cap-258963</ID>" + 
+            "</cbc:SellersItemIdentification>" + 
+            "<cac:CommodityClassification>" + 
+            "<ItemClassificationCode" + 
+            "listID=\"UNSPSC\"" + 
+            "listAgencyName=\"GS1 US\"" + 
+            "listName=\"Item Classification\">51121703</ItemClassificationCode>" + 
+            "</cac:CommodityClassification>" + 
+            "</cac:Item>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:Item>" + 
+            "<cac:AdditionalItemProperty >" + 
+            "<Name>Gastos Art. 37 Renta: Número de Placa</ Name>" + 
+            "<NameCode" + 
+            "listName=\"SUNAT :Identificador de la propiedad del ítem\"" + 
+            "listAgencyName=\"PE:SUNAT\">7000</NameCode>" + 
+            "<Value>B6F-045</Value>" + 
+            "</cac:AdditionalItemProperty>" + 
+            "</cac:Item>" + 
+            "</cac:InvoiceLine>" + 
+            "<cac:InvoiceLine>" + 
+            "<cac:Price>" + 
+            "<cbc:PriceAmount CurrencyID=\"PEN\">785.20</cbc:PriceAmount>" + 
+            "</cac:Price>" + 
+            "</cac:InvoiceLine>" + 
+            "</Invoice>"; */
+            
+            System.out.println(facturaXml);
 
             byte[] xmlBytes = facturaXml.getBytes("UTF-8");  
-            byte[] zipBytes = crearArchivoZip("10437413903-01-F001-1.xml", xmlBytes); 
+            byte[] zipBytes = crearArchivoZip("10437413903-01-F002-10.xml", xmlBytes); 
             System.out.println("Bytes del ZIP generados con éxito.");
 
             // Configurar las credenciales para el servicio SOAP
-            String username = "10437413903Sa143256";
-            String password =   "43741390";
+            String username = "10437413903MODDATOS";
+            String password = "moddatos";
 
             // URL del servicio SOAP
             String endpoint = "https://e-beta.sunat.gob.pe:443/ol-ti-itcpfegem-beta/billService";
@@ -1055,15 +1366,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         sb.append("<soapenv:Header>");
         sb.append("<wsse:Security>");
         sb.append("<wsse:UsernameToken>");
-        sb.append("<wsse:Username>10437413903Sa143256</wsse:Username>");
-        sb.append("<wsse:Password>437413903</wsse:Password>");
+        sb.append("<wsse:Username>10437413903MODDATOS</wsse:Username>");
+        sb.append("<wsse:Password>moddatos</wsse:Password>");
         sb.append("</wsse:UsernameToken>");
         sb.append("</wsse:Security>");
         sb.append("</soapenv:Header>");
         sb.append("<soapenv:Body>");
         sb.append("<ser:sendBill>");
-        sb.append("<fileName>10437413903-01-F001-1.zip</fileName>");
-        sb.append("<contentFile>cid:10437413903-01-F001-1.zip</contentFile>");
+        sb.append("<fileName>10437413903-01-F002-10.zip</fileName>");
+        sb.append("<contentFile>cid:10437413903-01-F002-10.zip</contentFile>");
         sb.append("</ser:sendBill>");
         sb.append("</soapenv:Body>");
         sb.append("</soapenv:Envelope>");
@@ -1072,7 +1383,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         // Agregar el archivo ZIP como parte del mensaje SOAP (en realidad, deberías adjuntar el ZIP como archivo adjunto real usando MIME, aquí se simula con Content ID 'cid')
         // Enviar el archivo ZIP como contenido adjunto
-        String soapMessageWithAttachment = soapMessage.replace("cid:20100066603-01-F001-1.zip", Base64.getEncoder().encodeToString(zipBytes));
+
+        String soapMessageWithAttachment = soapMessage.replace("cid:10437413903-01-F002-10.zip", Base64.getEncoder().encodeToString(zipBytes));
         return soapMessageWithAttachment;
     }
 

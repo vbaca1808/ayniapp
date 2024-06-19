@@ -233,6 +233,10 @@ public class CooperacionController {
 
                 pedido.setIdPedido(idPedido);
                 
+                if (idPedido == -2) {
+                    pedido.setMensaje("Tiene un pago vencido no puede registrar transacciones");
+                }
+
                 System.out.println("Celular :" + pedidoDto.getNumeroCelular());
                 System.out.println("Usuario :" + pedidoDto.getNombreUsuario());
 
@@ -319,9 +323,20 @@ public class CooperacionController {
             List<String> lstItems = new ArrayList<>();
             lstItems.add("PRODUCTO DE PRUEBA##P1");
 
-            iUsuarioService.envioFacturaElectronica("", "San Luis", "Victor Baca Huaripaucar", 
-            "10437413903", "", "F001-1", "Victor Alejandro Baca Huaripaucar", "10437413903", "Direccion de prueba", "Contado",
-            "18.00", "100.00", "118.00", "1800", lstItems);
+            iUsuarioService.envioFacturaElectronica(
+            "Oatv5xMfFInuGqiX9SoLDTy2yuLf0tTlMFkWtkdw1z/Ss6kiDz+vIgZhgKfIaxp+JbVy57GT52f10VLMLatdwPVRbrWmz1/NIy5CWp1xWMaM6fC/9SXV0O1Lqopk0UeX2I2yuf05QhmVfjgUu6GnS3m6o6zM9J36iDvMVZyj7vbJTwI8SfWjTSNqxXlqPQ==",
+            "San Luis", "Victor Alejandro Baca Huaripaucar", 
+                    "10437413903", 
+                    "MIIF9TCCBN2gAwIBAgIGAK0oRTg/MA0GCSqGSIb3DQEBCwUAMFkxCzAJBgNVBAYTAlRSMUowSAYD" + 
+                    "VQQDDEFNYWxpIE3DvGjDvHIgRWxla3Ryb25payBTZXJ0aWZpa2EgSGl6bWV0IFNhxJ9sYXnEsWPE" + 
+                    "sXPEsSAtIFRlc3QgMTAeFw0wOTEwMjAxMTM3MTJaFw0xNDEwMTkxMTM3MTJaMIGgMRowGAYDVQQL" + 
+                    "DBFHZW5lbCBNw7xkw7xybMO8azEUMBIGA1UEBRMLMTAwMDAwMDAwMDIxbDBqBgNVBAMMY0F5ZMSx" + 
+                    "biBHcm91cCAtIFR1cml6bSDEsHRoYWxhdCDEsGhyYWNhdCBUZWtzdGlsIMSwbsWfYWF0IFBhemFy" + 
+                    "iMwtPnC2DRjdsyGv3bxwRZr9wXMRrMNwRjyFe9JPA7bSscEgaXwzDUG5FCvfS/PNT+XCce+VECAx" + 
+                    "6Q3R1ZRSA49fYz6tDB4Ia5HVBXZODmrCs26XisHF6kuS5N/yGg8E7VC1BRr/SmxXeLTdjQYAfo7l" + 
+                    "xCz4dT6wP5TOiBvF+lyWW1bi9nbliXyb/e5HjCp4k/ra9LTskjbY/Ukl5O8G9JEAViZkjvxDX7T0yVRHgMGiioIKVMw" + 
+                    "U6Lrtln607BNurLwED0OeoZ4wBgkBiB5vXofreXrfN2pHZ2=", "F002-10", "VICTOR ALEJANDRO BACA HUARIPAUCAR", 
+                    "10437413903", "Direccion de prueba", "Contado", "18.00", "100.00", "118.00", "1800", lstItems);
 
             return ResponseEntity.ok().body(null);
             
