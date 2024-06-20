@@ -22,5 +22,6 @@ public class PedidoDto {
     private int tipoDoc; 
     private String numeroDocumento;
     private BigDecimal comisionDelivery;
+    private int diasSalida; 
     
 }

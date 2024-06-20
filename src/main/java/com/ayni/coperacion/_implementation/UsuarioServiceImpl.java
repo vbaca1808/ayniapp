@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
-import java.net.URL; 
+import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -180,15 +181,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
-                               BigDecimal comisionDelivery) {
+                               BigDecimal comisionDelivery, int diasSalida) {
         try {
 
             List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular,
             new Date());
  
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
+                LocalDate currentDate = LocalDate.now();                
+                LocalDate checkOut = currentDate.plusDays(diasSalida); 
+
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-                new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+                Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
+                Date.from(checkOut.atStartOfDay(ZoneId.systemDefault()).toInstant()), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
 
                 if (lst != null && lst.size() > 0) {

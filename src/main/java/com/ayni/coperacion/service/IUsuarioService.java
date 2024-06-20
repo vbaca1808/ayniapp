@@ -74,7 +74,7 @@ public interface IUsuarioService {
 
     int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa, 
     String numeroCelular, String nombreUsuario,String docCliente,String nombreCliente, String direccionCliente,
-    int tipoDoc, String numeroDocumento, BigDecimal comisionDelivery);
+    int tipoDoc, String numeroDocumento, BigDecimal comisionDelivery, int diasSalida);
 
     Pedido borrarMenuPedido(int idnegocio, int idPedido, String numeroCelular, String nombreUsuario, int borrar);
     
