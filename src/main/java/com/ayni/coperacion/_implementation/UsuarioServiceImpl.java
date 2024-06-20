@@ -19,7 +19,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream; 
 import java.io.OutputStream; 
-import java.util.Base64; 
+import java.util.Base64;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -188,12 +189,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             new Date());
  
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
-                LocalDate currentDate = LocalDate.now(); 
-                 
-                Date currentDateWithTime = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
- 
-                LocalDate checkOut = currentDate.plusDays(diasSalida);
-                Date checkOutWithTime = Date.from(checkOut.atStartOfDay(ZoneId.systemDefault()).toInstant());
+               
+                    // Obtener el calendario actual
+                Calendar calendar = Calendar.getInstance();
+
+                // Fecha actual con hora y minutos actuales
+                Date currentDateWithTime = calendar.getTime();
+
+                // Ejemplo de adición de días (por ejemplo, 7 días después) 
+                calendar.add(Calendar.DAY_OF_MONTH, diasSalida);
+                Date checkOutWithTime = calendar.getTime();
 
 
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
