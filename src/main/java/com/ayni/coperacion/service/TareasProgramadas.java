@@ -29,7 +29,7 @@ public class TareasProgramadas {
     public void sendHourlyEmail() {
         try {
             
-            int[] vNegocios = {18,26}; 
+            int[] vNegocios = {}; 
             String vCorreoElectronico = "";
 
             for (int i = 0; i < vNegocios.length; i++) {
