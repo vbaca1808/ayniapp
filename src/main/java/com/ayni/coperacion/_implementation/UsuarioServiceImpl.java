@@ -188,12 +188,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             new Date());
  
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
-                LocalDate currentDate = LocalDate.now();                
-                LocalDate checkOut = currentDate.plusDays(diasSalida); 
+                LocalDate currentDate = LocalDate.now(); 
+                 
+                Date currentDateWithTime = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+ 
+                LocalDate checkOut = currentDate.plusDays(diasSalida);
+                Date checkOutWithTime = Date.from(checkOut.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
 
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-                Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), 
-                Date.from(checkOut.atStartOfDay(ZoneId.systemDefault()).toInstant()), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+                currentDateWithTime, checkOutWithTime, detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
 
                 if (lst != null && lst.size() > 0) {
