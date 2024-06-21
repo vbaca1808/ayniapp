@@ -217,12 +217,18 @@ public class CooperacionController {
 
                 Gson gson = new Gson();
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
+                
                 System.out.println(jsonDetalleProducto);
+
+                if (pedidoDto.getDiasSalida() == null) {
+                    pedidoDto.setDiasSalida(BigDecimal.ZERO);
+                }
+
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
                 pedidoDto.getIdPedido(), jsonDetalleProducto, pedidoDto.getMesa(), 
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
-                pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery(), pedidoDto.getDiasSalida());
+                pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery(), pedidoDto.getDiasSalida().intValue());
 
                 if (pedidoDto.getIdNegocio() == 25 || (pedidoDto.getIdNegocio() == 26 && pedidoDto.getIdPedido() <= 0)) {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
