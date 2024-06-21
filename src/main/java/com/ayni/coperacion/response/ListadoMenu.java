@@ -27,5 +27,6 @@ public interface ListadoMenu {
     int getIdGrupoProducto();
     String getPalabraClave();
     String getNombreCocina();
+    int getIdPedido();
     
 }
