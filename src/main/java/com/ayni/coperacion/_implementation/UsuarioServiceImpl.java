@@ -9,8 +9,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.LocalDate;
+import java.net.URL; 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -182,27 +181,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
-                               BigDecimal comisionDelivery, int diasSalida) {
+                               BigDecimal comisionDelivery) {
         try {
 
             List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular,
             new Date());
  
-            if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) {
-               
-                    // Obtener el calendario actual
-                Calendar calendar = Calendar.getInstance();
-
-                // Fecha actual con hora y minutos actuales
-                Date currentDateWithTime = calendar.getTime();
-
-                // Ejemplo de adición de días (por ejemplo, 7 días después) 
-                calendar.add(Calendar.DAY_OF_MONTH, diasSalida);
-                Date checkOutWithTime = calendar.getTime();
+            if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) { 
 
 
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-                currentDateWithTime, checkOutWithTime, detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+                new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
 
                 if (lst != null && lst.size() > 0) {
@@ -1591,6 +1580,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.anularDocVenta(idNegocio, idPedido, new Date());            
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'anularDocVenta'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> operacionHoteles(int idNegocio, int idPedido, int idProducto, int agregarDiaNoches,
+            int tipoOperacion) {
+        try {
+            return usuarioRepository.operacionHoteles(idNegocio, idPedido, idProducto, agregarDiaNoches, tipoOperacion);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'operacionHoteles'");
         }
     }
 

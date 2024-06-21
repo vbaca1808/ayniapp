@@ -1,11 +1,8 @@
 package com.ayni.coperacion.service;
  
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal; 
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.data.repository.query.Param;
 
@@ -14,8 +11,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
-import com.ayni.coperacion.dto.InsumoDto;
-import com.ayni.coperacion.dto.ListadoMenuDto;
+import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
@@ -74,7 +70,7 @@ public interface IUsuarioService {
 
     int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa, 
     String numeroCelular, String nombreUsuario,String docCliente,String nombreCliente, String direccionCliente,
-    int tipoDoc, String numeroDocumento, BigDecimal comisionDelivery, int diasSalida);
+    int tipoDoc, String numeroDocumento, BigDecimal comisionDelivery);
 
     Pedido borrarMenuPedido(int idnegocio, int idPedido, String numeroCelular, String nombreUsuario, int borrar);
     
@@ -212,5 +208,8 @@ public interface IUsuarioService {
     List<RespuestaStd> generarPromocion(PromocionDto promocionDto);
     
     List<RespuestaStd> anularDocVenta(int idNegocio, int idPedido);
+
+    List<RespuestaStd> operacionHoteles(int idNegocio, int idPedido, int idProducto,
+                                        int agregarDiaNoches, int tipoOperacion);
 
 }

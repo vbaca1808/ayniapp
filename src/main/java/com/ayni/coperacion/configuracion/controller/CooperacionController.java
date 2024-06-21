@@ -219,16 +219,13 @@ public class CooperacionController {
                 String jsonDetalleProducto = gson.toJson(pedidoDto.getDetalleProducto());
                 
                 System.out.println(jsonDetalleProducto);
-
-                if (pedidoDto.getDiasSalida() == null) {
-                    pedidoDto.setDiasSalida(BigDecimal.ZERO);
-                }
+ 
 
                 int idPedido = iUsuarioService.crearMenuPedido(pedidoDto.getIdNegocio(), 
                 pedidoDto.getIdPedido(), jsonDetalleProducto, pedidoDto.getMesa(), 
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
-                pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery(), pedidoDto.getDiasSalida().intValue());
+                pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery());
 
                 if (pedidoDto.getIdNegocio() == 25 || (pedidoDto.getIdNegocio() == 26 && pedidoDto.getIdPedido() <= 0)) {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
@@ -994,6 +991,18 @@ public class CooperacionController {
         }      
     }
     
+    @PostMapping(value="/operacionhoteles/{idnegocio}/{idpedido}/{idproducto}/{agregardiasnoches}/{tipooperacion}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> operacionHoteles(@PathVariable int idnegocio, @PathVariable int idpedido,
+                                                               @PathVariable int idproducto, @PathVariable int agregardiasnoches,
+                                                               @PathVariable int tipooperacion) {
+        try { 
+            List<RespuestaStd> lst = iUsuarioService.operacionHoteles(idnegocio, idpedido, idproducto, agregardiasnoches, tipooperacion);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     @GetMapping(value="/descargarpdftexto/{idnegocio}/{idpedido}/{nv}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> descargarPdfFormatoTexto(@PathVariable int idnegocio, 
     @PathVariable int idpedido, @PathVariable int nv) {
