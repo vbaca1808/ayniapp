@@ -40,5 +40,6 @@ public interface ReportePedido {
     String getNumeroDocumento();
     int getIrCocina();
     BigDecimal getDescuento();
+    int getIdGrupoProducto();
 
 }
