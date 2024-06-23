@@ -581,9 +581,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<RespuestaStd> anularDocVenta(@Param("idNegocio") int idNegocio, 
     @Param("idPedido") int idPedido, @Param("fechaProceso") Date fechaProceso);
 
-    @Query( value = "call sp_operacion_hoteles(:idNegocio, :idPedido, :idProducto, :agregarDiaNoches, :tipoOperacion)", nativeQuery = true)
+    @Query( value = "call sp_operacion_hoteles(:idNegocio, :idPedido, :idProducto, :agregarDiaNoches, :fechaOperacion, :tipoOperacion)", nativeQuery = true)
     List<RespuestaStd> operacionHoteles(@Param("idNegocio") int idNegocio, @Param("idPedido") int idPedido, 
-                                        @Param("idProducto") int idProducto, @Param("agregarDiaNoches") int agregarDiaNoches, 
-                                        @Param("tipoOperacion") int tipoOperacion);
+                                        @Param("idProducto") int idProducto, @Param("agregarDiaNoches") int agregarDiaNoches,
+                                        @Param("fechaOperacion") Date fechaOperacion, @Param("tipoOperacion") int tipoOperacion);
     
 }

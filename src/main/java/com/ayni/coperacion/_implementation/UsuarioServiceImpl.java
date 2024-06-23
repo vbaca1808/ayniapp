@@ -1587,7 +1587,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public List<RespuestaStd> operacionHoteles(int idNegocio, int idPedido, int idProducto, int agregarDiaNoches,
             int tipoOperacion) {
         try {
-            return usuarioRepository.operacionHoteles(idNegocio, idPedido, idProducto, agregarDiaNoches, tipoOperacion);
+            return usuarioRepository.operacionHoteles(idNegocio, idPedido, idProducto, agregarDiaNoches, new Date(), tipoOperacion);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'operacionHoteles'");
         }
