@@ -2437,11 +2437,11 @@ public class CooperacionController {
             Calendar calendarHasta = Calendar.getInstance();
 
 
-            calendarDesde.set(disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde(), 
-            disponibilidadCuartosDto.getAnioConsultaDesde());
+            calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde(), 
+            disponibilidadCuartosDto.getDiaConsultaDesde());
 
-            calendarHasta.set(disponibilidadCuartosDto.getDiaConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
-            disponibilidadCuartosDto.getAnioConsultaHasta());
+            calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
+            disponibilidadCuartosDto.getDiaConsultaHasta());
 
             if (calendarDesde.getTime().after(calendarHasta.getTime()))  {
                 return ResponseEntity.status(500).body(null);
