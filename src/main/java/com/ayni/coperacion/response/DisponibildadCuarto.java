@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public interface DisponibildadCuarto {
     
     int getIdProducto();
-    String nombreProducto();
-    BigDecimal precio();
+    String getNombreProducto();
+    BigDecimal getPrecio();
 
 }

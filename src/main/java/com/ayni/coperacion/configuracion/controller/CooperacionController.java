@@ -1,6 +1,7 @@
 package com.ayni.coperacion.configuracion.controller;
    
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -2431,8 +2432,22 @@ public class CooperacionController {
     @PostMapping(value="/obtenerdisponibilidadcuarto",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DisponibildadCuarto>> obtenerDisponibilidadCuarto(@Valid @RequestBody DisponibilidadCuartosDto disponibilidadCuartosDto) {
         try {
-            List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
-            return ResponseEntity.ok().body(lst);
+                
+            Calendar calendarDesde = Calendar.getInstance();
+            Calendar calendarHasta = Calendar.getInstance();
+
+            calendarDesde.set(disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde(), 
+            disponibilidadCuartosDto.getAnioConsultaDesde());
+
+            calendarHasta.set(disponibilidadCuartosDto.getDiaConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
+            disponibilidadCuartosDto.getAnioConsultaHasta());
+
+            if (!calendarDesde.getTime().before(calendarHasta.getTime()))  {
+                return ResponseEntity.status(500).body(null);
+            } else {
+                List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
+                return ResponseEntity.ok().body(lst);
+            }
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);

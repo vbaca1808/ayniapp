@@ -14,4 +14,5 @@ public class DisponibilidadCuartosDto {
     private int anioConsultaHasta;
     private int mesConsultaHasta;
     private int diaConsultaHasta;
+    
 }
