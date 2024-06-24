@@ -1602,6 +1602,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             disponibilidadCuartosDto.getMesConsultaDesde(), disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getAnioConsultaHasta(),
             disponibilidadCuartosDto.getMesConsultaHasta(), disponibilidadCuartosDto.getDiaConsultaHasta());
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'obtenerDisponibilidadCuarto'");
         }
     }
