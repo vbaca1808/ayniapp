@@ -2435,6 +2435,7 @@ public class CooperacionController {
                 
             Calendar calendarDesde = Calendar.getInstance();
             Calendar calendarHasta = Calendar.getInstance();
+            
 
             calendarDesde.set(disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde(), 
             disponibilidadCuartosDto.getAnioConsultaDesde());
