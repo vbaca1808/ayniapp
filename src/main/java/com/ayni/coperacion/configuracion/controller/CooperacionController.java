@@ -2443,7 +2443,7 @@ public class CooperacionController {
             calendarHasta.set(disponibilidadCuartosDto.getDiaConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
             disponibilidadCuartosDto.getAnioConsultaHasta());
 
-            if (!calendarDesde.getTime().after(calendarHasta.getTime()))  {
+            if (calendarDesde.getTime().after(calendarHasta.getTime()))  {
                 return ResponseEntity.status(500).body(null);
             } else {
                 List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
