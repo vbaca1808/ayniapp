@@ -28,6 +28,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
+import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
 import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
@@ -39,6 +40,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DisponibildadCuarto;
 import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
@@ -1593,4 +1595,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<DisponibildadCuarto> obtenerDisponibilidadCuarto(DisponibilidadCuartosDto disponibilidadCuartosDto) {
+        try {
+            return usuarioRepository.obtenerDisponibilidadCuarto(disponibilidadCuartosDto.getIdNegocio(), disponibilidadCuartosDto.getDiaConsultaDesde(), 
+            disponibilidadCuartosDto.getMesConsultaDesde(), disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getAnioConsultaHasta(),
+            disponibilidadCuartosDto.getMesConsultaHasta(), disponibilidadCuartosDto.getDiaConsultaHasta());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'obtenerDisponibilidadCuarto'");
+        }
+    }
+ 
 }

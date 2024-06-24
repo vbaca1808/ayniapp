@@ -51,6 +51,7 @@ import com.ayni.coperacion.dto.AgregarQuitarAdminUsuarioDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
+import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
 import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
@@ -66,6 +67,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DisponibildadCuarto;
 import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
@@ -2419,6 +2421,17 @@ public class CooperacionController {
     public ResponseEntity<List<RespuestaStd>> anularDocVenta(@PathVariable int idnegocio, @PathVariable int idpedido) {
         try {
             List<RespuestaStd> lst = iUsuarioService.anularDocVenta(idnegocio, idpedido);
+            return ResponseEntity.ok().body(lst);
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+    
+    @PostMapping(value="/obtenerdisponibilidadcuarto",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<DisponibildadCuarto>> obtenerDisponibilidadCuarto(@Valid @RequestBody DisponibilidadCuartosDto disponibilidadCuartosDto) {
+        try {
+            List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

@@ -15,6 +15,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DisponibildadCuarto;
 import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
@@ -586,4 +587,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                         @Param("idProducto") int idProducto, @Param("agregarDiaNoches") int agregarDiaNoches,
                                         @Param("fechaOperacion") Date fechaOperacion, @Param("tipoOperacion") int tipoOperacion);
     
+    @Query( value = "call sp_obtener_disponibilidad_cuarto(:idNegocio, :anioConsultaDesde, :mesConsultaDesde, :diaConsultaDesde, " + 
+                    ":anioConsultaHasta, :mesConsultaHasta, :diaConsultaHasta)", nativeQuery = true)
+    List<DisponibildadCuarto> obtenerDisponibilidadCuarto(@Param("idNegocio") int idNegocio, @Param("anioConsultaDesde") int anioConsultaDesde, 
+                                        @Param("mesConsultaDesde") int mesConsultaDesde, @Param("diaConsultaDesde") int diaConsultaDesde,
+                                        @Param("anioConsultaHasta") int anioConsultaHasta, @Param("mesConsultaHasta") int mesConsultaHasta, 
+                                        @Param("diaConsultaHasta") int diaConsultaHasta);
+    
+
 }

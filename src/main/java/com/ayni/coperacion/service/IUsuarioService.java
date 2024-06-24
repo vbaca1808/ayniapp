@@ -11,6 +11,7 @@ import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
+import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
 import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
@@ -21,6 +22,7 @@ import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
 import com.ayni.coperacion.response.ConfiguracionNegocio;
+import com.ayni.coperacion.response.DisponibildadCuarto;
 import com.ayni.coperacion.response.DocumentoVentaResponse;
 import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
@@ -212,4 +214,6 @@ public interface IUsuarioService {
     List<RespuestaStd> operacionHoteles(int idNegocio, int idPedido, int idProducto,
                                         int agregarDiaNoches, int tipoOperacion);
 
+    List<DisponibildadCuarto> obtenerDisponibilidadCuarto(DisponibilidadCuartosDto disponibilidadCuartosDto);
+    
 }
