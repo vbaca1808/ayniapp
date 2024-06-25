@@ -196,6 +196,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 Calendar calendar = Calendar.getInstance();
 
+                System.out.println("Fecha texto -> " + fechaReserva);
                 if (fechaReserva.equals("")) {
                     String vDia = fechaReserva.substring(0,2);
                     String vMes = fechaReserva.substring(3,5);
@@ -207,7 +208,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 }
 
                 System.out.print("Fecha inicial -> " + calendar.getTime());
-                
+
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
                 calendar.getTime(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
@@ -1614,7 +1615,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<DisponibildadCuarto> obtenerDisponibilidadCuarto(DisponibilidadCuartosDto disponibilidadCuartosDto) {
         try {
-            return usuarioRepository.obtenerDisponibilidadCuarto(disponibilidadCuartosDto.getIdNegocio(), disponibilidadCuartosDto.getDiaConsultaDesde(), 
+            return usuarioRepository.obtenerDisponibilidadCuarto(disponibilidadCuartosDto.getIdNegocio(), disponibilidadCuartosDto.getAnioConsultaDesde(), 
             disponibilidadCuartosDto.getMesConsultaDesde(), disponibilidadCuartosDto.getDiaConsultaDesde(), disponibilidadCuartosDto.getAnioConsultaHasta(),
             disponibilidadCuartosDto.getMesConsultaHasta(), disponibilidadCuartosDto.getDiaConsultaHasta());
         } catch (Exception e) {
