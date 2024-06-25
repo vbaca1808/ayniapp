@@ -2437,10 +2437,10 @@ public class CooperacionController {
             Calendar calendarHasta = Calendar.getInstance();
 
 
-            calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde(), 
+            calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde()-1, 
             disponibilidadCuartosDto.getDiaConsultaDesde());
 
-            calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
+            calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
             System.out.println(calendarDesde.getTime());
