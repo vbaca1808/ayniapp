@@ -125,7 +125,7 @@ public interface IUsuarioService {
 
     List<ListadoProductoTienda> obtenerListadoProductoTienda(int idNegocio, String codigoBarra);
 
-    List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio);
+    List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio, Date fechaConsulta);
 
     List<RespuestaStd> compraNegocio(CompraNegocio compraNegocio);
 

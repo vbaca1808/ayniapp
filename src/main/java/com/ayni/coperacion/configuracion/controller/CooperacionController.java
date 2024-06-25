@@ -696,10 +696,18 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/obtenerlistadomenuinicial/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ListadoMenu>> obtenerListadoMenuInicial(@PathVariable int idnegocio) {
+    @GetMapping(value="/obtenerlistadomenuinicial/{idnegocio}/{anio}/{mes}/{dia}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoMenu>> obtenerListadoMenuInicial(@PathVariable int idnegocio,
+    @PathVariable int anio,@PathVariable int mes,@PathVariable int dia) {
         try {
-            List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio);
+
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.YEAR, anio);
+            calendar.set(Calendar.MONTH, mes-1);
+            calendar.set(Calendar.DAY_OF_MONTH, dia);
+
+            List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio, calendar.getTime());
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();

@@ -1431,9 +1431,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio) {
+    public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio, Date fechaConsulta) {
         try {
-            return usuarioRepository.obtenerListadoMenuInicial(idNegocio);
+            return usuarioRepository.obtenerListadoMenuInicial(idNegocio, fechaConsulta);
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'obtenerListadoMenu'");
