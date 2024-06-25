@@ -200,7 +200,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 if (!fechaReserva.equals("")) {
                     String vDia = fechaReserva.substring(0,2);
                     String vMes = fechaReserva.substring(3,5);
-                    String vAnio = fechaReserva.substring(7,10);
+                    String vAnio = fechaReserva.substring(6,9);
                     
                     calendar.set(Calendar.YEAR, Integer.parseInt(vAnio));
                     calendar.set(Calendar.MONTH, Integer.parseInt(vMes) -1);
