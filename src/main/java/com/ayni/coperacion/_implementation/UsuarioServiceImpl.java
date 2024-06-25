@@ -16,7 +16,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream; 
+import java.util.zip.ZipOutputStream;
+
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 import java.io.OutputStream; 
 import java.util.Base64;
 import java.util.Calendar;
@@ -183,7 +186,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
                                String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
-                               BigDecimal comisionDelivery) {
+                               BigDecimal comisionDelivery, String fechaReserva) {
         try {
 
             List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular,
@@ -191,9 +194,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
  
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) { 
 
+                Calendar calendar = Calendar.getInstance();
+
+                if (fechaReserva.equals("")) {
+                    String vDia = fechaReserva.substring(0,2);
+                    String vMes = fechaReserva.substring(3,5);
+                    String vAnio = fechaReserva.substring(7,10);
+                    
+                    calendar.set(Calendar.YEAR, Integer.parseInt(vAnio));
+                    calendar.set(Calendar.MONTH, Integer.parseInt(vMes) -1);
+                    calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(vDia));
+                }
 
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
-                new Date(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
+                calendar.getTime(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
 
                 if (lst != null && lst.size() > 0) {
