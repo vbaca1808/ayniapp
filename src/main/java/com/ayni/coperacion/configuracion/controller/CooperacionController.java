@@ -703,9 +703,11 @@ public class CooperacionController {
 
             Calendar calendar = Calendar.getInstance();
 
-            calendar.set(Calendar.YEAR, anio);
-            calendar.set(Calendar.MONTH, mes-1);
-            calendar.set(Calendar.DAY_OF_MONTH, dia);
+            if (anio > 0) {
+                calendar.set(Calendar.YEAR, anio);
+                calendar.set(Calendar.MONTH, mes-1);
+                calendar.set(Calendar.DAY_OF_MONTH, dia);
+            }
 
             List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio, calendar.getTime());
             return ResponseEntity.ok().body(lst);
