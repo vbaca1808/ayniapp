@@ -2436,18 +2436,17 @@ public class CooperacionController {
             Calendar calendarDesde = Calendar.getInstance();
             Calendar calendarHasta = Calendar.getInstance();
 
-
             calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde()-1, 
             disponibilidadCuartosDto.getDiaConsultaDesde());
 
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
-            if (calendarDesde.getTime().before(calendarHasta.getTime()))  {
-                return ResponseEntity.status(500).body(null);
-            } else {
+            if (calendarDesde.getTime().before(calendarHasta.getTime())) {
                 List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
                 return ResponseEntity.ok().body(lst);
+            } else {
+                return ResponseEntity.status(500).body(null);
             }
         } catch (Exception e) { 
             e.printStackTrace();
