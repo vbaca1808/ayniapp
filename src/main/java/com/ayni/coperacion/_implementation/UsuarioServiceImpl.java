@@ -185,8 +185,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public int crearMenuPedido(int idNegocio, int idPedido, String detalleProducto, int mesa,
                                String numeroCelular, String nombreUsuario, String docCliente,
-                               String nombreCliente, String direccionCliente,  int tipoDoc, String numeroDocumento, 
-                               BigDecimal comisionDelivery, String fechaReserva) {
+                               String nombreCliente, String direccionCliente, int tipoDoc, String numeroDocumento, 
+                               BigDecimal comisionDelivery, String fechaReserva, int esReserva) {
         try {
 
             List<PedidoResponse> lstValidarMesaOcupada = usuarioRepository.validarMesaOcupada(idNegocio, mesa, numeroCelular,
@@ -211,7 +211,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
                 calendar.getTime(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
-                tipoDoc, numeroDocumento, comisionDelivery);
+                tipoDoc, numeroDocumento, comisionDelivery, esReserva);
 
                 if (lst != null && lst.size() > 0) {
                     try {

@@ -102,7 +102,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Modifying
     @Query( value = "call sp_crear_menu_pedido(:idNegocio, :idPedido, :fechaPedido, :detalleProducto, " + 
                     ":mesa, :numeroCelular, :nombreUsuario, :docCliente, :nombreCliente, :direccionCliente, " +
-                    ":tipoDoc, :numeroDocumento, :comisionDelivery)", nativeQuery = true)
+                    ":tipoDoc, :numeroDocumento, :comisionDelivery, :esReserva)", nativeQuery = true)
     List<RespuestaStd> crearMenuPedido(@Param("idNegocio") int idNegocio, 
                                        @Param("idPedido") int idPedido, 
                                        @Param("fechaPedido") Date fechaPedido,  
@@ -115,7 +115,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                        @Param("direccionCliente") String direccionCliente, 
                                        @Param("tipoDoc") int tipoDoc,
                                        @Param("numeroDocumento") String numeroDocumento,
-                                       @Param("comisionDelivery") BigDecimal comisionDelivery);
+                                       @Param("comisionDelivery") BigDecimal comisionDelivery,
+                                       @Param("esReserva") int esReserva);
                                 
     @Modifying
     @Query( value = "call sp_borrar_pedido(:idNegocio, :idPedido, :numeroCelular, :nombreUsuario, " + 
