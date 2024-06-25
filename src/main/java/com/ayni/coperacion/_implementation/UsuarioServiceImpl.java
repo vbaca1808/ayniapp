@@ -197,7 +197,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 Calendar calendar = Calendar.getInstance();
 
                 System.out.println("Fecha texto -> " + fechaReserva);
-                if (fechaReserva.equals("")) {
+                if (!fechaReserva.equals("")) {
                     String vDia = fechaReserva.substring(0,2);
                     String vMes = fechaReserva.substring(3,5);
                     String vAnio = fechaReserva.substring(7,10);
