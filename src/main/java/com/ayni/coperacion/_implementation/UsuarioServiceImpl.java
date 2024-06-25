@@ -206,6 +206,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(vDia));
                 }
 
+                System.out.print("Fecha inicial -> " + calendar.getTime());
+                
                 List<RespuestaStd> lst = usuarioRepository.crearMenuPedido(idNegocio, idPedido, 
                 calendar.getTime(), detalleProducto, mesa, numeroCelular, nombreUsuario,docCliente, nombreCliente, direccionCliente, 
                 tipoDoc, numeroDocumento, comisionDelivery);
