@@ -2443,6 +2443,9 @@ public class CooperacionController {
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta(), 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
+            System.out.println(calendarDesde.getTime());
+            System.out.println(calendarHasta.getTime());
+
             if (calendarDesde.getTime().after(calendarHasta.getTime()))  {
                 return ResponseEntity.status(500).body(null);
             } else {
