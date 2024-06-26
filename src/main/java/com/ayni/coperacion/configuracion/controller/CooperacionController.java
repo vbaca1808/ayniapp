@@ -2456,23 +2456,13 @@ public class CooperacionController {
             Calendar calendarDesde = Calendar.getInstance();
             Calendar calendarHasta = Calendar.getInstance();
 
-            System.out.println("Desde Anio -> " + disponibilidadCuartosDto.getAnioConsultaDesde());
-            System.out.println("Desde Mes -> " + disponibilidadCuartosDto.getMesConsultaDesde());
-            System.out.println("Desde Dia -> " + disponibilidadCuartosDto.getDiaConsultaDesde());
-
-            System.out.println("Hasta Anio -> " + disponibilidadCuartosDto.getAnioConsultaHasta());
-            System.out.println("Hasta Mes -> " + disponibilidadCuartosDto.getMesConsultaHasta());
-            System.out.println("Hasta Dia -> " + disponibilidadCuartosDto.getDiaConsultaHasta());
-
             calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde()-1, 
             disponibilidadCuartosDto.getDiaConsultaDesde());
 
-            System.out.print("Desde " + calendarDesde.getTime());
 
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
-            System.out.print("Hasta " + calendarHasta.getTime());
 
             if (calendarDesde.getTime().before(calendarHasta.getTime())) {
                 

@@ -196,6 +196,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) { 
 
                 Calendar calendar = Calendar.getInstance();
+                Calendar calendarFechaActual = Calendar.getInstance();
+
                 List<RespuestaStd> lstResp = new ArrayList<>();
 
                 System.out.println("Fecha texto -> " + fechaReserva);
@@ -207,10 +209,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     calendar.set(Calendar.YEAR, Integer.parseInt(vAnio));
                     calendar.set(Calendar.MONTH, Integer.parseInt(vMes) -1);
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(vDia));
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+
+                    calendarFechaActual.set(Calendar.HOUR_OF_DAY, 0);
+                    calendarFechaActual.set(Calendar.MINUTE, 0);
+                    calendarFechaActual.set(Calendar.SECOND, 0);
+                    calendarFechaActual.set(Calendar.MILLISECOND, 0);
 
                     lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, calendar.getTime());
 
-                    if (calendar.getTime().before(new Date())) {
+                    if (calendar.getTime().before(calendarFechaActual.getTime())) {
                         return -10;
                     }
 
