@@ -2458,10 +2458,11 @@ public class CooperacionController {
             calendarDesde.set(disponibilidadCuartosDto.getAnioConsultaDesde(), disponibilidadCuartosDto.getMesConsultaDesde()-1, 
             disponibilidadCuartosDto.getDiaConsultaDesde());
 
+            System.out.print("Desde " + calendarDesde.getTime());
+            
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
-            System.out.print("Desde " + calendarDesde.getTime());
             System.out.print("Hasta " + calendarHasta.getTime());
 
             if (calendarDesde.getTime().before(calendarHasta.getTime())) {
