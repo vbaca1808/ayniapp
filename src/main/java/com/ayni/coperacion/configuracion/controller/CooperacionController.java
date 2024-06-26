@@ -2461,8 +2461,8 @@ public class CooperacionController {
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
-            System.out.print("Desde " + calendarDesde);
-            System.out.print("Hasta " + calendarHasta);
+            System.out.print("Desde " + calendarDesde.getTime());
+            System.out.print("Hasta " + calendarHasta.getTime());
 
             if (calendarDesde.getTime().before(calendarHasta.getTime())) {
                 
