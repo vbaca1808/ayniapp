@@ -595,5 +595,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                         @Param("anioConsultaHasta") int anioConsultaHasta, @Param("mesConsultaHasta") int mesConsultaHasta, 
                                         @Param("diaConsultaHasta") int diaConsultaHasta);
     
+    @Query( value = "call sp_validar_cuartos_insertar(:idNegocio, :detalleProducto, :fechaInicio)", nativeQuery = true)
+    List<RespuestaStd> validarCuartosInsertar(@Param("idNegocio") int idNegocio, @Param("detalleProducto") String detalleProducto, 
+                                              @Param("fechaInicio") Date fechaInicio);
 
 }

@@ -20,7 +20,8 @@ import java.util.zip.ZipOutputStream;
 
 import javax.persistence.criteria.CriteriaBuilder.In;
 
-import java.io.OutputStream; 
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
 
@@ -195,16 +196,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
             if (lstValidarMesaOcupada.size() <= 0 || idPedido > 0) { 
 
                 Calendar calendar = Calendar.getInstance();
+                List<RespuestaStd> lstResp = new ArrayList<>();
 
                 System.out.println("Fecha texto -> " + fechaReserva);
                 if (!fechaReserva.equals("")) {
                     String vDia = fechaReserva.substring(0,2);
                     String vMes = fechaReserva.substring(3,5);
                     String vAnio = fechaReserva.substring(6,10);
-                    
+
                     calendar.set(Calendar.YEAR, Integer.parseInt(vAnio));
                     calendar.set(Calendar.MONTH, Integer.parseInt(vMes) -1);
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(vDia));
+
+                    lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, calendar.getTime());
+                } else {
+                    lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, new Date());
+                }
+
+                if (lstResp.size() > 0 ) {
+                    if (!lstResp.get(0).getCodigo().equals("OK")) {
+                        return -9;
+                    }
                 }
 
                 System.out.print("Fecha inicial -> " + calendar.getTime());
