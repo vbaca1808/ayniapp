@@ -213,7 +213,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     if (calendar.getTime().before(new Date())) {
                         return -10;
                     }
-                    
+
                 } else {
                     lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, new Date());
                 }
@@ -1449,9 +1449,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio, Date fechaConsulta) {
+    public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio, Date fechaConsulta, Date fechaConsultaHasta) {
         try {
-            return usuarioRepository.obtenerListadoMenuInicial(idNegocio, fechaConsulta);
+            return usuarioRepository.obtenerListadoMenuInicial(idNegocio, fechaConsulta, fechaConsultaHasta);
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'obtenerListadoMenu'");

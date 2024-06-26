@@ -697,12 +697,13 @@ public class CooperacionController {
         }      
     }
 
-    @GetMapping(value="/obtenerlistadomenuinicial/{idnegocio}/{anio}/{mes}/{dia}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/obtenerlistadomenuinicial/{idnegocio}/{anio}/{mes}/{dia}/{diasreserva}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ListadoMenu>> obtenerListadoMenuInicial(@PathVariable int idnegocio,
-    @PathVariable int anio,@PathVariable int mes,@PathVariable int dia) {
+    @PathVariable int anio, @PathVariable int mes, @PathVariable int dia, @PathVariable int diasreserva) {
         try {
 
             Calendar calendar = Calendar.getInstance();
+            Calendar calendarReserva = Calendar.getInstance();
 
             if (anio > 0) {
                 calendar.set(Calendar.YEAR, anio);
@@ -710,7 +711,15 @@ public class CooperacionController {
                 calendar.set(Calendar.DAY_OF_MONTH, dia);
             }
 
-            List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio, calendar.getTime());
+            if (diasreserva > 0) {
+                calendarReserva.set(Calendar.YEAR, anio);
+                calendarReserva.set(Calendar.MONTH, mes-1);
+                calendarReserva.set(Calendar.DAY_OF_MONTH, dia);
+                calendarReserva.add(Calendar.DAY_OF_MONTH, diasreserva);
+            }
+
+
+            List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio, calendar.getTime(), calendarReserva.getTime());
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             e.printStackTrace();
@@ -2459,7 +2468,7 @@ public class CooperacionController {
             disponibilidadCuartosDto.getDiaConsultaDesde());
 
             System.out.print("Desde " + calendarDesde.getTime());
-            
+
             calendarHasta.set(disponibilidadCuartosDto.getAnioConsultaHasta(), disponibilidadCuartosDto.getMesConsultaHasta()-1, 
             disponibilidadCuartosDto.getDiaConsultaHasta());
 

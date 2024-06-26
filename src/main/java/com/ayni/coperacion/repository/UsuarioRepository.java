@@ -347,8 +347,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ListadoProductoTienda> obtenerListadoProductoTienda(@Param("idNegocio") int idNegocio,
                                                              @Param("codigoBarra") String codigoBarra);
 
-    @Query( value = "call sp_obtener_listado_menu_inicial(:idNegocio, :fechaConsulta)", nativeQuery = true)
-    List<ListadoMenu> obtenerListadoMenuInicial(@Param("idNegocio") int idNegocio, @Param("fechaConsulta") Date fechaConsulta);
+    @Query( value = "call sp_obtener_listado_menu_inicial(:idNegocio, :fechaConsulta, :fechaConsultaHasta)", nativeQuery = true)
+    List<ListadoMenu> obtenerListadoMenuInicial(@Param("idNegocio") int idNegocio, 
+                                                @Param("fechaConsulta") Date fechaConsulta,
+                                                @Param("fechaConsultaHasta") Date fechaConsultaHasta);
 
     @Query( value = "call sp_obtener_menu_pedido(:idNegocio, :idPedido)", nativeQuery = true)
     List<ListadoMenu> obtenerMenuPedido(@Param("idNegocio") int idNegocio, 
