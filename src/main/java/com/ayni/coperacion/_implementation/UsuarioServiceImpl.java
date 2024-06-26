@@ -209,6 +209,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(vDia));
 
                     lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, calendar.getTime());
+
+                    if (calendar.getTime().before(new Date())) {
+                        return -10;
+                    }
+                    
                 } else {
                     lstResp = usuarioRepository.validarCuartosInsertar(idNegocio, detalleProducto, new Date());
                 }
@@ -218,6 +223,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                         return -9;
                     }
                 }
+
 
                 System.out.print("Fecha inicial -> " + calendar.getTime());
 

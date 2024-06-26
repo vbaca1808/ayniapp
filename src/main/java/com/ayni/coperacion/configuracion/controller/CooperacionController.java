@@ -2443,7 +2443,7 @@ public class CooperacionController {
     @PostMapping(value="/obtenerdisponibilidadcuarto",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DisponibildadCuarto>> obtenerDisponibilidadCuarto(@Valid @RequestBody DisponibilidadCuartosDto disponibilidadCuartosDto) {
         try {
-                
+            
             Calendar calendarDesde = Calendar.getInstance();
             Calendar calendarHasta = Calendar.getInstance();
 
@@ -2454,15 +2454,21 @@ public class CooperacionController {
             disponibilidadCuartosDto.getDiaConsultaHasta());
 
             if (calendarDesde.getTime().before(calendarHasta.getTime())) {
+                
+                System.out.print("Desde " + calendarDesde);
+                System.out.print("Hasta " + calendarHasta);
+                
                 List<DisponibildadCuarto> lst = iUsuarioService.obtenerDisponibilidadCuarto(disponibilidadCuartosDto);
                 return ResponseEntity.ok().body(lst);
             } else {
                 return ResponseEntity.status(500).body(null);
             }
+            
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
-        }      
+        }
+
     }
 
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
