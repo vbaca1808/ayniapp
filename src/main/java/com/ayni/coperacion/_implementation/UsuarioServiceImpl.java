@@ -69,6 +69,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
 import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReporteIncidenciasAyni;
+import com.ayni.coperacion.response.ReporteOcupacionResponse;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -1650,6 +1651,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'obtenerDisponibilidadCuarto'");
+        }
+    }
+
+    @Override
+    public List<ReporteOcupacionResponse> reporteOcupacion(int idNegocio, Date fechaCorte) {
+        try {
+            return usuarioRepository.reporteOcupacion(idNegocio, fechaCorte);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteOcupacion'");
         }
     }
  

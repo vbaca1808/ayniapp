@@ -91,6 +91,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
 import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
+import com.ayni.coperacion.response.ReporteOcupacionResponse;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
@@ -2471,6 +2472,35 @@ public class CooperacionController {
                 return ResponseEntity.ok().body(lst);
             } else {
                 return ResponseEntity.status(500).body(null);
+            }
+            
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+
+    }
+
+    @PostMapping(value="/reporteocupacion",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteOcupacionResponse>> reporteOcupacion(@Valid @RequestBody 
+    ReporteCierreDto reporteCierreDto) {
+        try {
+            
+            Calendar calendarDesde = Calendar.getInstance();
+            Calendar calendarHasta = Calendar.getInstance();
+
+            calendarDesde.set(reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado()-1, 
+            reporteCierreDto.getDiaSeleccionado());
+
+
+            calendarHasta.set(reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta()-1, 
+            reporteCierreDto.getDiaSeleccionadoHasta());
+
+            if (calendarHasta.getTime().before(calendarDesde.getTime())) {                
+                return ResponseEntity.status(500).body(null);
+            } else {
+                List<ReporteOcupacionResponse> lst = iUsuarioService.reporteOcupacion(reporteCierreDto.getIdNegocio(), calendarDesde.getTime());
+                return ResponseEntity.ok().body(lst);
             }
             
         } catch (Exception e) { 
