@@ -2574,9 +2574,9 @@ public class CooperacionController {
 
     }
     
-    @PostMapping(value="/reportereservas/{tipo}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/reportereservas",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReporteReservasResponse>> reporteReservas(@Valid @RequestBody 
-    ReporteCierreDto reporteCierreDto, @PathVariable int tipo) {
+    ReporteCierreDto reporteCierreDto) {
         try {
             
             Calendar calendarDesde = Calendar.getInstance();

@@ -612,9 +612,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ReporteIngresosGeneradosResponse> reporteIngresosGenerados(@Param("idNegocio") int idNegocio, 
                                                                     @Param("fechaConsulta") Date fechaConsulta);
                                                                     
-    @Query( value = "call sp_reporte_reservas(:idNegocio, :fechaConsulta, :tipoReporte)", nativeQuery = true)
+    @Query( value = "call sp_reporte_reservas(:idNegocio, :fechaConsulta)", nativeQuery = true)
     List<ReporteReservasResponse> reporteReservas(@Param("idNegocio") int idNegocio, 
-                                                  @Param("fechaConsulta") Date fechaConsulta, 
-                                                  @Param("tipoReporte") int tipoReporte);
+                                                  @Param("fechaConsulta") Date fechaConsulta);
                                                     
 }

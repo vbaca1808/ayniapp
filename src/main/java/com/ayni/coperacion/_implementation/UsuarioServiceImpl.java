@@ -1675,9 +1675,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ReporteReservasResponse> reporteReservas(int idNegocio, Date fechaConsulta, int tipoReporte) {
+    public List<ReporteReservasResponse> reporteReservas(int idNegocio, Date fechaConsulta) {
         try {
-            return usuarioRepository.reporteReservas(idNegocio, fechaConsulta, tipoReporte);
+            return usuarioRepository.reporteReservas(idNegocio, fechaConsulta);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteReservas'");
         }

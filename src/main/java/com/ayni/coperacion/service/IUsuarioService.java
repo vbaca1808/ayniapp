@@ -220,6 +220,6 @@ public interface IUsuarioService {
 
     List<ReporteIngresosGeneradosResponse> reporteIngresosGenerados(int idNegocio, Date fechaConsulta);
      
-    List<ReporteReservasResponse> reporteReservas(int idNegocio, Date fechaConsulta, int tipoReporte);
+    List<ReporteReservasResponse> reporteReservas(int idNegocio, Date fechaConsulta);
     
 }
