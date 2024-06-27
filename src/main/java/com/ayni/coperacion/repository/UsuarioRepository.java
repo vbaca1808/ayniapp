@@ -33,6 +33,7 @@ import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.Promociones;
+import com.ayni.coperacion.response.ReporteChecksResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -615,5 +616,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_reporte_reservas(:idNegocio, :fechaConsulta)", nativeQuery = true)
     List<ReporteReservasResponse> reporteReservas(@Param("idNegocio") int idNegocio, 
                                                   @Param("fechaConsulta") Date fechaConsulta);
+                    
+    @Query( value = "call sp_reporte_checks(:idNegocio, :fechaConsulta)", nativeQuery = true)
+    List<ReporteChecksResponse> reporteChecks(@Param("idNegocio") int idNegocio, 
+                                              @Param("fechaConsulta") Date fechaConsulta);
                                                     
 }

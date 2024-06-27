@@ -37,6 +37,7 @@ import com.ayni.coperacion.response.PedidoGenerado;
 import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.Promociones;
+import com.ayni.coperacion.response.ReporteChecksResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -221,5 +222,7 @@ public interface IUsuarioService {
     List<ReporteIngresosGeneradosResponse> reporteIngresosGenerados(int idNegocio, Date fechaConsulta);
      
     List<ReporteReservasResponse> reporteReservas(int idNegocio, Date fechaConsulta);
+    
+    List<ReporteChecksResponse> reporteChecks(int idNegocio, Date fechaConsulta);
     
 }

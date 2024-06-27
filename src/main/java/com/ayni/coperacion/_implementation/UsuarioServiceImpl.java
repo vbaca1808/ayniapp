@@ -63,6 +63,7 @@ import com.ayni.coperacion.response.PedidoInter;
 import com.ayni.coperacion.response.PedidoPagoResponse;
 import com.ayni.coperacion.response.PedidoResponse;
 import com.ayni.coperacion.response.Promociones;
+import com.ayni.coperacion.response.ReporteChecksResponse;
 import com.ayni.coperacion.response.ReporteCierre;
 import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
@@ -1680,6 +1681,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.reporteReservas(idNegocio, fechaConsulta);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteReservas'");
+        }
+    }
+
+    @Override
+    public List<ReporteChecksResponse> reporteChecks(int idNegocio, Date fechaConsulta) {
+        try {
+            return usuarioRepository.reporteChecks(idNegocio, fechaConsulta);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'reporteChecks'");
         }
     }
 
