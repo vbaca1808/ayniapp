@@ -2609,7 +2609,7 @@ public class CooperacionController {
                 return ResponseEntity.status(500).body(null);
             } else {
                 List<ReporteReservasResponse> lst = iUsuarioService.reporteReservas(reporteCierreDto.getIdNegocio(), 
-                calendarDesde.getTime(), tipo);
+                calendarDesde.getTime());
                 return ResponseEntity.ok().body(lst);
             }
             
