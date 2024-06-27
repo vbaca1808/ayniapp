@@ -8,7 +8,7 @@ public interface ReporteReservasResponse {
     int getIdProducto(); 
     String getDescripcionProducto();
     BigDecimal getCostoNoche(); 
-    String getProgramacionServicio();
+    String getFechaProgramacionServicio();
     BigDecimal getTotal();
     String getTipo();
 
