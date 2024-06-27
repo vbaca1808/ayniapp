@@ -10,6 +10,6 @@ public interface ReporteReservasResponse {
     BigDecimal getCostoNoche(); 
     String getProgramacionServicio();
     BigDecimal getTotal();
-    int getTipo();
+    String getTipo();
 
 }
