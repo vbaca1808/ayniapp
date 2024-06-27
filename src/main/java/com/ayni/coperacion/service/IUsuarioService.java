@@ -43,6 +43,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
 import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
 import com.ayni.coperacion.response.ReporteIncidenciasAyni;
+import com.ayni.coperacion.response.ReporteIngresosGeneradosResponse;
 import com.ayni.coperacion.response.ReporteOcupacionResponse;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
@@ -215,4 +216,7 @@ public interface IUsuarioService {
     List<DisponibildadCuarto> obtenerDisponibilidadCuarto(DisponibilidadCuartosDto disponibilidadCuartosDto);
     
     List<ReporteOcupacionResponse> reporteOcupacion(int idNegocio, Date fechaCorte);
+
+    List<ReporteIngresosGeneradosResponse> reporteIngresosGenerados(int idNegocio, Date fechaConsulta);
+     
 }

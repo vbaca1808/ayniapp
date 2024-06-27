@@ -91,6 +91,7 @@ import com.ayni.coperacion.response.ReporteCierreDetalle;
 import com.ayni.coperacion.response.ReporteCierreDetalleCliente;
 import com.ayni.coperacion.response.ReporteCierreDetalleDocumento;
 import com.ayni.coperacion.response.ReporteCierreDetalleEfectivo;
+import com.ayni.coperacion.response.ReporteIngresosGeneradosResponse;
 import com.ayni.coperacion.response.ReporteOcupacionResponse;
 import com.ayni.coperacion.response.ReportePedido;
 import com.ayni.coperacion.response.RespuestaStd;
@@ -2516,6 +2517,52 @@ public class CooperacionController {
                 return ResponseEntity.status(500).body(null);
             } else {
                 List<ReporteOcupacionResponse> lst = iUsuarioService.reporteOcupacion(reporteCierreDto.getIdNegocio(), calendarDesde.getTime());
+                return ResponseEntity.ok().body(lst);
+            }
+            
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+
+    }
+
+    @PostMapping(value="/reporteingresogenerados",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReporteIngresosGeneradosResponse>> reporteIngresoGenerados(@Valid @RequestBody 
+    ReporteCierreDto reporteCierreDto) {
+        try {
+            
+            Calendar calendarDesde = Calendar.getInstance();
+            Calendar calendarHasta = Calendar.getInstance();
+
+            if (reporteCierreDto.getAnioSeleccionado() != 0 && reporteCierreDto.getMesSeleccionado() != 0 && 
+                reporteCierreDto.getDiaSeleccionado() != 0) {
+                if (reporteCierreDto.getAnioSeleccionado() == 100 && reporteCierreDto.getMesSeleccionado() == 100 && 
+                reporteCierreDto.getDiaSeleccionado() == 100) {
+                    calendarDesde.add(Calendar.DAY_OF_MONTH, -1);
+                } else {
+                    calendarDesde.set(reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado()-1, 
+                    reporteCierreDto.getDiaSeleccionado());
+                }
+            }
+
+            if (reporteCierreDto.getAnioSeleccionadoHasta() != 0 && reporteCierreDto.getMesSeleccionadoHasta() != 0 && 
+                reporteCierreDto.getDiaSeleccionadoHasta() != 0) {
+                if (reporteCierreDto.getAnioSeleccionadoHasta() == 100 && reporteCierreDto.getMesSeleccionadoHasta() == 100 && 
+                    reporteCierreDto.getDiaSeleccionadoHasta() == 100) {
+                    calendarHasta.add(Calendar.DAY_OF_MONTH, -1);
+                } else {
+                    calendarHasta.set(reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta()-1, 
+                    reporteCierreDto.getDiaSeleccionadoHasta());
+                }
+            }
+
+
+            if (calendarHasta.getTime().before(calendarDesde.getTime())) {                
+                return ResponseEntity.status(500).body(null);
+            } else {
+                List<ReporteIngresosGeneradosResponse> lst = iUsuarioService.reporteIngresosGenerados(reporteCierreDto.getIdNegocio(), 
+                calendarDesde.getTime());
                 return ResponseEntity.ok().body(lst);
             }
             
