@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public interface ReporteOcupacionResponse {
     
     int getIdProducto(); 
-    int getNombreProducto();
+    String getNombreProducto();
     int getAdultos(); 
     int getNinio();
     String getEstado(); 
