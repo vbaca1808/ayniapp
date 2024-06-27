@@ -2489,12 +2489,28 @@ public class CooperacionController {
             Calendar calendarDesde = Calendar.getInstance();
             Calendar calendarHasta = Calendar.getInstance();
 
-            calendarDesde.set(reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado()-1, 
-            reporteCierreDto.getDiaSeleccionado());
+            if (reporteCierreDto.getAnioSeleccionado() != 0 && reporteCierreDto.getMesSeleccionado() != 0 && 
+                reporteCierreDto.getDiaSeleccionado() != 0) {
+                if (reporteCierreDto.getAnioSeleccionado() == 100 && reporteCierreDto.getMesSeleccionado() == 100 && 
+                reporteCierreDto.getDiaSeleccionado() == 100) {
+                    calendarDesde.add(Calendar.DAY_OF_MONTH, -1);
+                } else {
+                    calendarDesde.set(reporteCierreDto.getAnioSeleccionado(), reporteCierreDto.getMesSeleccionado()-1, 
+                    reporteCierreDto.getDiaSeleccionado());
+                }
+            }
 
+            if (reporteCierreDto.getAnioSeleccionadoHasta() != 0 && reporteCierreDto.getMesSeleccionadoHasta() != 0 && 
+                reporteCierreDto.getDiaSeleccionadoHasta() != 0) {
+                if (reporteCierreDto.getAnioSeleccionadoHasta() == 100 && reporteCierreDto.getMesSeleccionadoHasta() == 100 && 
+                    reporteCierreDto.getDiaSeleccionadoHasta() == 100) {
+                    calendarHasta.add(Calendar.DAY_OF_MONTH, -1);
+                } else {
+                    calendarHasta.set(reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta()-1, 
+                    reporteCierreDto.getDiaSeleccionadoHasta());
+                }
+            }
 
-            calendarHasta.set(reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta()-1, 
-            reporteCierreDto.getDiaSeleccionadoHasta());
 
             if (calendarHasta.getTime().before(calendarDesde.getTime())) {                
                 return ResponseEntity.status(500).body(null);
