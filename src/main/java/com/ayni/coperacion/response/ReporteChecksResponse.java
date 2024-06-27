@@ -5,5 +5,6 @@ public interface ReporteChecksResponse {
     String getCheckIn(); 
     int getIdProducto(); 
     String getDescripcionProducto();
+    String getTipo();
 
 }
