@@ -1695,9 +1695,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta) {
+    public List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta, String numeroCelular, String nombreUsuario) {
         try {
-            return usuarioRepository.listadoLimpieza(idNegocio, fechaConsulta);
+            return usuarioRepository.listadoLimpieza(idNegocio, fechaConsulta, numeroCelular, nombreUsuario);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'listadoLimpieza'");
         }

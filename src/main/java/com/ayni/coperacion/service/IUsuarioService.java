@@ -229,7 +229,7 @@ public interface IUsuarioService {
     
     List<ReporteChecksResponse> reporteChecks(int idNegocio, Date fechaConsulta);
     
-    List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta);
+    List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta, String numeroCelular, String nombreUsuario);
 
     List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto);
 

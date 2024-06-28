@@ -622,9 +622,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<ReporteChecksResponse> reporteChecks(@Param("idNegocio") int idNegocio, 
                                               @Param("fechaConsulta") Date fechaConsulta);
                                                                   
-    @Query( value = "call sp_listado_limpieza(:idNegocio, :fechaConsulta)", nativeQuery = true)
+    @Query( value = "call sp_listado_limpieza(:idNegocio, :fechaConsulta, :numeroCelular, :nombreUsuario)", nativeQuery = true)
     List<ListadoLimpiezaResponse> listadoLimpieza(@Param("idNegocio") int idNegocio, 
-                                                  @Param("fechaConsulta") Date fechaConsulta);
+                                                  @Param("fechaConsulta") Date fechaConsulta, 
+                                                  @Param("numeroCelular") String numeroCelular, 
+                                                  @Param("nombreUsuario") String nombreUsuario);
               
     @Query( value = "call sp_registrar_bitacora_limpieza(:idNegocio, :idProducto, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> registrarBitacoraLimpieza(@Param("idNegocio") int idNegocio, 
