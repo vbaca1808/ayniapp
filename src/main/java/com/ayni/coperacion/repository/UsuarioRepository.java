@@ -625,5 +625,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_listado_limpieza(:idNegocio, :fechaConsulta)", nativeQuery = true)
     List<ListadoLimpiezaResponse> listadoLimpieza(@Param("idNegocio") int idNegocio, 
                                                   @Param("fechaConsulta") Date fechaConsulta);
-                                                    
+              
+    @Query( value = "call sp_registrar_bitacora_limpieza(:idNegocio, :idProducto, :fechaProceso)", nativeQuery = true)
+    List<RespuestaStd> registrarBitacoraLimpieza(@Param("idNegocio") int idNegocio, 
+                                                 @Param("idProducto") int idProducto, 
+                                                 @Param("fechaProceso") Date fechaProceso);
+            
+    
 }

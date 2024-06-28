@@ -2677,7 +2677,18 @@ public class CooperacionController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }
-
+    }
+    
+    @GetMapping(value="/registrarritacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> registrarBitacoraLimpieza(@PathVariable int idnegocio,
+                                                                                   @PathVariable int idproducto) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.registrarBitacoraLimpieza(idnegocio, idproducto);
+            return ResponseEntity.ok().body(lst); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)

@@ -231,4 +231,6 @@ public interface IUsuarioService {
     
     List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta);
 
+    List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto);
+
 }

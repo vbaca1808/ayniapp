@@ -1703,6 +1703,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto) {
+        try {
+            return usuarioRepository.registrarBitacoraLimpieza(idNegocio, idProducto, new Date());
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'registrarBitacoraLimpieza'");
+        }
+    }
+
     
  
 }
