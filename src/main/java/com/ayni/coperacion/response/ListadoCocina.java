@@ -25,5 +25,6 @@ public interface ListadoCocina {
     int getIrCocina();
     int getCantidadModificadaMesa();
     int getCantidadModificadaLlevar();
+    String getNombreProducto();
     
 }

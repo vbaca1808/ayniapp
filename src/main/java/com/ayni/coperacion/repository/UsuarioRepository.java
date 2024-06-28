@@ -628,9 +628,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                   @Param("numeroCelular") String numeroCelular, 
                                                   @Param("nombreUsuario") String nombreUsuario);
               
-    @Query( value = "call sp_registrar_bitacora_limpieza(:idNegocio, :idProducto, :fechaProceso, :numeroCelular, :nombreUsuario)", nativeQuery = true)
+    @Query( value = "call sp_registrar_bitacora_limpieza(:idNegocio, :idProducto, :revertir, :fechaProceso, :numeroCelular, :nombreUsuario)", nativeQuery = true)
     List<RespuestaStd> registrarBitacoraLimpieza(@Param("idNegocio") int idNegocio, 
                                                  @Param("idProducto") int idProducto, 
+                                                 @Param("revertir") int revertir, 
                                                  @Param("fechaProceso") Date fechaProceso, 
                                                  @Param("numeroCelular") String numeroCelular, 
                                                  @Param("nombreUsuario") String nombreUsuario);
