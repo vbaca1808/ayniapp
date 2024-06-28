@@ -2679,9 +2679,9 @@ public class CooperacionController {
         }
     }
     
-    @GetMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> registrarBitacoraLimpieza(@PathVariable int idnegocio,
-                                                                                   @PathVariable int idproducto) {
+                                                                        @PathVariable int idproducto) {
         try {
             List<RespuestaStd> lst = iUsuarioService.registrarBitacoraLimpieza(idnegocio, idproducto);
             return ResponseEntity.ok().body(lst); 
