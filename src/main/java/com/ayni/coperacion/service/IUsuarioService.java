@@ -231,6 +231,6 @@ public interface IUsuarioService {
     
     List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta, String numeroCelular, String nombreUsuario);
 
-    List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto);
+    List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto, String numeroCelular, String nombreUsuario);
 
 }

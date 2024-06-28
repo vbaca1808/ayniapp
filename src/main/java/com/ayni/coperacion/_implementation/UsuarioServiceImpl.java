@@ -1704,9 +1704,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto) {
+    public List<RespuestaStd> registrarBitacoraLimpieza(int idNegocio, int idProducto, String numeroCelular, String nombreUsuario) {
         try {
-            return usuarioRepository.registrarBitacoraLimpieza(idNegocio, idProducto, new Date());
+            return usuarioRepository.registrarBitacoraLimpieza(idNegocio, idProducto, new Date(), numeroCelular, nombreUsuario);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'registrarBitacoraLimpieza'");
         }

@@ -2681,11 +2681,13 @@ public class CooperacionController {
         }
     }
     
-    @PostMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> registrarBitacoraLimpieza(@PathVariable int idnegocio,
-                                                                        @PathVariable int idproducto) {
+                                                                        @PathVariable int idproducto,
+                                                                        @PathVariable String numerocelular,
+                                                                        @PathVariable String nombreusuario) {
         try {
-            List<RespuestaStd> lst = iUsuarioService.registrarBitacoraLimpieza(idnegocio, idproducto);
+            List<RespuestaStd> lst = iUsuarioService.registrarBitacoraLimpieza(idnegocio, idproducto, numerocelular, nombreusuario);
             return ResponseEntity.ok().body(lst); 
         } catch (Exception e) { 
             e.printStackTrace();
