@@ -2679,7 +2679,7 @@ public class CooperacionController {
         }
     }
     
-    @GetMapping(value="/registrarritacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> registrarBitacoraLimpieza(@PathVariable int idnegocio,
                                                                                    @PathVariable int idproducto) {
         try {
