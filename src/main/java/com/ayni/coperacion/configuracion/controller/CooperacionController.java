@@ -75,6 +75,7 @@ import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
+import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -2659,6 +2660,19 @@ public class CooperacionController {
                 return ResponseEntity.ok().body(lst);
             }
             
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+
+    }
+
+    @GetMapping(value="/listadolimpieza/{idnegocio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ListadoLimpiezaResponse>> listadoLimpieza(@PathVariable int idnegocio) {
+        try {
+            List<ListadoLimpiezaResponse> lst = 
+            iUsuarioService.listadoLimpieza(idnegocio, new Date());
+            return ResponseEntity.ok().body(lst); 
         } catch (Exception e) { 
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);

@@ -2,7 +2,10 @@ package com.ayni.coperacion.service;
  
 import java.math.BigDecimal; 
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
+
+import org.springframework.data.repository.query.Param;
+
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.CompraNegocio;
@@ -26,6 +29,7 @@ import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
+import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -225,4 +229,6 @@ public interface IUsuarioService {
     
     List<ReporteChecksResponse> reporteChecks(int idNegocio, Date fechaConsulta);
     
+    List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta);
+
 }

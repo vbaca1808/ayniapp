@@ -22,6 +22,7 @@ import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
+import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -620,5 +621,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query( value = "call sp_reporte_checks(:idNegocio, :fechaConsulta)", nativeQuery = true)
     List<ReporteChecksResponse> reporteChecks(@Param("idNegocio") int idNegocio, 
                                               @Param("fechaConsulta") Date fechaConsulta);
+                                                                  
+    @Query( value = "call sp_listado_limpieza(:idNegocio, :fechaConsulta)", nativeQuery = true)
+    List<ListadoLimpiezaResponse> listadoLimpieza(@Param("idNegocio") int idNegocio, 
+                                                  @Param("fechaConsulta") Date fechaConsulta);
                                                     
 }

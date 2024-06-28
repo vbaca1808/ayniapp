@@ -51,6 +51,7 @@ import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
+import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
 import com.ayni.coperacion.response.ListadoProducto;
 import com.ayni.coperacion.response.ListadoProductoTienda;
@@ -1690,6 +1691,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.reporteChecks(idNegocio, fechaConsulta);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'reporteChecks'");
+        }
+    }
+
+    @Override
+    public List<ListadoLimpiezaResponse> listadoLimpieza(int idNegocio, Date fechaConsulta) {
+        try {
+            return usuarioRepository.listadoLimpieza(idNegocio, fechaConsulta);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'listadoLimpieza'");
         }
     }
 
