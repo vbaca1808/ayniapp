@@ -234,7 +234,7 @@ public class CooperacionController {
                 pedidoDto.getNumeroCelular(), pedidoDto.getNombreUsuario(), pedidoDto.getDocCliente(), 
                 pedidoDto.getNombreCliente(), pedidoDto.getDireccionCliente(), pedidoDto.getTipoDoc(), 
                 pedidoDto.getNumeroDocumento(), pedidoDto.getComisionDelivery(), pedidoDto.getFechaReserva(),
-                (pedidoDto.getFechaReserva().equals("")?0:1));
+                (pedidoDto.getFechaReserva() == null || pedidoDto.getFechaReserva().equals("")?0:1));
 
                 if (pedidoDto.getIdNegocio() == 25 || (pedidoDto.getIdNegocio() == 26 && pedidoDto.getIdPedido() <= 0)) {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(pedidoDto.getIdNegocio(), idPedido, 
