@@ -379,16 +379,18 @@ public class CooperacionController {
         }      
     }
 
-    @PostMapping(value="/pedidoatendidoindividual/{idnegocio}/{idpedido}/{numerocelular}/{nombreusuario}/{incluirpl}/{idproducto}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/pedidoatendidoindividual/{idnegocio}/{idpedido}/{numerocelular}/{nombreusuario}/{incluirpl}/{idproducto}/{idcargo}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> pedidoAtendidoIndividual(@PathVariable int idnegocio, 
-                                                             @PathVariable int idpedido, 
-                                                             @PathVariable String numerocelular, 
-                                                             @PathVariable String nombreusuario,
-                                                             @PathVariable int incluirpl,
-                                                             @PathVariable int idproducto) {
+                                                                 @PathVariable int idpedido, 
+                                                                 @PathVariable String numerocelular, 
+                                                                 @PathVariable String nombreusuario,
+                                                                 @PathVariable int incluirpl,
+                                                                 @PathVariable int idproducto,
+                                                                 @PathVariable int idcargo) {
         try {
  
-            List<RespuestaStd> lst = iUsuarioService.pedidoAtendidoIndividual(idnegocio, idpedido, numerocelular, nombreusuario, incluirpl, idproducto);
+            List<RespuestaStd> lst = iUsuarioService.pedidoAtendidoIndividual(idnegocio, idpedido, numerocelular, nombreusuario, 
+                                                                              incluirpl, idproducto, idcargo);
             if (lst.size() > 0) {
                 return ResponseEntity.ok().body(lst.get(0));
             } else {

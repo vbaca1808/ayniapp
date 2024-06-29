@@ -156,7 +156,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                       @Param("incluirpl") int incluirpl);
 
     @Query( value = "call sp_pedido_atendido_individual(:idNegocio, :idPedido, :numeroCelular, " +
-                    ":nombreUsuario, :fechaProceso, :incluirpl, :idProducto)", nativeQuery = true)
+                    ":nombreUsuario, :fechaProceso, :incluirpl, :idProducto, :idCargo)", nativeQuery = true)
     List<RespuestaStd> pedidoAtendidoIndividual(
                                     @Param("idNegocio") int idNegocio, 
                                     @Param("idPedido") int idPedido, 
@@ -164,7 +164,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                     @Param("nombreUsuario") String nombreUsuario,
                                     @Param("fechaProceso") Date fechaProceso,
                                     @Param("incluirpl") int incluirpl,
-                                    @Param("idProducto") int idProducto); 
+                                    @Param("idProducto") int idProducto,
+                                    @Param("idCargo") int idCargo); 
 
     @Query( value = "call sp_revertir_atencion_individual(:idNegocio, :idPedido, :numeroCelular, " +
     ":nombreUsuario, :fechaProceso, :incluirpl, :idProducto)", nativeQuery = true)

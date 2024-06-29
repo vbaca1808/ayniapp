@@ -695,10 +695,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular,
-            String nombreUsuario, int incluirpl, int idProducto) {
+            String nombreUsuario, int incluirpl, int idProducto, int idCargo) {
             try {
                 return usuarioRepository.pedidoAtendidoIndividual(idNegocio, idPedido, numeroCelular, 
-                nombreUsuario, new Date(), incluirpl, idProducto);                
+                nombreUsuario, new Date(), incluirpl, idProducto, idCargo);                
             } catch (Exception e) {
                 throw new UnsupportedOperationException("Unimplemented method 'pedidoAtendidoIndividual'");
             }

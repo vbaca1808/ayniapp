@@ -91,7 +91,8 @@ public interface IUsuarioService {
 
     List<RespuestaStd> pedidoAtendido(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl);
     
-    List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl, int idProducto);
+    List<RespuestaStd> pedidoAtendidoIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, 
+                                                int incluirpl, int idProducto, int idCargo);
 
     List<RespuestaStd> pedidoAtendidoRevetirIndividual(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario, int incluirpl, int idProducto);
 
