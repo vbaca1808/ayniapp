@@ -2743,6 +2743,20 @@ public class CooperacionController {
         }
     }
 
+    @PostMapping(value="/confirmarreserva/{idnegocio}/{idpedido}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> confirmarReserva(@PathVariable int idnegocio,
+                                                               @PathVariable int idpedido,
+                                                               @PathVariable String numerocelular,
+                                                               @PathVariable String nombreusuario) {
+        try {
+            List<RespuestaStd> lst = iUsuarioService.confirmarReserva(idnegocio, idpedido, numerocelular, nombreusuario);
+            return ResponseEntity.ok().body(lst); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,

@@ -2,7 +2,9 @@ package com.ayni.coperacion.service;
  
 import java.math.BigDecimal; 
 import java.util.Date;
-import java.util.List; 
+import java.util.List;
+
+import org.springframework.data.repository.query.Param;
 
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
@@ -237,4 +239,5 @@ public interface IUsuarioService {
     List<RespuestaStd> generarReservaPub(int idnegocio, Date fechaReserva, int mesa, String numerocelular, String nombreusuario, 
                                         String nombrecliente);
 
+    List<RespuestaStd> confirmarReserva(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario);
 }
