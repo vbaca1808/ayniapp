@@ -2698,6 +2698,51 @@ public class CooperacionController {
         }
     }
 
+    @PostMapping(value="/validarreservapub/{idnegocio}/{mesa}/{dia}/{mes}/{anio}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> validarReservaPub(@PathVariable int idnegocio,
+                                                                @PathVariable int mesa,
+                                                                @PathVariable int dia,
+                                                                @PathVariable int mes,
+                                                                @PathVariable int anio) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, dia);
+            calendar.set(Calendar.MONTH, mes + 1);
+            calendar.set(Calendar.YEAR, anio);
+
+            List<RespuestaStd> lst = iUsuarioService.validarReservaPub(idnegocio, mesa, calendar.getTime());
+            return ResponseEntity.ok().body(lst); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
+    @PostMapping(value="/generarreservapub/{idnegocio}/{dia}/{mes}/{anio}/{mesa}/{numerocelular}/{nombreusuario}/{nombrecliente}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> generarReservaPub(@PathVariable int idnegocio,
+                                                                @PathVariable int dia,
+                                                                @PathVariable int mes,
+                                                                @PathVariable int anio,
+                                                                @PathVariable int mesa,
+                                                                @PathVariable String numerocelular,
+                                                                @PathVariable String nombreusuario,
+                                                                @PathVariable String nombrecliente) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH, dia);
+            calendar.set(Calendar.MONTH, mes + 1);
+            calendar.set(Calendar.YEAR, anio);
+            
+            List<RespuestaStd> lst = iUsuarioService.generarReservaPub(idnegocio, calendar.getTime(), 
+                                                                       mesa, numerocelular, nombreusuario, 
+                                                                       nombrecliente);
+            return ResponseEntity.ok().body(lst); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
     @PostMapping(value="/enviarreportecorreo/{idnegocio}/{idrubronegocio}/{tiporeporte}/{anio}/{mes}/{dia}/{aniohasta}/{meshasta}/{diahasta}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RespuestaStd> enviarReporteCorreo(@PathVariable int idnegocio, @PathVariable int idrubronegocio, 
     @PathVariable int tiporeporte, @PathVariable int anio, @PathVariable int mes, @PathVariable int dia,

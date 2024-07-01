@@ -1712,6 +1712,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    @Override
+    public List<RespuestaStd> generarReservaPub(int idnegocio, Date fechaReserva, int mesa, String numerocelular, String nombreusuario, 
+                                                String nombrecliente) {
+        try {
+             return usuarioRepository.generarReservaPub(idnegocio, fechaReserva, mesa, numerocelular, nombreusuario, nombrecliente);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'generarReservaPub'");
+        }
+    }
+
+    @Override
+    public List<RespuestaStd> validarReservaPub(int idnegocio, int mesa, Date fechaReserva) {
+        try {
+            return usuarioRepository.validarReservaPub(idnegocio, mesa, fechaReserva);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'validarReservaPub'");
+        }
+    }
+
     
  
 }

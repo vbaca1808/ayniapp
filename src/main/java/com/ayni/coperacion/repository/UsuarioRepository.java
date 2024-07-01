@@ -636,6 +636,19 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                  @Param("fechaProceso") Date fechaProceso, 
                                                  @Param("numeroCelular") String numeroCelular, 
                                                  @Param("nombreUsuario") String nombreUsuario);
-            
-    
+
+
+    @Query( value = "call sp_validar_reserva_pub(:idNegocio, :mesa, :fechaReserva)", nativeQuery = true)
+    List<RespuestaStd> validarReservaPub(@Param("idNegocio") int idNegocio, 
+                                         @Param("mesa") int mesa,
+                                         @Param("fechaReserva") Date fechaReserva);
+                                        
+    @Query( value = "call sp_generar_reserva_pub(:idNegocio, :fechaReserva, :mesa, :numeroCelular, :nombreUsuario, :nombreCliente)", nativeQuery = true)
+    List<RespuestaStd> generarReservaPub(@Param("idNegocio") int idNegocio, 
+                                         @Param("fechaReserva") Date fechaReserva, 
+                                         @Param("mesa") int mesa, 
+                                         @Param("numeroCelular") String numeroCelular, 
+                                         @Param("nombreUsuario") String nombreUsuario, 
+                                         @Param("nombreCliente") String nombreCliente);
+
 }
