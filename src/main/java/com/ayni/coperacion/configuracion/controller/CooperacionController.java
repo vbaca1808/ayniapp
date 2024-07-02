@@ -2188,7 +2188,7 @@ public class CooperacionController {
             vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vTitulo.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", vMargenSegunNegocio) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 5) + "Cant." + repeatString(" ", 2) + "Total S/.";
+            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 8) + "Cant." + repeatString(" ", 2) + "Total S/.";
             BigDecimal vTotalCantidad = BigDecimal.ZERO;
             BigDecimal vTotalVendido = BigDecimal.ZERO;
 
@@ -2204,21 +2204,21 @@ public class CooperacionController {
                 vDescripcionProducto = vDescripcionProducto.replace("(Mediana)", "(M)");
                 vDescripcionProducto = vDescripcionProducto.replace("(Familiar)", "(F)");
 
-                if (vDescripcionProducto.length() > 25) {
+                if (vDescripcionProducto.length() > 19) {
                     int vContador = 0;
                     while (vContador < vDescripcionProducto.length()) {
                         String linea = vDescripcionProducto.substring(vContador, 
-                        (vDescripcionProducto.length() > vContador + 25?vContador + 25: vDescripcionProducto.length())) + 
+                        (vDescripcionProducto.length() > vContador + 19?vContador + 19: vDescripcionProducto.length())) + 
                         repeatString(" ", 3);
                         if (vContador == 0) {
                             linea = linea + listadoCierreTienda.getDato3().replace(".00","") + repeatString(" ", 5) + listadoCierreTienda.getDato5(); 
                         }
-                        vContador = vContador + 25;
+                        vContador = vContador + 31;
                         vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                     }
                 } else {
                     vTextoAnidado = vTextoAnidado + vDescripcionProducto.toUpperCase() + 
-                    repeatString(" ", 28 - vDescripcionProducto.length()) +  
+                    repeatString(" ", 22 - vDescripcionProducto.length()) +  
                     listadoCierreTienda.getDato3().replace(".00","") + repeatString(" ", 5) + listadoCierreTienda.getDato5() + "\n";
                 }
 
