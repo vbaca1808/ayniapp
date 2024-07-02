@@ -1164,7 +1164,7 @@ public class CooperacionController {
 
             vHoraAtencion = "Hora de Atención: " + vHoraAtencion;
             
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 5) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
         
 
             if (nv == 1) {
