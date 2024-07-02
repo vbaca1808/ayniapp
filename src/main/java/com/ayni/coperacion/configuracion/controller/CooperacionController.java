@@ -2286,7 +2286,7 @@ public class CooperacionController {
             }
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 21) + 
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 20) + 
             vTotalCobrado.setScale(2,RoundingMode.HALF_UP).toString();
             
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "\n\n\n";            
