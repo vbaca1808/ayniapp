@@ -2230,7 +2230,7 @@ public class CooperacionController {
             }
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 16) + vTotalCantidad + repeatString(" ", 4) + 
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 15) + vTotalCantidad + repeatString(" ", 4) + 
             vTotalVendido.setScale(2,RoundingMode.HALF_UP).toString();
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "\n\n\n";
@@ -2246,16 +2246,16 @@ public class CooperacionController {
                                     
                     String vDescripcionPago = listadoCierreTienda.getDato2(); 
 
-                    if (vDescripcionPago.length() > 31) {
+                    if (vDescripcionPago.length() > 26) {
                         int vContador = 0;
                         while (vContador < vDescripcionPago.length()) {
                             String linea = vDescripcionPago.substring(vContador, 
-                            (vDescripcionPago.length() > vContador + 31?vContador + 31: vDescripcionPago.length())) + 
+                            (vDescripcionPago.length() > vContador + 26?vContador + 26: vDescripcionPago.length())) + 
                             repeatString(" ", 3);
                             if (vContador == 0) {
                                 linea = linea + repeatString(" ", 10) + listadoCierreTienda.getDato1(); 
                             }
-                            vContador = vContador + 31;
+                            vContador = vContador + 26;
                             vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                         }
                     } else {
@@ -2264,11 +2264,11 @@ public class CooperacionController {
 
                         if (listadoCierreTienda.getDato1() == null) {
                             vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                            repeatString(" ", 45 - (vDescripcionPago.length() + 0)) + 
+                            repeatString(" ", 38 - (vDescripcionPago.length() + 0)) + 
                             "" + "\n";
                         } else {
                             vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                            repeatString(" ", 45 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
+                            repeatString(" ", 38 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
                             listadoCierreTienda.getDato1() + "\n";
                         }
 
@@ -2286,7 +2286,7 @@ public class CooperacionController {
             }
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 32) + 
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 25) + 
             vTotalCobrado.setScale(2,RoundingMode.HALF_UP).toString();
             
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "\n\n\n";            
