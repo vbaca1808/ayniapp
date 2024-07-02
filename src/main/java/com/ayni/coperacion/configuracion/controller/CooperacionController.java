@@ -2188,7 +2188,7 @@ public class CooperacionController {
             vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vTitulo.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", vMargenSegunNegocio) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 8) + "Cant." + repeatString(" ", 2) + "Total\n";
+            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 11) + "Cant." + repeatString(" ", 2) + "Total\n";
             BigDecimal vTotalCantidad = BigDecimal.ZERO;
             BigDecimal vTotalVendido = BigDecimal.ZERO;
 
@@ -2230,7 +2230,7 @@ public class CooperacionController {
             }
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 28) + vTotalCantidad + repeatString(" ", 4) + 
+            vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "Total" + repeatString(" ", 16) + vTotalCantidad + repeatString(" ", 4) + 
             vTotalVendido.setScale(2,RoundingMode.HALF_UP).toString();
 
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + "\n\n\n";
