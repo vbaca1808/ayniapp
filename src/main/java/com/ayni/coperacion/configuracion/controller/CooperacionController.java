@@ -459,7 +459,7 @@ public class CooperacionController {
             reporteCierreDto.getAnioSeleccionadoHasta(), reporteCierreDto.getMesSeleccionadoHasta(), reporteCierreDto.getDiaSeleccionadoHasta(),
             reporteCierreDto.getNumeroCelular(), reporteCierreDto.getNombreUsuario());
 
-            String vvv = sbGenerarReporteCierreCajaTextoPlano(lst, reporteCierreDto.getIdNegocio());
+            String vReporteCierre = sbGenerarReporteCierreCajaTextoPlano(lst, reporteCierreDto.getIdNegocio());
             
             if (!lst.isEmpty()) {
                 lst = lst.stream()
@@ -467,7 +467,7 @@ public class CooperacionController {
                              @Override
                              public String getDocumento() {
                                  // Agregar el documento adicional aquí
-                                 return vvv;
+                                 return vReporteCierre;
                              }
 
                             @Override
@@ -2188,7 +2188,7 @@ public class CooperacionController {
             vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vTitulo.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", vMargenSegunNegocio) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 20) + "Cant." + repeatString(" ", 2) + "Total S/.";
+            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 5) + "Cant." + repeatString(" ", 2) + "Total S/.";
             BigDecimal vTotalCantidad = BigDecimal.ZERO;
             BigDecimal vTotalVendido = BigDecimal.ZERO;
 
@@ -2204,21 +2204,21 @@ public class CooperacionController {
                 vDescripcionProducto = vDescripcionProducto.replace("(Mediana)", "(M)");
                 vDescripcionProducto = vDescripcionProducto.replace("(Familiar)", "(F)");
 
-                if (vDescripcionProducto.length() > 31) {
+                if (vDescripcionProducto.length() > 25) {
                     int vContador = 0;
                     while (vContador < vDescripcionProducto.length()) {
                         String linea = vDescripcionProducto.substring(vContador, 
-                        (vDescripcionProducto.length() > vContador + 31?vContador + 31: vDescripcionProducto.length())) + 
+                        (vDescripcionProducto.length() > vContador + 25?vContador + 25: vDescripcionProducto.length())) + 
                         repeatString(" ", 3);
                         if (vContador == 0) {
                             linea = linea + listadoCierreTienda.getDato3().replace(".00","") + repeatString(" ", 5) + listadoCierreTienda.getDato5(); 
                         }
-                        vContador = vContador + 31;
+                        vContador = vContador + 25;
                         vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                     }
                 } else {
                     vTextoAnidado = vTextoAnidado + vDescripcionProducto.toUpperCase() + 
-                    repeatString(" ", 34 - vDescripcionProducto.length()) +  
+                    repeatString(" ", 28 - vDescripcionProducto.length()) +  
                     listadoCierreTienda.getDato3().replace(".00","") + repeatString(" ", 5) + listadoCierreTienda.getDato5() + "\n";
                 }
 
