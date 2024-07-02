@@ -2246,16 +2246,16 @@ public class CooperacionController {
                                     
                     String vDescripcionPago = listadoCierreTienda.getDato2(); 
 
-                    if (vDescripcionPago.length() > 20) {
+                    if (vDescripcionPago.length() > 23) {
                         int vContador = 0;
                         while (vContador < vDescripcionPago.length()) {
                             String linea = vDescripcionPago.substring(vContador, 
-                            (vDescripcionPago.length() > vContador + 20?vContador + 20: vDescripcionPago.length())) + 
+                            (vDescripcionPago.length() > vContador + 23?vContador + 23: vDescripcionPago.length())) + 
                             repeatString(" ", 3);
                             if (vContador == 0) {
                                 linea = linea + repeatString(" ", 10) + listadoCierreTienda.getDato1(); 
                             }
-                            vContador = vContador + 26;
+                            vContador = vContador + 23;
                             vTextoAnidado = vTextoAnidado + linea.trim() + "\n";
                         }
                     } else {
@@ -2264,11 +2264,11 @@ public class CooperacionController {
 
                         if (listadoCierreTienda.getDato1() == null) {
                             vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                            repeatString(" ", 30 - (vDescripcionPago.length() + 0)) + 
+                            repeatString(" ", 33 - (vDescripcionPago.length() + 0)) + 
                             "" + "\n";
                         } else {
                             vTextoAnidado = vTextoAnidado + vDescripcionPago.toUpperCase() + 
-                            repeatString(" ", 30 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
+                            repeatString(" ", 33 - (vDescripcionPago.length() + listadoCierreTienda.getDato1().length())) + 
                             listadoCierreTienda.getDato1() + "\n";
                         }
 
