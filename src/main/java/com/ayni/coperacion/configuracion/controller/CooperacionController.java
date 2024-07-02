@@ -2188,7 +2188,7 @@ public class CooperacionController {
             vTextoAnidado = vTextoAnidado + repeatString(" ", 5 + vMargenSegunNegocio) + vTitulo.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", vMargenSegunNegocio) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + repeatString("-",  numeroLetrasMaximoLinea) + "\n\n";
-            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 8) + "Cant." + repeatString(" ", 2) + "Total";
+            vTextoAnidado = vTextoAnidado + "Descripción" + repeatString(" ", 8) + "Cant." + repeatString(" ", 2) + "Total\n";
             BigDecimal vTotalCantidad = BigDecimal.ZERO;
             BigDecimal vTotalVendido = BigDecimal.ZERO;
 
