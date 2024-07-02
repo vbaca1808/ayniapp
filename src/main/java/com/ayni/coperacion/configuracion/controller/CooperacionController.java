@@ -1162,7 +1162,7 @@ public class CooperacionController {
             SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String vHoraAtencion = formato.format(new Date());
 
-            vHoraAtencion = "Hora de Atención\n" + vHoraAtencion;
+            vHoraAtencion = "Fecha y Hora: " + vHoraAtencion;
             
             vTextoAnidado = vTextoAnidado + repeatString(" ", 1) + vHoraAtencion.toUpperCase() + repeatString(" ", numeroEspacios.intValue()) + "\n";
         
