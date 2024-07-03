@@ -528,7 +528,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     ":descripcion, :total, :fechaProceso)", nativeQuery = true)
     List<RespuestaStd> modificarMenuPedidoUnitario(@Param("idNegocio") int idNegocio,
                                                    @Param("idPedido") int idPedido,
-                                                   @Param("idProducto") int tipoLista,
+                                                   @Param("idProducto") int idProducto,
                                                    @Param("cantidad") int cantidad,
                                                    @Param("cantidadLlevar") int cantidadLlevar,
                                                    @Param("cantidadTaper") int cantidadTaper,
