@@ -14,21 +14,15 @@ import com.ayni.coperacion.dto.EnvioBoletaSunat;
 import com.ayni.coperacion.dto.RespuestaEnvioSunat;
 import com.google.gson.Gson;
 
-public class InvoiceServiceClient {
-    
-    @Value("${invoice.api.url}")
-    private String apiUrl;
-
-    @Value("${invoice.api.token}")
-    private String apiToken;
+public class InvoiceServiceClient { 
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat) {
+    public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat, String token, String apiUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + apiToken);
+        headers.set("Authorization", "Bearer " + token);
 
         // Crear el cuerpo de la solicitud
         Gson gson = new Gson();

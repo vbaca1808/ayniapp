@@ -1814,6 +1814,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         List<PedidoEnvioSunat> lstSunat = usuarioRepository.obtenerDocEnvioFacturaSunat(idNegocio, idPedido);
 
         EnvioBoletaSunat envioBoletaSunat = new EnvioBoletaSunat();
+        RespuestaEnvioSunat vRespuesta = new RespuestaEnvioSunat();
 
         if (lstSunat.size() > 0) {
             PedidoEnvioSunat pedidoEnvioSunat = lstSunat.get(0);
@@ -1910,10 +1911,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 lstLegendsSunatDto.add(legendsSunatDto);
 
             envioBoletaSunat.setLegends(lstLegendsSunatDto);
-        }
 
-        InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();        
-        RespuestaEnvioSunat vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat);
+            InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();        
+            vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat, pedidoEnvioSunat.getTokenEnvioSunat(), 
+                                                          pedidoEnvioSunat.getApiUrlEnvioSunat());
+        }
         return vRespuesta;    
     }
     

@@ -22,5 +22,7 @@ public interface PedidoEnvioSunat {
     String getDescripcionProducto(); 
     BigDecimal getCantidad(); 
     BigDecimal getPrecio();
-
+    String getApiUrlEnvioSunat();
+    String getTokenEnvioSunat();
+    
 }
