@@ -1734,7 +1734,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> confirmarReserva(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario) {
         try {
-            return usuarioRepository.confirmarReserva(idNegocio, idPedido, numeroCelular, nombreUsuario);
+            return usuarioRepository.confirmarReserva(idNegocio, idPedido, numeroCelular, nombreUsuario, new Date());
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'confirmarReserva'");
         }
