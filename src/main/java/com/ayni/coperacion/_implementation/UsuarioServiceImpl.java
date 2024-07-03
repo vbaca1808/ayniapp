@@ -310,8 +310,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             }
             
             
-            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
-            pedidoPagadoDto.getTipoDocumento());
+            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
             List<RespuestaStd> lstRespuesta = null;
 
             if (vRespuestaEnvioSunat != null) {
@@ -799,18 +798,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
             }
 
-            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
-            pedidoPagadoDto.getTipoDocumento());
-            List<RespuestaStd> lstRespuesta = null;
+            List<RespuestaStd> lstRespuesta = usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
+            pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
+            new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
+            pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
+            pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
+            pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
 
-            if (vRespuestaEnvioSunat != null) {
-                lstRespuesta = usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
-                pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
-                new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
-                pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
-                pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
-                pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
-                
+            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+
+            if (vRespuestaEnvioSunat != null) {    
                 if (lstRespuesta.get(0).getCodigo().equals("OK")) {
                     RespuestaStd respuestaStd = new RespuestaStd() {
 
@@ -1809,7 +1806,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
-    private RespuestaEnvioSunat sbEnvioSunat(int idNegocio, int idPedido, int tipoDocumento) {
+    private RespuestaEnvioSunat sbEnvioSunat(int idNegocio, int idPedido) {
         
         List<PedidoEnvioSunat> lstSunat = usuarioRepository.obtenerDocEnvioFacturaSunat(idNegocio, idPedido);
 
@@ -1818,7 +1815,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         if (lstSunat.size() > 0) {
             PedidoEnvioSunat pedidoEnvioSunat = lstSunat.get(0);
 
-            if (tipoDocumento == 2) {
+            if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
                 ClientDtoSunat clientDtoSunat = new ClientDtoSunat();
                 CompanySunatDto companySunatDto = new CompanySunatDto();
                 FormaPagoDtoSunat formaPagoDtoSunat = new FormaPagoDtoSunat();
