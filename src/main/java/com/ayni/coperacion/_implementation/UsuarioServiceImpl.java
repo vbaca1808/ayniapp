@@ -27,17 +27,28 @@ import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.ayni.coperacion.configuracion.controller.InvoiceServiceClient;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
+import com.ayni.coperacion.dto.AdressSunatDto;
+import com.ayni.coperacion.dto.ClientDtoSunat;
+import com.ayni.coperacion.dto.CompanySunatDto;
 import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
+import com.ayni.coperacion.dto.DetailsSunatDto;
 import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
-import com.ayni.coperacion.dto.InsumoDto; 
+import com.ayni.coperacion.dto.EnvioBoletaSunat;
+import com.ayni.coperacion.dto.FormaPagoDtoSunat;
+import com.ayni.coperacion.dto.InsumoDto;
+import com.ayni.coperacion.dto.LegendsSunatDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
+import com.ayni.coperacion.dto.PedidoEnvioSunat;
 import com.ayni.coperacion.dto.PedidoPagadoDto;
 import com.ayni.coperacion.dto.PromocionDto;
+import com.ayni.coperacion.dto.RespuestaEnvioSunat;
 import com.ayni.coperacion.dto.UsuarioDto;
 import com.ayni.coperacion.repository.UsuarioRepository;
 import com.ayni.coperacion.response.AgendaServicios;
@@ -758,12 +769,38 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
             }
 
-            return usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
-            pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
-            new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
-            pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
-            pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
-            pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
+            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+            List<RespuestaStd> lstRespuesta = null;
+
+            if (vRespuestaEnvioSunat != null) {
+                lstRespuesta = usuarioRepository.modificarPagoPedido(pedidoPagadoDto.getIdNegocio(), 
+                pedidoPagadoDto.getIdPedido(), pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), 
+                new Date(), pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), 
+                pedidoPagadoDto.getTarjeta(), pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(),
+                pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
+                pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
+                
+                if (lstRespuesta.get(0).getCodigo().equals("OK")) {
+                    RespuestaStd respuestaStd = new RespuestaStd() {
+
+                        @Override
+                        public String getCodigo() {
+                            // TODO Auto-generated method stub
+                            return "OK";
+                        }
+
+                        @Override
+                        public String getMensaje() {
+                            return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                        }
+                    };
+                    lstRespuesta.set(0,respuestaStd);
+                }
+            } else {
+
+            }
+
+            return lstRespuesta;
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
         }
@@ -1740,6 +1777,174 @@ public class UsuarioServiceImpl implements IUsuarioService {
         }
     }
 
+    private RespuestaEnvioSunat sbEnvioSunat(int idNegocio, int idPedido) {
+        
+        List<PedidoEnvioSunat> lstSunat = usuarioRepository.obtenerDocEnvioFacturaSunat(idNegocio, idPedido);
+
+        EnvioBoletaSunat envioBoletaSunat = new EnvioBoletaSunat();
+
+        if (lstSunat.size() > 0) {
+            PedidoEnvioSunat pedidoEnvioSunat = lstSunat.get(0);
+
+            if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                ClientDtoSunat clientDtoSunat = new ClientDtoSunat();
+                CompanySunatDto companySunatDto = new CompanySunatDto();
+                FormaPagoDtoSunat formaPagoDtoSunat = new FormaPagoDtoSunat();
+                AdressSunatDto adressSunatDto = new AdressSunatDto();
+                AdressSunatDto adressSunatDtoCompany = new AdressSunatDto();
+
+                if (pedidoEnvioSunat.getDocCliente().trim().length() == 11) {
+                    clientDtoSunat.setTipoDoc("1");
+                } else if (pedidoEnvioSunat.getDocCliente().trim().length() == 8) {
+                    clientDtoSunat.setTipoDoc("6");
+                }
+
+                envioBoletaSunat.setTipoDoc("03");
+                envioBoletaSunat.setSerie(pedidoEnvioSunat.getNumeroDocumento().substring(0, 
+                pedidoEnvioSunat.getNumeroDocumento().indexOf("-")).trim());
+
+                envioBoletaSunat.setCorrelativo(pedidoEnvioSunat.getNumeroDocumento().substring( 
+                pedidoEnvioSunat.getNumeroDocumento().indexOf("-")).trim());
+                
+                envioBoletaSunat.setFechaEmision(pedidoEnvioSunat.getFechaPedido());
+
+                formaPagoDtoSunat.setTipo("contado");
+                formaPagoDtoSunat.setMoneda("PEN");
+                envioBoletaSunat.setFormaPago(formaPagoDtoSunat);
+
+                envioBoletaSunat.setTipoMoneda("PEN");
+
+                    clientDtoSunat.setNumDoc(pedidoEnvioSunat.getDocCliente());
+                    clientDtoSunat.setRznSocial(pedidoEnvioSunat.getRazonSocial());
+                        adressSunatDto.setDireccion(pedidoEnvioSunat.getDireccionCliente());
+                        adressSunatDto.setDepartamento("Lima");
+                        adressSunatDto.setProvincia("Lima");
+                        adressSunatDto.setDistrito("Lima");
+                        adressSunatDto.setUbigueo("150101");
+                    clientDtoSunat.setAddress(adressSunatDto);
+
+                envioBoletaSunat.setClient(clientDtoSunat);
+
+                    companySunatDto.setRuc(pedidoEnvioSunat.getRucEmpresa());
+                    companySunatDto.setRazonSocial(pedidoEnvioSunat.getRazonSocial());
+                    companySunatDto.setNombreComercial(pedidoEnvioSunat.getNombreNegocio());
+                        adressSunatDtoCompany.setDireccion(pedidoEnvioSunat.getDireccion());
+                        adressSunatDtoCompany.setDepartamento("Lima");
+                        adressSunatDtoCompany.setProvincia("Lima");
+                        adressSunatDtoCompany.setDistrito("Lima");
+                        adressSunatDtoCompany.setUbigueo("150101");
+                    companySunatDto.setAddress(adressSunatDtoCompany);
+
+                envioBoletaSunat.setCompany(companySunatDto); 
+
+                envioBoletaSunat.setMtoOperGravadas(pedidoEnvioSunat.getTotalPedido().divide(pedidoEnvioSunat.getPorcentajeIgv(), 2, RoundingMode.HALF_UP));
+                envioBoletaSunat.setValorVenta(envioBoletaSunat.getMtoOperGravadas());
+                envioBoletaSunat.setMtoIGV(envioBoletaSunat.getMtoOperGravadas().multiply(pedidoEnvioSunat.getPorcentajeIgv()).setScale(2,RoundingMode.HALF_UP));
+                envioBoletaSunat.setTotalImpuestos(envioBoletaSunat.getMtoIGV());
+                envioBoletaSunat.setSubTotal(envioBoletaSunat.getValorVenta().add(envioBoletaSunat.getMtoIGV()));
+                envioBoletaSunat.setMtoImpVenta(envioBoletaSunat.getSubTotal());
+            } 
+
+            List<DetailsSunatDto> lstDetailsSunatDto = new ArrayList<>();
+
+            for (int i = 0; i < lstSunat.size(); i++) {
+                PedidoEnvioSunat pedidoEnvioSunatDet = lstSunat.get(i);
+                DetailsSunatDto detailsSunatDto = new DetailsSunatDto();
+
+                detailsSunatDto.setCodProducto(pedidoEnvioSunatDet.getIdProducto());
+                detailsSunatDto.setUnidad(pedidoEnvioSunatDet.getUnidad());
+                detailsSunatDto.setDescripcion(pedidoEnvioSunat.getDescripcionProducto());
+                detailsSunatDto.setCantidad(pedidoEnvioSunat.getCantidad().intValue());
+                detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio());
+                detailsSunatDto.setMtoValorVenta(pedidoEnvioSunatDet.getPrecio().multiply(pedidoEnvioSunatDet.getCantidad()).setScale(2,RoundingMode.HALF_UP));
+                detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
+                detailsSunatDto.setPorcentajeIgv(detailsSunatDto.getPorcentajeIgv());
+                detailsSunatDto.setIgv(detailsSunatDto.getMtoBaseIgv().multiply(detailsSunatDto.getPorcentajeIgv()).setScale(2,RoundingMode.HALF_UP));
+                detailsSunatDto.setTipAfeIgv(10);
+                detailsSunatDto.setTotalImpuestos(detailsSunatDto.getIgv());
+                detailsSunatDto.setMtoPrecioUnitario(pedidoEnvioSunatDet.getPrecio());
+
+                lstDetailsSunatDto.add(detailsSunatDto);
+            }
+
+            List<LegendsSunatDto> lstLegendsSunatDto = new ArrayList<>();
+            LegendsSunatDto legendsSunatDto = new LegendsSunatDto();
+
+                legendsSunatDto.setCode("1000");
+                legendsSunatDto.setValue("SON " + convertirNumeroALetras(pedidoEnvioSunat.getTotalPedido().intValue()).toUpperCase() + " Y " +
+                (pedidoEnvioSunat.getTotalPedido().remainder(BigDecimal.ONE).compareTo(new BigDecimal("9"))>0?"":"0") +
+                pedidoEnvioSunat.getTotalPedido().remainder(BigDecimal.ONE).intValue() + "/100 SOLES" + "\n");
+
+                lstLegendsSunatDto.add(legendsSunatDto);
+
+            envioBoletaSunat.setLegends(lstLegendsSunatDto);
+        }
+
+        InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();        
+        RespuestaEnvioSunat vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat);
+        return vRespuesta;    
+    }
     
- 
+    // Arrays para las unidades, decenas y centenas
+    private static final String[] unidades = {"", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"};
+    private static final String[] decenas = {"", "diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
+    private static final String[] especiales = {"", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"};
+    private static final String[] centenas = {"", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"};
+
+    // Método para convertir un número entre 0 y 999 a letras
+    private static String convertirNumero(int numero) {
+        if (numero < 10) {
+            return unidades[numero];
+        } else if (numero < 20) {
+            return especiales[numero - 10];
+        } else if (numero < 100) {
+            int unidad = numero % 10;
+            if (unidad == 0) {
+                return decenas[numero / 10];
+            } else {
+                return decenas[numero / 10] + " y " + unidades[unidad];
+            }
+        } else {
+            int centena = numero / 100;
+            int resto = numero % 100;
+            if (resto == 0) {
+                return centenas[centena];
+            } else {
+                return centenas[centena] + " " + convertirNumero(resto);
+            }
+        }
+    }
+
+    // Método principal para convertir un número a letras
+    public static String convertirNumeroALetras(int numero) {
+        if (numero == 0) {
+            return "cero";
+        }
+        String letras = "";
+        if (numero < 0) {
+            letras = "menos ";
+            numero = Math.abs(numero);
+        }
+        if (numero < 100) {
+            letras += convertirNumero(numero);
+        } else if (numero < 1000) {
+            letras += convertirNumero(numero);
+        } else if (numero < 1000000) {
+            int mil = numero / 1000;
+            int resto = numero % 1000;
+            if (mil == 1) {
+                letras += "mil";
+            } else {
+                letras += convertirNumero(mil) + " mil";
+            }
+            if (resto > 0) {
+                letras += " " + convertirNumero(resto);
+            }
+        } else {
+            letras = "Número fuera de rango";
+        }
+        return letras;
+    }
+
+    
 }
