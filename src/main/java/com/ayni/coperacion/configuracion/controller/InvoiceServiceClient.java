@@ -28,7 +28,11 @@ public class InvoiceServiceClient {
         Gson gson = new Gson();
         String jsonEnvioBoleta = gson.toJson(envioBoletaSunat);
 
+        System.out.println("Cuerpo - > " + jsonEnvioBoleta);
         HttpEntity<String> entity = new HttpEntity<>(jsonEnvioBoleta, headers);
+
+        System.out.println("token - > " + token);
+        System.out.println("api - > " + apiUrl);
 
         ResponseEntity<String> response = restTemplate.exchange(
             apiUrl,
