@@ -2358,7 +2358,7 @@ public class CooperacionController {
                 pedido.setIdPedido(menuPedidoUnitario.getIdPedido());
                 pedido.setMensaje("");
 
-                if (menuPedidoUnitario.getIdPedido() > 0 && menuPedidoUnitario.getIdNegocio() == 26) {
+                if (menuPedidoUnitario.getIdPedido() > 0) {
                     pedido.setDocumento(" ");
                 } else {
                     pedido.setDocumento(sbGenerarDocumentoTextoPlano(menuPedidoUnitario.getIdNegocio(), menuPedidoUnitario.getIdPedido(), 
