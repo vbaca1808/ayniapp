@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 
 public class InvoiceServiceClient { 
 
-    @Autowired
     private RestTemplate restTemplate;
 
     public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat, String token, String apiUrl) {
@@ -28,6 +27,7 @@ public class InvoiceServiceClient {
         Gson gson = new Gson();
         String jsonEnvioBoleta = gson.toJson(envioBoletaSunat);
 
+        restTemplate = new RestTemplate(); 
         System.out.println("Cuerpo - > " + jsonEnvioBoleta);
         HttpEntity<String> entity = new HttpEntity<>(jsonEnvioBoleta, headers);
 
