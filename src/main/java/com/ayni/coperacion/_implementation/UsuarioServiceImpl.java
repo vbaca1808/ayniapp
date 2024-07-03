@@ -309,36 +309,37 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
             }
             
-            
-            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
-            List<RespuestaStd> lstRespuesta = null;
+            List<RespuestaStd> lstRespuesta = usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
+            pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
+            pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
+            pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
+            pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
+            pedidoPagadoDto.getNumeroDocumento());
 
-            if (vRespuestaEnvioSunat != null) {
-                lstRespuesta = usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
-                pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
-                pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
-                pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
-                pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
-                pedidoPagadoDto.getNumeroDocumento());
-                
-                if (lstRespuesta.get(0).getCodigo().equals("OK")) {
-                    RespuestaStd respuestaStd = new RespuestaStd() {
+            if (lstRespuesta.size() > 0) {
+                RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
-                        @Override
-                        public String getCodigo() {
-                            // TODO Auto-generated method stub
-                            return "OK";
-                        }
+                if (vRespuestaEnvioSunat != null) {
+                    
+                    if (lstRespuesta.get(0).getCodigo().equals("OK")) {
+                        RespuestaStd respuestaStd = new RespuestaStd() {
 
-                        @Override
-                        public String getMensaje() {
-                            return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
-                        }
-                    };
-                    lstRespuesta.set(0,respuestaStd);
+                            @Override
+                            public String getCodigo() {
+                                // TODO Auto-generated method stub
+                                return "OK";
+                            }
+
+                            @Override
+                            public String getMensaje() {
+                                return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                            }
+                        };
+                        lstRespuesta.set(0,respuestaStd);
+                    }
+                } else {
+
                 }
-            } else {
-
             }
 
             return lstRespuesta;
@@ -805,27 +806,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
             pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
 
-            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+            if (lstRespuesta.size() > 0) {
+                RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
-            if (vRespuestaEnvioSunat != null) {    
-                if (lstRespuesta.get(0).getCodigo().equals("OK")) {
-                    RespuestaStd respuestaStd = new RespuestaStd() {
+                if (vRespuestaEnvioSunat != null) {    
+                    if (lstRespuesta.get(0).getCodigo().equals("OK")) {
+                        RespuestaStd respuestaStd = new RespuestaStd() {
 
-                        @Override
-                        public String getCodigo() {
-                            // TODO Auto-generated method stub
-                            return "OK";
-                        }
+                            @Override
+                            public String getCodigo() {
+                                // TODO Auto-generated method stub
+                                return "OK";
+                            }
 
-                        @Override
-                        public String getMensaje() {
-                            return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
-                        }
-                    };
-                    lstRespuesta.set(0,respuestaStd);
+                            @Override
+                            public String getMensaje() {
+                                return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                            }
+                        };
+                        lstRespuesta.set(0,respuestaStd);
+                    }
+                } else {
+
                 }
-            } else {
-
             }
 
             return lstRespuesta;
