@@ -2707,7 +2707,7 @@ public class CooperacionController {
         try {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, dia);
-            calendar.set(Calendar.MONTH, mes + 1);
+            calendar.set(Calendar.MONTH, mes - 1);
             calendar.set(Calendar.YEAR, anio);
 
             List<RespuestaStd> lst = iUsuarioService.validarReservaPub(idnegocio, mesa, calendar.getTime());
@@ -2730,7 +2730,7 @@ public class CooperacionController {
         try {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_MONTH, dia);
-            calendar.set(Calendar.MONTH, mes + 1);
+            calendar.set(Calendar.MONTH, mes - 1);
             calendar.set(Calendar.YEAR, anio);
             
             List<RespuestaStd> lst = iUsuarioService.generarReservaPub(idnegocio, calendar.getTime(), 
