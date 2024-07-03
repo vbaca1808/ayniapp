@@ -309,12 +309,41 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoPagadoDto.setDescuento(BigDecimal.ZERO);
             }
             
-            return usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
-            pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
-            pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
-            pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
-            pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
-            pedidoPagadoDto.getNumeroDocumento());
+            
+            RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+            List<RespuestaStd> lstRespuesta = null;
+
+            if (vRespuestaEnvioSunat != null) {
+                lstRespuesta = usuarioRepository.pedidoPagado(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido(),
+                pedidoPagadoDto.getNumeroCelular(), pedidoPagadoDto.getNombreUsuario(), new Date(),
+                pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
+                pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
+                pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
+                pedidoPagadoDto.getNumeroDocumento());
+                
+                if (lstRespuesta.get(0).getCodigo().equals("OK")) {
+                    RespuestaStd respuestaStd = new RespuestaStd() {
+
+                        @Override
+                        public String getCodigo() {
+                            // TODO Auto-generated method stub
+                            return "OK";
+                        }
+
+                        @Override
+                        public String getMensaje() {
+                            return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                        }
+                    };
+                    lstRespuesta.set(0,respuestaStd);
+                }
+            } else {
+
+            }
+
+            return lstRespuesta;
+
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'pedidoPagado'");
