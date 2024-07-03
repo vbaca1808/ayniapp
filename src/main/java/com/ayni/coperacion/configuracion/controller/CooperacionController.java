@@ -931,6 +931,7 @@ public class CooperacionController {
             List<RespuestaStd> lst = iUsuarioService.modificarPedidoPago(pedidoPagadoDto);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }      
     }

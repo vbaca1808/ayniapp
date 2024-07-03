@@ -833,6 +833,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             return lstRespuesta;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'modificarPedidoPago'");
         }
     }
