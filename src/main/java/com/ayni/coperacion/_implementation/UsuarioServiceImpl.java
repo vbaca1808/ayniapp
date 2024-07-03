@@ -1900,6 +1900,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 lstDetailsSunatDto.add(detailsSunatDto);
             }
 
+            envioBoletaSunat.setDetails(lstDetailsSunatDto);
+
             List<LegendsSunatDto> lstLegendsSunatDto = new ArrayList<>();
             LegendsSunatDto legendsSunatDto = new LegendsSunatDto();
 
