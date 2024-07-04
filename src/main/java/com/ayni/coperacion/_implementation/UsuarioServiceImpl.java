@@ -1928,6 +1928,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 pedidoEnvioSunat.getNumeroDocumento().indexOf("-") + 1).trim());
                 
                 envioFacturaSunat.setFechaEmision(pedidoEnvioSunat.getFechaPedido());
+                envioFacturaSunat.setFecVencimiento(pedidoEnvioSunat.getFechaPedido());
 
                 formaPagoDtoSunat.setTipo("contado");
                 formaPagoDtoSunat.setMoneda("PEN");
@@ -1959,6 +1960,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 envioFacturaSunat.setCompany(companySunatDto); 
 
                 envioFacturaSunat.setMtoOperGravadas(pedidoEnvioSunat.getTotalPedido().divide(pedidoEnvioSunat.getPorcentajeIgv().add(new BigDecimal("1")), 2, RoundingMode.HALF_UP));
+                envioFacturaSunat.setMtoOperExoneradas(BigDecimal.ZERO);
                 envioFacturaSunat.setMtoIGV(envioFacturaSunat.getMtoOperGravadas().multiply(pedidoEnvioSunat.getPorcentajeIgv()).setScale(2,RoundingMode.HALF_UP));
                 envioFacturaSunat.setValorVenta(envioFacturaSunat.getMtoOperGravadas());
                 envioFacturaSunat.setTotalImpuestos(envioFacturaSunat.getMtoIGV());
