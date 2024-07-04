@@ -2018,7 +2018,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 lstLegendsSunatDto.add(legendsSunatDto);
 
-            envioBoletaSunat.setLegends(lstLegendsSunatDto);
+            if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                envioBoletaSunat.setLegends(lstLegendsSunatDto);
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
+                envioFacturaSunat.setLegends(lstLegendsSunatDto);
+            }
 
             InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();
             if (pedidoEnvioSunat.getTipoDoc().equals("2")) { 
