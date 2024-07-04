@@ -317,23 +317,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
             pedidoPagadoDto.getNumeroDocumento());
 
-            boolean anularPago = false;
-            if (pedidoPagadoDto.getEfectivo().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getYape().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getPlin().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getTarjeta().compareTo(BigDecimal.ZERO) <= 0 &&
-                pedidoPagadoDto.getOtros().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getCredito().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getPropina().compareTo(BigDecimal.ZERO) <= 0 && 
-                pedidoPagadoDto.getDescuento().compareTo(BigDecimal.ZERO) <= 0) {
-                
-                anularPago = true;
 
-            }
-
-            System.out.println("Anulacion -> " + anularPago);
-
-            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0 && !anularPago) {
+            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
                     RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
@@ -859,7 +844,24 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getPropina(), pedidoPagadoDto.getDescuento(), 
             pedidoPagadoDto.getTipoDocumento(), pedidoPagadoDto.getNumeroDocumento());
 
-            if (lstRespuesta.size() > 0) {
+            
+            boolean anularPago = false;
+            if (pedidoPagadoDto.getEfectivo().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getYape().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getPlin().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getTarjeta().compareTo(BigDecimal.ZERO) <= 0 &&
+                pedidoPagadoDto.getOtros().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getCredito().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getPropina().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getDescuento().compareTo(BigDecimal.ZERO) <= 0) {
+                
+                anularPago = true;
+
+            }
+
+            System.out.println("Anulacion -> " + anularPago);
+
+            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0 && !anularPago) {
                 RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
                 if (vRespuestaEnvioSunat != null) {    
