@@ -1901,7 +1901,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 detailsSunatDto.setMtoValorVenta(pedidoEnvioSunatDet.getPrecio().multiply(pedidoEnvioSunatDet.getCantidad()).setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
                 BigDecimal vValorVenta = detailsSunatDto.getMtoValorVenta()
-                                                 .divide(detailsSunatDto.getPorcentajeIgv(),2,RoundingMode.HALF_UP);
+                                                 .divide(pedidoEnvioSunat.getPorcentajeIgv().add(new BigDecimal("1")),2,RoundingMode.HALF_UP);
                 
                 detailsSunatDto.setPorcentajeIgv(pedidoEnvioSunatDet.getPorcentajeIgv().multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP));
                 BigDecimal vIgv = detailsSunatDto.getMtoValorVenta().subtract(vValorVenta);
