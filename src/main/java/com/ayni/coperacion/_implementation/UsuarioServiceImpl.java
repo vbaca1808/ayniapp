@@ -862,28 +862,65 @@ public class UsuarioServiceImpl implements IUsuarioService {
             System.out.println("Anulacion -> " + anularPago);
 
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0 && !anularPago) {
-                RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+                String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
+                    RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
-                if (vRespuestaEnvioSunat != null) {    
-                    if (lstRespuesta.get(0).getCodigo().equals("OK")) {
-                        RespuestaStd respuestaStd = new RespuestaStd() {
+                    if (vRespuestaEnvioSunat != null) {
+                        
+                        if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
+                            RespuestaStd respuestaStd = new RespuestaStd() {
 
-                            @Override
-                            public String getCodigo() {
-                                // TODO Auto-generated method stub
-                                return "OK";
-                            }
+                                @Override
+                                public String getCodigo() {
+                                    // TODO Auto-generated method stub
+                                    return "OK";
+                                }
 
-                            @Override
-                            public String getMensaje() {
-                                return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
-                            }
-                        };
-                        lstRespuesta.set(0,respuestaStd);
+                                @Override
+                                public String getMensaje() {
+                                    return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                                }
+                            };
+                            lstRespuesta.set(0,respuestaStd);
+                        }
+                    } else {
+
                     }
                 } else {
+                    RespuestaStd respuestaStd = new RespuestaStd() {
 
+                        @Override
+                        public String getCodigo() {
+                            // TODO Auto-generated method stub
+                            return "OK";
+                        }
+
+                        @Override
+                        public String getMensaje() {
+                            return vMensaje;
+                        }
+                    };
+                    lstRespuesta.set(0,respuestaStd);
                 }
+            } else {
+                
+                String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                RespuestaStd respuestaStd = new RespuestaStd() {
+
+                    @Override
+                    public String getCodigo() {
+                        // TODO Auto-generated method stub
+                        return "OK";
+                    }
+
+                    @Override
+                    public String getMensaje() {
+                        return vMensaje;
+                    }
+                };
+                lstRespuesta.set(0,respuestaStd);
+
             }
 
             return lstRespuesta;
