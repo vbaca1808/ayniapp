@@ -1855,7 +1855,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setTipoMoneda("PEN");
 
-                    clientDtoSunat.setNumDoc(pedidoEnvioSunat.getDocCliente());
+                    clientDtoSunat.setNumDoc(pedidoEnvioSunat.getDocCliente().intValue());
                     clientDtoSunat.setRznSocial(pedidoEnvioSunat.getRazonSocial());
                         adressSunatDto.setDireccion(pedidoEnvioSunat.getDireccionCliente());
                         adressSunatDto.setDepartamento("Lima");
@@ -1866,7 +1866,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setClient(clientDtoSunat);
 
-                    companySunatDto.setRuc(pedidoEnvioSunat.getRucEmpresa());
+                    companySunatDto.setRuc(pedidoEnvioSunat.getRucEmpresa().intValue());
                     companySunatDto.setRazonSocial(pedidoEnvioSunat.getRazonSocial());
                     companySunatDto.setNombreComercial(pedidoEnvioSunat.getNombreNegocio());
                         adressSunatDtoCompany.setDireccion(pedidoEnvioSunat.getDireccion());
