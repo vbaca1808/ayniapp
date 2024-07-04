@@ -240,4 +240,7 @@ public interface IUsuarioService {
                                         String nombrecliente);
 
     List<RespuestaStd> confirmarReserva(int idNegocio, int idPedido, String numeroCelular, String nombreUsuario);
+
+    List<RespuestaStd> modificarImporteAdicional(int idNegocio, int idPedido, int idProducto, BigDecimal total);
+
 }

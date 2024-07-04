@@ -664,4 +664,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<PedidoEnvioSunat> obtenerDocEnvioFacturaSunat(@Param("idNegocio") int idNegocio, 
                                                    @Param("idPedido") int idPedido);
 
+    @Query( value = "call sp_modificar_importe_adicional(:idNegocio, :idPedido, :idProducto, :total)", nativeQuery = true)
+    List<RespuestaStd> modificarImporteAdicional(@Param("idNegocio") int idNegocio, 
+                                                       @Param("idPedido") int idPedido, 
+                                                       @Param("idProducto") int idProducto, 
+                                                       @Param("total") BigDecimal total);
+                                               
+
 }

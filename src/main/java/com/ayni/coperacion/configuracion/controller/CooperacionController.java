@@ -328,6 +328,20 @@ public class CooperacionController {
         }      
     }
 
+    @PostMapping(value="/pedidopagado/{idnegocio}/{idpedido}/{idproducto}/{total}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> modificarImporteAdicional(@PathVariable int idnegocio,
+    @PathVariable int idpedido, @PathVariable int idproducto, @PathVariable BigDecimal total) {
+        try {
+  
+            List<RespuestaStd> lst = iUsuarioService.modificarImporteAdicional(idnegocio, idpedido, idproducto, total);
+            return ResponseEntity.ok().body(lst);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }      
+    }
+
     @GetMapping(value="/enviosunat",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> envioSunat() {
         try {

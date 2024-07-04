@@ -2181,5 +2181,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return letras;
     }
 
+    @Override
+    public List<RespuestaStd> modificarImporteAdicional(int idNegocio, int idPedido, int idProducto, BigDecimal total) {
+        try {
+            return usuarioRepository.modificarImporteAdicional(idNegocio, idPedido, idProducto, total);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'modificarImporteAdicional'");
+        }
+    }
+
     
 }
