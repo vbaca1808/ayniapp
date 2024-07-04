@@ -1818,6 +1818,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         if (lstSunat.size() > 0) {
             PedidoEnvioSunat pedidoEnvioSunat = lstSunat.get(0);
+            
+            System.out.println("==========================");
+                System.out.println(pedidoEnvioSunat.getRucEmpresa());
+                System.out.println(pedidoEnvioSunat.getDocCliente());
+            System.out.println("**************************");
+            
 
             if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
                 envioBoletaSunat.setUblVersion("2.1");
