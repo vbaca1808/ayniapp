@@ -317,6 +317,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getNumeroDocumento());
 
             if (lstRespuesta.size() > 0) {
+                String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
                     RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
@@ -352,7 +353,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                         @Override
                         public String getMensaje() {
-                            return lstRespuesta.get(0).getMensaje().split("##")[0];
+                            return vMensaje;
                         }
                     };
                     lstRespuesta.set(0,respuestaStd);
