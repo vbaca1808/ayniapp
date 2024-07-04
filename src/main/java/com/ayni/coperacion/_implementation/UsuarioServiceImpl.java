@@ -331,6 +331,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             }
 
+            System.out.println("Anulacion -> " + anularPago);
+
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0 && !anularPago) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
