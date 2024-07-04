@@ -1894,14 +1894,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 detailsSunatDto.setCodProducto(pedidoEnvioSunatDet.getIdProducto());
                 detailsSunatDto.setUnidad(pedidoEnvioSunatDet.getUnidad());
-                detailsSunatDto.setDescripcion(pedidoEnvioSunat.getDescripcionProducto());
+                detailsSunatDto.setDescripcion(pedidoEnvioSunatDet.getDescripcionProducto());
 
-                detailsSunatDto.setCantidad(pedidoEnvioSunat.getCantidad().intValue());
+                detailsSunatDto.setCantidad(pedidoEnvioSunatDet.getCantidad().intValue());
                 detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio().setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoValorVenta(pedidoEnvioSunatDet.getPrecio().multiply(pedidoEnvioSunatDet.getCantidad()).setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
                 BigDecimal vValorVenta = detailsSunatDto.getMtoValorVenta()
-                                                 .divide(pedidoEnvioSunat.getPorcentajeIgv().add(new BigDecimal("1")),2,RoundingMode.HALF_UP);
+                                                 .divide(pedidoEnvioSunatDet.getPorcentajeIgv().add(new BigDecimal("1")),2,RoundingMode.HALF_UP);
                 
                 detailsSunatDto.setPorcentajeIgv(pedidoEnvioSunatDet.getPorcentajeIgv().multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP));
                 BigDecimal vIgv = detailsSunatDto.getMtoValorVenta().subtract(vValorVenta);
