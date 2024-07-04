@@ -1820,6 +1820,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             PedidoEnvioSunat pedidoEnvioSunat = lstSunat.get(0);
 
             if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                envioBoletaSunat.setUblVersion("2.1");
+                envioBoletaSunat.setTipoOperacion("0101");
                 ClientDtoSunat clientDtoSunat = new ClientDtoSunat();
                 CompanySunatDto companySunatDto = new CompanySunatDto();
                 FormaPagoDtoSunat formaPagoDtoSunat = new FormaPagoDtoSunat();
@@ -1847,7 +1849,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setTipoMoneda("PEN");
 
-                    clientDtoSunat.setNumDoc(pedidoEnvioSunat.getDocCliente());
+                    clientDtoSunat.setNumDoc(new BigDecimal(pedidoEnvioSunat.getDocCliente()).intValue());
                     clientDtoSunat.setRznSocial(pedidoEnvioSunat.getRazonSocial());
                         adressSunatDto.setDireccion(pedidoEnvioSunat.getDireccionCliente());
                         adressSunatDto.setDepartamento("Lima");
@@ -1858,7 +1860,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setClient(clientDtoSunat);
 
-                    companySunatDto.setRuc(pedidoEnvioSunat.getRucEmpresa());
+                    companySunatDto.setRuc(new BigDecimal(pedidoEnvioSunat.getRucEmpresa()).intValue());
                     companySunatDto.setRazonSocial(pedidoEnvioSunat.getRazonSocial());
                     companySunatDto.setNombreComercial(pedidoEnvioSunat.getNombreNegocio());
                         adressSunatDtoCompany.setDireccion(pedidoEnvioSunat.getDireccion());
@@ -1892,7 +1894,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 detailsSunatDto.setMtoValorVenta(pedidoEnvioSunatDet.getPrecio().multiply(pedidoEnvioSunatDet.getCantidad()).setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
                 detailsSunatDto.setPorcentajeIgv(pedidoEnvioSunatDet.getPorcentajeIgv());
-                detailsSunatDto.setIgv(detailsSunatDto.getMtoBaseIgv().multiply(detailsSunatDto.getPorcentajeIgv()).setScale(2,RoundingMode.HALF_UP));
+                BigDecimal vValorVenta = detailsSunatDto.getMtoValorVenta()
+                                                 .divide(detailsSunatDto.getPorcentajeIgv(),2,RoundingMode.HALF_UP);
+                BigDecimal vIgv = detailsSunatDto.getMtoValorVenta().subtract(vValorVenta);
+                    
+                detailsSunatDto.setIgv(vIgv);
                 detailsSunatDto.setTipAfeIgv(10);
                 detailsSunatDto.setTotalImpuestos(detailsSunatDto.getIgv());
                 detailsSunatDto.setMtoPrecioUnitario(pedidoEnvioSunatDet.getPrecio());
