@@ -1842,7 +1842,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setTipoDoc("03");
                 envioBoletaSunat.setSerie(pedidoEnvioSunat.getNumeroDocumento().substring(0, 
-                pedidoEnvioSunat.getNumeroDocumento().indexOf("-") + 2).trim());
+                pedidoEnvioSunat.getNumeroDocumento().indexOf("-")).trim());
 
                 envioBoletaSunat.setCorrelativo(pedidoEnvioSunat.getNumeroDocumento().substring( 
                 pedidoEnvioSunat.getNumeroDocumento().indexOf("-") + 1).trim());
