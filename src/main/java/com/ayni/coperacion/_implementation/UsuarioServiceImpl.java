@@ -362,7 +362,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 }
             } else {
                 
-                String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                String vMensaje = "";
+                if (lstRespuesta.size() > 0) {
+                    vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                } else {
+                    vMensaje = "Error no controlado al generar el pago, verifique el documento en la ficha de pagado";
+                }
+                String vMensajeFinal = vMensaje;
+                
                 RespuestaStd respuestaStd = new RespuestaStd() {
 
                     @Override
@@ -373,7 +380,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                     @Override
                     public String getMensaje() {
-                        return vMensaje;
+                        return vMensajeFinal;
                     }
                 };
                 lstRespuesta.set(0,respuestaStd);
