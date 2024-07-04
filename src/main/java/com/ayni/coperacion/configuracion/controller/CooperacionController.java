@@ -328,7 +328,7 @@ public class CooperacionController {
         }      
     }
 
-    @PostMapping(value="/pedidopagado/{idnegocio}/{idpedido}/{idproducto}/{total}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/modificarimporteadicional/{idnegocio}/{idpedido}/{idproducto}/{total}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> modificarImporteAdicional(@PathVariable int idnegocio,
     @PathVariable int idpedido, @PathVariable int idproducto, @PathVariable BigDecimal total) {
         try {

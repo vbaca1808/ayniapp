@@ -666,9 +666,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query( value = "call sp_modificar_importe_adicional(:idNegocio, :idPedido, :idProducto, :total)", nativeQuery = true)
     List<RespuestaStd> modificarImporteAdicional(@Param("idNegocio") int idNegocio, 
-                                                       @Param("idPedido") int idPedido, 
-                                                       @Param("idProducto") int idProducto, 
-                                                       @Param("total") BigDecimal total);
+                                                 @Param("idPedido") int idPedido, 
+                                                 @Param("idProducto") int idProducto, 
+                                                 @Param("total") BigDecimal total);
                                                
 
 }
