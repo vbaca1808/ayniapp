@@ -321,7 +321,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 if (vRespuestaEnvioSunat != null) {
                     
-                    if (lstRespuesta.get(0).getCodigo().equals("OK")) {
+                    if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
                         RespuestaStd respuestaStd = new RespuestaStd() {
 
                             @Override
@@ -1900,7 +1900,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio().setScale(2,RoundingMode.HALF_UP).divide(
                                                         pedidoEnvioSunatDet.getPorcentajeIgv().add(new BigDecimal("1"))
                                                         .setScale(2,RoundingMode.HALF_UP), 2,RoundingMode.HALF_UP));
-                                                        
+
                 detailsSunatDto.setMtoValorVenta(detailsSunatDto.getMtoValorUnitario().multiply(pedidoEnvioSunatDet.getCantidad())
                                                     .setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
