@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ClientDtoSunat {
     
     private String tipoDoc;
-    private int numDoc;
+    private Long numDoc;
     private String rznSocial;
     private AdressSunatDto address;
 

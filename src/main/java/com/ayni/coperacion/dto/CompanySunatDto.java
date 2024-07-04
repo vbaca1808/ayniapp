@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CompanySunatDto {
     
-    private int ruc;
+    private Long ruc;
     private String razonSocial;
     private String nombreComercial;
     private AdressSunatDto address; 
