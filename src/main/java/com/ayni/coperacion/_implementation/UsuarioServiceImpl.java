@@ -317,6 +317,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
             pedidoPagadoDto.getNumeroDocumento());
 
+            boolean anularPago = false;
+            if (pedidoPagadoDto.getEfectivo().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getYape().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getPlin().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getTarjeta().compareTo(BigDecimal.ZERO) <= 0 &&
+                pedidoPagadoDto.getOtros().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getCredito().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getPropina().compareTo(BigDecimal.ZERO) <= 0 && 
+                pedidoPagadoDto.getDescuento().compareTo(BigDecimal.ZERO) <= 0) {
+                
+                anularPago = true;
+
+            }
+
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
@@ -376,7 +390,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     }
                 };
                 lstRespuesta.set(0,respuestaStd);
-                
+
             }
 
             return lstRespuesta;
