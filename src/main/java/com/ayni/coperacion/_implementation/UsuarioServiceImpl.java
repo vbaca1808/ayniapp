@@ -341,6 +341,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     } else {
 
                     }
+                } else {
+                    RespuestaStd respuestaStd = new RespuestaStd() {
+
+                        @Override
+                        public String getCodigo() {
+                            // TODO Auto-generated method stub
+                            return "OK";
+                        }
+
+                        @Override
+                        public String getMensaje() {
+                            return lstRespuesta.get(0).getMensaje().split("##")[0];
+                        }
+                    };
+                    lstRespuesta.set(0,respuestaStd);
                 }
             }
 
