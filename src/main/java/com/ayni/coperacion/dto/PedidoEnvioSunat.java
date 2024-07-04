@@ -7,10 +7,10 @@ public interface PedidoEnvioSunat {
     String getTipoDoc();
     String getNumeroDocumento(); 
     String getFechaPedido();
-    String getDocCliente(); 
+    int getDocCliente(); 
     String getNombreCliente(); 
     String getDireccionCliente();
-    String getRucEmpresa();
+    int getRucEmpresa();
     String getRazonSocial();
     String getNombreNegocio(); 
     String getDireccion();

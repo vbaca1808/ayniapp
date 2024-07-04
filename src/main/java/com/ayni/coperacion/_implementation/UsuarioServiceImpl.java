@@ -1834,9 +1834,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 AdressSunatDto adressSunatDto = new AdressSunatDto();
                 AdressSunatDto adressSunatDtoCompany = new AdressSunatDto();
 
-                if (pedidoEnvioSunat.getDocCliente().trim().length() == 11) {
+                if (String.valueOf(pedidoEnvioSunat.getDocCliente()).trim().length() == 8) {
                     clientDtoSunat.setTipoDoc("1");
-                } else if (pedidoEnvioSunat.getDocCliente().trim().length() == 8) {
+                } else if (String.valueOf(pedidoEnvioSunat.getDocCliente()).trim().length() == 11) {
                     clientDtoSunat.setTipoDoc("6");
                 }
 
@@ -1855,7 +1855,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setTipoMoneda("PEN");
 
-                    clientDtoSunat.setNumDoc(new BigDecimal(pedidoEnvioSunat.getDocCliente()).intValue());
+                    clientDtoSunat.setNumDoc(pedidoEnvioSunat.getDocCliente());
                     clientDtoSunat.setRznSocial(pedidoEnvioSunat.getRazonSocial());
                         adressSunatDto.setDireccion(pedidoEnvioSunat.getDireccionCliente());
                         adressSunatDto.setDepartamento("Lima");
@@ -1866,7 +1866,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                 envioBoletaSunat.setClient(clientDtoSunat);
 
-                    companySunatDto.setRuc(new BigDecimal(pedidoEnvioSunat.getRucEmpresa()).intValue());
+                    companySunatDto.setRuc(pedidoEnvioSunat.getRucEmpresa());
                     companySunatDto.setRazonSocial(pedidoEnvioSunat.getRazonSocial());
                     companySunatDto.setNombreComercial(pedidoEnvioSunat.getNombreNegocio());
                         adressSunatDtoCompany.setDireccion(pedidoEnvioSunat.getDireccion());
