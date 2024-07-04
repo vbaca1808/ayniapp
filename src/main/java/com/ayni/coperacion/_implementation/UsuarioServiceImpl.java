@@ -2002,9 +2002,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 lstDetailsSunatDto.add(detailsSunatDto);
             }
 
-            if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
+            if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
                 envioBoletaSunat.setDetails(lstDetailsSunatDto);
-            } else if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
                 envioFacturaSunat.setDetails(lstDetailsSunatDto);            
             }
 
@@ -2021,10 +2021,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
             envioBoletaSunat.setLegends(lstLegendsSunatDto);
 
             InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();
-            if (pedidoEnvioSunat.getTipoDoc().equals("1")) { 
+            if (pedidoEnvioSunat.getTipoDoc().equals("2")) { 
                 vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat, null, pedidoEnvioSunat.getTokenEnvioSunat(), 
                                                           pedidoEnvioSunat.getApiUrlEnvioSunat());
-            } else if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
                 vRespuesta = invoiceServiceClient.sendInvoice(null, envioFacturaSunat, pedidoEnvioSunat.getTokenEnvioSunat(), 
                                                           pedidoEnvioSunat.getApiUrlEnvioSunat());
             }
