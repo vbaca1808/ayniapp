@@ -1930,7 +1930,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 envioFacturaSunat.setFechaEmision(pedidoEnvioSunat.getFechaPedido());
                 envioFacturaSunat.setFecVencimiento(pedidoEnvioSunat.getFechaPedido());
 
-                formaPagoDtoSunat.setTipo("contado");
+                if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                    formaPagoDtoSunat.setTipo("contado");
+                } else {
+                    formaPagoDtoSunat.setTipo("Contado");
+                }
                 formaPagoDtoSunat.setMoneda("PEN");
                 envioFacturaSunat.setFormaPago(formaPagoDtoSunat);
 
