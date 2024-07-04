@@ -317,28 +317,30 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getNumeroDocumento());
 
             if (lstRespuesta.size() > 0) {
-                RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
+                if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
+                    RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
-                if (vRespuestaEnvioSunat != null) {
-                    
-                    if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
-                        RespuestaStd respuestaStd = new RespuestaStd() {
+                    if (vRespuestaEnvioSunat != null) {
+                        
+                        if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
+                            RespuestaStd respuestaStd = new RespuestaStd() {
 
-                            @Override
-                            public String getCodigo() {
-                                // TODO Auto-generated method stub
-                                return "OK";
-                            }
+                                @Override
+                                public String getCodigo() {
+                                    // TODO Auto-generated method stub
+                                    return "OK";
+                                }
 
-                            @Override
-                            public String getMensaje() {
-                                return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
-                            }
-                        };
-                        lstRespuesta.set(0,respuestaStd);
+                                @Override
+                                public String getMensaje() {
+                                    return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                                }
+                            };
+                            lstRespuesta.set(0,respuestaStd);
+                        }
+                    } else {
+
                     }
-                } else {
-
                 }
             }
 
