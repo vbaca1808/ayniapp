@@ -1897,8 +1897,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 detailsSunatDto.setDescripcion(pedidoEnvioSunatDet.getDescripcionProducto());
 
                 detailsSunatDto.setCantidad(pedidoEnvioSunatDet.getCantidad().intValue());
-                detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio().divide(
-                                                        pedidoEnvioSunatDet.getPorcentajeIgv().add(new BigDecimal("1")))
+                detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio().setScale(2,RoundingMode.HALF_UP).divide(
+                                                        pedidoEnvioSunatDet.getPorcentajeIgv().add(new BigDecimal("1"))
+                                                        .setScale(2,RoundingMode.HALF_UP))
                                                     .setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoValorVenta(detailsSunatDto.getMtoValorUnitario().multiply(pedidoEnvioSunatDet.getCantidad())
                                                     .setScale(2,RoundingMode.HALF_UP));
