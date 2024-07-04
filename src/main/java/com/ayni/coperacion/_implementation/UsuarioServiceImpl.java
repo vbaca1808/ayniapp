@@ -1895,19 +1895,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 detailsSunatDto.setCodProducto(pedidoEnvioSunatDet.getIdProducto());
                 detailsSunatDto.setUnidad(pedidoEnvioSunatDet.getUnidad());
                 detailsSunatDto.setDescripcion(pedidoEnvioSunat.getDescripcionProducto());
+
                 detailsSunatDto.setCantidad(pedidoEnvioSunat.getCantidad().intValue());
-                detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio());
+                detailsSunatDto.setMtoValorUnitario(pedidoEnvioSunatDet.getPrecio().setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoValorVenta(pedidoEnvioSunatDet.getPrecio().multiply(pedidoEnvioSunatDet.getCantidad()).setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setMtoBaseIgv(detailsSunatDto.getMtoValorVenta());
-                detailsSunatDto.setPorcentajeIgv(pedidoEnvioSunatDet.getPorcentajeIgv());
                 BigDecimal vValorVenta = detailsSunatDto.getMtoValorVenta()
                                                  .divide(detailsSunatDto.getPorcentajeIgv(),2,RoundingMode.HALF_UP);
+                
+                detailsSunatDto.setPorcentajeIgv(pedidoEnvioSunatDet.getPorcentajeIgv().multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP));
                 BigDecimal vIgv = detailsSunatDto.getMtoValorVenta().subtract(vValorVenta);
                     
-                detailsSunatDto.setIgv(vIgv);
+                detailsSunatDto.setIgv(vIgv.setScale(2,RoundingMode.HALF_UP));
                 detailsSunatDto.setTipAfeIgv(10);
-                detailsSunatDto.setTotalImpuestos(detailsSunatDto.getIgv());
-                detailsSunatDto.setMtoPrecioUnitario(pedidoEnvioSunatDet.getPrecio());
+                detailsSunatDto.setTotalImpuestos(detailsSunatDto.getIgv().setScale(2,RoundingMode.HALF_UP));
+                detailsSunatDto.setMtoPrecioUnitario(pedidoEnvioSunatDet.getPrecio().setScale(2,RoundingMode.HALF_UP));
 
                 lstDetailsSunatDto.add(detailsSunatDto);
             }
