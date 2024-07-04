@@ -40,6 +40,7 @@ import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.DetailsSunatDto;
 import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
 import com.ayni.coperacion.dto.EnvioBoletaSunat;
+import com.ayni.coperacion.dto.EnvioFacturaSunatDto;
 import com.ayni.coperacion.dto.FormaPagoDtoSunat;
 import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.LegendsSunatDto;
@@ -1832,6 +1833,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
         List<PedidoEnvioSunat> lstSunat = usuarioRepository.obtenerDocEnvioFacturaSunat(idNegocio, idPedido);
 
         EnvioBoletaSunat envioBoletaSunat = new EnvioBoletaSunat();
+        EnvioFacturaSunatDto envioFacturaSunat = new EnvioFacturaSunatDto();
         RespuestaEnvioSunat vRespuesta = new RespuestaEnvioSunat();
 
         if (lstSunat.size() > 0) {
@@ -1902,7 +1904,68 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 envioBoletaSunat.setTotalImpuestos(envioBoletaSunat.getMtoIGV());
                 envioBoletaSunat.setSubTotal(envioBoletaSunat.getValorVenta().add(envioBoletaSunat.getMtoIGV()));
                 envioBoletaSunat.setMtoImpVenta(envioBoletaSunat.getSubTotal());
-            } 
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
+
+                envioFacturaSunat.setUblVersion("2.1");
+                envioFacturaSunat.setTipoOperacion("0101");
+                ClientDtoSunat clientDtoSunat = new ClientDtoSunat();
+                CompanySunatDto companySunatDto = new CompanySunatDto();
+                FormaPagoDtoSunat formaPagoDtoSunat = new FormaPagoDtoSunat();
+                AdressSunatDto adressSunatDto = new AdressSunatDto();
+                AdressSunatDto adressSunatDtoCompany = new AdressSunatDto();
+
+                if (String.valueOf(pedidoEnvioSunat.getDocCliente()).trim().length() == 8) {
+                    clientDtoSunat.setTipoDoc("1");
+                } else if (String.valueOf(pedidoEnvioSunat.getDocCliente()).trim().length() == 11) {
+                    clientDtoSunat.setTipoDoc("6");
+                }
+
+                envioFacturaSunat.setTipoDoc("01");
+                envioFacturaSunat.setSerie(pedidoEnvioSunat.getNumeroDocumento().substring(0, 
+                pedidoEnvioSunat.getNumeroDocumento().indexOf("-")).trim());
+
+                envioFacturaSunat.setCorrelativo(pedidoEnvioSunat.getNumeroDocumento().substring( 
+                pedidoEnvioSunat.getNumeroDocumento().indexOf("-") + 1).trim());
+                
+                envioFacturaSunat.setFechaEmision(pedidoEnvioSunat.getFechaPedido());
+
+                formaPagoDtoSunat.setTipo("contado");
+                formaPagoDtoSunat.setMoneda("PEN");
+                envioFacturaSunat.setFormaPago(formaPagoDtoSunat);
+
+                envioFacturaSunat.setTipoMoneda("PEN");
+
+                    clientDtoSunat.setNumDoc(Long.parseLong(pedidoEnvioSunat.getDocCliente().toString()));
+                    clientDtoSunat.setRznSocial(pedidoEnvioSunat.getRazonSocial());
+                        adressSunatDto.setDireccion(pedidoEnvioSunat.getDireccionCliente());
+                        adressSunatDto.setDepartamento("Lima");
+                        adressSunatDto.setProvincia("Lima");
+                        adressSunatDto.setDistrito("Lima");
+                        adressSunatDto.setUbigueo("150101");
+                    clientDtoSunat.setAddress(adressSunatDto);
+
+                envioFacturaSunat.setClient(clientDtoSunat);
+
+                    companySunatDto.setRuc(Long.parseLong(pedidoEnvioSunat.getRucEmpresa().toString()));
+                    companySunatDto.setRazonSocial(pedidoEnvioSunat.getRazonSocial());
+                    companySunatDto.setNombreComercial(pedidoEnvioSunat.getNombreNegocio());
+                        adressSunatDtoCompany.setDireccion(pedidoEnvioSunat.getDireccion());
+                        adressSunatDtoCompany.setDepartamento("Lima");
+                        adressSunatDtoCompany.setProvincia("Lima");
+                        adressSunatDtoCompany.setDistrito("Lima");
+                        adressSunatDtoCompany.setUbigueo("150101");
+                    companySunatDto.setAddress(adressSunatDtoCompany);
+
+                envioFacturaSunat.setCompany(companySunatDto); 
+
+                envioFacturaSunat.setMtoOperGravadas(pedidoEnvioSunat.getTotalPedido().divide(pedidoEnvioSunat.getPorcentajeIgv().add(new BigDecimal("1")), 2, RoundingMode.HALF_UP));
+                envioFacturaSunat.setMtoIGV(envioFacturaSunat.getMtoOperGravadas().multiply(pedidoEnvioSunat.getPorcentajeIgv()).setScale(2,RoundingMode.HALF_UP));
+                envioFacturaSunat.setValorVenta(envioFacturaSunat.getMtoOperGravadas());
+                envioFacturaSunat.setTotalImpuestos(envioFacturaSunat.getMtoIGV());
+                envioFacturaSunat.setSubTotal(envioFacturaSunat.getValorVenta().add(envioFacturaSunat.getMtoIGV()));
+                envioFacturaSunat.setMtoImpVenta(envioFacturaSunat.getSubTotal());
+
+            }
 
             List<DetailsSunatDto> lstDetailsSunatDto = new ArrayList<>();
 
@@ -1937,7 +2000,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 lstDetailsSunatDto.add(detailsSunatDto);
             }
 
-            envioBoletaSunat.setDetails(lstDetailsSunatDto);
+            if (pedidoEnvioSunat.getTipoDoc().equals("1")) {
+                envioBoletaSunat.setDetails(lstDetailsSunatDto);
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                envioFacturaSunat.setDetails(lstDetailsSunatDto);            
+            }
 
             List<LegendsSunatDto> lstLegendsSunatDto = new ArrayList<>();
             LegendsSunatDto legendsSunatDto = new LegendsSunatDto();
@@ -1951,9 +2018,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             envioBoletaSunat.setLegends(lstLegendsSunatDto);
 
-            InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();        
-            vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat, pedidoEnvioSunat.getTokenEnvioSunat(), 
+            InvoiceServiceClient invoiceServiceClient = new InvoiceServiceClient();
+            if (pedidoEnvioSunat.getTipoDoc().equals("1")) { 
+                vRespuesta = invoiceServiceClient.sendInvoice(envioBoletaSunat, null, pedidoEnvioSunat.getTokenEnvioSunat(), 
                                                           pedidoEnvioSunat.getApiUrlEnvioSunat());
+            } else if (pedidoEnvioSunat.getTipoDoc().equals("2")) {
+                vRespuesta = invoiceServiceClient.sendInvoice(null, envioFacturaSunat, pedidoEnvioSunat.getTokenEnvioSunat(), 
+                                                          pedidoEnvioSunat.getApiUrlEnvioSunat());
+            }
         }
         return vRespuesta;    
     }

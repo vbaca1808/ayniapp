@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.ayni.coperacion.dto.EnvioBoletaSunat;
+import com.ayni.coperacion.dto.EnvioFacturaSunatDto;
 import com.ayni.coperacion.dto.RespuestaEnvioSunat;
 import com.google.gson.Gson;
 
@@ -18,14 +19,14 @@ public class InvoiceServiceClient {
 
     private RestTemplate restTemplate;
 
-    public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat, String token, String apiUrl) {
+    public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat, EnvioFacturaSunatDto envioFacturaSunatDto, String token, String apiUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + token);
 
         // Crear el cuerpo de la solicitud
         Gson gson = new Gson();
-        String jsonEnvioBoleta = gson.toJson(envioBoletaSunat);
+        String jsonEnvioBoleta = (envioBoletaSunat != null?gson.toJson(envioBoletaSunat):gson.toJson(envioFacturaSunatDto));
 
         restTemplate = new RestTemplate(); 
         System.out.println("Cuerpo - > " + jsonEnvioBoleta);
