@@ -331,7 +331,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
             }
 
-            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
+            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0 && !anularPago) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
                     RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
