@@ -329,11 +329,12 @@ public class CooperacionController {
     }
 
     @PostMapping(value="/modificarimporteadicional/{idnegocio}/{idpedido}/{idproducto}/{total}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> modificarImporteAdicional(@PathVariable int idnegocio,
-    @PathVariable int idpedido, @PathVariable int idproducto, @PathVariable BigDecimal total) {
+    public ResponseEntity<List<RespuestaStd>> modificarImporteAdicional(@PathVariable int idnegocio, @PathVariable int idpedido, 
+                                                                        @PathVariable int idproducto, @PathVariable BigDecimal total, 
+                                                                        @PathVariable String nombreCliente) {
         try {
   
-            List<RespuestaStd> lst = iUsuarioService.modificarImporteAdicional(idnegocio, idpedido, idproducto, total);
+            List<RespuestaStd> lst = iUsuarioService.modificarImporteAdicional(idnegocio, idpedido, idproducto, total, nombreCliente);
             return ResponseEntity.ok().body(lst);
             
         } catch (Exception e) {
