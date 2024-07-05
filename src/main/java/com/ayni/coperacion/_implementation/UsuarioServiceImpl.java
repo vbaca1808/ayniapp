@@ -319,13 +319,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getNumeroDocumento());
 
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
+                System.out.print("Entro opcion A");
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
+                    System.out.print("Entro opcion A-A");
                     RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
                     if (vRespuestaEnvioSunat != null) {
-                        
+                        System.out.print("Entro opcion A-A-A");
+
                         if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
+                            System.out.print("Entro opcion A-A-A-A");
                             RespuestaStd respuestaStd = new RespuestaStd() {
 
                                 @Override
@@ -345,6 +349,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
                     }
                 } else {
+                    System.out.print("Entro opcion B");
                     RespuestaStd respuestaStd = new RespuestaStd() {
 
                         @Override
@@ -358,10 +363,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
                             return vMensaje;
                         }
                     };
+                    System.out.print("Entro opcion B-B");
                     lstRespuesta.set(0,respuestaStd);
                 }
             } else {
                 
+                System.out.print("Entro opcion C");
+
                 String vMensaje = "";
                 if (lstRespuesta.size() > 0) {
                     vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
@@ -369,6 +377,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     vMensaje = "Error no controlado al generar el pago, verifique el documento en la ficha de pagado";
                 }
                 String vMensajeFinal = vMensaje;
+
+                System.out.print("Entro opcion C-C");
                 
                 RespuestaStd respuestaStd = new RespuestaStd() {
 
@@ -383,6 +393,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                         return vMensajeFinal;
                     }
                 };
+                System.out.print("Entro opcion C-C-C");
                 lstRespuesta.set(0,respuestaStd);
 
             }
