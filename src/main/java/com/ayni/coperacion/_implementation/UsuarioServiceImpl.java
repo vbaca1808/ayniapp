@@ -318,6 +318,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
             pedidoPagadoDto.getNumeroDocumento());
 
+            System.out.println("Size respuesta -> " + lstRespuesta.size());
+            
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
                 System.out.print("Entro opcion A");
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
