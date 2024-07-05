@@ -319,6 +319,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getNumeroDocumento());
 
             System.out.println("Size respuesta -> " + lstRespuesta.size());
+            System.out.println("Respuesta codigo -> " + lstRespuesta.get(0).getCodigo());
+            System.out.println("Respuesta mensaje -> " + lstRespuesta.get(0).getMensaje());
             
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
                 System.out.print("Entro opcion A");
