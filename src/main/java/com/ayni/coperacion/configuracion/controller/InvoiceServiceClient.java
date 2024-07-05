@@ -43,8 +43,10 @@ public class InvoiceServiceClient {
         );
 
         if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Respuesta Sunat ok -> " + response.getBody());
             return gson.fromJson(response.getBody(), RespuestaEnvioSunat.class);
         } else {
+            System.out.println("Respuesta Sunat Error -> " + response.getBody());
             return null;
         }
     }
