@@ -12,6 +12,7 @@ import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
+import com.ayni.coperacion.dto.GenerarDocumentoVentaDocPagadoDto;
 import com.ayni.coperacion.dto.InsumoDto; 
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
 import com.ayni.coperacion.dto.NegocioDto;
@@ -175,7 +176,7 @@ public interface IUsuarioService {
 
     List<DocumentoVentaResponse> obtenerDocumentoVenta(int idNegocio, int idPedido);
     
-    List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento);
+    List<RespuestaStd> generarDocumentoVentaADocPagado(GenerarDocumentoVentaDocPagadoDto generarDocumentoVentaADocPagado);
 
     List<PedidoInter> obtenerDocumentosPendientesImpresion(int idNegocio);
     

@@ -513,10 +513,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     List<DocumentoVentaResponse> obtenerDocumentoVenta(@Param("idNegocio") int idNegocio, 
                                                        @Param("idPedido") int idPedido);
 
-    @Query( value = "call sp_generar_documento_venta_a_doc_pagado(:idNegocio, :idPedido, :tipoDocumento)", nativeQuery = true)
+    @Query( value = "call sp_generar_documento_venta_a_doc_pagado(:idNegocio, :idPedido, :tipoDocumento, :docCliente, :nombreCliente, :direccionCliente)", nativeQuery = true)
     List<RespuestaStd> generarDocumentoVentaADocPagado(@Param("idNegocio") int idNegocio, 
                                                        @Param("idPedido") int idPedido, 
-                                                       @Param("tipoDocumento") int tipoDocumento);
+                                                       @Param("tipoDocumento") int tipoDocumento, 
+                                                       @Param("docCliente") String docCliente, 
+                                                       @Param("nombreCliente") String nombreCliente, 
+                                                       @Param("direccionCliente") String direccionCliente);
 
     @Query( value = "call sp_obtener_documentos_pendientes_impresion(:idNegocio)", nativeQuery = true)
     List<PedidoInter> obtenerDocumentosPendientesImpresion(@Param("idNegocio") int idNegocio);

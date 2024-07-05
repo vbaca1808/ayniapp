@@ -42,6 +42,7 @@ import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
 import com.ayni.coperacion.dto.EnvioBoletaSunat;
 import com.ayni.coperacion.dto.EnvioFacturaSunatDto;
 import com.ayni.coperacion.dto.FormaPagoDtoSunat;
+import com.ayni.coperacion.dto.GenerarDocumentoVentaDocPagadoDto;
 import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.LegendsSunatDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
@@ -983,14 +984,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento) {
+    public List<RespuestaStd> generarDocumentoVentaADocPagado(GenerarDocumentoVentaDocPagadoDto generarDocumentoVentaDocPagado) {
         try {
-            List<RespuestaStd> lstRespuesta = usuarioRepository.generarDocumentoVentaADocPagado(idNegocio, idPedido, tipoDocumento);
+            List<RespuestaStd> lstRespuesta = usuarioRepository.generarDocumentoVentaADocPagado(
+                generarDocumentoVentaDocPagado.getIdNegocio(), generarDocumentoVentaDocPagado.getIdPedido(), 
+                generarDocumentoVentaDocPagado.getTipoDocumento(), generarDocumentoVentaDocPagado.getDocCliente(),
+                generarDocumentoVentaDocPagado.getNombreCliente(), generarDocumentoVentaDocPagado.getDireccionCliente());
 
-            if (lstRespuesta.size() > 0 && tipoDocumento > 0) {
+            if (lstRespuesta.size() > 0 && generarDocumentoVentaDocPagado.getTipoDocumento() > 0) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
-                    RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(idNegocio, idPedido);
+                    RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(generarDocumentoVentaDocPagado.getIdNegocio(), 
+                    generarDocumentoVentaDocPagado.getIdPedido());
 
                     if (vRespuestaEnvioSunat != null) {
                         

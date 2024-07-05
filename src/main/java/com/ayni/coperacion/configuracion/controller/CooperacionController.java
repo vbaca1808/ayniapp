@@ -53,6 +53,7 @@ import com.ayni.coperacion.dto.CompraNegocio;
 import com.ayni.coperacion.dto.CompraPagoDto;
 import com.ayni.coperacion.dto.ConfiguracionNegocioDto;
 import com.ayni.coperacion.dto.DisponibilidadCuartosDto;
+import com.ayni.coperacion.dto.GenerarDocumentoVentaDocPagadoDto;
 import com.ayni.coperacion.dto.InsumoDto;
 import com.ayni.coperacion.dto.ListadoMenuDto;
 import com.ayni.coperacion.dto.MenuPedidoUnitarioDto;
@@ -997,13 +998,10 @@ public class CooperacionController {
         }      
     }
 
-    @PostMapping(value="/generardocumentoventaadocpagado/{idnegocio}/{idpedido}/{tipodocumento}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RespuestaStd>> generarDocumentoVentaADocPagado(@PathVariable int idnegocio,
-                                                                              @PathVariable int idpedido,
-                                                                              @PathVariable int tipodocumento) {
+    @PostMapping(value="/generardocumentoventaadocpagado",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RespuestaStd>> generarDocumentoVentaADocPagado(@Valid @RequestBody GenerarDocumentoVentaDocPagadoDto generarDocumentoVentaADocPagado) {
         try { 
-            List<RespuestaStd> lst = iUsuarioService.generarDocumentoVentaADocPagado(idnegocio,
-            idpedido, tipodocumento);
+            List<RespuestaStd> lst = iUsuarioService.generarDocumentoVentaADocPagado(generarDocumentoVentaADocPagado);
             return ResponseEntity.ok().body(lst);
         } catch (Exception e) { 
             return ResponseEntity.status(500).body(null);
