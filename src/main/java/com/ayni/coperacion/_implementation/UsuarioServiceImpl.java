@@ -317,7 +317,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
             pedidoPagadoDto.getNumeroDocumento());
 
-
             if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
                 if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
@@ -986,7 +985,78 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public List<RespuestaStd> generarDocumentoVentaADocPagado(int idNegocio, int idPedido, int tipoDocumento) {
         try {
-            return usuarioRepository.generarDocumentoVentaADocPagado(idNegocio, idPedido, tipoDocumento);
+            List<RespuestaStd> lstRespuesta = usuarioRepository.generarDocumentoVentaADocPagado(idNegocio, idPedido, tipoDocumento);
+
+            if (lstRespuesta.size() > 0 && tipoDocumento > 0) {
+                String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
+                    RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(idNegocio, idPedido);
+
+                    if (vRespuestaEnvioSunat != null) {
+                        
+                        if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
+                            RespuestaStd respuestaStd = new RespuestaStd() {
+
+                                @Override
+                                public String getCodigo() {
+                                    // TODO Auto-generated method stub
+                                    return "OK";
+                                }
+
+                                @Override
+                                public String getMensaje() {
+                                    return vRespuestaEnvioSunat.getSunatResponse().getCdrResponse().getDescription();
+                                }
+                            };
+                            lstRespuesta.set(0,respuestaStd);
+                        }
+                    } else {
+
+                    }
+                } else {
+                    RespuestaStd respuestaStd = new RespuestaStd() {
+
+                        @Override
+                        public String getCodigo() {
+                            // TODO Auto-generated method stub
+                            return "OK";
+                        }
+
+                        @Override
+                        public String getMensaje() {
+                            return vMensaje;
+                        }
+                    };
+                    lstRespuesta.set(0,respuestaStd);
+                }
+            } else {
+                
+                String vMensaje = "";
+                if (lstRespuesta.size() > 0) {
+                    vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
+                } else {
+                    vMensaje = "Error no controlado al generar el pago, verifique el documento en la ficha de pagado";
+                }
+                String vMensajeFinal = vMensaje;
+                
+                RespuestaStd respuestaStd = new RespuestaStd() {
+
+                    @Override
+                    public String getCodigo() {
+                        // TODO Auto-generated method stub
+                        return "OK";
+                    }
+
+                    @Override
+                    public String getMensaje() {
+                        return vMensajeFinal;
+                    }
+                };
+                lstRespuesta.set(0,respuestaStd);
+
+            }
+
+            return lstRespuesta;
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'generarDocumentoVentaADocPagado'");
         }
