@@ -739,6 +739,11 @@ public class CooperacionController {
                 calendarReserva.set(Calendar.MONTH, mes-1);
                 calendarReserva.set(Calendar.DAY_OF_MONTH, dia);
                 calendarReserva.add(Calendar.DAY_OF_MONTH, diasreserva);
+            } else {
+                calendarReserva.set(Calendar.YEAR, anio);
+                calendarReserva.set(Calendar.MONTH, mes-1);
+                calendarReserva.set(Calendar.DAY_OF_MONTH, dia);
+                calendarReserva.add(Calendar.DAY_OF_MONTH, 1);
             }
 
 

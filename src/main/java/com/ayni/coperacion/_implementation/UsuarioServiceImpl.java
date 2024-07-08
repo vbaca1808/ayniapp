@@ -316,24 +316,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
             pedidoPagadoDto.getEfectivo(), pedidoPagadoDto.getYape(), pedidoPagadoDto.getPlin(), pedidoPagadoDto.getTarjeta(),
             pedidoPagadoDto.getOtros(), pedidoPagadoDto.getCredito(), pedidoPagadoDto.getPropina(),
             pedidoPagadoDto.getDescuento(), pedidoPagadoDto.getSoyCocina(), pedidoPagadoDto.getTipoDocumento(),
-            pedidoPagadoDto.getNumeroDocumento());
+            pedidoPagadoDto.getNumeroDocumento()); 
 
-            System.out.println("Size respuesta -> " + lstRespuesta.size());
-            System.out.println("Respuesta codigo -> " + lstRespuesta.get(0).getCodigo());
-            System.out.println("Respuesta mensaje -> " + lstRespuesta.get(0).getMensaje());
-            
-            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) {
-                System.out.print("Entro opcion A");
+            if (lstRespuesta.size() > 0 && pedidoPagadoDto.getTipoDocumento() > 0) { 
                 String vMensaje = lstRespuesta.get(0).getMensaje().split("##")[0];
-                if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) {
-                    System.out.print("Entro opcion A-A");
+                if (lstRespuesta.get(0).getMensaje().split("##")[1].equals("1")) { 
                     RespuestaEnvioSunat vRespuestaEnvioSunat = sbEnvioSunat(pedidoPagadoDto.getIdNegocio(), pedidoPagadoDto.getIdPedido());
 
-                    if (vRespuestaEnvioSunat != null) {
-                        System.out.print("Entro opcion A-A-A");
+                    if (vRespuestaEnvioSunat != null) { 
 
-                        if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) {
-                            System.out.print("Entro opcion A-A-A-A");
+                        if (lstRespuesta.get(0).getCodigo().toUpperCase().equals("OK")) { 
                             RespuestaStd respuestaStd = new RespuestaStd() {
 
                                 @Override
@@ -352,8 +344,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     } else {
 
                     }
-                } else {
-                    System.out.print("Entro opcion B");
+                } else { 
                     RespuestaStd respuestaStd = new RespuestaStd() {
 
                         @Override
@@ -366,13 +357,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
                         public String getMensaje() {
                             return vMensaje;
                         }
-                    };
-                    System.out.print("Entro opcion B-B");
+                    }; 
                     lstRespuesta.set(0,respuestaStd);
                 }
             } else {
-                
-                System.out.print("Entro opcion C");
+                 
 
                 String vMensaje = "";
                 if (lstRespuesta.size() > 0) {
@@ -380,9 +369,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                 } else {
                     vMensaje = "Error no controlado al generar el pago, verifique el documento en la ficha de pagado";
                 }
-                String vMensajeFinal = vMensaje;
-
-                System.out.print("Entro opcion C-C");
+                String vMensajeFinal = vMensaje; 
                 
                 RespuestaStd respuestaStd = new RespuestaStd() {
 
@@ -396,8 +383,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     public String getMensaje() {
                         return vMensajeFinal;
                     }
-                };
-                System.out.print("Entro opcion C-C-C");
+                }; 
                 lstRespuesta.set(0,respuestaStd);
 
             }
