@@ -746,6 +746,8 @@ public class CooperacionController {
                 calendarReserva.add(Calendar.DAY_OF_MONTH, 1);
             }
 
+            System.out.println("D - > " + calendar.getTime());
+            System.out.println("R - > " + calendarReserva.getTime());
 
             List<ListadoMenu> lst = iUsuarioService.obtenerListadoMenuInicial(idnegocio, calendar.getTime(), calendarReserva.getTime());
             return ResponseEntity.ok().body(lst);
