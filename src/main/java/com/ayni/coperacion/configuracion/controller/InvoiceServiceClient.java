@@ -21,14 +21,19 @@ public class InvoiceServiceClient {
 
     public RespuestaEnvioSunat sendInvoice(EnvioBoletaSunat envioBoletaSunat, EnvioFacturaSunatDto envioFacturaSunatDto, String token, String apiUrl) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON); 
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + token);
 
         // Crear el cuerpo de la solicitud
         Gson gson = new Gson();
         String jsonEnvioBoleta = (envioBoletaSunat != null?gson.toJson(envioBoletaSunat):gson.toJson(envioFacturaSunatDto));
 
-        restTemplate = new RestTemplate();  
-        HttpEntity<String> entity = new HttpEntity<>(jsonEnvioBoleta, headers); 
+        restTemplate = new RestTemplate(); 
+        System.out.println("Cuerpo - > " + jsonEnvioBoleta);
+        HttpEntity<String> entity = new HttpEntity<>(jsonEnvioBoleta, headers);
+
+        System.out.println("token - > " + token);
+        System.out.println("api - > " + apiUrl);
 
         ResponseEntity<String> response = restTemplate.exchange(
             apiUrl,
@@ -37,7 +42,8 @@ public class InvoiceServiceClient {
             String.class
         );
 
-        if (response.getStatusCode() == HttpStatus.OK) { 
+        if (response.getStatusCode() == HttpStatus.OK) {
+            System.out.println("Respuesta Sunat ok -> " + response.getBody());
             return gson.fromJson(response.getBody(), RespuestaEnvioSunat.class);
         } else { 
             return null;
