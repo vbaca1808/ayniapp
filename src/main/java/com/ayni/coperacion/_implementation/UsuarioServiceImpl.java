@@ -14,20 +14,21 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
+import javax.mail.internet.MimeMessage;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import com.ayni.coperacion.configuracion.controller.InvoiceServiceClient;
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
@@ -123,18 +124,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
             UsuarioReponse usuarioReponse = new UsuarioReponse();
             List<RespuestaStd> lstStd = null;
  
-            if (usuarioDto.getActualizar() == 0) {
-                System.out.println("BBBBB");
-                //Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            if (usuarioDto.getActualizar() == 0) { 
                 
                 double codigoVerificacion = 1000 + Math.random() * 9000;
                 BigDecimal bCodigoVerificacion = new BigDecimal(codigoVerificacion).setScale(0,RoundingMode.HALF_UP);
-
-                /*Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("+51906653212"),// + usuarioDto.getNumeroCelular()),
-                new com.twilio.type.PhoneNumber("+16026352908"), 
-                String.valueOf(bCodigoVerificacion)).create();*/
                 
+                if (usuarioDto.getNumeroCelular().contains("@")) {
+                    sbEnviarCorreo(usuarioDto.getNumeroCelular(), bCodigoVerificacion.setScale(0,RoundingMode.HALF_UP).toString());
+                } else {
+                    //Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                    /*Message message = Message.creator(
+                    new com.twilio.type.PhoneNumber("+51906653212"),// + usuarioDto.getNumeroCelular()),
+                    new com.twilio.type.PhoneNumber("+16026352908"), 
+                    String.valueOf(bCodigoVerificacion)).create();*/
+                }
+
                 lstStd = usuarioRepository.registrarUsuario(usuarioDto.getNumeroCelular(), 
                 usuarioDto.getNombreUsuario(), usuarioDto.getCliente(),usuarioDto.getColaborador(), 
                 usuarioDto.getActualizar(),String.valueOf(bCodigoVerificacion));
@@ -2263,6 +2267,179 @@ public class UsuarioServiceImpl implements IUsuarioService {
             return usuarioRepository.modificarImporteAdicional(idNegocio, idPedido, idProducto, total, nombreCliente);
         } catch (Exception e) {
             throw new UnsupportedOperationException("Unimplemented method 'modificarImporteAdicional'");
+        }
+    }
+
+    private void sbEnviarCorreo(String pCorreoElectronico, String pCodigoVerificacion) {
+        try {
+            
+            JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+                    mailSender.setHost("smtp.gmail.com");
+                    mailSender.setPort(587);
+                    mailSender.setUsername("ayniapp24@gmail.com");
+                    mailSender.setPassword("xmxe dvht ergu egki");
+            
+                    Properties props = mailSender.getJavaMailProperties();
+                    props.put("mail.transport.protocol", "smtp");
+                    props.put("mail.smtp.auth", "true");
+                    props.put("mail.smtp.starttls.enable", "true");
+                    props.put("mail.debug", "true");
+            
+                    MimeMessage message = mailSender.createMimeMessage();
+                    MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                    helper.setTo(pCorreoElectronico);
+                    helper.setSubject(pCodigoVerificacion + " es su código de vertificación de Ayni-App");
+
+                    String htmlBody = 
+                    "<div style=\"margin:0px;background-color:#f8f8f8\">" + 
+                        "<div>" +
+                            "<table height=\"100%\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px\">" + 
+                                "<tbody>" +
+                                    "<tr>" +
+                                        "<td valign=\"top\" align=\"center\">" +
+                                            "<table style=\"border-spacing:0px;width:600px;margin-right:auto;margin-left:auto\">" +
+                                                "<tbody>" + 
+                                                    "<tr>" + 
+                                                        "<td align=\"left\" style=\"padding:0px;margin:0px\">" +
+                                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px;width:100%\">" +
+                                                                "<tbody>" +
+                                                                    "<tr>" +
+                                                                        "<td align=\"center\">" +            
+                                                                            "<div>" +
+                                                                                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px;width:100%\">" +
+                                                                                        "<tbody>" +
+                                                                                            "<tr>" +
+                                                                                                "<td align=\"center\" style=\"padding:20px 0;text-decoration:none\">" +
+                                                                                                    "<img alt=\"Ayni-App\" title=\"Ayni-App\" width=\"80\" style=\"width:80px\" src=\"\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
+                                                                                                "</td>" +
+                                                                                            "</tr>" +
+                                                                                        "</tbody>" +
+                                                                                "</table>" +        
+                                                                            "</div>" +
+                                                                        "</td>" +
+                                                                    "</tr>" +
+                                                                "</tbody>" + 
+                                                            "</table>" +
+                                                        "</td>" +
+                                                    "</tr>" +
+                                                    "<tr>" +
+                                                    "<td align=\"left\" style=\"padding:0px;margin:0px\">" +
+                                                        "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#FFFFFF\">" +
+                                                            "<tbody>" +
+                                                                    "<tr>" +
+                                                                        "<td width=\"32\">&nbsp;</td>" +
+                                                                        "<td height=\"32\">&nbsp;</td>" +
+                                                                        "<td width=\"32\">&nbsp;</td>" +
+                                                                    "</tr>" +
+                                                                    "<tr>" +
+                                                                        "<td>&nbsp;</td>" +
+                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;padding:0px 0px 0px 0px\" bgcolor=\"#ffffff\">Hola,</td>" +
+                                                                    "</tr>" +
+                                                                    "<tr>" +
+                                                                        "<td>&nbsp;</td>" +
+                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;padding:12px 0px 14px 0px\" bgcolor=\"#ffffff\">" +
+                                                                            "Gracias por registrarse en nuestra plataforma Ayni-App, debe escribir el siguiente c&oacute;digo para validar tu correo electr&oacute;nico en nuestra base de datos, este c&oacute;digo solo ser&aacute; v&aacute;lido por 5 minutos, y si solicita otro nuevo c&oacute;digo, este c&oacute;digo dejar&aacute; de funcionar" + 
+                                                                        "</td>" +
+                                                                    "</tr>" + 
+                                                                    "<tr>" + 
+                                                                        "<td>&nbsp;</td>" + 
+                                                                        "<td>" + 
+                                                                            "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" + 
+                                                                                "<tbody>" + 
+                                                                                    "<tr>" + 
+                                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;padding:8px 16px 0px 16px\" bgcolor=\"#FFF4CE\">C&oacute;digo de verificaci&oacute;n de cuenta:</td>" + 
+                                                                                    "</tr>" + 
+                                                                                    "<tr>" + 
+                                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:18px;padding:0px 16px 8px 16px\" bgcolor=\"#FFF4CE\"><strong>" + pCodigoVerificacion + "</strong></td>" + 
+                                                                                    "</tr>" + 
+                                                                                "</tbody>" + 
+                                                                            "</table>" + 
+                                                                        "</td>" + 
+                                                                    "</tr>" + 
+                                                                    "<tr>" + 
+                                                                        "<td>&nbsp;</td>" + 
+                                                                        "<td style=\"padding:24px 0px 0px;color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px\" bgcolor=\"#ffffff\"><strong>¿Hay problemas con el c&oacute;digo?</strong></td>" + 
+                                                                    "</tr>" + 
+                                                                    "<tr>" +
+                                                                    "<td>&nbsp;" +
+                                                                    "</td> " +
+                                                                        "<td style=\"padding:0px 0px 48px;color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px\">" + 
+                                                                        "Lee el mensaje que te aparece en la plataforma y solicita un nuevo c&oacute;digo, aseg&uacute;rate de indicar el mismo c&oacute;digo generado en este correo." + 
+                                                                    "</td>" +
+                                                                "</tr>" +
+                                                            "</tbody>" +
+                                                        "</table>" +
+                                                    "</td>" + 
+                                                "</tr>" + 
+                                            "<tr>" +
+                                        "<td align=\"left\" style=\"padding:0px;margin:0px\">" +
+                                            "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" style=\"border-spacing:0px;width:100%\">" +
+                                                "<tbody>" +
+                                                    "<tr>" + 
+                                                        "<td align=\"left\" style=\"font-size:12px;line-height:16px;padding:10px 20px\">" +
+                                                            "<div>" +
+                                                                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px;width:100%\">" +
+                                                                    "<tbody>" + 
+                                                                       "<tr>" + 
+                                                                            "<td align=\"left\">" + 
+                                                                                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px\"> " + 
+                                                                                    "<tbody>" + 
+                                                                                        "<tr>" + 
+                                                                                            "<td style=\"padding:0 4px 0 0\">" + 
+                                                                                                "<p style=\"padding:0px;margin:0px;font-family:'Segoe UI',Tahoma,sans-serif;font-size:10px;color:#072b60;width:100%\">" +
+                                                                                                    "<a href=\"https://sites.google.com/view/politicasprivacidadayni/inicio\" title=\"\" style=\"padding:0px;margin:0px;font-family:'Segoe UI',Tahoma,sans-serif;font-size:10px;color:#072b60;width:100%\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=https://go.microsoft.com/fwlink/?LinkId%3D521839&amp;source=gmail&amp;ust=1720886043549000&amp;usg=AOvVaw3C3P1-T8XrnP7F50RbDjU-\">" + 
+                                                                                                        "Declaraci&oacute;n de privacidad" + 
+                                                                                                    "</a>" + 
+                                                                                                "</p>" +
+                                                                                            "</td>" +
+                                                                                        "</tr>" +
+                                                                                    "</tbody>" +
+                                                                                "</table>" +
+                                                                           "</td>" +
+                                                                        "</tr>" +
+                                                                        "<tr>" +
+                                                                            "<td>" + 
+                                                                                "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing:0px;width:100%\">" +
+                                                                                    "<tbody>" + 
+                                                                                        "<tr>" +
+                                                                                            "<td>" + 
+                                                                                                "<p style=\"margin:0px;font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:10px\">Este correo ess generado por nuestra plataforma y el contenido es supervisado por la organizaci&oacute;n." + 
+                                                                                                "</p>" +
+                                                                                            "</td>" +
+                                                                                        "</tr>" + 
+                                                                                    "</tbody>" +
+                                                                                "</table>" +
+                                                                            "</td>" +
+                                                                        "</tr>" +
+                                                                        "<tr>" + 
+                                                                            "<td align=\"left\">" +
+                                                                                "<img alt=\"\" title=\"\" height=\"22\" width=\"90\" style=\"margin:0px;height:22px;width:90px\" src=\"https://mail.google.com/mail/u/0?ui=2&amp;ik=7c1a7d6552&amp;attid=0.2&amp;permmsgid=msg-f:1804232959906911708&amp;th=1909ec515b4d95dc&amp;view=fimg&amp;fur=ip&amp;sz=s0-l75-ft&amp;attbid=ANGjdJ80ZmvmzC1WoZ6Au1GvvzJr781h8KKyvqgHijw4gXR00Wo-ck6Akzcu-MpJ6ihWteFrFfNzMgwAeoS5xjhH1O0m_hQwcpCrUzmTbend9pKsNw0ncIfH1VEpBEA&amp;disp=emb\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
+                                                                            "</td>" +
+                                                                        "</tr>" +
+                                                                    "</tbody>" +
+                                                                "</table>" +
+                                                            "</div>" +
+                                                        "</td>" + 
+                                                    "</tr>" + 
+                                                "</tbody>" + 
+                                            "</table>" + 
+                                        "</td>" +
+                                    "</tr>" +
+                                "</tbody>" + 
+                            "</table>" +  
+                        "</div>" +
+                        "<img src=\"https://i.postimg.cc/tYvGkFKL/logo-ayni.png\" aria-hidden=\"true\" role=\"presentation\" height=\"1\" width=\"1\" class=\"CToWUd\" data-bit=\"iit\">" +
+                    "</div>" +
+                    "<div class=\"yj6qo\">" + 
+                    "</div>";
+
+            
+            helper.setText(htmlBody, true);
+    
+            mailSender.send(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
