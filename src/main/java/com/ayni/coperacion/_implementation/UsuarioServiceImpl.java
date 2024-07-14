@@ -2403,7 +2403,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                                                                     "<tbody>" + 
                                                                                         "<tr>" +
                                                                                             "<td>" + 
-                                                                                                "<p style=\"margin:0px;font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:10px\">Este correo ess generado por nuestra plataforma y el contenido es supervisado por la organizaci&oacute;n." + 
+                                                                                                "<p style=\"margin:0px;font-family:'Segoe UI',Tahoma,sans-serif;color:#000;font-size:10px\">Este correo es generado por nuestra plataforma y el contenido es supervisado por la organizaci&oacute;n." + 
                                                                                                 "</p>" +
                                                                                             "</td>" +
                                                                                         "</tr>" + 
@@ -2413,7 +2413,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                                                         "</tr>" +
                                                                         "<tr>" + 
                                                                             "<td align=\"left\">" +
-                                                                                "<img alt=\"\" title=\"\" height=\"22\" width=\"90\" style=\"margin:0px;height:22px;width:90px\" src=\"https://mail.google.com/mail/u/0?ui=2&amp;ik=7c1a7d6552&amp;attid=0.2&amp;permmsgid=msg-f:1804232959906911708&amp;th=1909ec515b4d95dc&amp;view=fimg&amp;fur=ip&amp;sz=s0-l75-ft&amp;attbid=ANGjdJ80ZmvmzC1WoZ6Au1GvvzJr781h8KKyvqgHijw4gXR00Wo-ck6Akzcu-MpJ6ihWteFrFfNzMgwAeoS5xjhH1O0m_hQwcpCrUzmTbend9pKsNw0ncIfH1VEpBEA&amp;disp=emb\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
+                                                                                "<img alt=\"\" title=\"\" height=\"22\" width=\"90\" style=\"margin:0px;height:22px;width:90px\" src=\"https://i.postimg.cc/tYvGkFKL/logo-ayni.png\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
                                                                             "</td>" +
                                                                         "</tr>" +
                                                                     "</tbody>" +
