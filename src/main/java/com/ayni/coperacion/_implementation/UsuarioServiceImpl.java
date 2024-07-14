@@ -2413,7 +2413,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                                                         "</tr>" +
                                                                         "<tr>" + 
                                                                             "<td align=\"left\">" +
-                                                                                "<img alt=\"\" title=\"\" height=\"22\" width=\"90\" style=\"margin:0px;height:22px;width:90px\" src=\"https://i.postimg.cc/tYvGkFKL/logo-ayni.png\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
+                                                                                "<img alt=\"\" title=\"\" height=\"22\" width=\"90\" style=\"margin:0px;height:32px;width:32px\" src=\"https://i.postimg.cc/tYvGkFKL/logo-ayni.png\" data-image-whitelisted=\"\" class=\"CToWUd\" data-bit=\"iit\">" +
                                                                             "</td>" +
                                                                         "</tr>" +
                                                                     "</tbody>" +
