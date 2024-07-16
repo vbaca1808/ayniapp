@@ -41,5 +41,6 @@ public interface ReportePedido {
     int getIrCocina();
     BigDecimal getDescuento();
     int getIdGrupoProducto();
+    String getUsuarioCajero();
 
 }

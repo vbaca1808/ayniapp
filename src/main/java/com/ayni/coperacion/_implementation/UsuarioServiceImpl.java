@@ -2347,7 +2347,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
                                                                             "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">" + 
                                                                                 "<tbody>" + 
                                                                                     "<tr>" + 
-                                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;padding:8px 16px 0px 16px\" bgcolor=\"#FFF4CE\">C&oacute;digo de verificaci&oacute;n de cuenta:</td>" + 
+                                                                                        "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:14px;padding:8px 16px 0px 16px\" bgcolor=\"#FFF4CE\">C&oacute;digo de validaci&oacute;n:</td>" + 
                                                                                     "</tr>" + 
                                                                                     "<tr>" + 
                                                                                         "<td style=\"color:#333333;font-family:'Segoe UI',Arial,sans-serif;font-size:18px;padding:0px 16px 8px 16px\" bgcolor=\"#FFF4CE\"><strong>" + pCodigoVerificacion + "</strong></td>" + 
