@@ -2703,6 +2703,12 @@ public class CooperacionController {
     @PostMapping(value="/payments",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> listadoLimpieza(@RequestBody WebhookNotification notification) {
         try {
+            
+            Gson gson = new Gson();
+            String json = gson.toJson(notification);
+
+            // Imprimir el JSON en los logs
+            System.out.println("Notificación en formato JSON: " + json);
             System.out.println("id de pago -> " + "123456");
             return ResponseEntity.ok().body(null); 
         } catch (Exception e) { 
