@@ -2699,10 +2699,10 @@ public class CooperacionController {
         }
     }
     
-    @GetMapping(value="/payments/{payment_id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> listadoLimpieza(@PathVariable String payment_id) {
+    @PostMapping(value="/payments",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> listadoLimpieza() {
         try {
-            System.out.println("id de pago -> " + payment_id);
+            System.out.println("id de pago -> " + "123456");
             return ResponseEntity.ok().body(null); 
         } catch (Exception e) { 
             e.printStackTrace();
