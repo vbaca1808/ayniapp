@@ -2699,6 +2699,17 @@ public class CooperacionController {
         }
     }
     
+    @GetMapping(value="/payments/{payment_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> listadoLimpieza(@PathVariable String payment_id) {
+        try {
+            System.out.println("id de pago -> " + payment_id);
+            return ResponseEntity.ok().body(null); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
     @PostMapping(value="/registrarbitacoralimpieza/{idnegocio}/{idproducto}/{revertir}/{numerocelular}/{nombreusuario}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RespuestaStd>> registrarBitacoraLimpieza(@PathVariable int idnegocio,
                                                                         @PathVariable int idproducto,
