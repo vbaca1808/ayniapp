@@ -2707,27 +2707,27 @@ public class CooperacionController {
             /*Gson gson = new Gson();
             String json = gson.toJson(notification);*/
 
-            System.out.println("api Version -> " + notification.getApiVersion());
+            System.out.println("api Version -> " + notification.getApi_version());
             System.out.println("api Attemps -> " + notification.getAttempts());
             System.out.println("api Barcode -> " + notification.getBarcode());
-            System.out.println("api CancelledAt -> " + notification.getCancelledAt());
-            System.out.println("api CompletedAt -> " + notification.getCompletedAt());
-            System.out.println("api CreatedAt -> " + notification.getCreatedAt());
-            System.out.println("api CustomerEmail -> " + notification.getCustomerEmail());
-            System.out.println("api DeclienedAt -> " + notification.getDeclinedAt());
-            System.out.println("api DetailType -> " + notification.getDetailType());
-            System.out.println("api ExpiredAt -> " + notification.getExpiredAt());
-            System.out.println("api ExpiresAt -> " + notification.getExpiresAt());
+            System.out.println("api CancelledAt -> " + notification.getCancelled_at());
+            System.out.println("api CompletedAt -> " + notification.getCompleted_at());
+            System.out.println("api CreatedAt -> " + notification.getCreated_at());
+            System.out.println("api CustomerEmail -> " + notification.getCustomer_email());
+            System.out.println("api DeclienedAt -> " + notification.getDeclined_at());
+            System.out.println("api DetailType -> " + notification.getDetail_type());
+            System.out.println("api ExpiredAt -> " + notification.getExpired_at());
+            System.out.println("api ExpiresAt -> " + notification.getExpires_at());
             System.out.println("api Id -> " + notification.getId());
-            System.out.println("api MeReferenceId -> " + notification.getMeReferenceId());
-            System.out.println("api PayMentDate -> " + notification.getPaymentDate());
-            System.out.println("api PaymentRequestId -> " + notification.getPaymentRequestId());
-            System.out.println("api PaymentType -> " + notification.getPaymentType());
-            System.out.println("api ReceiptNo -> " + notification.getReceiptNo());
+            System.out.println("api MeReferenceId -> " + notification.getMe_reference_id());
+            System.out.println("api PayMentDate -> " + notification.getPayment_date());
+            System.out.println("api PaymentRequestId -> " + notification.getPayment_request_id());
+            System.out.println("api PaymentType -> " + notification.getPayment_type());
+            System.out.println("api ReceiptNo -> " + notification.getReceipt_no());
             System.out.println("api Resource -> " + notification.getResource());
-            System.out.println("api ResourceStatus -> " + notification.getResourceStatus());
-            System.out.println("api SentDate -> " + notification.getSentDate());
-            System.out.println("api TransactionId -> " + notification.getTransactionId());
+            System.out.println("api ResourceStatus -> " + notification.getResource_status());
+            System.out.println("api SentDate -> " + notification.getSent_date());
+            System.out.println("api TransactionId -> " + notification.getTransaction_id());
             
             // Imprimir el JSON en los logs
             // System.out.println("Notificación en formato JSON: " + json);
