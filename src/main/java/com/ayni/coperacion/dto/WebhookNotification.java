@@ -1,5 +1,10 @@
 package com.ayni.coperacion.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class WebhookNotification {
     
     private String id;
@@ -23,5 +28,7 @@ public class WebhookNotification {
     private String paymentType;
     private String barcode;
     private String customerEmail;
-    
+
+
+
 }
