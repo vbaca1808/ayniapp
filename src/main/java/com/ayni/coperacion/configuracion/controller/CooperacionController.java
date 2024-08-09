@@ -65,6 +65,7 @@ import com.ayni.coperacion.dto.PromocionDto;
 import com.ayni.coperacion.dto.ReporteCierreDetalleDto;
 import com.ayni.coperacion.dto.ReporteCierreDto;
 import com.ayni.coperacion.dto.UsuarioDto;
+import com.ayni.coperacion.dto.WebhookNotification;
 import com.ayni.coperacion.response.AgendaServicios;
 import com.ayni.coperacion.response.CargoNegocio;
 import com.ayni.coperacion.response.CompraNegocioResponse;
@@ -2700,7 +2701,7 @@ public class CooperacionController {
     }
     
     @PostMapping(value="/payments",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> listadoLimpieza() {
+    public ResponseEntity<Object> listadoLimpieza(@RequestBody WebhookNotification notification) {
         try {
             System.out.println("id de pago -> " + "123456");
             return ResponseEntity.ok().body(null); 
