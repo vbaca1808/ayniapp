@@ -2704,12 +2704,34 @@ public class CooperacionController {
     public ResponseEntity<Object> listadoLimpieza(@RequestBody WebhookNotification notification) {
         try {
             
-            Gson gson = new Gson();
-            String json = gson.toJson(notification);
+            /*Gson gson = new Gson();
+            String json = gson.toJson(notification);*/
 
+            System.out.println("api Version -> " + notification.getApiVersion());
+            System.out.println("api Attemps -> " + notification.getAttempts());
+            System.out.println("api Barcode -> " + notification.getBarcode());
+            System.out.println("api CancelledAt -> " + notification.getCancelledAt());
+            System.out.println("api CompletedAt -> " + notification.getCompletedAt());
+            System.out.println("api CreatedAt -> " + notification.getCreatedAt());
+            System.out.println("api CustomerEmail -> " + notification.getCustomerEmail());
+            System.out.println("api DeclienedAt -> " + notification.getDeclinedAt());
+            System.out.println("api DetailType -> " + notification.getDetailType());
+            System.out.println("api ExpiredAt -> " + notification.getExpiredAt());
+            System.out.println("api ExpiresAt -> " + notification.getExpiresAt());
+            System.out.println("api Id -> " + notification.getId());
+            System.out.println("api MeReferenceId -> " + notification.getMeReferenceId());
+            System.out.println("api PayMentDate -> " + notification.getPaymentDate());
+            System.out.println("api PaymentRequestId -> " + notification.getPaymentRequestId());
+            System.out.println("api PaymentType -> " + notification.getPaymentType());
+            System.out.println("api ReceiptNo -> " + notification.getReceiptNo());
+            System.out.println("api Resource -> " + notification.getResource());
+            System.out.println("api ResourceStatus -> " + notification.getResourceStatus());
+            System.out.println("api SentDate -> " + notification.getSentDate());
+            System.out.println("api TransactionId -> " + notification.getTransactionId());
+            
             // Imprimir el JSON en los logs
-            System.out.println("Notificación en formato JSON: " + json);
-            System.out.println("id de pago -> " + "123456");
+            // System.out.println("Notificación en formato JSON: " + json);
+            //System.out.println("id de pago -> " + "123456");
             return ResponseEntity.ok().body(null); 
         } catch (Exception e) { 
             e.printStackTrace();
