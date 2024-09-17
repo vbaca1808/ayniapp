@@ -9,22 +9,27 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
-import java.net.URL; 
+import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
-
-import javax.mail.internet.MimeMessage;
-
+import java.util.zip.ZipOutputStream; 
+import javax.mail.internet.MimeMessage;  
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -64,6 +69,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoEmpresasBolsa;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
@@ -92,8 +98,15 @@ import com.ayni.coperacion.response.ReporteReservasResponse;
 import com.ayni.coperacion.response.RespuestaStd;
 import com.ayni.coperacion.response.UsuarioReponse;
 import com.ayni.coperacion.response.VentasPorProducto;
+import com.ayni.coperacion.service.HtmlService;
 import com.ayni.coperacion.service.IUsuarioService;
-import com.google.gson.Gson;  
+import com.google.gson.Gson; 
+
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.WaitUntilState;
+import com.microsoft.playwright.Page;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -2440,6 +2453,258 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Autowired
+    private HtmlService htmlService;
+
+    @Override
+    public String leerDatosBolsa() {
+        try { 
+            int exportado = 0;
+            String url = "https://documents.bvl.com.pe/empresas/entrder1.htm";
+            String htmlContent = htmlService.fetchHtml(url);
+            //System.out.println(htmlContent);
+            Document document = Jsoup.parse(htmlContent);        
+            // Extrae información del HTML, por ejemplo, todos los enlaces
+            Element items = document.child(0).child(1).child(0).child(0).child(0).child(0)
+            .child(0).child(0).child(1).child(0).child(0).child(0).child(0).child(0).child(1).child(1);
+
+            System.out.println(document.child(0).child(1).child(0).child(0).child(0).child(0)
+            .child(0).child(0).child(1).child(0).child(0).child(0).child(0).child(0).child(1).child(1));
+            
+            //System.out.println("Cantidad -> " + items.children().size());
+
+            for (Element item : items.children()) {
+                
+                //System.out.println("Tabla: " + item.attr("tr"));
+                String vCodigoEmpresa = item.text().substring(0,item.text().indexOf(" "));
+                String vCostoAcciones = "";
+                if (item.text().indexOf("(2") > 0) {
+                    vCostoAcciones = item.text().substring(vCodigoEmpresa.length() + 1,item.text().indexOf("(2"));
+                } else {
+                    vCostoAcciones = item.text().substring(vCodigoEmpresa.length() + 1,item.text().indexOf("Div."));
+                }
+
+                //System.out.println("Texto: " + item.text());
+                vCostoAcciones = vCostoAcciones.replaceAll("Efe.","").replaceAll(" ","")
+                .replaceAll("S/","").replaceAll("S/.","").replaceAll("US\\$","").replaceAll("\\\\$","");
+                
+                int vIndiceComienzoBuscarFecha = 0;
+                int vIndiceEncontroFechas = 0;
+                if (item.text().indexOf("(2") > 0) {
+                    vIndiceComienzoBuscarFecha = item.text().indexOf("(2");
+                } else {
+                    vIndiceComienzoBuscarFecha = item.text().indexOf("Div.");
+                }
+ 
+                vIndiceEncontroFechas = item.text().substring(vIndiceComienzoBuscarFecha).indexOf("/");
+                vIndiceComienzoBuscarFecha = vIndiceComienzoBuscarFecha + vIndiceEncontroFechas;
+
+                String[] aFechas = item.text().substring(vIndiceComienzoBuscarFecha-2).split(" ");
+                BigDecimal vValorCostoAcciones = BigDecimal.ZERO;
+
+                //System.out.println("Fecha Acuerdo -> " + aFechas[0]);
+                //System.out.println("Fecha Corte -> " + aFechas[1]);
+                //System.out.println("Fecha Registro -> " + aFechas[2]);
+                //System.out.println("Fecha Pago -> " + aFechas[3]);
+
+                exportado = 1;
+                if (!isValidDate(aFechas[0]) || !isValidDate(aFechas[1]) || !isValidDate(aFechas[2]) || !isValidDate(aFechas[3])) {
+                    exportado = 3;
+                }
+
+                try {
+                    vValorCostoAcciones = new BigDecimal(vCostoAcciones.trim());
+                } catch (Exception e) {
+                    exportado = 3;
+                    System.out.println("Error conversion numero");
+                    vValorCostoAcciones = BigDecimal.ZERO;
+                }
+
+                usuarioRepository.registrarValoresBolsaValores(vCodigoEmpresa, vValorCostoAcciones, aFechas[1], aFechas[2], 
+                aFechas[3], item.text(),exportado);
+                System.out.println("Codigo: " + vCodigoEmpresa);
+                System.out.println("Valor Accion: " + vCostoAcciones);
+
+            }
+            
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnsupportedOperationException("Unimplemented method 'leerDatosBolsa'");
+        }
+    }
+
+    @Override
+    public String leerDatosBolsaPorEmpresa() {
+        try {
+            List<ListadoEmpresasBolsa> lstListadoEmpresaBolsa = usuarioRepository.obtenerCodigoEmpresaBolsa();
+               
+            String vTextoBuscado = "";
+            int pLongitudTextoBuscado = 0;
+            String vCaracterLimitePrecio = "";
+
+            for (ListadoEmpresasBolsa listadoEmpresasBolsa: lstListadoEmpresaBolsa) {
+                String url = "https://es.tradingview.com/symbols/"+ listadoEmpresasBolsa.getCodigoCompany() +"/";
+                try {
+                    String htmlContent = htmlService.fetchHtml(url);
+                    Document document = Jsoup.parse(htmlContent);
+                    int pNuevaPosicion = 0;
+
+                    if (document.toString().indexOf("\"name\":\"daily_bar_close\",\"source\":\"django_model\",\"value\"") > 0) {
+                        vTextoBuscado = "\"name\":\"daily_bar_close\",\"source\":\"django_model\",\"value\"";
+                        pLongitudTextoBuscado = vTextoBuscado.length();
+                        vCaracterLimitePrecio = "}";
+                        pNuevaPosicion = document.toString().indexOf("\"name\":\"daily_bar_close\",\"source\":\"django_model\",\"value\"") + pLongitudTextoBuscado + 1;                
+                    } else {
+                        vTextoBuscado = "all_time_low\"";
+                        pLongitudTextoBuscado = vTextoBuscado.length();
+                        vCaracterLimitePrecio = ",\"";
+                        pNuevaPosicion = document.toString().indexOf("all_time_low") + pLongitudTextoBuscado + 1;
+                    }
+    
+                    BigDecimal vPrecio = BigDecimal.ZERO;
+                    
+                    try {
+                        vPrecio = new BigDecimal(document.toString().substring(pNuevaPosicion, document.toString()
+                        .indexOf(vCaracterLimitePrecio, pNuevaPosicion)));
+                    } catch (Exception e) {
+                        vPrecio = BigDecimal.ZERO;
+                    }
+    
+                    usuarioRepository.registrarHistoricoPrecioAccion(listadoEmpresasBolsa.getCodigoEmpresa(), 
+                    listadoEmpresasBolsa.getCodigoCompany(), listadoEmpresasBolsa.getCodigoDividendos(),
+                    new Date(), vPrecio);
+    
+                    System.out.println("Empresa actualizada: " + listadoEmpresasBolsa.getCodigoCompany());
+
+                } catch (Exception e) {
+                    System.out.println("Error en la conexion ");
+                }
+            }
+
+
+            /*Document document = Jsoup.parse(htmlContent);
+            // Extrae información del HTML, por ejemplo, todos los enlaces
+            Element items = document.child(0).child(1).child(0).child(0).child(0).child(0)
+            .child(0).child(0).child(1).child(0).child(0).child(0).child(0).child(0).child(1).child(1);
+
+            System.out.println(document.child(0).child(1).child(0).child(0).child(0).child(0)
+            .child(0).child(0).child(1).child(0).child(0).child(0).child(0).child(0).child(1).child(1));
+            
+            System.out.println("Cantidad -> " + items.children().size());
+
+            for (Element item : items.children()) {
+                
+                System.out.println("Tabla: " + item.attr("tr"));
+                String vCodigoEmpresa = item.text().substring(0,item.text().indexOf(" "));
+                String vCostoAcciones = "";
+                if (item.text().indexOf("(2") > 0) {
+                    vCostoAcciones = item.text().substring(vCodigoEmpresa.length() + 1,item.text().indexOf("(2"));
+                } else {
+                    vCostoAcciones = item.text().substring(vCodigoEmpresa.length() + 1,item.text().indexOf("Div."));
+                }
+
+                System.out.println("Texto: " + item.text());
+                System.out.println("Codigo: " + vCodigoEmpresa);
+                vCostoAcciones = vCostoAcciones.replaceAll("Efe.","").replaceAll(" ","")
+                .replaceAll("S/","").replaceAll("S/.","").replaceAll("US\\$","").replaceAll("\\\\$","");
+                System.out.println("Valor Accion: " + vCostoAcciones);
+
+                int vIndiceComienzoBuscarFecha = 0;
+                int vIndiceEncontroFechas = 0;
+                if (item.text().indexOf("(2") > 0) {
+                    vIndiceComienzoBuscarFecha = item.text().indexOf("(2");
+                } else {
+                    vIndiceComienzoBuscarFecha = item.text().indexOf("Div.");
+                }
+
+                vIndiceEncontroFechas = item.text().substring(vIndiceComienzoBuscarFecha).indexOf("/");
+                vIndiceComienzoBuscarFecha = vIndiceComienzoBuscarFecha + vIndiceEncontroFechas;
+
+                String[] aFechas = item.text().substring(vIndiceComienzoBuscarFecha-2).split(" ");
+                BigDecimal vValorCostoAcciones = BigDecimal.ZERO;
+
+                System.out.println("Fecha Acuerdo -> " + aFechas[0]);
+                System.out.println("Fecha Corte -> " + aFechas[1]);
+                System.out.println("Fecha Registro -> " + aFechas[2]);
+                System.out.println("Fecha Pago -> " + aFechas[3]);
+
+                exportado = 1;
+                if (!isValidDate(aFechas[0]) || !isValidDate(aFechas[1]) || !isValidDate(aFechas[2]) || !isValidDate(aFechas[3])) {
+                    exportado = 3;
+                }
+
+                try {
+                    vValorCostoAcciones = new BigDecimal(vCostoAcciones.trim());
+                } catch (Exception e) {
+                    exportado = 3;
+                    System.out.println("Error conversion numero");
+                    vValorCostoAcciones = BigDecimal.ZERO;
+                }
+
+                usuarioRepository.registrarValoresBolsaValores(vCodigoEmpresa, vValorCostoAcciones, aFechas[1], aFechas[2], 
+                aFechas[3], item.text(),exportado);
+
+            } */
+
+            for (ListadoEmpresasBolsa listadoEmpresasBolsa: lstListadoEmpresaBolsa) {
+                if (!listadoEmpresasBolsa.getCodigoDividendos().equals("")) { 
+                    String url = "https://es.marketscreener.com/cotizacion/accion/" + listadoEmpresasBolsa.getCodigoDividendos() + "/valoracion-dividendo/"; 
+                    String htmlContent = htmlService.fetchHtml(url);
+                    String vTexto = "table table--small table--bordered";
+                    int vIndTexto = htmlContent.toString().indexOf(vTexto)-48;
+                    vIndTexto = vIndTexto + vTexto.length();
+                    
+                    //System.out.println("RUTA -> " + url);
+                    //System.out.println(htmlContent.toString().substring(vIndTexto, htmlContent.toString().indexOf("</table>",vIndTexto)));
+
+                    Document document = Jsoup.parse(htmlContent.toString().substring(vIndTexto, htmlContent.toString().indexOf("</table>",vIndTexto)));   
+
+                    for (Element item : document.child(0).child(1).child(0).child(0).children()) {
+                        try {
+                            usuarioRepository.registrarPagoDividendos(listadoEmpresasBolsa.getCodigoEmpresa(), 
+                            item.child(0).text(),
+                            new BigDecimal(item.child(1).text().toLowerCase()
+                            .replaceAll("dividendo,","").replaceAll("dividendo","").replaceAll("pago","")
+                            .replaceAll("final","").replaceAll("interino","").replaceAll(" ","").replaceAll("pen","")
+                            .replaceAll("anual","").replaceAll("trimestral","").replaceAll("excepcional","").trim()));
+
+                        } catch (Exception e) {
+
+                        }
+                            
+                        System.out.println("Actualizacion Item " + item.child(0).text() + " -> " + item.child(1).text().toLowerCase()
+                        .replaceAll("dividendo,","").replaceAll("dividendo","").replaceAll("pago","")
+                        .replaceAll("final","").replaceAll("interino","").replaceAll(" ","").replaceAll("pen","")
+                        .replaceAll("anual","").replaceAll("trimestral","").replaceAll("excepcional","").trim() + 
+                        ", terminada");
+                    }
+                }
+                System.out.println("Actualizacion " +  listadoEmpresasBolsa.getCodigoEmpresa() + ", terminada"); 
+                //Document document = Jsoup.parse(htmlContent);
+            }
+            htmlService = null;
+            
+            System.out.println("Actualizacion terminada");
+
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnsupportedOperationException("Unimplemented method 'leerDatosBolsa'");
+        }
+    }
+
+     public static boolean isValidDate(String dateStr) {
+        try {
+            DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            LocalDate.parse(dateStr, DATE_FORMATTER);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
         }
     }
 

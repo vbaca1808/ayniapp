@@ -23,6 +23,7 @@ import com.ayni.coperacion.response.DocumentosPendientes;
 import com.ayni.coperacion.response.Inventario;
 import com.ayni.coperacion.response.ListadoCajero;
 import com.ayni.coperacion.response.ListadoCocina;
+import com.ayni.coperacion.response.ListadoEmpresasBolsa;
 import com.ayni.coperacion.response.ListadoInsumoProducto;
 import com.ayni.coperacion.response.ListadoLimpiezaResponse;
 import com.ayni.coperacion.response.ListadoMenu;
@@ -674,5 +675,34 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                  @Param("total") BigDecimal total,
                                                  @Param("nombreCliente") String nombreCliente);
                                                
+    @Modifying
+    @Query( value = "call sp_registrar_valores_bolsa_valores(:codigoEmpresa, :valorDividendo, :fechaCorte, :fechaRegistro, :fechaPago, " +
+    ":textoEncontrado,:exportado)", nativeQuery = true)
+    void registrarValoresBolsaValores(@Param("codigoEmpresa") String codigoEmpresa, 
+                                      @Param("valorDividendo") BigDecimal valorDividendo, 
+                                      @Param("fechaCorte") String fechaCorte, 
+                                      @Param("fechaRegistro") String fechaRegistro,
+                                      @Param("fechaPago") String fechaPago,
+                                      @Param("textoEncontrado") String textoEncontrado,
+                                      @Param("exportado") int exportado);
+
+    @Query( value = "call sp_obtener_codigo_empresa_bolsa()", nativeQuery = true)
+    List<ListadoEmpresasBolsa> obtenerCodigoEmpresaBolsa();
+    
+    @Modifying
+    @Query( value = "call sp_registrar_historico_precio_accion(:codigoEmpresa, :codigoCompany, :codigoDividendos, :fechaPrecioAccion, :valorAccion)",
+            nativeQuery = true)
+    void registrarHistoricoPrecioAccion(@Param("codigoEmpresa") String codigoEmpresa, 
+                                        @Param("codigoCompany") String valorDividendo, 
+                                        @Param("codigoDividendos") String codigoDividendos,
+                                        @Param("fechaPrecioAccion") Date fechaCorte, 
+                                        @Param("valorAccion") BigDecimal valorAccion);
+                                        
+    @Modifying
+    @Query( value = "call sp_registrar_pago_dividendos(:codigoEmpresa, :fechaPagoDiv, :pagoDiv)",
+            nativeQuery = true)
+    void registrarPagoDividendos(@Param("codigoEmpresa") String codigoEmpresa, 
+                                 @Param("fechaPagoDiv") String fechaPagoDiv, 
+                                 @Param("pagoDiv") BigDecimal pagoDiv);
 
 }

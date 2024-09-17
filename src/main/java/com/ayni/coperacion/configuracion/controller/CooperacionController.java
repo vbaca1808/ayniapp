@@ -46,6 +46,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.ayni.coperacion.dto.ActualizarEstadoProductoCocinaDto;
 import com.ayni.coperacion.dto.ActualizarNegocioPedidoDto;
 import com.ayni.coperacion.dto.AgregarQuitarAdminUsuarioDto;
@@ -2713,6 +2715,29 @@ public class CooperacionController {
             // Imprimir el JSON en los logs
             // System.out.println("Notificación en formato JSON: " + json);
             //System.out.println("id de pago -> " + "123456");
+            return ResponseEntity.ok().body(null); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+ 
+    @GetMapping(value="/leerdatosbolsa",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> leerDatosBolsa() {
+        try {
+            System.out.println("entro -->> ");
+            iUsuarioService.leerDatosBolsa();
+            return ResponseEntity.ok().body(null); 
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
+    @GetMapping(value="/detallecompany",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> detalleCompany() {
+        try {
+            iUsuarioService.leerDatosBolsaPorEmpresa();
             return ResponseEntity.ok().body(null); 
         } catch (Exception e) { 
             e.printStackTrace();

@@ -29,5 +29,11 @@ public interface ListadoMenu {
     String getNombreCocina();
     int getIdPedido();
     int getEstado();
+    BigDecimal getStockVerdeInicio();
+    BigDecimal getStockVerdeFinal();
+    BigDecimal getStockAmarilloInicio();
+    BigDecimal getStockAmarilloFinal();
+    BigDecimal getStockRojoInicio();
+    BigDecimal getStockRojoFinal();
     
 }
