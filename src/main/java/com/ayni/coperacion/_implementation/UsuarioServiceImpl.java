@@ -1724,6 +1724,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
             throw new UnsupportedOperationException("Unimplemented method 'grabarOtrosMovimientosCajero'");
         }
     }
+    
 
     @Override
     public List<ListadoMenu> obtenerListadoMenuInicial(int idNegocio, Date fechaConsulta, Date fechaConsultaHasta) {
